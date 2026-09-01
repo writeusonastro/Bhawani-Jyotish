@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { KundliInput, KundliResult } from '../types/astrology';
 import { calculateVedicKundli } from '../utils/vedicCalculations';
 import { INDIAN_CITIES, ASTROLOGER_INFO } from '../data/astrologyData';
-import { ScrollText, Sparkles, AlertTriangle, ShieldCheck, Gem, Phone, MessageCircle, Printer, CheckCircle } from 'lucide-react';
+import { KundliChartVisualizer } from './KundliChartVisualizer';
+import { ScrollText, Sparkles, AlertTriangle, ShieldCheck, Gem, Phone, MessageCircle, Printer, CheckCircle, Share2, Download } from 'lucide-react';
 
 interface KundliGeneratorProps {
   lang: 'hi' | 'gu';
   onAskAI: (context: string) => void;
+  isDark?: boolean;
 }
 
-export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI }) => {
+export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI, isDark = false }) => {
   const [formData, setFormData] = useState<KundliInput>({
     name: 'राहुल पटेल',
     gender: 'male',
@@ -23,7 +25,6 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI 
   });
 
   const [result, setResult] = useState<KundliResult | null>(() => calculateVedicKundli(formData));
-  const [chartType, setChartType] = useState<'lagna' | 'navamsha'>('lagna');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -266,111 +267,14 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI 
                 </div>
               </div>
 
-              {/* North Indian Diamond Kundli Chart SVG */}
+              {/* Interactive Kundli Chart Visualizer (North & South Indian + Clickable Houses) */}
               <div className="my-6">
-                <div className="flex justify-between items-center mb-2">
-                  <h4 className="font-bold text-sm text-[#CC5218]">
-                    {lang === 'hi' ? 'उत्तर भारतीय लग्न चक्र (North Indian Vedic Chart)' : 'ઉત્તર ભારતીય લગ્ન ચક્ર'}
-                  </h4>
-                  <div className="text-[11px] text-[#8C7A6D]">
-                    भाव 1: {result.ascendantRashi.split(' ')[0]}
-                  </div>
-                </div>
-
-                <div className="relative w-full aspect-square max-w-[420px] mx-auto bg-[#FFFDF8] border-2 border-[#CC5218] shadow-inner rounded-xl p-1">
-                  <svg viewBox="0 0 400 400" className="w-full h-full">
-                    {/* Diamond and Cross Geometric Lines */}
-                    {/* Outer Box */}
-                    <rect x="2" y="2" width="396" height="396" fill="none" stroke="#CC5218" strokeWidth="2.5" />
-                    
-                    {/* Inner Diamond */}
-                    <polygon points="200,2 398,200 200,398 2,200" fill="none" stroke="#CC5218" strokeWidth="2" />
-                    
-                    {/* Diagonals */}
-                    <line x1="2" y1="2" x2="398" y2="398" stroke="#CC5218" strokeWidth="1.5" />
-                    <line x1="398" y1="2" x2="2" y2="398" stroke="#CC5218" strokeWidth="1.5" />
-
-                    {/* House 1 (Top Center Rhombus) */}
-                    <text x="200" y="85" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#CC5218">
-                      1 ({result.houses[0]?.rashi.split(' ')[0]})
-                    </text>
-                    <text x="200" y="115" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[0]?.planetsInHouse.join(' ') || '—'}
-                    </text>
-
-                    {/* House 2 (Top Left Triangle) */}
-                    <text x="100" y="55" textAnchor="middle" fontSize="12" fill="#8C5218">2</text>
-                    <text x="100" y="75" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[1]?.planetsInHouse.join(' ') || ''}
-                    </text>
-
-                    {/* House 3 (Top Left Outer Triangle) */}
-                    <text x="50" y="100" textAnchor="middle" fontSize="12" fill="#8C5218">3</text>
-                    <text x="55" y="125" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[2]?.planetsInHouse.join(' ') || ''}
-                    </text>
-
-                    {/* House 4 (Left Center Diamond) */}
-                    <text x="90" y="200" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#CC5218">
-                      4 ({result.houses[3]?.rashi.split(' ')[0]})
-                    </text>
-                    <text x="90" y="225" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[3]?.planetsInHouse.join(' ') || '—'}
-                    </text>
-
-                    {/* House 5 (Bottom Left Outer Triangle) */}
-                    <text x="50" y="300" textAnchor="middle" fontSize="12" fill="#8C5218">5</text>
-                    <text x="55" y="325" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[4]?.planetsInHouse.join(' ') || ''}
-                    </text>
-
-                    {/* House 6 (Bottom Left Triangle) */}
-                    <text x="100" y="350" textAnchor="middle" fontSize="12" fill="#8C5218">6</text>
-                    <text x="100" y="370" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[5]?.planetsInHouse.join(' ') || ''}
-                    </text>
-
-                    {/* House 7 (Bottom Center Diamond) */}
-                    <text x="200" y="315" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#CC5218">
-                      7 ({result.houses[6]?.rashi.split(' ')[0]})
-                    </text>
-                    <text x="200" y="340" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[6]?.planetsInHouse.join(' ') || '—'}
-                    </text>
-
-                    {/* House 8 (Bottom Right Triangle) */}
-                    <text x="300" y="350" textAnchor="middle" fontSize="12" fill="#8C5218">8</text>
-                    <text x="300" y="370" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[7]?.planetsInHouse.join(' ') || ''}
-                    </text>
-
-                    {/* House 9 (Bottom Right Outer Triangle) */}
-                    <text x="350" y="300" textAnchor="middle" fontSize="12" fill="#8C5218">9</text>
-                    <text x="345" y="325" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[8]?.planetsInHouse.join(' ') || ''}
-                    </text>
-
-                    {/* House 10 (Right Center Diamond) */}
-                    <text x="310" y="200" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#CC5218">
-                      10 ({result.houses[9]?.rashi.split(' ')[0]})
-                    </text>
-                    <text x="310" y="225" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[9]?.planetsInHouse.join(' ') || '—'}
-                    </text>
-
-                    {/* House 11 (Top Right Outer Triangle) */}
-                    <text x="350" y="100" textAnchor="middle" fontSize="12" fill="#8C5218">11</text>
-                    <text x="345" y="125" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[10]?.planetsInHouse.join(' ') || ''}
-                    </text>
-
-                    {/* House 12 (Top Right Triangle) */}
-                    <text x="300" y="55" textAnchor="middle" fontSize="12" fill="#8C5218">12</text>
-                    <text x="300" y="75" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C2420">
-                      {result.houses[11]?.planetsInHouse.join(' ') || ''}
-                    </text>
-                  </svg>
-                </div>
+                <KundliChartVisualizer
+                  planets={result.planets}
+                  ascendantRashi={result.ascendantRashi}
+                  lang={lang}
+                  isDark={isDark}
+                />
               </div>
 
               {/* Planetary Positions Table */}

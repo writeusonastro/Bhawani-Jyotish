@@ -38,6 +38,7 @@ export const AudioChants: React.FC = () => {
   const [selectedMantra, setSelectedMantra] = useState<Mantra>(MANTRAS[0]);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const oscillatorRef = useRef<OscillatorNode | null>(null);
+  const oscillatorHarmonicRef = useRef<OscillatorNode | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
 
   const startChantSound = (freq: number) => {
@@ -53,8 +54,10 @@ export const AudioChants: React.FC = () => {
 
       // Stop existing if any
       if (oscillatorRef.current) {
-        oscillatorRef.current.stop();
-        oscillatorRef.current.disconnect();
+        try { oscillatorRef.current.stop(); oscillatorRef.current.disconnect(); } catch (e) {}
+      }
+      if (oscillatorHarmonicRef.current) {
+        try { oscillatorHarmonicRef.current.stop(); oscillatorHarmonicRef.current.disconnect(); } catch (e) {}
       }
 
       // Create rich meditative drone + harmonic
@@ -79,6 +82,7 @@ export const AudioChants: React.FC = () => {
       oscHarmonic.start();
 
       oscillatorRef.current = osc;
+      oscillatorHarmonicRef.current = oscHarmonic;
       gainNodeRef.current = gain;
       setIsPlaying(true);
     } catch (e) {
@@ -96,6 +100,13 @@ export const AudioChants: React.FC = () => {
             oscillatorRef.current.disconnect();
           } catch (err) {}
           oscillatorRef.current = null;
+        }
+        if (oscillatorHarmonicRef.current) {
+          try {
+            oscillatorHarmonicRef.current.stop();
+            oscillatorHarmonicRef.current.disconnect();
+          } catch (err) {}
+          oscillatorHarmonicRef.current = null;
         }
         setIsPlaying(false);
       }, 500);
@@ -117,6 +128,11 @@ export const AudioChants: React.FC = () => {
       if (oscillatorRef.current) {
         try {
           oscillatorRef.current.stop();
+        } catch (e) {}
+      }
+      if (oscillatorHarmonicRef.current) {
+        try {
+          oscillatorHarmonicRef.current.stop();
         } catch (e) {}
       }
     };

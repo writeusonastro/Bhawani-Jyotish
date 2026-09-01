@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, MessageCircle, Clock, MapPin, Sparkles } from 'lucide-react';
+import { Phone, MessageCircle, Clock, MapPin, Sparkles, Moon, Sun, Gem, BookOpen, Flame } from 'lucide-react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
 
 interface HeaderProps {
@@ -7,6 +7,8 @@ interface HeaderProps {
   setActiveTab: (tab: string) => void;
   lang: 'hi' | 'gu';
   setLang: (l: 'hi' | 'gu') => void;
+  isDark: boolean;
+  setIsDark: (d: boolean) => void;
   onOpenBooking: () => void;
 }
 
@@ -15,21 +17,30 @@ export const Header: React.FC<HeaderProps> = ({
   setActiveTab,
   lang,
   setLang,
+  isDark,
+  setIsDark,
   onOpenBooking,
 }) => {
   const navItems = [
     { id: 'rashifal', labelHi: 'दैनिक राशिफल', labelGu: 'દૈનિક રાશિફળ' },
     { id: 'kundli', labelHi: 'जन्म कुंडली', labelGu: 'જન્મ કુંડળી' },
     { id: 'gun-milan', labelHi: 'विवाह गुण मिलान', labelGu: 'લગ્ન ગુણ મિલાન' },
-    { id: 'services', labelHi: 'विशेष सेवाएं', labelGu: 'વિશેષ સેવાઓ' },
+    { id: 'gemstones', labelHi: '💎 लकी रत्न व रुद्राक्ष', labelGu: '💎 રત્ન અને રુદ્રાક્ષ' },
+    { id: 'japa-mala', labelHi: '📿 डिजिटल जप माला', labelGu: '📿 ડિજિટલ માળા' },
+    { id: 'daily-wisdom', labelHi: '📜 सुविचार व वास्तु', labelGu: '📜 સુવિચાર અને વાસ્તુ' },
     { id: 'panchang', labelHi: 'पंचांग व मुहूर्त', labelGu: 'પંચાંગ અને મુહૂર્ત' },
     { id: 'dosh-guide', labelHi: 'दोष निवारण', labelGu: 'દોષ નિવારણ' },
+    { id: 'services', labelHi: 'विशेष सेवाएं', labelGu: 'વિશેષ સેવાઓ' },
     { id: 'ask-astrologer', labelHi: 'ज्योतिषी से पूछें (AI)', labelGu: 'જ્યોતિષીને પૂછો' },
     { id: 'contact', labelHi: 'संपर्क व पता', labelGu: 'સંપર્ક અને સરનામું' }
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-md border-b border-[#FF671F]/20">
+    <header className={`sticky top-0 z-50 backdrop-blur-md shadow-md border-b transition-colors duration-300 ${
+      isDark 
+        ? 'bg-slate-950/95 border-amber-500/30 text-amber-50 shadow-slate-950/80' 
+        : 'bg-white/95 border-[#FF671F]/20 text-[#2C2420]'
+    }`}>
       {/* Top sacred emergency & contact strip */}
       <div className="bg-gradient-to-r from-[#CC5218] via-[#FF671F] to-[#CC5218] text-white text-xs sm:text-sm py-1.5 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
@@ -42,7 +53,7 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-xs sm:text-sm">
+          <div className="flex items-center gap-3 text-xs sm:text-sm">
             <div className="hidden md:flex items-center gap-1 opacity-90">
               <Clock className="w-3.5 h-3.5" />
               <span>{lang === 'hi' ? 'प्रातः 8:00 - रात्रि 8:00' : 'સવારે 8:00 - રાત્રે 8:00'}</span>
@@ -61,18 +72,29 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 type="button"
                 onClick={() => setLang('hi')}
-                className={`px-2 py-0.5 rounded ${lang === 'hi' ? 'bg-white text-[#CC5218] font-bold' : 'text-white/80 hover:text-white'}`}
+                className={`px-2 py-0.5 rounded transition-all ${lang === 'hi' ? 'bg-white text-[#CC5218] font-bold' : 'text-white/80 hover:text-white'}`}
               >
                 हिंदी
               </button>
               <button
                 type="button"
                 onClick={() => setLang('gu')}
-                className={`px-2 py-0.5 rounded ${lang === 'gu' ? 'bg-white text-[#CC5218] font-bold' : 'text-white/80 hover:text-white'}`}
+                className={`px-2 py-0.5 rounded transition-all ${lang === 'gu' ? 'bg-white text-[#CC5218] font-bold' : 'text-white/80 hover:text-white'}`}
               >
                 ગુજરાતી
               </button>
             </div>
+
+            {/* Dark/Light Cosmic Mode Toggle */}
+            <button
+              type="button"
+              onClick={() => setIsDark(!isDark)}
+              className="p-1 rounded-lg bg-black/25 hover:bg-black/40 text-amber-200 transition-all flex items-center gap-1 px-2 text-xs font-semibold"
+              title={isDark ? 'लाइट मोड चालू करें' : 'दिव्य ब्रह्मांडीय डार्क मोड'}
+            >
+              {isDark ? <Sun className="w-3.5 h-3.5 text-yellow-300" /> : <Moon className="w-3.5 h-3.5 text-amber-200" />}
+              <span className="hidden sm:inline">{isDark ? 'प्रकाश' : 'डार्क'}</span>
+            </button>
           </div>
         </div>
       </div>
@@ -89,14 +111,18 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="font-yatra text-2xl sm:text-3xl text-[#CC5218] tracking-wide">
+              <h1 className="font-yatra text-2xl sm:text-3xl text-[#CC5218] dark:text-amber-400 tracking-wide">
                 भवानी ज्योतिष
               </h1>
-              <span className="text-xs bg-[#FFF5F0] text-[#CC5218] border border-[#FF671F]/30 px-2 py-0.5 rounded-full font-semibold">
+              <span className={`text-xs px-2 py-0.5 rounded-full font-semibold border ${
+                isDark 
+                  ? 'bg-amber-950/80 border-amber-500/40 text-amber-300' 
+                  : 'bg-[#FFF5F0] border-[#FF671F]/30 text-[#CC5218]'
+              }`}>
                 मेहसाणा (गुजरात)
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-[#665448] font-medium">
+            <p className="text-xs sm:text-sm text-[#665448] dark:text-stone-400 font-medium">
               {lang === 'hi' ? 'सटीक ज्योतिषीय समाधान एवं वैदिक मार्गदर्शन' : 'સચોટ જ્યોતિષીય સમાધાન અને વૈદિક માર્ગદર્શન'}
             </p>
           </div>
@@ -107,7 +133,11 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={onOpenBooking}
-            className="flex items-center gap-1.5 bg-[#FFF5F0] hover:bg-[#FFEAE0] text-[#CC5218] border border-[#FF671F]/40 font-bold px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-sm"
+            className={`flex items-center gap-1.5 font-bold px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-sm ${
+              isDark 
+                ? 'bg-amber-950/80 hover:bg-amber-900 border border-amber-500/40 text-amber-300' 
+                : 'bg-[#FFF5F0] hover:bg-[#FFEAE0] text-[#CC5218] border border-[#FF671F]/40'
+            }`}
           >
             <Sparkles className="w-4 h-4 text-[#FF671F]" />
             <span>{lang === 'hi' ? 'परामर्श बुक करें' : 'પરામર્શ બુક કરો'}</span>
@@ -134,7 +164,9 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Navigation Links */}
-      <div className="bg-[#FFFDF9] border-t border-[#FF671F]/15 overflow-x-auto no-scrollbar">
+      <div className={`border-t overflow-x-auto no-scrollbar ${
+        isDark ? 'bg-slate-900/90 border-slate-800' : 'bg-[#FFFDF9] border-[#FF671F]/15'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 flex items-center gap-1 py-1 sm:py-1.5 whitespace-nowrap min-w-max">
           <button
             type="button"
@@ -142,6 +174,8 @@ export const Header: React.FC<HeaderProps> = ({
             className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${
               activeTab === 'home'
                 ? 'bg-[#FF671F] text-white shadow-sm'
+                : isDark 
+                ? 'text-stone-300 hover:text-amber-300 hover:bg-slate-800' 
                 : 'text-[#5C4A3E] hover:text-[#CC5218] hover:bg-[#FFF5F0]'
             }`}
           >
@@ -156,6 +190,8 @@ export const Header: React.FC<HeaderProps> = ({
               className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${
                 activeTab === item.id
                   ? 'bg-[#FF671F] text-white shadow-sm'
+                  : isDark
+                  ? 'text-stone-300 hover:text-amber-300 hover:bg-slate-800'
                   : 'text-[#5C4A3E] hover:text-[#CC5218] hover:bg-[#FFF5F0]'
               }`}
             >
