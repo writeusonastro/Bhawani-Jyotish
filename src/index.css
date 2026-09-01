@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --saffron: #FF671F;
+    --saffron-dark: #CC5218;
+    --saffron-light: #FFF5F0;
+    --gold: #D4AF37;
+    --gold-dark: #B8860B;
+    --maroon: #800020;
+    --text-dark: #2C2420;
+    --bg-cream: #FFFDF9;
+  }
+
+  body {
+    font-family: 'Mukta', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, .font-heading {
+    font-family: 'Yatra One', 'Rozha One', cursive, serif;
+  }
+}
+
+.font-yatra {
+  font-family: 'Yatra One', cursive;
+}
+
+.font-mukta {
+  font-family: 'Mukta', sans-serif;
+}
+
+.font-rozha {
+  font-family: 'Rozha One', serif;
+}
+
+/* Sacred Vedic glowing & patterned backgrounds */
+.bg-sacred-pattern {
+  background-color: #FFFDF9;
+  background-image: radial-gradient(#FF671F 0.75px, transparent 0.75px), radial-gradient(#D4AF37 0.75px, #FFFDF9 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  background-opacity: 0.05;
+}
+
+.sacred-border {
+  border-image: linear-gradient(to right, #FF671F, #D4AF37, #FF671F) 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFF5F0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FF671F;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #CC5218;
+}
