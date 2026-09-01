@@ -18,7 +18,7 @@ export const PanchangMuhurat: React.FC<PanchangProps> = ({ lang }) => {
         <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
           {lang === 'hi' ? 'आज का पंचांग एवं शुभ मुहूर्त' : 'આજનું પંચાંગ અને શુભ મુહૂર્ત'}
         </h2>
-        <p className="text-sm text-[#665448]">
+        <p className="text-sm text-stone-900 font-medium">
           {lang === 'hi'
             ? 'मेहसाणा व संपूर्ण गुजरात हेतु दैनिक तिथि, नक्षत्र, राहुकाल, अभिजित मुहूर्त व चौघड़िया'
             : 'મહેસાણા અને ગુજરાત માટે દૈનિક તિથિ, નક્ષત્ર, રાહુકાળ અને ચોઘડિયા'}
@@ -33,12 +33,12 @@ export const PanchangMuhurat: React.FC<PanchangProps> = ({ lang }) => {
               <h3 className="font-yatra text-2xl text-[#CC5218]">
                 {TODAY_PANCHANG.date}
               </h3>
-              <p className="text-xs text-[#7A685B] mt-0.5">
+              <p className="text-xs text-stone-900 font-semibold mt-0.5">
                 {TODAY_PANCHANG.samvat} | स्थान: मेहसाणा, गुजरात
               </p>
             </div>
 
-            <div className="flex items-center gap-3 text-xs font-semibold text-[#5C4A3E]">
+            <div className="flex items-center gap-3 text-xs font-bold text-stone-950">
               <div className="flex items-center gap-1">
                 <Sun className="w-4 h-4 text-amber-500" />
                 <span>सूर्योदय: {TODAY_PANCHANG.sunrise}</span>
@@ -53,28 +53,28 @@ export const PanchangMuhurat: React.FC<PanchangProps> = ({ lang }) => {
           {/* 5 Core Pillars of Panchang */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <div className="p-3.5 rounded-2xl bg-[#FFFDF9] border border-[#FF671F]/20">
-              <span className="text-[11px] text-[#7A685B] block">1. तिथि (Tithi)</span>
+              <span className="text-[11px] text-stone-950 font-bold block">1. तिथि (Tithi)</span>
               <span className="font-bold text-sm text-[#CC5218]">{TODAY_PANCHANG.tithi}</span>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-[#FFFDF9] border border-[#FF671F]/20">
-              <span className="text-[11px] text-[#7A685B] block">2. नक्षत्र (Nakshatra)</span>
-              <span className="font-bold text-sm text-[#2C2420]">{TODAY_PANCHANG.nakshatra}</span>
+              <span className="text-[11px] text-stone-950 font-bold block">2. नक्षत्र (Nakshatra)</span>
+              <span className="font-bold text-sm text-stone-950">{TODAY_PANCHANG.nakshatra}</span>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-[#FFFDF9] border border-[#FF671F]/20">
-              <span className="text-[11px] text-[#7A685B] block">3. पक्ष (Paksha)</span>
-              <span className="font-bold text-sm text-[#2C2420]">{TODAY_PANCHANG.paksha}</span>
+              <span className="text-[11px] text-stone-950 font-bold block">3. पक्ष (Paksha)</span>
+              <span className="font-bold text-sm text-stone-950">{TODAY_PANCHANG.paksha}</span>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-[#FFFDF9] border border-[#FF671F]/20">
-              <span className="text-[11px] text-[#7A685B] block">4. योग (Yoga)</span>
+              <span className="text-[11px] text-stone-950 font-bold block">4. योग (Yoga)</span>
               <span className="font-bold text-sm text-emerald-800">{TODAY_PANCHANG.yoga}</span>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-[#FFFDF9] border border-[#FF671F]/20">
-              <span className="text-[11px] text-[#7A685B] block">5. करण (Karana)</span>
-              <span className="font-bold text-sm text-[#2C2420]">{TODAY_PANCHANG.karana}</span>
+              <span className="text-[11px] text-stone-950 font-bold block">5. करण (Karana)</span>
+              <span className="font-bold text-sm text-stone-950">{TODAY_PANCHANG.karana}</span>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200">
@@ -91,7 +91,7 @@ export const PanchangMuhurat: React.FC<PanchangProps> = ({ lang }) => {
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {TODAY_PANCHANG.shubhChoghadiya.map((chog, i) => (
-                <div key={i} className="flex items-center gap-2 text-xs bg-white p-2.5 rounded-xl border border-[#FF671F]/20 font-medium text-[#2C2420]">
+                <div key={i} className="flex items-center gap-2 text-xs bg-white p-2.5 rounded-xl border border-[#FF671F]/20 font-semibold text-stone-950">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>{chog}</span>
                 </div>

@@ -451,20 +451,6 @@ export const NAKSHATRAS = [
   "पूर्वाभाद्रपद (Purva Bhadrapada)", "उत्तराभाद्रपद (Uttara Bhadrapada)", "रेवती (Revati)"
 ];
 
-export const INDIAN_CITIES = [
-  { name: "मेहसाणा (Mehsana)", state: "गुजरात (Gujarat)", lat: 23.5880, lon: 72.3693 },
-  { name: "अहमदाबाद (Ahmedabad)", state: "गुजरात (Gujarat)", lat: 23.0225, lon: 72.5714 },
-  { name: "गांधीनगर (Gandhinagar)", state: "गुजरात (Gujarat)", lat: 23.2156, lon: 72.6369 },
-  { name: "सूरत (Surat)", state: "गुजरात (Gujarat)", lat: 21.1702, lon: 72.8311 },
-  { name: "वडोदरा (Vadodara)", state: "गुजरात (Gujarat)", lat: 22.3072, lon: 73.1812 },
-  { name: "राजकोट (Rajkot)", state: "गुजरात (Gujarat)", lat: 22.3039, lon: 70.8022 },
-  { name: "पाटन (Patan)", state: "गुजरात (Gujarat)", lat: 23.8493, lon: 72.1266 },
-  { name: "पालनपुर (Palanpur)", state: "गुजरात (Gujarat)", lat: 24.1724, lon: 72.4346 },
-  { name: "विसनगर (Visnagar)", state: "गुजरात (Gujarat)", lat: 23.6961, lon: 72.5511 },
-  { name: "ऊंझा (Unjha)", state: "गुजरात (Gujarat)", lat: 23.8041, lon: 72.3941 },
-  { name: "मुंबई (Mumbai)", state: "महाराष्ट्र (Maharashtra)", lat: 19.0760, lon: 72.8777 },
-  { name: "दिल्ली (Delhi)", state: "दिल्ली (Delhi)", lat: 28.6139, lon: 77.2090 },
-  { name: "जयपुर (Jaipur)", state: "राजस्थान (Rajasthan)", lat: 26.9124, lon: 75.7873 },
-  { name: "उदयपुर (Udaipur)", state: "राजस्थान (Rajasthan)", lat: 24.5854, lon: 73.7125 },
-  { name: "इंदौर (Indore)", state: "मध्य प्रदेश (Madhya Pradesh)", lat: 22.7196, lon: 75.8577 }
-];
+import { INDIAN_CITIES_DATABASE } from './indianCities';
+export { INDIAN_CITIES_DATABASE };
+export const INDIAN_CITIES = INDIAN_CITIES_DATABASE;

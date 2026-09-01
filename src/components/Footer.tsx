@@ -5,10 +5,9 @@ import { Phone, MessageCircle, Mail, MapPin, Clock, ShieldCheck, Heart, Sparkles
 interface FooterProps {
   setActiveTab: (tab: string) => void;
   lang: 'hi' | 'gu';
-  onOpenBooking: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenBooking }) => {
+export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
   return (
     <footer id="contact" className="bg-[#1F1714] text-[#E5DCD6] pt-14 pb-8 border-t-4 border-[#FF671F]">
       <div className="max-w-7xl mx-auto px-4">
@@ -30,7 +29,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenBookin
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-[#B8A89E] leading-relaxed">
+            <p className="text-xs sm:text-sm text-stone-200 leading-relaxed">
               {lang === 'hi'
                 ? '३५+ वर्षों से वैदिक ज्योतिष, पराशर होरा शास्त्र एवं शास्त्रोक्त अनुष्ठानों द्वारा जन-कल्याण हेतु समर्पित उत्तर गुजरात का प्रतिष्ठित ज्योतिष संस्थान।'
                 : '૩૫+ વર્ષોથી વૈદિક જ્યોતિષ અને શાસ્ત્રોક્ત અનુષ્ઠાન દ્વારા માર્ગદર્શન કરતું મહેસાણાનું પ્રતિષ્ઠિત જ્યોતિષ કેન્દ્ર.'}
@@ -47,7 +46,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenBookin
             <h4 className="font-yatra text-lg text-amber-400 pb-1 border-b border-[#FF671F]/30">
               {lang === 'hi' ? 'महत्वपूर्ण सेवाएं' : 'મહત્વપૂર્ણ સેવાઓ'}
             </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-[#C8B8AE]">
+            <ul className="space-y-2 text-xs sm:text-sm text-stone-200">
               <li>
                 <button
                   type="button"
@@ -106,10 +105,10 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenBookin
             <h4 className="font-yatra text-lg text-amber-400 pb-1 border-b border-[#FF671F]/30">
               {lang === 'hi' ? 'संपर्क एवं परामर्श' : 'સંપર્ક અને પરામર્શ'}
             </h4>
-            <div className="space-y-2.5 text-xs sm:text-sm text-[#C8B8AE]">
+            <div className="space-y-2.5 text-xs sm:text-sm text-white font-medium">
               <a
                 href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                className="flex items-start gap-2 hover:text-amber-300 transition-colors"
+                className="flex items-start gap-2 hover:text-amber-300 transition-colors text-white font-bold"
               >
                 <Phone className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />
                 <span>{ASTROLOGER_INFO.phonePrimary}</span>
@@ -119,20 +118,20 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenBookin
                 href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-2 hover:text-emerald-400 transition-colors"
+                className="flex items-start gap-2 hover:text-emerald-300 transition-colors text-emerald-300 font-bold"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <span>WhatsApp: {ASTROLOGER_INFO.phonePrimary}</span>
               </a>
 
-              <div className="flex items-start gap-2">
+              <div className="flex items-start gap-2 text-stone-100 font-medium">
                 <Clock className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />
                 <span>{ASTROLOGER_INFO.timings}</span>
               </div>
 
-              <div className="flex items-start gap-2">
+              <div className="flex items-start gap-2 text-stone-100 font-medium">
                 <Mail className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />
-                <span className="break-all">{ASTROLOGER_INFO.email}</span>
+                <span className="break-all font-semibold">{ASTROLOGER_INFO.email}</span>
               </div>
             </div>
           </div>
@@ -142,10 +141,10 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenBookin
             <h4 className="font-yatra text-lg text-amber-400 pb-1 border-b border-[#FF671F]/30">
               {lang === 'hi' ? 'कार्यालय का पता (Mehsana)' : 'ઓફિસનું સરનામું'}
             </h4>
-            <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-xs sm:text-sm text-[#C8B8AE] space-y-2">
+            <div className="p-3.5 rounded-2xl bg-white/10 border border-white/20 text-xs sm:text-sm text-white space-y-2">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <p className="leading-relaxed">
+                <p className="leading-relaxed font-bold text-stone-100">
                   {lang === 'hi' ? ASTROLOGER_INFO.address : ASTROLOGER_INFO.addressGu}
                 </p>
               </div>
@@ -154,7 +153,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenBookin
                 href="https://maps.google.com/?q=Nagalpur+Mehsana+Gujarat+384002"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block w-full text-center bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold py-2 rounded-xl text-xs transition-colors shadow-sm mt-1"
+                className="inline-block w-full text-center bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold py-2.5 rounded-xl text-xs transition-colors shadow-md mt-1"
               >
                 📍 गूगल मैप पर दिशा देखें (Directions)
               </a>
@@ -163,7 +162,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenBookin
         </div>
 
         {/* Bottom copyright and blessings */}
-        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#8C7A6D]">
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-300">
           <div>
             © {new Date().getFullYear()} भवानी ज्योतिष (Bhavani Jyotish) - मेहसाणा, गुजरात। सर्वाधिकार सुरक्षित।
           </div>

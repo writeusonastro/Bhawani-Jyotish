@@ -4,7 +4,6 @@ import { ASTROLOGER_INFO } from '../data/astrologyData';
 
 interface DoshGuideProps {
   lang: 'hi' | 'gu';
-  onOpenBooking: (doshName?: string) => void;
 }
 
 const DOSHAS = [
@@ -86,7 +85,7 @@ const DOSHAS = [
   }
 ];
 
-export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, onOpenBooking }) => {
+export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang }) => {
   const [activeDoshId, setActiveDoshId] = useState<string>('kalsarp');
   const activeDosh = DOSHAS.find((d) => d.id === activeDoshId) || DOSHAS[0];
 
@@ -101,7 +100,7 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, onOpenBooking
         <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
           {lang === 'hi' ? 'कालसर्प, मांगलिक व पितृ दोष निवारण' : 'કાલસર્પ, માંગલિક અને પિતૃ દોષ નિવારણ'}
         </h2>
-        <p className="text-sm text-[#665448]">
+        <p className="text-sm text-stone-900 font-medium">
           {lang === 'hi'
             ? 'कुंडली के प्रमुख दोषों के लक्षण पहचानें और पंडित जी द्वारा शास्त्रोक्त वैदिक शांति कराएं'
             : 'કુંડળીના મુખ્ય દોષોના લક્ષણો ઓળખો અને શાસ્ત્રોક્ત વૈદિક શાંતિ કરાવો'}
@@ -118,7 +117,7 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, onOpenBooking
             className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all ${
               activeDoshId === dosh.id
                 ? 'bg-gradient-to-r from-[#FF671F] to-[#CC5218] text-white shadow-lg shadow-[#FF671F]/30 scale-105'
-                : 'bg-white hover:bg-[#FFF5F0] text-[#5C4A3E] border border-[#FF671F]/20 shadow-sm'
+                : 'bg-white hover:bg-[#FFF5F0] text-stone-950 border border-[#FF671F]/20 shadow-sm'
             }`}
           >
             {lang === 'hi' ? dosh.nameHi : dosh.nameGu}
@@ -133,19 +132,20 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, onOpenBooking
             <h3 className="font-yatra text-2xl sm:text-3xl text-[#CC5218]">
               {lang === 'hi' ? activeDosh.nameHi : activeDosh.nameGu}
             </h3>
-            <p className="text-xs sm:text-sm text-[#665448] mt-1 max-w-2xl">
+            <p className="text-xs sm:text-sm text-stone-950 font-medium mt-1 max-w-2xl">
               {activeDosh.description}
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={() => onOpenBooking(activeDosh.nameHi)}
+          <a
+            href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`प्रणाम पंडित जी! मेरी कुंडली में ${activeDosh.nameHi} के लक्षण हैं। कृपया निवारण एवं शांति अनुष्ठान हेतु मार्गदर्शन करें।`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md shrink-0 flex items-center gap-2"
           >
-            <Sparkles className="w-4 h-4 text-amber-200" />
-            <span>{lang === 'hi' ? 'दोष शांति पूजा बुक करें' : 'શાંતિ પૂજા બુક કરો'}</span>
-          </button>
+            <MessageCircle className="w-4 h-4 text-amber-200" />
+            <span>{lang === 'hi' ? 'दोष निवारण सलाह लें' : 'દોષ નિવારણ સલાહ મેળવો'}</span>
+          </a>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -155,7 +155,7 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, onOpenBooking
               <AlertTriangle className="w-4 h-4 text-rose-600" />
               <span>{lang === 'hi' ? 'दोष के प्रमुख लक्षण एवं दुष्प्रभाव' : 'દોષના મુખ્ય લક્ષણો'}</span>
             </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-[#4A282C]">
+            <ul className="space-y-2 text-xs sm:text-sm text-stone-950 font-medium">
               {activeDosh.symptoms.map((sym, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="text-rose-500 font-bold mt-0.5">•</span>
@@ -171,7 +171,7 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, onOpenBooking
               <CheckCircle className="w-4 h-4 text-emerald-600" />
               <span>{lang === 'hi' ? 'अचूक शास्त्रोक्त वैदिक निवारण' : 'શાસ્ત્રોક્ત વૈદિક નિવારણ'}</span>
             </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-[#1B3F2E]">
+            <ul className="space-y-2 text-xs sm:text-sm text-stone-950 font-medium">
               {activeDosh.remedies.map((rem, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="text-emerald-600 font-bold mt-0.5">🚩</span>
@@ -189,7 +189,7 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, onOpenBooking
           </span>
           <div className="flex flex-wrap gap-2">
             {activeDosh.types.map((t, idx) => (
-              <span key={idx} className="text-xs bg-white text-[#5C4A3E] border border-[#FF671F]/30 px-3 py-1 rounded-full font-medium shadow-2xs">
+              <span key={idx} className="text-xs bg-white text-stone-950 border border-[#FF671F]/30 px-3 py-1 rounded-full font-bold shadow-2xs">
                 {t}
               </span>
             ))}
@@ -200,7 +200,7 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, onOpenBooking
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-[#FFF5F0] border border-[#FF671F]/30 text-xs sm:text-sm">
           <div className="text-center sm:text-left">
             <span className="font-bold text-[#CC5218]">क्या आपकी कुंडली में यह दोष है?</span>
-            <p className="text-[#665448]">पंडित जी से अपनी कुंडली का सूक्ष्म परीक्षण कराएं और अचूक उपाय जानें।</p>
+            <p className="text-stone-950 font-medium">पंडित जी से अपनी कुंडली का सूक्ष्म परीक्षण कराएं और अचूक उपाय जानें।</p>
           </div>
 
           <div className="flex items-center gap-2 shrink-0">

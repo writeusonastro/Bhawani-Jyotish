@@ -159,10 +159,10 @@ export const AudioChants: React.FC = () => {
                       setSelectedMantra(m);
                       if (isPlaying) startChantSound(m.baseFreq);
                     }}
-                    className={`text-[11px] px-2 py-0.5 rounded-md font-semibold transition-all ${
+                    className={`text-[11px] px-2 py-0.5 rounded-md font-bold transition-all ${
                       selectedMantra.id === m.id
                         ? 'bg-[#CC5218] text-white'
-                        : 'bg-white text-[#5C4A3E] border border-[#FF671F]/20 hover:bg-[#FFF5F0]'
+                        : 'bg-white text-stone-950 border border-[#FF671F]/30 hover:bg-[#FFF5F0]'
                     }`}
                   >
                     {m.name}
@@ -170,7 +170,7 @@ export const AudioChants: React.FC = () => {
                 ))}
               </div>
             </div>
-            <p className="text-xs text-[#2C2420] font-medium mt-1 font-mukta italic max-w-2xl line-clamp-1">
+            <p className="text-xs text-stone-950 font-semibold mt-1 font-mukta italic max-w-2xl line-clamp-1">
               "{selectedMantra.shloka}"
             </p>
           </div>

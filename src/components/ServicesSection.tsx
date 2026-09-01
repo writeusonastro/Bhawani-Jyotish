@@ -4,8 +4,7 @@ import { ScrollText, HeartHandshake, ShieldAlert, Briefcase, Users, Compass, Gem
 
 interface ServicesSectionProps {
   lang: 'hi' | 'gu';
-  onSelectService: (serviceId: string) => void;
-  onOpenBooking: (serviceName?: string) => void;
+  onSelectService?: (serviceId: string) => void;
 }
 
 const ICON_MAP: { [key: string]: React.ElementType } = {
@@ -21,8 +20,6 @@ const ICON_MAP: { [key: string]: React.ElementType } = {
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({
   lang,
-  onSelectService,
-  onOpenBooking
 }) => {
   const [selectedService, setSelectedService] = useState<string>(ASTRO_SERVICES[0].id);
 
@@ -37,7 +34,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
           {lang === 'hi' ? 'भवानी ज्योतिष की प्रमुख सेवाएं' : 'ભવાની જ્યોતિષની મુખ્ય સેવાઓ'}
         </h2>
-        <p className="text-sm text-[#665448]">
+        <p className="text-sm text-stone-900 font-medium">
           {lang === 'hi'
             ? '३५+ वर्षों की प्रामाणिक साधना व गहन ज्योतिषीय ज्ञान द्वारा जीवन की समस्त समस्याओं का अचूक निवारण'
             : '૩૫+ વર્ષના અનુભવ દ્વારા જીવનની તમામ સમસ્યાઓનું સચોટ નિવારણ'}
@@ -64,15 +61,15 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   <IconComp className="w-6 h-6" />
                 </div>
 
-                <h3 className="font-yatra text-lg text-[#2C2420] group-hover:text-[#CC5218] transition-colors mb-1.5 line-clamp-2">
+                <h3 className="font-yatra text-lg text-stone-950 group-hover:text-[#CC5218] transition-colors mb-1.5 line-clamp-2 font-bold">
                   {lang === 'hi' ? srv.titleHi : srv.titleGu}
                 </h3>
 
-                <p className="text-xs text-[#7A685B] mb-3 leading-relaxed">
+                <p className="text-xs text-stone-950 mb-3 leading-relaxed font-medium">
                   {srv.subtitle}
                 </p>
 
-                <div className="space-y-1.5 mb-4 text-xs text-[#4A3B2C]">
+                <div className="space-y-1.5 mb-4 text-xs text-stone-950 font-semibold">
                   {srv.keyBenefits.slice(0, 2).map((benefit, idx) => (
                     <div key={idx} className="flex items-start gap-1.5">
                       <CheckCircle className="w-3.5 h-3.5 text-[#FF671F] shrink-0 mt-0.5" />
@@ -83,13 +80,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               </div>
 
               <div className="pt-3 border-t border-[#FF671F]/15 flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => onOpenBooking(srv.titleHi)}
-                  className="flex-1 bg-[#FFF5F0] hover:bg-[#FF671F] text-[#CC5218] hover:text-white font-bold py-2 rounded-xl text-xs transition-all text-center border border-[#FF671F]/30"
+                <a
+                  href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+                  className="flex-1 bg-[#FFF5F0] hover:bg-[#FF671F] text-[#CC5218] hover:text-white font-bold py-2 rounded-xl text-xs transition-all text-center border border-[#FF671F]/30 flex items-center justify-center gap-1.5"
                 >
-                  {lang === 'hi' ? 'परामर्श बुक करें' : 'બુક કરો'}
-                </button>
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>{lang === 'hi' ? 'कॉल परामर्श' : 'કોલ કરો'}</span>
+                </a>
 
                 <a
                   href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`प्रणाम पंडित जी! मुझे "${srv.titleHi}" सेवा के संबंध में जानकारी व परामर्श चाहिए।`)}`}
@@ -116,7 +113,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             <h4 className="font-yatra text-xl sm:text-2xl text-[#CC5218]">
               {lang === 'hi' ? '100% प्रामाणिक एवं शास्त्रोक्त वैदिक अनुष्ठान' : '100% શાસ્ત્રોક્ત વૈદિક અનુષ્ઠાન'}
             </h4>
-            <p className="text-xs sm:text-sm text-[#5C4A3E] mt-0.5">
+            <p className="text-xs sm:text-sm text-stone-950 mt-0.5 font-medium">
               {lang === 'hi'
                 ? 'सभी पूजाएं व यंत्र प्राण-प्रतिष्ठा शास्त्रोक्त विधि-विधान द्वारा संपन्न की जाती हैं।'
                 : 'બધી પૂજાઓ શાસ્ત્રોક્ત વિધિ-વિધાન દ્વારા સંપન્ન કરવામાં આવે છે.'}

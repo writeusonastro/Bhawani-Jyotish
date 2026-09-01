@@ -13,7 +13,6 @@ interface Message {
 interface AskAstrologerProps {
   lang: 'hi' | 'gu';
   initialQuery?: string;
-  onOpenBooking: () => void;
 }
 
 const COMMON_QUESTIONS = [
@@ -25,7 +24,7 @@ const COMMON_QUESTIONS = [
   "संतान प्राप्ति में बाधा आ रही है, कौन सा अनुष्ठान करें?"
 ];
 
-export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery, onOpenBooking }) => {
+export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery }) => {
   const [question, setQuestion] = useState(initialQuery || '');
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -101,7 +100,7 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
         <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
           {lang === 'hi' ? 'पूछें ज्योतिषी से (तत्काल समाधान)' : 'પૂછો જ્યોતિષીને (ત્વરિત સમાધાન)'}
         </h2>
-        <p className="text-sm text-[#665448]">
+        <p className="text-sm text-stone-900 font-medium">
           {lang === 'hi'
             ? 'पाराशर वैदिक ज्योतिष एवं ग्रह-नक्षत्रों के आधार पर अपने प्रश्नों का त्वरित एवं प्रामाणिक मार्गदर्शन पाएं'
             : 'શાસ્ત્રોક્ત વૈદિક જ્યોતિષ આધારિત તમારા પ્રશ્નોનું ત્વરિત અને સચોટ માર્ગદર્શન મેળવો'}
@@ -110,7 +109,7 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
 
       {/* Suggested Quick Questions */}
       <div className="mb-6">
-        <span className="text-xs font-bold text-[#7A685B] block mb-2">
+        <span className="text-xs font-bold text-stone-950 block mb-2">
           {lang === 'hi' ? '💡 अक्सर पूछे जाने वाले प्रश्न (Quick Select):' : '💡 સામાન્ય પ્રશ્નો:'}
         </span>
         <div className="flex flex-wrap gap-2">
@@ -119,7 +118,7 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
               key={idx}
               type="button"
               onClick={() => handleAsk(q)}
-              className="text-xs bg-white hover:bg-[#FFF5F0] text-[#5C4A3E] hover:text-[#CC5218] border border-[#FF671F]/20 hover:border-[#FF671F] px-3 py-1.5 rounded-full transition-all text-left shadow-sm"
+              className="text-xs bg-white hover:bg-[#FFF5F0] text-stone-950 hover:text-[#CC5218] border border-[#FF671F]/30 hover:border-[#FF671F] px-3 py-1.5 rounded-full transition-all text-left shadow-sm font-bold"
             >
               {q}
             </button>
@@ -174,13 +173,13 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
                 className={`max-w-[85%] sm:max-w-[75%] p-4 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-sm ${
                   msg.sender === 'user'
                     ? 'bg-[#FF671F] text-white rounded-br-none'
-                    : 'bg-white text-[#2C2420] border border-[#FF671F]/20 rounded-bl-none'
+                    : 'bg-white text-stone-950 border border-[#FF671F]/20 rounded-bl-none font-medium'
                 }`}
               >
                 <div className="whitespace-pre-line font-mukta">{msg.text}</div>
                 <span
                   className={`text-[10px] block mt-1.5 text-right ${
-                    msg.sender === 'user' ? 'text-amber-100' : 'text-[#8C7A6D]'
+                    msg.sender === 'user' ? 'text-amber-100' : 'text-stone-900 font-bold'
                   }`}
                 >
                   {msg.timestamp}
@@ -221,7 +220,7 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             placeholder={lang === 'hi' ? 'अपना ज्योतिषीय प्रश्न यहाँ लिखें (उदा. शादी कब होगी?)...' : 'તમારો પ્રશ્ન અહીં લખો...'}
-            className="flex-1 px-4 py-2.5 rounded-xl border border-[#FF671F]/30 focus:outline-none focus:ring-2 focus:ring-[#FF671F] text-xs sm:text-sm bg-[#FFFDF9]"
+            className="flex-1 px-4 py-2.5 rounded-xl border border-[#FF671F]/30 focus:outline-none focus:ring-2 focus:ring-[#FF671F] text-xs sm:text-sm bg-[#FFFDF9] text-stone-950 font-medium placeholder:text-stone-600"
           />
           <button
             type="submit"
@@ -235,23 +234,34 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
       </div>
 
       {/* Footer Support Strip */}
-      <div className="mt-4 p-4 rounded-2xl bg-[#FFF5F0] border border-[#FF671F]/25 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-[#5C4A3E]">
+      <div className="mt-4 p-4 rounded-2xl bg-[#FFF5F0] border border-[#FF671F]/25 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-stone-950 font-semibold">
         <div className="flex items-center gap-2">
           <span>🚩</span>
           <span>
             {lang === 'hi'
-              ? 'गंभीर समस्याओं या विस्तृत कुंडली परामर्श के लिए पंडित जी से सीधे मिलें'
-              : 'ગંભીર સમસ્યાઓ માટે પંડિતજીને રૂબરૂ મળો'}
+              ? 'गंभीर समस्याओं या विस्तृत कुंडली परामर्श के लिए पंडित जी से सीधे संपर्क करें'
+              : 'ગંભીર સમસ્યાઓ માટે પંડિતજીને રૂબરૂ અથવા ફોન પર સંપર્ક કરો'}
           </span>
         </div>
 
-        <button
-          type="button"
-          onClick={onOpenBooking}
-          className="bg-white hover:bg-amber-50 text-[#CC5218] font-bold px-4 py-1.5 rounded-lg border border-[#FF671F]/30 transition-colors shadow-sm"
-        >
-          {lang === 'hi' ? 'व्यक्तिगत अपॉइंटमेंट बुक करें' : 'અપોઇન્ટમેન્ટ બુક કરો'}
-        </button>
+        <div className="flex items-center gap-2">
+          <a
+            href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+            className="bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5"
+          >
+            <Phone className="w-3.5 h-3.5" />
+            <span>कॉल करें</span>
+          </a>
+          <a
+            href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('प्रणाम पंडित जी! मुझे अपनी जन्म कुंडली के संबंध में परामर्श चाहिए।')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5"
+          >
+            <MessageCircle className="w-3.5 h-3.5" />
+            <span>व्हाट्सएप</span>
+          </a>
+        </div>
       </div>
     </div>
   );

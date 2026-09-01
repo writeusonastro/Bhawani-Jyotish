@@ -133,7 +133,7 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
           className={`rounded-3xl p-6 border transition-all duration-300 shadow-xl relative overflow-hidden flex flex-col justify-between ${
             isDark 
               ? 'bg-slate-900/90 border-amber-500/30 text-amber-100 shadow-amber-950/30' 
-              : 'bg-gradient-to-br from-[#FFF9F5] via-white to-[#FFF5F0] border-[#FF671F]/25 text-[#2C2420] shadow-[#FF671F]/5'
+              : 'bg-gradient-to-br from-[#FFF9F5] via-white to-[#FFF5F0] border-[#FF671F]/25 text-stone-950 shadow-[#FF671F]/5'
           }`}
         >
           <div className="absolute top-0 right-0 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
@@ -165,24 +165,24 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
             </div>
 
             <div className={`p-4 rounded-2xl border-l-4 border-amber-500 mb-3 ${isDark ? 'bg-slate-950/60' : 'bg-[#FFF5F0]'}`}>
-              <p className="font-serif text-sm sm:text-base font-bold text-amber-600 dark:text-amber-300 leading-relaxed italic">
+              <p className="font-serif text-sm sm:text-base font-bold text-stone-950 dark:text-amber-300 leading-relaxed italic">
                 "{shloka.sanskrit}"
               </p>
-              <p className="text-[11px] text-right mt-1.5 text-stone-500 dark:text-stone-400 font-sans">
+              <p className="text-[11px] text-right mt-1.5 text-stone-900 dark:text-stone-400 font-sans font-bold">
                 — {shloka.source[lang]}
               </p>
             </div>
 
-            <p className="text-xs sm:text-sm leading-relaxed mt-2 text-stone-700 dark:text-stone-200">
-              <strong className="text-amber-700 dark:text-amber-400">
+            <p className="text-xs sm:text-sm leading-relaxed mt-2 text-stone-950 dark:text-stone-200 font-medium">
+              <strong className="text-amber-950 dark:text-amber-400 font-bold">
                 {lang === 'hi' ? 'सरल भावार्थ: ' : 'સરળ ભાવાર્થ: '}
               </strong>
               {shloka.meaning[lang]}
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-amber-500/20 text-[11px] flex items-center gap-2 text-amber-600 dark:text-amber-400 font-medium">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="mt-4 pt-3 border-t border-amber-500/20 text-[11px] flex items-center gap-2 text-stone-950 dark:text-amber-400 font-semibold">
+            <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
             <span>{lang === 'hi' ? 'प्रातःकाल इस श्लोक का स्मरण करने से दिन शुभ और ऊर्जावान बनता है।' : 'સવારે આ શ્લોકનું સ્મરણ કરવાથી દિવસ મંગળમય બને છે.'}</span>
           </div>
         </div>
@@ -192,7 +192,7 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
           className={`rounded-3xl p-6 border transition-all duration-300 shadow-xl relative overflow-hidden flex flex-col justify-between ${
             isDark 
               ? 'bg-slate-900/90 border-amber-500/30 text-amber-100 shadow-amber-950/30' 
-              : 'bg-gradient-to-br from-[#FFFDF9] via-white to-[#FFF9F5] border-[#FF671F]/25 text-[#2C2420] shadow-[#FF671F]/5'
+              : 'bg-gradient-to-br from-[#FFFDF9] via-white to-[#FFF9F5] border-[#FF671F]/25 text-stone-950 shadow-[#FF671F]/5'
           }`}
         >
           <div className="absolute top-0 right-0 w-36 h-36 bg-orange-500/10 rounded-full blur-2xl pointer-events-none" />
@@ -224,7 +224,7 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
             </div>
 
             <div className="flex items-center justify-between mb-2">
-              <h4 className="font-yatra text-base sm:text-lg text-amber-700 dark:text-amber-300 flex items-center gap-2">
+              <h4 className="font-yatra text-base sm:text-lg text-stone-950 dark:text-amber-300 flex items-center gap-2">
                 <span>{vastu.icon}</span>
                 <span>{vastu.title[lang]}</span>
               </h4>
@@ -233,12 +233,12 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
               </span>
             </div>
 
-            <p className="text-xs sm:text-sm leading-relaxed mt-2 text-stone-700 dark:text-stone-200">
+            <p className="text-xs sm:text-sm leading-relaxed mt-2 text-stone-950 dark:text-stone-200 font-medium">
               {vastu.guidance[lang]}
             </p>
 
-            <div className={`mt-3 p-3 rounded-xl border flex items-center gap-2 text-xs font-semibold ${isDark ? 'bg-emerald-950/40 border-emerald-700/40 text-emerald-300' : 'bg-emerald-50 border-emerald-200 text-emerald-900'}`}>
-              <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+            <div className={`mt-3 p-3 rounded-xl border flex items-center gap-2 text-xs font-semibold ${isDark ? 'bg-emerald-950/40 border-emerald-700/40 text-emerald-300' : 'bg-emerald-50 border-emerald-200 text-emerald-950'}`}>
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>
                 <strong>{lang === 'hi' ? 'वास्तु फल: ' : 'વાસ્તુ ફળ: '}</strong>
                 {vastu.benefit[lang]}
@@ -246,8 +246,8 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-amber-500/20 text-[11px] flex items-center gap-2 text-stone-500 dark:text-stone-400">
-            <Home className="w-3.5 h-3.5 text-amber-500" />
+          <div className="mt-4 pt-3 border-t border-amber-500/20 text-[11px] flex items-center gap-2 text-stone-900 dark:text-stone-400 font-medium">
+            <Home className="w-3.5 h-3.5 text-amber-600" />
             <span>{lang === 'hi' ? 'गृह, दुकान एवं ऑफिस में वास्तु दोष निवारण हेतु प्रामाणिक शास्त्रीय नियम।' : 'ઘર અને દુકાનમાં વાસ્તુ દોષ નિવારણ માટે પ્રમાણિક શાસ્ત્રીય નિયમો.'}</span>
           </div>
         </div>

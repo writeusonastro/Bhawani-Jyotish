@@ -483,7 +483,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                   <h4 className="font-yatra text-lg text-[#CC5218] dark:text-amber-300 font-bold">
                     {lang === 'hi' ? activeHouseMeta.nameHi : activeHouseMeta.nameGu}
                   </h4>
-                  <span className="text-xs text-stone-500 dark:text-stone-400">
+                  <span className="text-xs text-stone-900 dark:text-stone-400 font-semibold">
                     {lang === 'hi' ? `राशि: ${activeHouseRashi}` : `રાશિ: ${activeHouseRashi}`}
                   </span>
                 </div>
@@ -493,7 +493,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
             <div className="space-y-3 text-xs sm:text-sm">
               {/* Planets in House */}
               <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-[#FFFDF9] border-[#FF671F]/20'}`}>
-                <span className="text-stone-500 dark:text-stone-400 block text-xs mb-1">
+                <span className="text-stone-900 dark:text-stone-400 block text-xs mb-1 font-bold">
                   {lang === 'hi' ? 'इस भाव में स्थित ग्रह:' : 'આ ભાવમાં રહેલા ગ્રહો:'}
                 </span>
                 {activeHousePlanets.length > 0 ? (
@@ -508,7 +508,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     ))}
                   </div>
                 ) : (
-                  <span className="text-stone-400 italic">
+                  <span className="text-stone-700 dark:text-stone-400 font-medium italic">
                     {lang === 'hi' ? 'कोई प्रत्यक्ष ग्रह नहीं (दृष्टि प्रभाव संभव)' : 'કોઈ પ્રત્યક્ષ ગ્રહ નથી'}
                   </span>
                 )}
@@ -516,20 +516,20 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
 
               {/* Karaka Planet */}
               <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-[#FFFDF9] border-[#FF671F]/20'}`}>
-                <span className="text-stone-500 dark:text-stone-400 block text-xs">
+                <span className="text-stone-900 dark:text-stone-400 block text-xs font-bold">
                   {lang === 'hi' ? 'प्राकृतिक कारक ग्रह:' : 'કારક ગ્રહ:'}
                 </span>
-                <strong className="text-amber-700 dark:text-amber-300">
+                <strong className="text-[#CC5218] dark:text-amber-300 font-bold">
                   {lang === 'hi' ? activeHouseMeta.karakaHi : activeHouseMeta.karakaGu}
                 </strong>
               </div>
 
               {/* Classical Significance */}
-              <div className={`p-3.5 rounded-2xl border-l-4 border-amber-500 ${isDark ? 'bg-slate-950 text-stone-200' : 'bg-[#FFF5F0] text-[#2C2420]'}`}>
+              <div className={`p-3.5 rounded-2xl border-l-4 border-amber-500 ${isDark ? 'bg-slate-950 text-stone-200' : 'bg-[#FFF5F0] text-stone-950'}`}>
                 <span className="text-xs font-bold text-[#CC5218] dark:text-amber-400 block mb-1">
                   {lang === 'hi' ? 'शास्त्रीय फल व प्रभाव:' : 'શાસ્ત્રીય ફળ અને પ્રભાવ:'}
                 </span>
-                <p className="leading-relaxed text-xs sm:text-sm">
+                <p className="leading-relaxed text-xs sm:text-sm font-medium text-stone-950 dark:text-stone-200">
                   {lang === 'hi' ? activeHouseMeta.significanceHi : activeHouseMeta.significanceGu}
                 </p>
               </div>
@@ -537,7 +537,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
 
             {/* Quick 12 Houses Navigation row */}
             <div className="mt-4 pt-3 border-t border-amber-500/20">
-              <span className="text-[10px] text-stone-500 block mb-1.5">
+              <span className="text-xs text-stone-900 dark:text-stone-300 font-bold block mb-1.5">
                 {lang === 'hi' ? 'अन्य भाव चुनें (1 से 12):' : 'અન્ય ભાવ પસંદ કરો:'}
               </span>
               <div className="grid grid-cols-6 gap-1">
@@ -551,7 +551,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                         ? 'bg-[#FF671F] text-white shadow-xs'
                         : isDark
                         ? 'bg-slate-800 text-stone-300 hover:bg-slate-700'
-                        : 'bg-stone-100 text-stone-700 hover:bg-[#FFF5F0]'
+                        : 'bg-[#FFF5F0] text-stone-950 border border-[#FF671F]/30 hover:bg-[#FFEAE0]'
                     }`}
                   >
                     H{h}

@@ -40,6 +40,8 @@ export interface KundliInput {
   minute: number;
   cityName: string;
   state: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface PlanetPosition {

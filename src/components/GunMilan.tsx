@@ -7,10 +7,9 @@ import confetti from 'canvas-confetti';
 
 interface GunMilanProps {
   lang: 'hi' | 'gu';
-  onOpenBooking: () => void;
 }
 
-export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
+export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
   const [boyName, setBoyName] = useState('वर (अमित)');
   const [girlName, setGirlName] = useState('वधू (प्रिया)');
   const [boyRashiIdx, setBoyRashiIdx] = useState(0); // Mesha
@@ -47,7 +46,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
         <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
           {lang === 'hi' ? 'कुंडली मिलान (36 गुण विचार)' : 'કુંડળી મિલાન (36 ગુણ વિચાર)'}
         </h2>
-        <p className="text-sm text-[#665448]">
+        <p className="text-sm text-stone-900 font-medium">
           {lang === 'hi'
             ? 'वर एवं वधू के जन्म नक्षत्र व राशि अनुसार 36 गुणों, नाड़ी दोष, भकूट दोष एवं दांपत्य सुख का प्रामाणिक मिलान'
             : 'વર અને કન્યાના નક્ષત્ર અને રાશિ અનુસાર 36 ગુણો અને દાંપત્ય સુખનું શાસ્ત્રોક્ત મિલાન'}
@@ -71,7 +70,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#2C2420] mb-1">
+                <label className="block text-xs font-bold text-stone-950 mb-1">
                   {lang === 'hi' ? 'वर का नाम' : 'વરનું નામ'}
                 </label>
                 <input
@@ -86,7 +85,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-semibold text-[#2C2420] mb-1">
+                  <label className="block text-xs font-bold text-stone-950 mb-1">
                     {lang === 'hi' ? 'वर की राशि' : 'વરની રાશિ'}
                   </label>
                   <select
@@ -101,7 +100,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#2C2420] mb-1">
+                  <label className="block text-xs font-bold text-stone-950 mb-1">
                     {lang === 'hi' ? 'वर का नक्षत्र' : 'વરનું નક્ષત્ર'}
                   </label>
                   <select
@@ -125,7 +124,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#2C2420] mb-1">
+                <label className="block text-xs font-bold text-stone-950 mb-1">
                   {lang === 'hi' ? 'वधू का नाम' : 'કન્યાનું નામ'}
                 </label>
                 <input
@@ -140,7 +139,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-semibold text-[#2C2420] mb-1">
+                  <label className="block text-xs font-bold text-stone-950 mb-1">
                     {lang === 'hi' ? 'वधू की राशि' : 'કન્યાની રાશિ'}
                   </label>
                   <select
@@ -155,7 +154,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#2C2420] mb-1">
+                  <label className="block text-xs font-bold text-stone-950 mb-1">
                     {lang === 'hi' ? 'वधू का नक्षत्र' : 'કન્યાનું નક્ષત્ર'}
                   </label>
                   <select
@@ -188,13 +187,13 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
             <div className="bg-white rounded-3xl p-6 border border-[#FF671F]/25 shadow-xl shadow-[#FF671F]/5">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-[#FF671F]/15">
                 <div className="text-center sm:text-left">
-                  <span className="text-xs font-bold text-[#7A685B] uppercase tracking-wider block mb-1">
+                  <span className="text-xs font-bold text-stone-950 uppercase tracking-wider block mb-1">
                     {result.boyName} + {result.girlName}
                   </span>
                   <h3 className="font-yatra text-2xl sm:text-3xl text-[#CC5218]">
                     {result.verdict}
                   </h3>
-                  <p className="text-xs text-[#5C4A3E] mt-1">
+                  <p className="text-xs text-stone-900 font-semibold mt-1">
                     वर: {result.boyRashi} ({result.boyNakshatra.split(' ')[0]}) | वधू: {result.girlRashi} ({result.girlNakshatra.split(' ')[0]})
                   </p>
                 </div>
@@ -239,12 +238,12 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
                     <tbody>
                       {result.kootas.map((k) => (
                         <tr key={k.name} className="hover:bg-[#FFFDF9]">
-                          <td className="p-2 border border-[#FF671F]/20 font-semibold text-[#2C2420]">{k.name}</td>
-                          <td className="p-2 border border-[#FF671F]/20 text-[#665448]">{k.description}</td>
+                          <td className="p-2 border border-[#FF671F]/20 font-bold text-stone-950">{k.name}</td>
+                          <td className="p-2 border border-[#FF671F]/20 font-medium text-stone-900">{k.description}</td>
                           <td className="p-2 border border-[#FF671F]/20 text-center font-bold text-[#CC5218]">
                             {k.obtained} / {k.maximum}
                           </td>
-                          <td className="p-2 border border-[#FF671F]/20 text-[#5C4A3E]">{k.impact}</td>
+                          <td className="p-2 border border-[#FF671F]/20 font-medium text-stone-950">{k.impact}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -257,7 +256,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
                 <span className="font-bold text-xs sm:text-sm text-[#CC5218] block">
                   🚩 ज्योतिषीय परामर्श एवं समाधान
                 </span>
-                <ul className="space-y-1.5 text-xs sm:text-sm text-[#2C2420]">
+                <ul className="space-y-1.5 text-xs sm:text-sm text-stone-950 font-medium">
                   {result.recommendations.map((rec, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />
@@ -269,14 +268,13 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, onOpenBooking }) => {
 
               {/* CTA row */}
               <div className="mt-6 flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  onClick={onOpenBooking}
+                <a
+                  href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
                   className="flex-1 bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2"
                 >
-                  <Sparkles className="w-4 h-4" />
-                  <span>{lang === 'hi' ? 'विवाह परामर्श बुक करें' : 'લગ્ન પરામર્શ બુક કરો'}</span>
-                </button>
+                  <Phone className="w-4 h-4" />
+                  <span>{lang === 'hi' ? 'सीधे फोन पर परामर्श करें' : 'ફોન પર પરામર્શ કરો'}</span>
+                </a>
 
                 <a
                   href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`प्रणाम पंडित जी! मैंने ${result.boyName} और ${result.girlName} का गुण मिलान किया है (${result.totalGunas}/36 गुण)। कृपया व्यक्तिगत विवाह परामर्श प्रदान करें।`)}`}

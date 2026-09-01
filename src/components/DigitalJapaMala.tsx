@@ -5,7 +5,6 @@ import confetti from 'canvas-confetti';
 interface DigitalJapaMalaProps {
   lang: 'hi' | 'gu';
   isDark?: boolean;
-  onOpenBooking: (service?: string) => void;
 }
 
 interface JapaMantra {
@@ -75,7 +74,7 @@ const MANTRAS: JapaMantra[] = [
   }
 ];
 
-export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark = false, onOpenBooking }) => {
+export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark = false }) => {
   const [selectedMantra, setSelectedMantra] = useState<JapaMantra>(MANTRAS[0]);
   const [count, setCount] = useState<number>(0);
   const [completedMalas, setCompletedMalas] = useState<number>(0);
@@ -169,7 +168,7 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
         <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
           {lang === 'hi' ? 'डिजिटल १०८ जप माला' : 'ડિજિટલ ૧૦૮ જપ માળા'}
         </h2>
-        <p className="text-sm text-[#665448]">
+        <p className="text-sm text-stone-900 font-medium">
           {lang === 'hi'
             ? 'ग्रह शांति, मानसिक एकाग्रता एवं आत्म-कल्याण हेतु 108 मंत्रों का नित्य जाप करें'
             : 'ગ્રહ શાંતિ અને માનસિક એકાગ્રતા માટે 108 મંત્રોનો નિત્ય જાપ કરો'}
@@ -181,7 +180,7 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
         className={`rounded-3xl p-6 sm:p-10 border shadow-2xl transition-all duration-300 relative overflow-hidden ${
           isDark 
             ? 'bg-slate-900/95 border-amber-500/30 text-amber-100 shadow-amber-950/40' 
-            : 'bg-white border-[#FF671F]/25 text-[#2C2420] shadow-[#FF671F]/10'
+            : 'bg-white border-[#FF671F]/25 text-stone-950 shadow-[#FF671F]/10'
         }`}
       >
         {/* Mantra Selector */}
@@ -203,7 +202,7 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
                     ? 'bg-[#FF671F] text-white shadow-md scale-105 border border-amber-600'
                     : isDark
                     ? 'bg-slate-800 text-stone-300 border border-slate-700 hover:bg-slate-700'
-                    : 'bg-[#FFF5F0] text-[#CC5218] border border-[#FF671F]/30 hover:bg-[#FFEAE0]'
+                    : 'bg-[#FFF5F0] text-stone-950 border border-[#FF671F]/30 hover:bg-[#FFEAE0]'
                 }`}
               >
                 {lang === 'hi' ? m.nameHi : m.nameGu}
@@ -305,10 +304,10 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
             <button
               type="button"
               onClick={handleReset}
-              className={`p-2.5 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+              className={`p-2.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-colors ${
                 isDark 
                   ? 'bg-slate-800 border-slate-700 text-stone-300 hover:bg-slate-700' 
-                  : 'bg-white border-stone-300 text-stone-700 hover:bg-stone-50'
+                  : 'bg-white border-stone-400 text-stone-950 hover:bg-stone-50'
               }`}
               title="काउंट रीसेट करें"
             >

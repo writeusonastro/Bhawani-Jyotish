@@ -6,11 +6,10 @@ import { ASTROLOGER_INFO } from '../data/astrologyData';
 interface DailyRashifalProps {
   lang: 'hi' | 'gu';
   onConsult?: (rashiName: string) => void;
-  onOpenBooking?: (serviceName?: string) => void;
   onSelectRashi?: (rashiId: number) => void;
 }
 
-export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, onOpenBooking, onSelectRashi }) => {
+export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, onSelectRashi }) => {
   const [selectedRashiId, setSelectedRashiId] = useState<number>(1);
   const [activeSubTab, setActiveSubTab] = useState<'all' | 'career' | 'love' | 'health'>('all');
 
@@ -33,7 +32,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
         <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
           {lang === 'hi' ? 'आज का राशिफल (12 राशियां)' : 'આજનું રાશિફળ (12 રાશિઓ)'}
         </h2>
-        <p className="text-sm text-[#665448]">
+        <p className="text-sm text-stone-900 font-medium">
           {lang === 'hi'
             ? 'अपनी राशि चुनें और जानें आज का भाग्य, व्यापार, प्रेम, स्वास्थ्य व अचूक वैदिक उपाय'
             : 'તમારી રાશિ પસંદ કરો અને જાણો આજનું ભાગ્ય, વેપાર, પ્રેમ, આરોગ્ય અને અચૂક વૈદિક ઉપાય'}
@@ -52,14 +51,14 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
               className={`p-3 rounded-2xl border transition-all text-center flex flex-col items-center justify-center relative ${
                 isSelected
                   ? 'bg-gradient-to-b from-[#FF671F] to-[#CC5218] text-white border-[#CC5218] shadow-lg shadow-[#FF671F]/30 scale-105 z-10'
-                  : 'bg-white hover:bg-[#FFF5F0] text-[#2C2420] border-[#FF671F]/20 hover:border-[#FF671F]/50 shadow-sm'
+                  : 'bg-white hover:bg-[#FFF5F0] text-stone-950 border-[#FF671F]/20 hover:border-[#FF671F]/50 shadow-sm'
               }`}
             >
               <span className="text-2xl sm:text-3xl mb-1">{rashi.symbol}</span>
               <span className="font-bold text-sm sm:text-base">
                 {lang === 'hi' ? rashi.nameHi : rashi.nameGu}
               </span>
-              <span className={`text-[10px] ${isSelected ? 'text-amber-100' : 'text-[#8C7A6D]'}`}>
+              <span className={`text-[10px] ${isSelected ? 'text-amber-100' : 'text-stone-900 font-bold'}`}>
                 {rashi.nameEn}
               </span>
             </button>
@@ -84,8 +83,8 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
                   {selectedRashi.nameEn}
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-[#665448] mt-1">
-                स्वामी: <span className="font-semibold text-[#2C2420]">{selectedRashi.lord}</span> | तत्व: <span className="font-semibold text-[#2C2420]">{selectedRashi.element}</span>
+              <p className="text-xs sm:text-sm text-stone-900 font-medium mt-1">
+                स्वामी: <span className="font-bold text-stone-950">{selectedRashi.lord}</span> | तत्व: <span className="font-bold text-stone-950">{selectedRashi.element}</span>
               </p>
             </div>
           </div>
@@ -95,28 +94,28 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
             <button
               type="button"
               onClick={() => setActiveSubTab('all')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'all' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-[#665448] hover:text-[#CC5218]'}`}
+              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'all' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-stone-900 font-semibold hover:text-[#CC5218]'}`}
             >
               {lang === 'hi' ? 'संपूर्ण फलादेश' : 'સંપૂર્ણ ફલાદેશ'}
             </button>
             <button
               type="button"
               onClick={() => setActiveSubTab('career')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'career' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-[#665448] hover:text-[#CC5218]'}`}
+              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'career' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-stone-900 font-semibold hover:text-[#CC5218]'}`}
             >
               {lang === 'hi' ? 'करियर' : 'કારકિર્દી'}
             </button>
             <button
               type="button"
               onClick={() => setActiveSubTab('love')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'love' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-[#665448] hover:text-[#CC5218]'}`}
+              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'love' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-stone-900 font-semibold hover:text-[#CC5218]'}`}
             >
               {lang === 'hi' ? 'प्रेम / विवाह' : 'પ્રેમ / લગ્ન'}
             </button>
             <button
               type="button"
               onClick={() => setActiveSubTab('health')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'health' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-[#665448] hover:text-[#CC5218]'}`}
+              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'health' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-stone-900 font-semibold hover:text-[#CC5218]'}`}
             >
               {lang === 'hi' ? 'स्वास्थ्य' : 'આરોગ્ય'}
             </button>
@@ -133,7 +132,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
                   <Sparkles className="w-4 h-4 text-[#FF671F]" />
                   <span>{lang === 'hi' ? 'आज का सामान्य फलादेश' : 'આજનું સામાન્ય ફલાદેશ'}</span>
                 </div>
-                <p className="text-sm sm:text-base text-[#2C2420] leading-relaxed">
+                <p className="text-sm sm:text-base text-stone-950 font-medium leading-relaxed">
                   {selectedRashi.predictionToday}
                 </p>
               </div>
@@ -145,7 +144,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
                   <Briefcase className="w-4 h-4 text-amber-700" />
                   <span>{lang === 'hi' ? 'करियर, नौकरी एवं व्यापार' : 'કારકિર્દી, નોકરી અને વેપાર'}</span>
                 </div>
-                <p className="text-sm text-[#4A3B2C] leading-relaxed">
+                <p className="text-sm text-stone-950 font-medium leading-relaxed">
                   {selectedRashi.careerToday}
                 </p>
               </div>
@@ -157,7 +156,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
                   <Heart className="w-4 h-4 text-rose-600" />
                   <span>{lang === 'hi' ? 'प्रेम, दांपत्य एवं पारिवारिक जीवन' : 'પ્રેમ, દાંપત્ય અને પારિવારિક જીવન'}</span>
                 </div>
-                <p className="text-sm text-[#4A282C] leading-relaxed">
+                <p className="text-sm text-stone-950 font-medium leading-relaxed">
                   {selectedRashi.loveToday}
                 </p>
               </div>
@@ -169,7 +168,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
                   <Activity className="w-4 h-4 text-emerald-600" />
                   <span>{lang === 'hi' ? 'स्वास्थ्य एवं दैनिक ऊर्जा' : 'આરોગ્ય અને દૈનિક ઊર્જા'}</span>
                 </div>
-                <p className="text-sm text-[#1B3F2E] leading-relaxed">
+                <p className="text-sm text-stone-950 font-medium leading-relaxed">
                   {selectedRashi.healthToday}
                 </p>
               </div>
@@ -181,7 +180,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
                 <Gift className="w-4 h-4 text-[#FF671F]" />
                 <span>{lang === 'hi' ? 'आज का अचूक वैदिक उपाय' : 'આજનો અચૂક વૈદિક ઉપાય'}</span>
               </div>
-              <p className="text-sm font-medium text-[#2C2420]">
+              <p className="text-sm font-semibold text-stone-950">
                 🚩 {selectedRashi.upayToday}
               </p>
             </div>
@@ -196,7 +195,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
               </h4>
 
               <div>
-                <span className="text-xs text-[#7A685B] block">{lang === 'hi' ? 'शुभ अंक (Lucky Numbers)' : 'શુભ અંક'}</span>
+                <span className="text-xs text-stone-950 font-bold block">{lang === 'hi' ? 'शुभ अंक (Lucky Numbers)' : 'શુભ અંક'}</span>
                 <div className="flex gap-2 mt-1">
                   {selectedRashi.luckyNumber.map((num) => (
                     <span key={num} className="w-8 h-8 rounded-lg bg-[#FF671F] text-white flex items-center justify-center font-bold text-sm shadow-sm">
@@ -207,14 +206,14 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
               </div>
 
               <div>
-                <span className="text-xs text-[#7A685B] block">{lang === 'hi' ? 'शुभ रंग (Lucky Color)' : 'શુભ રંગ'}</span>
-                <span className="font-bold text-sm text-[#2C2420] mt-0.5 block">
+                <span className="text-xs text-stone-950 font-bold block">{lang === 'hi' ? 'शुभ रंग (Lucky Color)' : 'શુભ રંગ'}</span>
+                <span className="font-bold text-sm text-stone-950 mt-0.5 block">
                   {selectedRashi.luckyColor}
                 </span>
               </div>
 
               <div>
-                <span className="text-xs text-[#7A685B] block">{lang === 'hi' ? 'भाग्यशाली रत्न (Lucky Gemstone)' : 'શુભ રત્ન'}</span>
+                <span className="text-xs text-stone-950 font-bold block">{lang === 'hi' ? 'भाग्यशाली रत्न (Lucky Gemstone)' : 'શુભ રત્ન'}</span>
                 <span className="font-bold text-sm text-[#CC5218] mt-0.5 block">
                   💎 {selectedRashi.luckyStone}
                 </span>
@@ -233,18 +232,15 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
               </p>
 
               <div className="flex flex-col gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (onConsult) onConsult(selectedRashi.nameHi);
-                    else if (onOpenBooking) onOpenBooking(`${selectedRashi.nameHi} राशि परामर्श`);
-                  }}
+                <a
+                  href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`प्रणाम पंडित जी! मुझे ${selectedRashi.nameHi} राशि के विषय में व्यक्तिगत ज्योतिषीय सलाह चाहिए।`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full bg-white hover:bg-amber-50 text-[#CC5218] font-bold py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-sm flex items-center justify-center gap-1.5"
                 >
-                  <Sparkles className="w-4 h-4 text-[#FF671F]" />
-                  <span>{lang === 'hi' ? 'इस राशि पर प्रश्न पूछें' : 'આ રાશિ પર પ્રશ્ન પૂછો'}</span>
-                </button>
-
+                  <MessageCircle className="w-4 h-4 text-emerald-600" />
+                  <span>{lang === 'hi' ? 'व्हाट्सएप पर प्रश्न पूछें' : 'વોટ્સએપ પર પૂછો'}</span>
+                </a>
 
                 <a
                   href={`tel:${ASTROLOGER_INFO.phonePrimary}`}

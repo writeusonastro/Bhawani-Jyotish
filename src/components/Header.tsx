@@ -9,7 +9,6 @@ interface HeaderProps {
   setLang: (l: 'hi' | 'gu') => void;
   isDark: boolean;
   setIsDark: (d: boolean) => void;
-  onOpenBooking: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -19,7 +18,6 @@ export const Header: React.FC<HeaderProps> = ({
   setLang,
   isDark,
   setIsDark,
-  onOpenBooking,
 }) => {
   const navItems = [
     { id: 'rashifal', labelHi: 'दैनिक राशिफल', labelGu: 'દૈનિક રાશિફળ' },
@@ -122,7 +120,7 @@ export const Header: React.FC<HeaderProps> = ({
                 मेहसाणा (गुजरात)
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-[#665448] dark:text-stone-400 font-medium">
+            <p className="text-xs sm:text-sm text-stone-900 dark:text-stone-300 font-semibold">
               {lang === 'hi' ? 'सटीक ज्योतिषीय समाधान एवं वैदिक मार्गदर्शन' : 'સચોટ જ્યોતિષીય સમાધાન અને વૈદિક માર્ગદર્શન'}
             </p>
           </div>
@@ -130,24 +128,11 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2.5 w-full md:w-auto justify-center md:justify-end">
-          <button
-            type="button"
-            onClick={onOpenBooking}
-            className={`flex items-center gap-1.5 font-bold px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-sm ${
-              isDark 
-                ? 'bg-amber-950/80 hover:bg-amber-900 border border-amber-500/40 text-amber-300' 
-                : 'bg-[#FFF5F0] hover:bg-[#FFEAE0] text-[#CC5218] border border-[#FF671F]/40'
-            }`}
-          >
-            <Sparkles className="w-4 h-4 text-[#FF671F]" />
-            <span>{lang === 'hi' ? 'परामर्श बुक करें' : 'પરામર્શ બુક કરો'}</span>
-          </button>
-
           <a
             href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('प्रणाम पंडित जी! मुझे भवानी ज्योतिष केंद्र, मेहसाणा से ज्योतिषीय परामर्श प्राप्त करना है।')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-500/20"
+            className="flex items-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-500/20"
           >
             <MessageCircle className="w-4 h-4" />
             <span>व्हाट्सएप</span>
@@ -171,12 +156,12 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('home')}
-            className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${
+            className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-colors ${
               activeTab === 'home'
                 ? 'bg-[#FF671F] text-white shadow-sm'
                 : isDark 
                 ? 'text-stone-300 hover:text-amber-300 hover:bg-slate-800' 
-                : 'text-[#5C4A3E] hover:text-[#CC5218] hover:bg-[#FFF5F0]'
+                : 'text-stone-950 hover:text-[#CC5218] hover:bg-[#FFF5F0]'
             }`}
           >
             {lang === 'hi' ? '🏠 मुख्य पृष्ठ' : '🏠 મુખપૃષ્ઠ'}
@@ -187,12 +172,12 @@ export const Header: React.FC<HeaderProps> = ({
               key={item.id}
               type="button"
               onClick={() => setActiveTab(item.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-colors ${
                 activeTab === item.id
                   ? 'bg-[#FF671F] text-white shadow-sm'
                   : isDark
                   ? 'text-stone-300 hover:text-amber-300 hover:bg-slate-800'
-                  : 'text-[#5C4A3E] hover:text-[#CC5218] hover:bg-[#FFF5F0]'
+                  : 'text-stone-950 hover:text-[#CC5218] hover:bg-[#FFF5F0]'
               }`}
             >
               {lang === 'hi' ? item.labelHi : item.labelGu}

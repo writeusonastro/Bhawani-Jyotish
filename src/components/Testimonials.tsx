@@ -17,7 +17,7 @@ export const Testimonials: React.FC<TestimonialProps> = ({ lang }) => {
         <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
           {lang === 'hi' ? 'संतुष्ट जातकों की सच्ची प्रतिक्रियाएं' : 'સંતુષ્ટ જાતકોનો પ્રતિસાદ'}
         </h2>
-        <p className="text-sm text-[#665448]">
+        <p className="text-sm text-stone-900 font-medium">
           {lang === 'hi'
             ? 'मेहसाणा, विसनगर, अहमदाबाद, ऊंझा और संपूर्ण गुजरात से पधारे जातकों के अनुभव'
             : 'મહેસાણા, વિસનગર, અમદાવાદ, ઊંઝા અને ગુજરાતના શ્રદ્ધાળુઓના અનુભવ'}
@@ -40,21 +40,21 @@ export const Testimonials: React.FC<TestimonialProps> = ({ lang }) => {
                 <Quote className="w-8 h-8 text-[#FF671F]/20" />
               </div>
 
-              <p className="text-xs sm:text-sm text-[#2C2420] italic leading-relaxed mb-4">
+              <p className="text-xs sm:text-sm text-stone-950 italic leading-relaxed mb-4 font-medium">
                 "{item.comment}"
               </p>
             </div>
 
             <div className="pt-4 border-t border-[#FF671F]/15">
               <h4 className="font-bold text-sm text-[#CC5218]">{item.name}</h4>
-              <div className="flex items-center justify-between text-[11px] text-[#7A685B] mt-0.5">
+              <div className="flex items-center justify-between text-[11px] text-stone-950 mt-0.5 font-semibold">
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3 h-3 text-[#FF671F]" />
                   {item.city}
                 </span>
                 <span>{item.date}</span>
               </div>
-              <span className="inline-block mt-2 text-[10px] bg-[#FFF5F0] text-[#CC5218] px-2 py-0.5 rounded-md font-medium">
+              <span className="inline-block mt-2 text-[10px] bg-[#FFF5F0] text-[#CC5218] px-2 py-0.5 rounded-md font-bold">
                 {item.service}
               </span>
             </div>
