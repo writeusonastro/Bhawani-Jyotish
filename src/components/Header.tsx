@@ -1,14 +1,13 @@
 import React from 'react';
 import { Phone, MessageCircle, Clock, MapPin, Sparkles, Moon, Sun, Gem, BookOpen, Flame } from 'lucide-react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
+import { AnimatedLogo } from './AnimatedLogo';
 
 interface HeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   lang: 'hi' | 'gu';
   setLang: (l: 'hi' | 'gu') => void;
-  isDark: boolean;
-  setIsDark: (d: boolean) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -16,8 +15,6 @@ export const Header: React.FC<HeaderProps> = ({
   setActiveTab,
   lang,
   setLang,
-  isDark,
-  setIsDark,
 }) => {
   const navItems = [
     { id: 'rashifal', labelHi: 'दैनिक राशिफल', labelGu: 'દૈનિક રાશિફળ' },
@@ -34,11 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className={`sticky top-0 z-50 backdrop-blur-md shadow-md border-b transition-colors duration-300 ${
-      isDark 
-        ? 'bg-slate-950/95 border-amber-500/30 text-amber-50 shadow-slate-950/80' 
-        : 'bg-white/95 border-[#FF671F]/20 text-[#2C2420]'
-    }`}>
+    <header className="sticky top-0 z-50 backdrop-blur-md shadow-md border-b bg-white/95 border-[#FF671F]/20 text-[#2C2420]">
       {/* Top sacred emergency & contact strip */}
       <div className="bg-gradient-to-r from-[#CC5218] via-[#FF671F] to-[#CC5218] text-white text-xs sm:text-sm py-1.5 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
@@ -82,45 +75,28 @@ export const Header: React.FC<HeaderProps> = ({
                 ગુજરાતી
               </button>
             </div>
-
-            {/* Dark/Light Cosmic Mode Toggle */}
-            <button
-              type="button"
-              onClick={() => setIsDark(!isDark)}
-              className="p-1 rounded-lg bg-black/25 hover:bg-black/40 text-amber-200 transition-all flex items-center gap-1 px-2 text-xs font-semibold"
-              title={isDark ? 'लाइट मोड चालू करें' : 'दिव्य ब्रह्मांडीय डार्क मोड'}
-            >
-              {isDark ? <Sun className="w-3.5 h-3.5 text-yellow-300" /> : <Moon className="w-3.5 h-3.5 text-amber-200" />}
-              <span className="hidden sm:inline">{isDark ? 'प्रकाश' : 'डार्क'}</span>
-            </button>
           </div>
         </div>
       </div>
 
       {/* Main Brand & Navigation bar */}
       <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4 flex flex-col md:flex-row justify-between items-center gap-3">
-        {/* Brand identity matching user specification */}
+        {/* Brand identity */}
         <div 
           onClick={() => setActiveTab('home')}
           className="cursor-pointer flex items-center gap-3 group"
         >
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FF671F] to-[#CC5218] flex items-center justify-center text-white shadow-lg shadow-[#FF671F]/30 group-hover:scale-105 transition-transform border border-amber-300">
-            <span className="text-2xl font-bold font-yatra">ॐ</span>
-          </div>
+          <AnimatedLogo size="md" lang={lang} />
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="font-yatra text-2xl sm:text-3xl text-[#CC5218] dark:text-amber-400 tracking-wide">
+              <h1 className="font-yatra text-2xl sm:text-3xl text-[#CC5218] tracking-wide">
                 भवानी ज्योतिष
               </h1>
-              <span className={`text-xs px-2 py-0.5 rounded-full font-semibold border ${
-                isDark 
-                  ? 'bg-amber-950/80 border-amber-500/40 text-amber-300' 
-                  : 'bg-[#FFF5F0] border-[#FF671F]/30 text-[#CC5218]'
-              }`}>
+              <span className="text-xs px-2 py-0.5 rounded-full font-semibold border bg-[#FFF5F0] border-[#FF671F]/30 text-[#CC5218]">
                 मेहसाणा (गुजरात)
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-stone-900 dark:text-stone-300 font-semibold">
+            <p className="text-xs sm:text-sm text-stone-900 font-semibold">
               {lang === 'hi' ? 'सटीक ज्योतिषीय समाधान एवं वैदिक मार्गदर्शन' : 'સચોટ જ્યોતિષીય સમાધાન અને વૈદિક માર્ગદર્શન'}
             </p>
           </div>
@@ -149,9 +125,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Navigation Links */}
-      <div className={`border-t overflow-x-auto no-scrollbar ${
-        isDark ? 'bg-slate-900/90 border-slate-800' : 'bg-[#FFFDF9] border-[#FF671F]/15'
-      }`}>
+      <div className="border-t overflow-x-auto no-scrollbar bg-[#FFFDF9] border-[#FF671F]/15">
         <div className="max-w-7xl mx-auto px-4 flex items-center gap-1 py-1 sm:py-1.5 whitespace-nowrap min-w-max">
           <button
             type="button"
@@ -159,8 +133,6 @@ export const Header: React.FC<HeaderProps> = ({
             className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-colors ${
               activeTab === 'home'
                 ? 'bg-[#FF671F] text-white shadow-sm'
-                : isDark 
-                ? 'text-stone-300 hover:text-amber-300 hover:bg-slate-800' 
                 : 'text-stone-950 hover:text-[#CC5218] hover:bg-[#FFF5F0]'
             }`}
           >
@@ -175,8 +147,6 @@ export const Header: React.FC<HeaderProps> = ({
               className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-colors ${
                 activeTab === item.id
                   ? 'bg-[#FF671F] text-white shadow-sm'
-                  : isDark
-                  ? 'text-stone-300 hover:text-amber-300 hover:bg-slate-800'
                   : 'text-stone-950 hover:text-[#CC5218] hover:bg-[#FFF5F0]'
               }`}
             >

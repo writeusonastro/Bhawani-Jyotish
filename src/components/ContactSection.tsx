@@ -4,12 +4,12 @@ import { MapPin, Phone, MessageCircle, Clock, Mail, Navigation, Calendar } from 
 
 interface ContactSectionProps {
   lang: 'hi' | 'gu';
-  isDark: boolean;
+  isDark?: boolean;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
   lang,
-  isDark,
+  isDark = false,
 }) => {
   return (
     <section id="contact-section" className="py-8 sm:py-12 px-4 max-w-6xl mx-auto">

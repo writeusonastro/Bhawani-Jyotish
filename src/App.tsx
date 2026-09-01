@@ -22,19 +22,12 @@ import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, Chec
 export function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
   const [lang, setLang] = useState<'hi' | 'gu'>('hi');
-  const [isDark, setIsDark] = useState<boolean>(() => {
-    return localStorage.getItem('astro_dark_theme') === 'true';
-  });
   const [askAiQuery, setAskAiQuery] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    localStorage.setItem('astro_dark_theme', isDark.toString());
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDark]);
+    localStorage.removeItem('astro_dark_theme');
+    document.documentElement.classList.remove('dark');
+  }, []);
 
   const handleAskAI = (contextQuery: string) => {
     setAskAiQuery(contextQuery);
@@ -43,19 +36,13 @@ export function App() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col font-mukta selection:bg-[#FF671F] selection:text-white transition-colors duration-300 ${
-      isDark 
-        ? 'bg-[#090d16] text-amber-50 dark' 
-        : 'bg-[#FFFDF9] text-stone-950'
-    }`}>
+    <div className="min-h-screen flex flex-col font-mukta selection:bg-[#FF671F] selection:text-white bg-[#FFFDF9] text-stone-950">
       {/* Top Header */}
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         lang={lang}
         setLang={setLang}
-        isDark={isDark}
-        setIsDark={setIsDark}
       />
 
       {/* Main Content Area */}
@@ -69,7 +56,7 @@ export function App() {
             />
 
             {/* Sacred Daily Vedic Wisdom & Vastu */}
-            <DailyWisdomVastu lang={lang} isDark={isDark} />
+            <DailyWisdomVastu lang={lang} />
 
             {/* Sacred Mantra Drone Audio Player */}
             <AudioChants />
@@ -95,11 +82,7 @@ export function App() {
 
             {/* Astrologer Biography & Authenticity */}
             <div className="py-12 px-4 max-w-7xl mx-auto">
-              <div className={`rounded-3xl p-6 sm:p-10 border shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center ${
-                isDark 
-                  ? 'bg-slate-900/90 border-amber-500/30 text-amber-100 shadow-amber-950/40' 
-                  : 'bg-white border-[#FF671F]/25 shadow-[#FF671F]/5 text-stone-950'
-              }`}>
+              <div className="rounded-3xl p-6 sm:p-10 border shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white border-[#FF671F]/25 shadow-[#FF671F]/5 text-stone-950">
                 <div className="lg:col-span-4 text-center">
                   <div className="w-44 h-44 sm:w-52 sm:h-52 mx-auto rounded-full bg-gradient-to-br from-[#FF671F] to-[#CC5218] p-1.5 shadow-xl border-4 border-amber-300 relative">
                     <div className="w-full h-full rounded-full bg-[#FFF5F0] flex flex-col items-center justify-center text-[#CC5218] overflow-hidden">
@@ -111,38 +94,34 @@ export function App() {
                   </div>
 
                   <div className="mt-4">
-                    <h3 className="font-yatra text-xl text-[#CC5218] dark:text-amber-300">{ASTROLOGER_INFO.name}</h3>
-                    <p className="text-xs text-stone-950 font-semibold dark:text-stone-400">{ASTROLOGER_INFO.experience} | {ASTROLOGER_INFO.location}</p>
+                    <h3 className="font-yatra text-xl text-[#CC5218]">{ASTROLOGER_INFO.name}</h3>
+                    <p className="text-xs text-stone-950 font-semibold">{ASTROLOGER_INFO.experience} | {ASTROLOGER_INFO.location}</p>
                   </div>
                 </div>
 
                 <div className="lg:col-span-8 space-y-4">
-                  <div className="inline-flex items-center gap-2 bg-[#FFF5F0] dark:bg-amber-950 text-[#CC5218] dark:text-amber-300 px-3 py-1 rounded-full text-xs font-bold border border-[#FF671F]/30">
+                  <div className="inline-flex items-center gap-2 bg-[#FFF5F0] text-[#CC5218] px-3 py-1 rounded-full text-xs font-bold border border-[#FF671F]/30">
                     <Award className="w-4 h-4 text-[#FF671F]" />
                     <span>{lang === 'hi' ? 'उत्तर गुजरात के सुप्रसिद्ध ज्योतिषाचार्य' : 'ઉત્તર ગુજરાતના સુપ્રસિદ્ધ જ્યોતિષાચાર્ય'}</span>
                   </div>
 
-                  <h3 className="font-yatra text-2xl sm:text-3xl text-stone-950 dark:text-amber-100">
+                  <h3 className="font-yatra text-2xl sm:text-3xl text-stone-950">
                     {lang === 'hi'
                       ? 'परंपरागत वैदिक ज्ञान एवं प्रामाणिक ज्योतिषीय साधना'
                       : 'પરંપરાગત વૈદિક જ્ઞાન અને જ્યોતિષીય સાધના'}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-stone-950 font-medium dark:text-stone-300 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-stone-950 font-medium leading-relaxed">
                     {lang === 'hi' ? ASTROLOGER_INFO.aboutHi : ASTROLOGER_INFO.aboutGu}
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                    <div className={`flex items-center gap-2 text-xs font-bold p-3 rounded-2xl border ${
-                      isDark ? 'bg-slate-950 border-slate-800 text-stone-200' : 'bg-[#FFFDF9] border-[#FF671F]/20 text-stone-950'
-                    }`}>
+                    <div className="flex items-center gap-2 text-xs font-bold p-3 rounded-2xl border bg-[#FFFDF9] border-[#FF671F]/20 text-stone-950">
                       <CheckCircle2 className="w-4 h-4 text-[#FF671F] shrink-0" />
                       <span>गोल्ड मेडलिस्ट - महर्षि पाराशर ज्योतिष परिषद</span>
                     </div>
 
-                    <div className={`flex items-center gap-2 text-xs font-bold p-3 rounded-2xl border ${
-                      isDark ? 'bg-slate-950 border-slate-800 text-stone-200' : 'bg-[#FFFDF9] border-[#FF671F]/20 text-stone-950'
-                    }`}>
+                    <div className="flex items-center gap-2 text-xs font-bold p-3 rounded-2xl border bg-[#FFFDF9] border-[#FF671F]/20 text-stone-950">
                       <CheckCircle2 className="w-4 h-4 text-[#FF671F] shrink-0" />
                       <span>50,000+ जातकों का सफल व सटीक मार्गदर्शन</span>
                     </div>
@@ -174,7 +153,6 @@ export function App() {
             {/* Contact & Address Section directly on Home page */}
             <ContactSection
               lang={lang}
-              isDark={isDark}
             />
 
             {/* Testimonials */}
@@ -183,7 +161,7 @@ export function App() {
         )}
 
         {activeTab === 'kundli' && (
-          <KundliGenerator lang={lang} onAskAI={handleAskAI} isDark={isDark} />
+          <KundliGenerator lang={lang} onAskAI={handleAskAI} />
         )}
 
         {activeTab === 'gun-milan' && (
@@ -191,16 +169,16 @@ export function App() {
         )}
 
         {activeTab === 'gemstones' && (
-          <GemstoneRudrakshaFinder lang={lang} isDark={isDark} />
+          <GemstoneRudrakshaFinder lang={lang} />
         )}
 
         {activeTab === 'japa-mala' && (
-          <DigitalJapaMala lang={lang} isDark={isDark} />
+          <DigitalJapaMala lang={lang} />
         )}
 
         {activeTab === 'daily-wisdom' && (
           <div className="py-8">
-            <DailyWisdomVastu lang={lang} isDark={isDark} />
+            <DailyWisdomVastu lang={lang} />
           </div>
         )}
 
@@ -236,7 +214,6 @@ export function App() {
         {activeTab === 'contact' && (
           <ContactSection
             lang={lang}
-            isDark={isDark}
           />
         )}
       </main>

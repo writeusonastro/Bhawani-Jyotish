@@ -1,6 +1,7 @@
 import React from 'react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
 import { Phone, MessageCircle, Mail, MapPin, Clock, ShieldCheck, Heart, Sparkles } from 'lucide-react';
+import { AnimatedLogo } from './AnimatedLogo';
 
 interface FooterProps {
   setActiveTab: (tab: string) => void;
@@ -16,9 +17,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
           {/* Brand & Acharya Details */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FF671F] to-[#CC5218] flex items-center justify-center text-white text-2xl font-bold font-yatra shadow-md border border-amber-300">
-                ॐ
-              </div>
+              <AnimatedLogo size="sm" isDark={true} lang={lang} />
               <div>
                 <h3 className="font-yatra text-2xl text-amber-400">
                   भवानी ज्योतिष

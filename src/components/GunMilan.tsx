@@ -7,9 +7,10 @@ import confetti from 'canvas-confetti';
 
 interface GunMilanProps {
   lang: 'hi' | 'gu';
+  isDark?: boolean;
 }
 
-export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
+export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
   const [boyName, setBoyName] = useState('वर (अमित)');
   const [girlName, setGirlName] = useState('वधू (प्रिया)');
   const [boyRashiIdx, setBoyRashiIdx] = useState(0); // Mesha
@@ -36,17 +37,21 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
   };
 
   return (
-    <div className="py-8 px-4 max-w-7xl mx-auto">
+    <div className={`py-8 px-4 max-w-7xl mx-auto transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
       {/* Section Title */}
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className="inline-flex items-center gap-2 bg-rose-50 text-rose-700 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border border-rose-200 mb-2">
-          <HeartHandshake className="w-4 h-4 text-rose-600" />
+        <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border mb-2 ${
+          isDark 
+            ? 'bg-rose-950/40 text-rose-300 border-rose-500/30' 
+            : 'bg-rose-50 text-rose-700 border-rose-200'
+        }`}>
+          <HeartHandshake className="w-4 h-4 text-rose-400" />
           <span>{lang === 'hi' ? 'वैदिक विवाह अष्टकूट मिलान' : 'વૈદિક લગ્ન અષ્ટકૂટ મિલાન'}</span>
         </div>
-        <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
+        <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
           {lang === 'hi' ? 'कुंडली मिलान (36 गुण विचार)' : 'કુંડળી મિલાન (36 ગુણ વિચાર)'}
         </h2>
-        <p className="text-sm text-stone-900 font-medium">
+        <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
           {lang === 'hi'
             ? 'वर एवं वधू के जन्म नक्षत्र व राशि अनुसार 36 गुणों, नाड़ी दोष, भकूट दोष एवं दांपत्य सुख का प्रामाणिक मिलान'
             : 'વર અને કન્યાના નક્ષત્ર અને રાશિ અનુસાર 36 ગુણો અને દાંપત્ય સુખનું શાસ્ત્રોક્ત મિલાન'}
@@ -56,21 +61,29 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Input Form (5 cols) */}
         <div className="lg:col-span-5">
-          <form onSubmit={handleCalculate} className="bg-white rounded-3xl p-6 border border-[#FF671F]/25 shadow-xl shadow-[#FF671F]/5 space-y-5">
-            <h3 className="font-yatra text-xl text-[#CC5218] pb-2 border-b border-[#FF671F]/15 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#FF671F]" />
+          <form onSubmit={handleCalculate} className={`rounded-3xl p-6 border shadow-xl space-y-5 transition-all ${
+            isDark 
+              ? 'bg-stone-900/90 border-amber-500/20 shadow-black/40' 
+              : 'bg-white border-[#FF671F]/25 shadow-[#FF671F]/5'
+          }`}>
+            <h3 className={`font-yatra text-xl pb-2 border-b flex items-center gap-2 ${
+              isDark ? 'text-amber-300 border-amber-500/20' : 'text-[#CC5218] border-[#FF671F]/15'
+            }`}>
+              <Sparkles className={`w-5 h-5 ${isDark ? 'text-amber-400' : 'text-[#FF671F]'}`} />
               <span>{lang === 'hi' ? 'वर-वधू विवरण दर्ज करें' : 'વર-કન્યા વિગત દાખલ કરો'}</span>
             </h3>
 
             {/* Boy Details */}
-            <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-200/60 space-y-3">
-              <div className="font-bold text-xs sm:text-sm text-blue-900 flex items-center gap-2">
+            <div className={`p-4 rounded-2xl border space-y-3 ${
+              isDark ? 'bg-blue-950/30 border-blue-500/30 text-stone-100' : 'bg-blue-50/50 border-blue-200/60'
+            }`}>
+              <div className={`font-bold text-xs sm:text-sm flex items-center gap-2 ${isDark ? 'text-blue-300' : 'text-blue-900'}`}>
                 <span>👦</span>
                 <span>{lang === 'hi' ? 'वर का विवरण (Groom Details)' : 'વરની વિગત'}</span>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-950 mb-1">
+                <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                   {lang === 'hi' ? 'वर का नाम' : 'વરનું નામ'}
                 </label>
                 <input
@@ -78,20 +91,28 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
                   required
                   value={boyName}
                   onChange={(e) => setBoyName(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-blue-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  className={`w-full px-3 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none focus:ring-2 ${
+                    isDark 
+                      ? 'bg-stone-800 border-stone-700 text-stone-100 focus:ring-blue-400' 
+                      : 'bg-white border-blue-200 text-stone-900 focus:ring-blue-500'
+                  }`}
                   placeholder="वर का नाम"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-bold text-stone-950 mb-1">
+                  <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                     {lang === 'hi' ? 'वर की राशि' : 'વરની રાશિ'}
                   </label>
                   <select
                     value={boyRashiIdx}
                     onChange={(e) => setBoyRashiIdx(parseInt(e.target.value))}
-                    className="w-full px-2.5 py-2 rounded-xl border border-blue-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                    className={`w-full px-2.5 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none focus:ring-2 ${
+                      isDark 
+                        ? 'bg-stone-800 border-stone-700 text-stone-100 focus:ring-blue-400' 
+                        : 'bg-white border-blue-200 text-stone-900 focus:ring-blue-500'
+                    }`}
                   >
                     {RASHIS.map((r, idx) => (
                       <option key={r.id} value={idx}>{r.symbol} {r.nameHi}</option>
@@ -100,13 +121,17 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-stone-950 mb-1">
+                  <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                     {lang === 'hi' ? 'वर का नक्षत्र' : 'વરનું નક્ષત્ર'}
                   </label>
                   <select
                     value={boyNakshatraIdx}
                     onChange={(e) => setBoyNakshatraIdx(parseInt(e.target.value))}
-                    className="w-full px-2.5 py-2 rounded-xl border border-blue-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                    className={`w-full px-2.5 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none focus:ring-2 ${
+                      isDark 
+                        ? 'bg-stone-800 border-stone-700 text-stone-100 focus:ring-blue-400' 
+                        : 'bg-white border-blue-200 text-stone-900 focus:ring-blue-500'
+                    }`}
                   >
                     {NAKSHATRAS.map((nak, idx) => (
                       <option key={nak} value={idx}>{nak.split(' ')[0]}</option>
@@ -117,14 +142,16 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
             </div>
 
             {/* Girl Details */}
-            <div className="p-4 rounded-2xl bg-rose-50/50 border border-rose-200/60 space-y-3">
-              <div className="font-bold text-xs sm:text-sm text-rose-900 flex items-center gap-2">
+            <div className={`p-4 rounded-2xl border space-y-3 ${
+              isDark ? 'bg-rose-950/30 border-rose-500/30 text-stone-100' : 'bg-rose-50/50 border-rose-200/60'
+            }`}>
+              <div className={`font-bold text-xs sm:text-sm flex items-center gap-2 ${isDark ? 'text-rose-300' : 'text-rose-900'}`}>
                 <span>👧</span>
                 <span>{lang === 'hi' ? 'वधू का विवरण (Bride Details)' : 'કન્યાની વિગત'}</span>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-950 mb-1">
+                <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                   {lang === 'hi' ? 'वधू का नाम' : 'કન્યાનું નામ'}
                 </label>
                 <input
@@ -132,20 +159,28 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
                   required
                   value={girlName}
                   onChange={(e) => setGirlName(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-rose-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 bg-white"
+                  className={`w-full px-3 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none focus:ring-2 ${
+                    isDark 
+                      ? 'bg-stone-800 border-stone-700 text-stone-100 focus:ring-rose-400' 
+                      : 'bg-white border-rose-200 text-stone-900 focus:ring-rose-500'
+                  }`}
                   placeholder="वधू का नाम"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-bold text-stone-950 mb-1">
+                  <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                     {lang === 'hi' ? 'वधू की राशि' : 'કન્યાની રાશિ'}
                   </label>
                   <select
                     value={girlRashiIdx}
                     onChange={(e) => setGirlRashiIdx(parseInt(e.target.value))}
-                    className="w-full px-2.5 py-2 rounded-xl border border-rose-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 bg-white"
+                    className={`w-full px-2.5 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none focus:ring-2 ${
+                      isDark 
+                        ? 'bg-stone-800 border-stone-700 text-stone-100 focus:ring-rose-400' 
+                        : 'bg-white border-rose-200 text-stone-900 focus:ring-rose-500'
+                    }`}
                   >
                     {RASHIS.map((r, idx) => (
                       <option key={r.id} value={idx}>{r.symbol} {r.nameHi}</option>
@@ -154,13 +189,17 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-stone-950 mb-1">
+                  <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                     {lang === 'hi' ? 'वधू का नक्षत्र' : 'કન્યાનું નક્ષત્ર'}
                   </label>
                   <select
                     value={girlNakshatraIdx}
                     onChange={(e) => setGirlNakshatraIdx(parseInt(e.target.value))}
-                    className="w-full px-2.5 py-2 rounded-xl border border-rose-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 bg-white"
+                    className={`w-full px-2.5 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none focus:ring-2 ${
+                      isDark 
+                        ? 'bg-stone-800 border-stone-700 text-stone-100 focus:ring-rose-400' 
+                        : 'bg-white border-rose-200 text-stone-900 focus:ring-rose-500'
+                    }`}
                   >
                     {NAKSHATRAS.map((nak, idx) => (
                       <option key={nak} value={idx}>{nak.split(' ')[0]}</option>
@@ -184,16 +223,28 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
         {result && (
           <div className="lg:col-span-7 space-y-6">
             {/* Top Score Banner */}
-            <div className="bg-white rounded-3xl p-6 border border-[#FF671F]/25 shadow-xl shadow-[#FF671F]/5">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-[#FF671F]/15">
+            <div className={`rounded-3xl p-6 border shadow-xl transition-all ${
+              isDark 
+                ? 'bg-stone-900/90 border-amber-500/20 shadow-black/40' 
+                : 'bg-white border-[#FF671F]/25 shadow-[#FF671F]/5'
+            }`}>
+              <div className={`flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b ${
+                isDark ? 'border-amber-500/20' : 'border-[#FF671F]/15'
+              }`}>
                 <div className="text-center sm:text-left">
-                  <span className="text-xs font-bold text-stone-950 uppercase tracking-wider block mb-1">
+                  <span className={`text-xs font-bold uppercase tracking-wider block mb-1 ${
+                    isDark ? 'text-amber-300' : 'text-stone-950'
+                  }`}>
                     {result.boyName} + {result.girlName}
                   </span>
-                  <h3 className="font-yatra text-2xl sm:text-3xl text-[#CC5218]">
+                  <h3 className={`font-yatra text-2xl sm:text-3xl ${
+                    isDark ? 'text-amber-300' : 'text-[#CC5218]'
+                  }`}>
                     {result.verdict}
                   </h3>
-                  <p className="text-xs text-stone-900 font-semibold mt-1">
+                  <p className={`text-xs font-semibold mt-1 ${
+                    isDark ? 'text-stone-300' : 'text-stone-900'
+                  }`}>
                     वर: {result.boyRashi} ({result.boyNakshatra.split(' ')[0]}) | वधू: {result.girlRashi} ({result.girlNakshatra.split(' ')[0]})
                   </p>
                 </div>
@@ -207,43 +258,57 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
 
               {/* Major Dosha Check Badges */}
               <div className="grid grid-cols-3 gap-2 py-4 text-center">
-                <div className={`p-2.5 rounded-xl border text-xs font-bold ${result.isNadiDosh ? 'bg-rose-50 text-rose-800 border-rose-200' : 'bg-emerald-50 text-emerald-800 border-emerald-200'}`}>
-                  {result.isNadiDosh ? '⚠️ नाड़ी दोष (उपाय अपेक्षित)' : '✅ नाड़ी अनुकूल'}
+                <div className={`p-2.5 rounded-xl border text-xs font-bold ${
+                  result.isNadiDosh 
+                    ? isDark ? 'bg-rose-950/60 text-rose-300 border-rose-500/40' : 'bg-rose-50 text-rose-800 border-rose-200' 
+                    : isDark ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40' : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                }`}>
+                  {result.isNadiDosh ? '⚠️ नाड़ी दोष' : '✅ नाड़ी अनुकूल'}
                 </div>
 
-                <div className={`p-2.5 rounded-xl border text-xs font-bold ${result.isBhakootDosh ? 'bg-amber-50 text-amber-800 border-amber-200' : 'bg-emerald-50 text-emerald-800 border-emerald-200'}`}>
-                  {result.isBhakootDosh ? '⚠️ भकूट दोष विचारणीय' : '✅ भकूट अनुकूल'}
+                <div className={`p-2.5 rounded-xl border text-xs font-bold ${
+                  result.isBhakootDosh 
+                    ? isDark ? 'bg-amber-950/60 text-amber-300 border-amber-500/40' : 'bg-amber-50 text-amber-800 border-amber-200' 
+                    : isDark ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40' : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                }`}>
+                  {result.isBhakootDosh ? '⚠️ भकूट विचारणीय' : '✅ भकूट अनुकूल'}
                 </div>
 
-                <div className={`p-2.5 rounded-xl border text-xs font-bold ${result.isGanaDosh ? 'bg-amber-50 text-amber-800 border-amber-200' : 'bg-emerald-50 text-emerald-800 border-emerald-200'}`}>
+                <div className={`p-2.5 rounded-xl border text-xs font-bold ${
+                  result.isGanaDosh 
+                    ? isDark ? 'bg-amber-950/60 text-amber-300 border-amber-500/40' : 'bg-amber-50 text-amber-800 border-amber-200' 
+                    : isDark ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40' : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                }`}>
                   {result.isGanaDosh ? '⚠️ गण दोष' : '✅ गण मैत्री उत्तम'}
                 </div>
               </div>
 
               {/* 8 Kootas Detailed Matrix */}
               <div className="mt-2">
-                <h4 className="font-bold text-sm text-[#CC5218] mb-2">
+                <h4 className={`font-bold text-sm mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
                   {lang === 'hi' ? 'अष्टकूट 36 गुण विस्तृत विभाजन' : 'અષ્ટકૂટ 36 ગુણ વિગત'}
                 </h4>
                 <div className="overflow-x-auto">
-                  <table className="w-full text-xs text-left border-collapse border border-[#FF671F]/20">
+                  <table className={`w-full text-xs text-left border-collapse border ${
+                    isDark ? 'border-stone-700' : 'border-[#FF671F]/20'
+                  }`}>
                     <thead>
-                      <tr className="bg-[#FFF5F0] text-[#CC5218]">
-                        <th className="p-2 border border-[#FF671F]/20">कूट (Koota)</th>
-                        <th className="p-2 border border-[#FF671F]/20">क्षेत्र (Meaning)</th>
-                        <th className="p-2 border border-[#FF671F]/20 text-center">प्राप्त गुण</th>
-                        <th className="p-2 border border-[#FF671F]/20">फलादेश प्रभाव</th>
+                      <tr className={isDark ? 'bg-stone-800 text-amber-300' : 'bg-[#FFF5F0] text-[#CC5218]'}>
+                        <th className={`p-2 border ${isDark ? 'border-stone-700' : 'border-[#FF671F]/20'}`}>कूट (Koota)</th>
+                        <th className={`p-2 border ${isDark ? 'border-stone-700' : 'border-[#FF671F]/20'}`}>क्षेत्र (Meaning)</th>
+                        <th className={`p-2 border text-center ${isDark ? 'border-stone-700' : 'border-[#FF671F]/20'}`}>प्राप्त गुण</th>
+                        <th className={`p-2 border ${isDark ? 'border-stone-700' : 'border-[#FF671F]/20'}`}>फलादेश प्रभाव</th>
                       </tr>
                     </thead>
                     <tbody>
                       {result.kootas.map((k) => (
-                        <tr key={k.name} className="hover:bg-[#FFFDF9]">
-                          <td className="p-2 border border-[#FF671F]/20 font-bold text-stone-950">{k.name}</td>
-                          <td className="p-2 border border-[#FF671F]/20 font-medium text-stone-900">{k.description}</td>
-                          <td className="p-2 border border-[#FF671F]/20 text-center font-bold text-[#CC5218]">
+                        <tr key={k.name} className={isDark ? 'hover:bg-stone-800/60' : 'hover:bg-[#FFFDF9]'}>
+                          <td className={`p-2 border font-bold ${isDark ? 'border-stone-700 text-stone-100' : 'border-[#FF671F]/20 text-stone-950'}`}>{k.name}</td>
+                          <td className={`p-2 border font-medium ${isDark ? 'border-stone-700 text-stone-300' : 'border-[#FF671F]/20 text-stone-900'}`}>{k.description}</td>
+                          <td className={`p-2 border text-center font-bold ${isDark ? 'border-stone-700 text-amber-400' : 'border-[#FF671F]/20 text-[#CC5218]'}`}>
                             {k.obtained} / {k.maximum}
                           </td>
-                          <td className="p-2 border border-[#FF671F]/20 font-medium text-stone-950">{k.impact}</td>
+                          <td className={`p-2 border font-medium ${isDark ? 'border-stone-700 text-stone-200' : 'border-[#FF671F]/20 text-stone-950'}`}>{k.impact}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -252,14 +317,16 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang }) => {
               </div>
 
               {/* Astrological Recommendations */}
-              <div className="mt-6 p-4 rounded-2xl bg-[#FFFDF9] border border-[#FF671F]/30 space-y-2">
-                <span className="font-bold text-xs sm:text-sm text-[#CC5218] block">
+              <div className={`mt-6 p-4 rounded-2xl border space-y-2 ${
+                isDark ? 'bg-stone-800/80 border-amber-500/30' : 'bg-[#FFFDF9] border-[#FF671F]/30'
+              }`}>
+                <span className={`font-bold text-xs sm:text-sm block ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
                   🚩 ज्योतिषीय परामर्श एवं समाधान
                 </span>
-                <ul className="space-y-1.5 text-xs sm:text-sm text-stone-950 font-medium">
+                <ul className={`space-y-1.5 text-xs sm:text-sm font-medium ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                   {result.recommendations.map((rec, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />
+                      <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${isDark ? 'text-amber-400' : 'text-[#FF671F]'}`} />
                       <span>{rec}</span>
                     </li>
                   ))}

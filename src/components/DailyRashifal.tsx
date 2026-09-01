@@ -7,9 +7,10 @@ interface DailyRashifalProps {
   lang: 'hi' | 'gu';
   onConsult?: (rashiName: string) => void;
   onSelectRashi?: (rashiId: number) => void;
+  isDark?: boolean;
 }
 
-export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, onSelectRashi }) => {
+export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, onSelectRashi, isDark = false }) => {
   const [selectedRashiId, setSelectedRashiId] = useState<number>(1);
   const [activeSubTab, setActiveSubTab] = useState<'all' | 'career' | 'love' | 'health'>('all');
 
@@ -18,21 +19,24 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
     if (onSelectRashi) onSelectRashi(id);
   };
 
-
   const selectedRashi = RASHIS.find((r) => r.id === selectedRashiId) || RASHIS[0];
 
   return (
-    <div className="py-8 px-4 max-w-7xl mx-auto">
+    <div className={`py-8 px-4 max-w-7xl mx-auto transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className="inline-flex items-center gap-2 bg-[#FFF5F0] text-[#CC5218] px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border border-[#FF671F]/30 mb-2">
+        <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border mb-2 ${
+          isDark 
+            ? 'bg-amber-950/40 text-amber-300 border-amber-500/30' 
+            : 'bg-[#FFF5F0] text-[#CC5218] border-[#FF671F]/30'
+        }`}>
           <Sparkles className="w-4 h-4 text-[#FF671F]" />
           <span>{lang === 'hi' ? 'दैनिक राशिफल एवं ग्रह गोचर' : 'દૈનિક રાશિફળ અને ગ્રહ ગોચર'}</span>
         </div>
-        <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
+        <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
           {lang === 'hi' ? 'आज का राशिफल (12 राशियां)' : 'આજનું રાશિફળ (12 રાશિઓ)'}
         </h2>
-        <p className="text-sm text-stone-900 font-medium">
+        <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
           {lang === 'hi'
             ? 'अपनी राशि चुनें और जानें आज का भाग्य, व्यापार, प्रेम, स्वास्थ्य व अचूक वैदिक उपाय'
             : 'તમારી રાશિ પસંદ કરો અને જાણો આજનું ભાગ્ય, વેપાર, પ્રેમ, આરોગ્ય અને અચૂક વૈદિક ઉપાય'}
@@ -51,6 +55,8 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
               className={`p-3 rounded-2xl border transition-all text-center flex flex-col items-center justify-center relative ${
                 isSelected
                   ? 'bg-gradient-to-b from-[#FF671F] to-[#CC5218] text-white border-[#CC5218] shadow-lg shadow-[#FF671F]/30 scale-105 z-10'
+                  : isDark 
+                  ? 'bg-stone-900 hover:bg-stone-800 text-stone-200 border-stone-800 shadow-sm'
                   : 'bg-white hover:bg-[#FFF5F0] text-stone-950 border-[#FF671F]/20 hover:border-[#FF671F]/50 shadow-sm'
               }`}
             >
@@ -58,7 +64,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
               <span className="font-bold text-sm sm:text-base">
                 {lang === 'hi' ? rashi.nameHi : rashi.nameGu}
               </span>
-              <span className={`text-[10px] ${isSelected ? 'text-amber-100' : 'text-stone-900 font-bold'}`}>
+              <span className={`text-[10px] ${isSelected ? 'text-amber-100' : isDark ? 'text-stone-400 font-bold' : 'text-stone-900 font-bold'}`}>
                 {rashi.nameEn}
               </span>
             </button>
@@ -67,55 +73,81 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
       </div>
 
       {/* Selected Rashi Detail Card */}
-      <div className="bg-white rounded-3xl p-5 sm:p-8 border border-[#FF671F]/25 shadow-xl shadow-[#FF671F]/5 relative overflow-hidden">
+      <div className={`rounded-3xl p-5 sm:p-8 border shadow-xl relative overflow-hidden transition-all ${
+        isDark 
+          ? 'bg-stone-900/95 border-amber-500/20 shadow-black/40' 
+          : 'bg-white border-[#FF671F]/25 shadow-[#FF671F]/5'
+      }`}>
         {/* Top Details Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-[#FF671F]/15">
+        <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b ${
+          isDark ? 'border-amber-500/20' : 'border-[#FF671F]/15'
+        }`}>
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FF671F] to-[#CC5218] text-white flex items-center justify-center text-3xl shadow-md border border-amber-300">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FF671F] to-[#CC5218] text-white flex items-center justify-center text-3xl shadow-md border border-amber-300 shrink-0">
               {selectedRashi.symbol}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-yatra text-2xl sm:text-3xl text-[#CC5218]">
+                <h3 className={`font-yatra text-2xl sm:text-3xl ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
                   {lang === 'hi' ? `${selectedRashi.nameHi} राशि राशिफल` : `${selectedRashi.nameGu} રાશિ રાશિફળ`}
                 </h3>
-                <span className="text-xs bg-[#FFF5F0] text-[#CC5218] border border-[#FF671F]/30 px-2 py-0.5 rounded-full font-bold">
+                <span className={`text-xs px-2 py-0.5 rounded-full font-bold border ${
+                  isDark ? 'bg-amber-950/60 text-amber-300 border-amber-500/30' : 'bg-[#FFF5F0] text-[#CC5218] border-[#FF671F]/30'
+                }`}>
                   {selectedRashi.nameEn}
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-stone-900 font-medium mt-1">
-                स्वामी: <span className="font-bold text-stone-950">{selectedRashi.lord}</span> | तत्व: <span className="font-bold text-stone-950">{selectedRashi.element}</span>
+              <p className={`text-xs sm:text-sm font-medium mt-1 ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
+                स्वामी: <span className={`font-bold ${isDark ? 'text-amber-200' : 'text-stone-950'}`}>{selectedRashi.lord}</span> | तत्व: <span className={`font-bold ${isDark ? 'text-amber-200' : 'text-stone-950'}`}>{selectedRashi.element}</span>
               </p>
             </div>
           </div>
 
           {/* Sub tabs */}
-          <div className="flex items-center bg-[#FFF5F0] p-1 rounded-xl border border-[#FF671F]/20 text-xs sm:text-sm font-semibold">
+          <div className={`flex items-center p-1 rounded-xl border text-xs sm:text-sm font-semibold ${
+            isDark ? 'bg-stone-800 border-stone-700' : 'bg-[#FFF5F0] border-[#FF671F]/20'
+          }`}>
             <button
               type="button"
               onClick={() => setActiveSubTab('all')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'all' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-stone-900 font-semibold hover:text-[#CC5218]'}`}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                activeSubTab === 'all' 
+                  ? 'bg-[#FF671F] text-white shadow-sm' 
+                  : isDark ? 'text-stone-300 hover:text-amber-300' : 'text-stone-900 hover:text-[#CC5218]'
+              }`}
             >
               {lang === 'hi' ? 'संपूर्ण फलादेश' : 'સંપૂર્ણ ફલાદેશ'}
             </button>
             <button
               type="button"
               onClick={() => setActiveSubTab('career')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'career' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-stone-900 font-semibold hover:text-[#CC5218]'}`}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                activeSubTab === 'career' 
+                  ? 'bg-[#FF671F] text-white shadow-sm' 
+                  : isDark ? 'text-stone-300 hover:text-amber-300' : 'text-stone-900 hover:text-[#CC5218]'
+              }`}
             >
               {lang === 'hi' ? 'करियर' : 'કારકિર્દી'}
             </button>
             <button
               type="button"
               onClick={() => setActiveSubTab('love')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'love' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-stone-900 font-semibold hover:text-[#CC5218]'}`}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                activeSubTab === 'love' 
+                  ? 'bg-[#FF671F] text-white shadow-sm' 
+                  : isDark ? 'text-stone-300 hover:text-amber-300' : 'text-stone-900 hover:text-[#CC5218]'
+              }`}
             >
               {lang === 'hi' ? 'प्रेम / विवाह' : 'પ્રેમ / લગ્ન'}
             </button>
             <button
               type="button"
               onClick={() => setActiveSubTab('health')}
-              className={`px-3 py-1.5 rounded-lg transition-all ${activeSubTab === 'health' ? 'bg-[#FF671F] text-white shadow-sm' : 'text-stone-900 font-semibold hover:text-[#CC5218]'}`}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                activeSubTab === 'health' 
+                  ? 'bg-[#FF671F] text-white shadow-sm' 
+                  : isDark ? 'text-stone-300 hover:text-amber-300' : 'text-stone-900 hover:text-[#CC5218]'
+              }`}
             >
               {lang === 'hi' ? 'स्वास्थ्य' : 'આરોગ્ય'}
             </button>
@@ -127,60 +159,72 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
           {/* Main Forecast */}
           <div className="lg:col-span-2 space-y-4">
             {(activeSubTab === 'all' || activeSubTab === 'career') && (
-              <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#FF671F]/20">
-                <div className="flex items-center gap-2 text-[#CC5218] font-bold text-sm mb-1.5">
+              <div className={`p-4 rounded-2xl border ${
+                isDark ? 'bg-stone-800/80 border-stone-700' : 'bg-[#FFFDF9] border-[#FF671F]/20'
+              }`}>
+                <div className={`flex items-center gap-2 font-bold text-sm mb-1.5 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
                   <Sparkles className="w-4 h-4 text-[#FF671F]" />
                   <span>{lang === 'hi' ? 'आज का सामान्य फलादेश' : 'આજનું સામાન્ય ફલાદેશ'}</span>
                 </div>
-                <p className="text-sm sm:text-base text-stone-950 font-medium leading-relaxed">
+                <p className={`text-sm sm:text-base font-medium leading-relaxed ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                   {selectedRashi.predictionToday}
                 </p>
               </div>
             )}
 
             {(activeSubTab === 'all' || activeSubTab === 'career') && (
-              <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200/70">
-                <div className="flex items-center gap-2 text-amber-900 font-bold text-sm mb-1.5">
-                  <Briefcase className="w-4 h-4 text-amber-700" />
+              <div className={`p-4 rounded-2xl border ${
+                isDark ? 'bg-amber-950/30 border-amber-500/30' : 'bg-amber-50/70 border-amber-200/70'
+              }`}>
+                <div className={`flex items-center gap-2 font-bold text-sm mb-1.5 ${isDark ? 'text-amber-300' : 'text-amber-900'}`}>
+                  <Briefcase className="w-4 h-4 text-amber-500" />
                   <span>{lang === 'hi' ? 'करियर, नौकरी एवं व्यापार' : 'કારકિર્દી, નોકરી અને વેપાર'}</span>
                 </div>
-                <p className="text-sm text-stone-950 font-medium leading-relaxed">
+                <p className={`text-sm font-medium leading-relaxed ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                   {selectedRashi.careerToday}
                 </p>
               </div>
             )}
 
             {(activeSubTab === 'all' || activeSubTab === 'love') && (
-              <div className="p-4 rounded-2xl bg-rose-50/70 border border-rose-200/70">
-                <div className="flex items-center gap-2 text-rose-900 font-bold text-sm mb-1.5">
-                  <Heart className="w-4 h-4 text-rose-600" />
+              <div className={`p-4 rounded-2xl border ${
+                isDark ? 'bg-rose-950/30 border-rose-500/30' : 'bg-rose-50/70 border-rose-200/70'
+              }`}>
+                <div className={`flex items-center gap-2 font-bold text-sm mb-1.5 ${isDark ? 'text-rose-300' : 'text-rose-900'}`}>
+                  <Heart className="w-4 h-4 text-rose-500" />
                   <span>{lang === 'hi' ? 'प्रेम, दांपत्य एवं पारिवारिक जीवन' : 'પ્રેમ, દાંપત્ય અને પારિવારિક જીવન'}</span>
                 </div>
-                <p className="text-sm text-stone-950 font-medium leading-relaxed">
+                <p className={`text-sm font-medium leading-relaxed ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                   {selectedRashi.loveToday}
                 </p>
               </div>
             )}
 
             {(activeSubTab === 'all' || activeSubTab === 'health') && (
-              <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/70">
-                <div className="flex items-center gap-2 text-emerald-900 font-bold text-sm mb-1.5">
-                  <Activity className="w-4 h-4 text-emerald-600" />
+              <div className={`p-4 rounded-2xl border ${
+                isDark ? 'bg-emerald-950/30 border-emerald-500/30' : 'bg-emerald-50/70 border-emerald-200/70'
+              }`}>
+                <div className={`flex items-center gap-2 font-bold text-sm mb-1.5 ${isDark ? 'text-emerald-300' : 'text-emerald-900'}`}>
+                  <Activity className="w-4 h-4 text-emerald-500" />
                   <span>{lang === 'hi' ? 'स्वास्थ्य एवं दैनिक ऊर्जा' : 'આરોગ્ય અને દૈનિક ઊર્જા'}</span>
                 </div>
-                <p className="text-sm text-stone-950 font-medium leading-relaxed">
+                <p className={`text-sm font-medium leading-relaxed ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
                   {selectedRashi.healthToday}
                 </p>
               </div>
             )}
 
             {/* Special Upay */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-[#FFF5F0] to-[#FFEBE0] border border-[#FF671F]/40">
-              <div className="flex items-center gap-2 text-[#CC5218] font-bold text-sm mb-1.5">
+            <div className={`p-4 rounded-2xl border ${
+              isDark 
+                ? 'bg-gradient-to-r from-stone-800 to-amber-950/40 border-amber-500/30' 
+                : 'bg-gradient-to-r from-[#FFF5F0] to-[#FFEBE0] border-[#FF671F]/40'
+            }`}>
+              <div className={`flex items-center gap-2 font-bold text-sm mb-1.5 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
                 <Gift className="w-4 h-4 text-[#FF671F]" />
                 <span>{lang === 'hi' ? 'आज का अचूक वैदिक उपाय' : 'આજનો અચૂક વૈદિક ઉપાય'}</span>
               </div>
-              <p className="text-sm font-semibold text-stone-950">
+              <p className={`text-sm font-semibold ${isDark ? 'text-amber-200' : 'text-stone-950'}`}>
                 🚩 {selectedRashi.upayToday}
               </p>
             </div>
@@ -188,14 +232,20 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
 
           {/* Auspicious Metrics Sidebar */}
           <div className="space-y-4">
-            <div className="bg-[#FFFDF9] rounded-2xl p-5 border border-[#FF671F]/20 space-y-4">
-              <h4 className="font-bold text-sm text-[#CC5218] pb-2 border-b border-[#FF671F]/15 flex items-center gap-2">
+            <div className={`rounded-2xl p-5 border space-y-4 ${
+              isDark ? 'bg-stone-800/80 border-stone-700' : 'bg-[#FFFDF9] border-[#FF671F]/20'
+            }`}>
+              <h4 className={`font-bold text-sm pb-2 border-b flex items-center gap-2 ${
+                isDark ? 'text-amber-300 border-stone-700' : 'text-[#CC5218] border-[#FF671F]/15'
+              }`}>
                 <Gem className="w-4 h-4 text-[#FF671F]" />
                 <span>{lang === 'hi' ? 'आज के शुभ कारक' : 'આજના શુભ પરિબળો'}</span>
               </h4>
 
               <div>
-                <span className="text-xs text-stone-950 font-bold block">{lang === 'hi' ? 'शुभ अंक (Lucky Numbers)' : 'શુભ અંક'}</span>
+                <span className={`text-xs font-bold block ${isDark ? 'text-stone-300' : 'text-stone-950'}`}>
+                  {lang === 'hi' ? 'शुभ अंक (Lucky Numbers)' : 'શુભ અંક'}
+                </span>
                 <div className="flex gap-2 mt-1">
                   {selectedRashi.luckyNumber.map((num) => (
                     <span key={num} className="w-8 h-8 rounded-lg bg-[#FF671F] text-white flex items-center justify-center font-bold text-sm shadow-sm">
@@ -206,15 +256,19 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
               </div>
 
               <div>
-                <span className="text-xs text-stone-950 font-bold block">{lang === 'hi' ? 'शुभ रंग (Lucky Color)' : 'શુભ રંગ'}</span>
-                <span className="font-bold text-sm text-stone-950 mt-0.5 block">
+                <span className={`text-xs font-bold block ${isDark ? 'text-stone-300' : 'text-stone-950'}`}>
+                  {lang === 'hi' ? 'शुभ रंग (Lucky Color)' : 'શુભ રંગ'}
+                </span>
+                <span className={`font-bold text-sm mt-0.5 block ${isDark ? 'text-amber-200' : 'text-stone-950'}`}>
                   {selectedRashi.luckyColor}
                 </span>
               </div>
 
               <div>
-                <span className="text-xs text-stone-950 font-bold block">{lang === 'hi' ? 'भाग्यशाली रत्न (Lucky Gemstone)' : 'શુભ રત્ન'}</span>
-                <span className="font-bold text-sm text-[#CC5218] mt-0.5 block">
+                <span className={`text-xs font-bold block ${isDark ? 'text-stone-300' : 'text-stone-950'}`}>
+                  {lang === 'hi' ? 'भाग्यशाली रत्न (Lucky Gemstone)' : 'શુભ રત્ન'}
+                </span>
+                <span className={`font-bold text-sm mt-0.5 block ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
                   💎 {selectedRashi.luckyStone}
                 </span>
               </div>

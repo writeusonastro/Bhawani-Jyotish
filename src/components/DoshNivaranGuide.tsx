@@ -4,6 +4,7 @@ import { ASTROLOGER_INFO } from '../data/astrologyData';
 
 interface DoshGuideProps {
   lang: 'hi' | 'gu';
+  isDark?: boolean;
 }
 
 const DOSHAS = [
@@ -85,22 +86,26 @@ const DOSHAS = [
   }
 ];
 
-export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang }) => {
+export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, isDark = false }) => {
   const [activeDoshId, setActiveDoshId] = useState<string>('kalsarp');
   const activeDosh = DOSHAS.find((d) => d.id === activeDoshId) || DOSHAS[0];
 
   return (
-    <div className="py-8 px-4 max-w-7xl mx-auto">
+    <div className={`py-8 px-4 max-w-7xl mx-auto transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className="inline-flex items-center gap-2 bg-rose-50 text-rose-700 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border border-rose-200 mb-2">
-          <ShieldAlert className="w-4 h-4 text-rose-600" />
+        <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border mb-2 ${
+          isDark 
+            ? 'bg-rose-950/40 text-rose-300 border-rose-500/30' 
+            : 'bg-rose-50 text-rose-700 border-rose-200'
+        }`}>
+          <ShieldAlert className="w-4 h-4 text-rose-400" />
           <span>{lang === 'hi' ? 'शास्त्रीय दोष निवारण मार्गदर्शिका' : 'શાસ્ત્રીય દોષ નિવારણ માર્ગદર્શિકા'}</span>
         </div>
-        <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
+        <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
           {lang === 'hi' ? 'कालसर्प, मांगलिक व पितृ दोष निवारण' : 'કાલસર્પ, માંગલિક અને પિતૃ દોષ નિવારણ'}
         </h2>
-        <p className="text-sm text-stone-900 font-medium">
+        <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
           {lang === 'hi'
             ? 'कुंडली के प्रमुख दोषों के लक्षण पहचानें और पंडित जी द्वारा शास्त्रोक्त वैदिक शांति कराएं'
             : 'કુંડળીના મુખ્ય દોષોના લક્ષણો ઓળખો અને શાસ્ત્રોક્ત વૈદિક શાંતિ કરાવો'}
@@ -117,7 +122,9 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang }) => {
             className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all ${
               activeDoshId === dosh.id
                 ? 'bg-gradient-to-r from-[#FF671F] to-[#CC5218] text-white shadow-lg shadow-[#FF671F]/30 scale-105'
-                : 'bg-white hover:bg-[#FFF5F0] text-stone-950 border border-[#FF671F]/20 shadow-sm'
+                : isDark 
+                  ? 'bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 shadow-sm'
+                  : 'bg-white hover:bg-[#FFF5F0] text-stone-950 border border-[#FF671F]/20 shadow-sm'
             }`}
           >
             {lang === 'hi' ? dosh.nameHi : dosh.nameGu}
@@ -126,13 +133,19 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang }) => {
       </div>
 
       {/* Active Dosh Detail Card */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#FF671F]/25 shadow-xl shadow-[#FF671F]/5 space-y-6">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-[#FF671F]/15">
+      <div className={`rounded-3xl p-6 sm:p-8 border shadow-xl space-y-6 transition-all ${
+        isDark 
+          ? 'bg-stone-900/90 border-amber-500/20 shadow-black/40' 
+          : 'bg-white border-[#FF671F]/25 shadow-[#FF671F]/5'
+      }`}>
+        <div className={`flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b ${
+          isDark ? 'border-amber-500/20' : 'border-[#FF671F]/15'
+        }`}>
           <div>
-            <h3 className="font-yatra text-2xl sm:text-3xl text-[#CC5218]">
+            <h3 className={`font-yatra text-2xl sm:text-3xl ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
               {lang === 'hi' ? activeDosh.nameHi : activeDosh.nameGu}
             </h3>
-            <p className="text-xs sm:text-sm text-stone-950 font-medium mt-1 max-w-2xl">
+            <p className={`text-xs sm:text-sm font-medium mt-1 max-w-2xl ${isDark ? 'text-stone-300' : 'text-stone-950'}`}>
               {activeDosh.description}
             </p>
           </div>
@@ -150,15 +163,17 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Symptoms */}
-          <div className="p-5 rounded-2xl bg-rose-50/60 border border-rose-200/70 space-y-3">
-            <h4 className="font-bold text-sm text-rose-900 flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-rose-600" />
+          <div className={`p-5 rounded-2xl border space-y-3 ${
+            isDark ? 'bg-rose-950/30 border-rose-500/30' : 'bg-rose-50/60 border-rose-200/70'
+          }`}>
+            <h4 className={`font-bold text-sm flex items-center gap-2 ${isDark ? 'text-rose-300' : 'text-rose-900'}`}>
+              <AlertTriangle className="w-4 h-4 text-rose-500" />
               <span>{lang === 'hi' ? 'दोष के प्रमुख लक्षण एवं दुष्प्रभाव' : 'દોષના મુખ્ય લક્ષણો'}</span>
             </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-stone-950 font-medium">
+            <ul className={`space-y-2 text-xs sm:text-sm font-medium ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
               {activeDosh.symptoms.map((sym, i) => (
                 <li key={i} className="flex items-start gap-2">
-                  <span className="text-rose-500 font-bold mt-0.5">•</span>
+                  <span className="text-rose-400 font-bold mt-0.5">•</span>
                   <span>{sym}</span>
                 </li>
               ))}
@@ -166,15 +181,17 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang }) => {
           </div>
 
           {/* Remedies */}
-          <div className="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-200/70 space-y-3">
-            <h4 className="font-bold text-sm text-emerald-900 flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-emerald-600" />
+          <div className={`p-5 rounded-2xl border space-y-3 ${
+            isDark ? 'bg-emerald-950/30 border-emerald-500/30' : 'bg-emerald-50/60 border-emerald-200/70'
+          }`}>
+            <h4 className={`font-bold text-sm flex items-center gap-2 ${isDark ? 'text-emerald-300' : 'text-emerald-900'}`}>
+              <CheckCircle className="w-4 h-4 text-emerald-500" />
               <span>{lang === 'hi' ? 'अचूक शास्त्रोक्त वैदिक निवारण' : 'શાસ્ત્રોક્ત વૈદિક નિવારણ'}</span>
             </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-stone-950 font-medium">
+            <ul className={`space-y-2 text-xs sm:text-sm font-medium ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
               {activeDosh.remedies.map((rem, i) => (
                 <li key={i} className="flex items-start gap-2">
-                  <span className="text-emerald-600 font-bold mt-0.5">🚩</span>
+                  <span className="text-emerald-400 font-bold mt-0.5">🚩</span>
                   <span>{rem}</span>
                 </li>
               ))}
@@ -183,13 +200,19 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang }) => {
         </div>
 
         {/* Types / Categories */}
-        <div className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#FF671F]/20">
-          <span className="font-bold text-xs sm:text-sm text-[#CC5218] block mb-2">
+        <div className={`p-4 rounded-2xl border ${
+          isDark ? 'bg-stone-800/70 border-stone-700' : 'bg-[#FFFDF9] border-[#FF671F]/20'
+        }`}>
+          <span className={`font-bold text-xs sm:text-sm block mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
             📋 इस दोष के प्रमुख प्रकार (Categories):
           </span>
           <div className="flex flex-wrap gap-2">
             {activeDosh.types.map((t, idx) => (
-              <span key={idx} className="text-xs bg-white text-stone-950 border border-[#FF671F]/30 px-3 py-1 rounded-full font-bold shadow-2xs">
+              <span key={idx} className={`text-xs px-3 py-1 rounded-full font-bold shadow-2xs border ${
+                isDark 
+                  ? 'bg-stone-700 text-stone-100 border-stone-600' 
+                  : 'bg-white text-stone-950 border-[#FF671F]/30'
+              }`}>
                 {t}
               </span>
             ))}
@@ -197,10 +220,14 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang }) => {
         </div>
 
         {/* Emergency Help Banner */}
-        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-[#FFF5F0] border border-[#FF671F]/30 text-xs sm:text-sm">
+        <div className={`pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl border text-xs sm:text-sm ${
+          isDark 
+            ? 'bg-stone-800/80 border-amber-500/20 text-stone-200' 
+            : 'bg-[#FFF5F0] border-[#FF671F]/30 text-stone-950'
+        }`}>
           <div className="text-center sm:text-left">
-            <span className="font-bold text-[#CC5218]">क्या आपकी कुंडली में यह दोष है?</span>
-            <p className="text-stone-950 font-medium">पंडित जी से अपनी कुंडली का सूक्ष्म परीक्षण कराएं और अचूक उपाय जानें।</p>
+            <span className={`font-bold ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>क्या आपकी कुंडली में यह दोष है?</span>
+            <p className={`font-medium ${isDark ? 'text-stone-300' : 'text-stone-950'}`}>पंडित जी से अपनी कुंडली का सूक्ष्म परीक्षण कराएं और अचूक उपाय जानें।</p>
           </div>
 
           <div className="flex items-center gap-2 shrink-0">

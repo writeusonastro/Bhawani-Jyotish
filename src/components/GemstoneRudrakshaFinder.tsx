@@ -321,17 +321,21 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
   const selected = RASHI_DATA[selectedIndex];
 
   return (
-    <div className="py-12 px-4 max-w-7xl mx-auto">
+    <div className={`py-12 px-4 max-w-7xl mx-auto transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
       {/* Title */}
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className="inline-flex items-center gap-2 bg-[#FFF5F0] text-[#CC5218] px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border border-[#FF671F]/30 mb-2">
+        <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border mb-2 ${
+          isDark 
+            ? 'bg-amber-950/40 text-amber-300 border-amber-500/30' 
+            : 'bg-[#FFF5F0] text-[#CC5218] border-[#FF671F]/30'
+        }`}>
           <Gem className="w-4 h-4 text-[#FF671F]" />
           <span>{lang === 'hi' ? 'प्रामाणिक रत्न एवं रुद्राक्ष परामर्श' : 'પ્રમાણિક રત્ન અને રુદ્રાક્ષ પરામર્શ'}</span>
         </div>
-        <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
+        <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
           {lang === 'hi' ? 'लकी रत्न एवं रुद्राक्ष रिकमेंडर' : 'લકી રત્ન અને રુદ્રાક્ષ ભલામણ'}
         </h2>
-        <p className="text-sm text-stone-900 font-medium">
+        <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
           {lang === 'hi'
             ? 'अपनी जन्म राशि या जन्म तिथि चुनें और जानें अपना भाग्यशाली रत्न, धारण विधि, शुभ दिन व उपयुक्त रुद्राक्ष'
             : 'તમારી જન્મ રાશિ પસંદ કરો અને જાણો તમારો ભાગ્યશાળી રત્ન અને યોગ્ય રુદ્રાક્ષ'}
@@ -340,16 +344,16 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
 
       {/* Selector controls: Birth date + Rashi chips */}
       <div 
-        className={`rounded-3xl p-6 border shadow-xl mb-8 ${
+        className={`rounded-3xl p-6 border shadow-xl mb-8 transition-all ${
           isDark 
-            ? 'bg-slate-900 border-amber-500/30' 
+            ? 'bg-slate-900 border-amber-500/30 shadow-black/40' 
             : 'bg-white border-[#FF671F]/25 shadow-[#FF671F]/5'
         }`}
       >
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
           {/* Quick Date of Birth Input */}
           <div className="md:col-span-4">
-            <label className="block text-xs font-bold text-[#CC5218] dark:text-amber-400 mb-1.5 flex items-center gap-1.5">
+            <label className={`block text-xs font-bold mb-1.5 flex items-center gap-1.5 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
               <Calendar className="w-4 h-4 text-[#FF671F]" />
               <span>{lang === 'hi' ? 'जन्म तारीख से खोजें (Optional):' : 'જન્મ તારીખથી શોધો:'}</span>
             </label>
@@ -357,13 +361,17 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
               type="date"
               value={birthDate}
               onChange={(e) => handleDateChange(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl border border-[#FF671F]/30 bg-[#FFFDF9] dark:bg-slate-950 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#FF671F]"
+              className={`w-full px-3.5 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#FF671F] ${
+                isDark 
+                  ? 'bg-slate-950 border-slate-700 text-stone-100' 
+                  : 'bg-[#FFFDF9] border-[#FF671F]/30 text-stone-950'
+              }`}
             />
           </div>
 
           {/* Rashi Grid */}
           <div className="md:col-span-8">
-            <label className="block text-xs font-bold text-[#CC5218] dark:text-amber-400 mb-1.5">
+            <label className={`block text-xs font-bold mb-1.5 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
               {lang === 'hi' ? 'या अपनी जन्म राशि चुनें:' : 'અથવા તમારી જન્મ રાશિ પસંદ કરો:'}
             </label>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
@@ -376,7 +384,7 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
                     selectedIndex === idx
                       ? 'bg-[#FF671F] text-white shadow-md scale-105 border border-amber-500'
                       : isDark
-                      ? 'bg-slate-800 text-stone-300 hover:bg-slate-700'
+                      ? 'bg-slate-800 text-stone-200 hover:bg-slate-700 border border-slate-700'
                       : 'bg-[#FFF5F0] text-stone-950 border border-[#FF671F]/20 hover:bg-[#FFEAE0]'
                   }`}
                 >
