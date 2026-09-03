@@ -46,17 +46,120 @@ export interface KundliInput {
 
 export interface PlanetPosition {
   planet: string;
+  planetHi: string;
   rashi: string;
+  rashiHi: string;
   degree: number;
+  dms: string;
   house: number;
   isRetrograde: boolean;
+  isCombust: boolean;
   dignity: 'उच्च (Exalted)' | 'स्वराशि (Own)' | 'मित्र (Friendly)' | 'सम (Neutral)' | 'शत्रु (Enemy)' | 'नीच (Debilitated)';
   lord: string;
+  nakshatra: string;
+  nakshatraCharan: number;
+  nakshatraLord: string;
+  subLord: string;
+  avastha: 'बाल (Infant)' | 'कुमार (Youth)' | 'युवा (Adult)' | 'वृद्ध (Elder)' | 'मृत (Feeble)';
+  navamshaRashi: string;
+  navamshaHouse: number;
+}
+
+export interface BirthPanchang {
+  samvatVikram: string;
+  samvatShaka: string;
+  hinduMonth: string;
+  paksha: 'शुक्ल पक्ष' | 'कृष्ण पक्ष';
+  tithi: string;
+  tithiNumber: number;
+  tithiLord: string;
+  nakshatra: string;
+  nakshatraCharan: number;
+  nakshatraLord: string;
+  nakshatraAkshar: string;
+  yoga: string;
+  yogaDescription: string;
+  karana: string;
+  dayOfWeek: string;
+  dayLord: string;
+  sunrise: string;
+  sunset: string;
+  ishtaKaal: string;
+  dinmaan: string;
+  raatrimaan: string;
+  ayan: 'उत्तरायण (Uttarayana)' | 'दक्षिणायन (Dakshinayana)';
+  ritu: string;
+  sunSign: string;
+  moonSign: string;
+}
+
+export interface AvakahadaChakra {
+  varna: string;
+  vashya: string;
+  yoni: string;
+  gana: string;
+  nadi: string;
+  paya: string;
+  tatva: string;
+  rashiLord: string;
+  naamAkshar: string;
+}
+
+export interface DashaPeriod {
+  planet: string;
+  startYear: number;
+  endYear: number;
+  durationYears: number;
+  startDateFormatted: string;
+  endDateFormatted: string;
+  isCurrent: boolean;
+  isPast: boolean;
+  antardashas?: {
+    lord: string;
+    startDate: string;
+    endDate: string;
+    isCurrent: boolean;
+  }[];
+}
+
+export interface VedicYoga {
+  name: string;
+  type: 'शुभ योग (Auspicious)' | 'अशुभ योग (Inauspicious)' | 'राजयोग (Raj Yoga)';
+  description: string;
+  effect: string;
+}
+
+export interface DoshaAnalysis {
+  manglik: {
+    status: 'मांगलिक (Manglik)' | 'आंशिक मांगलिक (Partial Manglik)' | 'गैर-मांगलिक (Non-Manglik)';
+    description: string;
+    isLagnaManglik: boolean;
+    isMoonManglik: boolean;
+    exceptions: string[];
+  };
+  kaalSarp: {
+    isPresent: boolean;
+    nameHi: string;
+    type: string;
+    description: string;
+    remedy: string;
+  };
+  sadeSati: {
+    status: string;
+    phase: string;
+    description: string;
+    remedy: string;
+  };
+  pitraDosh: {
+    isPresent: boolean;
+    description: string;
+  };
 }
 
 export interface KundliResult {
   ascendantRashi: string;
   ascendantDegree: number;
+  ascendantDms: string;
   moonRashi: string;
   sunRashi: string;
   nakshatra: string;
@@ -64,8 +167,15 @@ export interface KundliResult {
   currentDasha: string;
   dashaEndYear: number;
   manglikStatus: 'मांगलिक (Manglik)' | 'आंशिक मांगलिक (Partial Manglik)' | 'गैर-मांगलिक (Non-Manglik)';
+  birthPanchang: BirthPanchang;
+  avakahadaChakra: AvakahadaChakra;
   planets: PlanetPosition[];
+  navamshaPlanets: PlanetPosition[];
   houses: { houseNumber: number; rashi: string; planetsInHouse: string[] }[];
+  navamshaHouses: { houseNumber: number; rashi: string; planetsInHouse: string[] }[];
+  dashaTimeline: DashaPeriod[];
+  specialYogas: VedicYoga[];
+  doshaAnalysis: DoshaAnalysis;
   lifePrediction: {
     general: string;
     career: string;

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { PlanetPosition } from '../types/astrology';
-import { Sparkles, Info, X, Eye } from 'lucide-react';
+import { Sparkles, Info, Eye, Layers } from 'lucide-react';
 
 interface KundliChartVisualizerProps {
   planets: PlanetPosition[];
+  navamshaPlanets?: PlanetPosition[];
   ascendantRashi: string;
   lang: 'hi' | 'gu';
   isDark?: boolean;
@@ -137,15 +138,22 @@ const RASHI_ORDER = [
 
 export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
   planets,
+  navamshaPlanets,
   ascendantRashi,
   lang,
   isDark = false
 }) => {
+  const [chartType, setChartType] = useState<'D1' | 'D9'>('D1');
   const [chartStyle, setChartStyle] = useState<'north' | 'south'>('north');
   const [selectedHouse, setSelectedHouse] = useState<number | null>(1);
 
+  const activePlanets = chartType === 'D9' && navamshaPlanets ? navamshaPlanets : planets;
+  const activeAscendant = chartType === 'D9' && navamshaPlanets && navamshaPlanets.length > 0 
+    ? navamshaPlanets[0].navamshaRashi || ascendantRashi
+    : ascendantRashi;
+
   // Calculate Rashi assigned to each house
-  const ascIndex = Math.max(0, RASHI_ORDER.findIndex(r => ascendantRashi.includes(r)));
+  const ascIndex = Math.max(0, RASHI_ORDER.findIndex(r => activeAscendant.includes(r)));
 
   const getRashiForHouse = (houseNum: number): string => {
     const rashiIdx = (ascIndex + (houseNum - 1)) % 12;
@@ -153,7 +161,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
   };
 
   const getPlanetsInHouse = (houseNum: number): PlanetPosition[] => {
-    return planets.filter(p => p.house === houseNum);
+    return activePlanets.filter(p => p.house === houseNum);
   };
 
   // Active House details
@@ -162,42 +170,66 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
   const activeHouseRashi = selectedHouse ? getRashiForHouse(selectedHouse) : '';
 
   return (
-    <div className="space-y-6">
-      {/* Chart Style Switcher & Guide */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-[#FFF5F0] dark:bg-slate-900 p-3 rounded-2xl border border-[#FF671F]/20">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-[#CC5218] dark:text-amber-400">
-            {lang === 'hi' ? 'कुंडली चार्ट शैली चुनें:' : 'કુંડળી ચાર્ટ શૈલી:'}
-          </span>
-          <div className="flex bg-white dark:bg-slate-800 rounded-xl p-1 border border-[#FF671F]/30 text-xs">
+    <div className="space-y-4">
+      {/* Controls Bar: D1/D9 Toggle & North/South Style */}
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-[#FFF5F0] p-3 rounded-2xl border border-[#FF671F]/20">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Chart Type (D1 Lagna / D9 Navamsha) */}
+          <div className="flex bg-white rounded-xl p-1 border border-[#FF671F]/30 text-xs">
+            <button
+              type="button"
+              onClick={() => setChartType('D1')}
+              className={`px-3 py-1 rounded-lg font-bold transition-all ${
+                chartType === 'D1'
+                  ? 'bg-[#FF671F] text-white shadow-sm'
+                  : 'text-stone-700 hover:text-[#CC5218]'
+              }`}
+            >
+              {lang === 'hi' ? 'लग्न कुंडली (D-1)' : 'લગ્ન કુંડળી (D-1)'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setChartType('D9')}
+              className={`px-3 py-1 rounded-lg font-bold transition-all ${
+                chartType === 'D9'
+                  ? 'bg-[#FF671F] text-white shadow-sm'
+                  : 'text-stone-700 hover:text-[#CC5218]'
+              }`}
+            >
+              {lang === 'hi' ? 'नवमांश कुंडली (D-9)' : 'નવમાંશ કુંડળી (D-9)'}
+            </button>
+          </div>
+
+          {/* Chart Style (North / South) */}
+          <div className="flex bg-white rounded-xl p-1 border border-[#FF671F]/30 text-xs">
             <button
               type="button"
               onClick={() => setChartStyle('north')}
-              className={`px-3 py-1 rounded-lg font-bold transition-all ${
+              className={`px-2.5 py-1 rounded-lg font-bold transition-all ${
                 chartStyle === 'north'
-                  ? 'bg-[#FF671F] text-white shadow-sm'
-                  : 'text-stone-600 dark:text-stone-300 hover:text-[#CC5218]'
+                  ? 'bg-[#CC5218] text-white shadow-sm'
+                  : 'text-stone-700 hover:text-[#CC5218]'
               }`}
             >
-              {lang === 'hi' ? 'उत्तर भारतीय (Diamond)' : 'ઉત્તર ભારતીય'}
+              {lang === 'hi' ? 'उत्तर भारतीय' : 'ઉત્તર ભારતીય'}
             </button>
             <button
               type="button"
               onClick={() => setChartStyle('south')}
-              className={`px-3 py-1 rounded-lg font-bold transition-all ${
+              className={`px-2.5 py-1 rounded-lg font-bold transition-all ${
                 chartStyle === 'south'
-                  ? 'bg-[#FF671F] text-white shadow-sm'
-                  : 'text-stone-600 dark:text-stone-300 hover:text-[#CC5218]'
+                  ? 'bg-[#CC5218] text-white shadow-sm'
+                  : 'text-stone-700 hover:text-[#CC5218]'
               }`}
             >
-              {lang === 'hi' ? 'दक्षिण भारतीय (Box)' : 'દક્ષિણ ભારતીય'}
+              {lang === 'hi' ? 'दक्षिण भारतीय' : 'દક્ષિણ ભારતીય'}
             </button>
           </div>
         </div>
 
-        <div className="text-[11px] text-[#CC5218] dark:text-amber-300 flex items-center gap-1 font-semibold">
+        <div className="text-[11px] text-[#CC5218] flex items-center gap-1 font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>{lang === 'hi' ? 'भाव पर क्लिक कर विस्तृत फल जानें' : 'ભાવ પર ક્લિક કરી વિગત જુઓ'}</span>
+          <span>{chartType === 'D1' ? 'लग्न चक्र (जन्म कालीन)' : 'नवमांश चक्र (भाग्य व दांपत्य)'}</span>
         </div>
       </div>
 
@@ -206,7 +238,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
         <div className="lg:col-span-7 flex flex-col items-center">
           {chartStyle === 'north' ? (
             /* NORTH INDIAN DIAMOND CHART */
-            <div className="relative w-full max-w-md aspect-square bg-[#FFFDF9] dark:bg-slate-950 p-2 rounded-3xl border-2 border-[#FF671F] shadow-xl shadow-[#FF671F]/10">
+            <div className="relative w-full max-w-md aspect-square bg-[#FFFDF9] p-2 rounded-3xl border-2 border-[#FF671F] shadow-xl shadow-[#FF671F]/10">
               <svg viewBox="0 0 400 400" className="w-full h-full select-none">
                 {/* Background Grid Lines */}
                 <rect x="10" y="10" width="380" height="380" fill="none" stroke="#FF671F" strokeWidth="2.5" />
@@ -231,8 +263,8 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                   <text x="200" y="38" textAnchor="middle" fill="#CC5218" fontSize="12" fontWeight="bold">
                     {ascIndex + 1}
                   </text>
-                  <text x="200" y="100" textAnchor="middle" fill={isDark ? '#f1f5f9' : '#1e293b'} fontSize="11" fontWeight="bold">
-                    {getPlanetsInHouse(1).map(p => p.planet.slice(0, 3)).join(' ')}
+                  <text x="200" y="100" textAnchor="middle" fill="#1e293b" fontSize="11" fontWeight="bold">
+                    {getPlanetsInHouse(1).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="200" y="118" textAnchor="middle" fill="#FF671F" fontSize="9" fontWeight="semibold">
                     1. लग्न
@@ -246,7 +278,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 1) % 12) + 1}
                   </text>
                   <text x="100" y="65" textAnchor="middle" fill="#1e293b" fontSize="10" fontWeight="bold">
-                    {getPlanetsInHouse(2).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(2).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="100" y="80" textAnchor="middle" fill="#FF671F" fontSize="8">
                     2. धन
@@ -260,7 +292,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 2) % 12) + 1}
                   </text>
                   <text x="55" y="115" textAnchor="middle" fill="#1e293b" fontSize="10" fontWeight="bold">
-                    {getPlanetsInHouse(3).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(3).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="55" y="130" textAnchor="middle" fill="#FF671F" fontSize="8">
                     3. पराक्रम
@@ -274,7 +306,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 3) % 12) + 1}
                   </text>
                   <text x="105" y="200" textAnchor="middle" fill="#1e293b" fontSize="11" fontWeight="bold">
-                    {getPlanetsInHouse(4).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(4).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="105" y="218" textAnchor="middle" fill="#FF671F" fontSize="9" fontWeight="semibold">
                     4. सुख
@@ -288,7 +320,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 4) % 12) + 1}
                   </text>
                   <text x="55" y="290" textAnchor="middle" fill="#1e293b" fontSize="10" fontWeight="bold">
-                    {getPlanetsInHouse(5).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(5).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="55" y="305" textAnchor="middle" fill="#FF671F" fontSize="8">
                     5. संतान
@@ -302,7 +334,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 5) % 12) + 1}
                   </text>
                   <text x="100" y="345" textAnchor="middle" fill="#1e293b" fontSize="10" fontWeight="bold">
-                    {getPlanetsInHouse(6).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(6).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="100" y="360" textAnchor="middle" fill="#FF671F" fontSize="8">
                     6. शत्रु
@@ -316,7 +348,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 6) % 12) + 1}
                   </text>
                   <text x="200" y="300" textAnchor="middle" fill="#1e293b" fontSize="11" fontWeight="bold">
-                    {getPlanetsInHouse(7).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(7).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="200" y="318" textAnchor="middle" fill="#FF671F" fontSize="9" fontWeight="semibold">
                     7. जाया
@@ -330,7 +362,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 7) % 12) + 1}
                   </text>
                   <text x="300" y="345" textAnchor="middle" fill="#1e293b" fontSize="10" fontWeight="bold">
-                    {getPlanetsInHouse(8).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(8).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="300" y="360" textAnchor="middle" fill="#FF671F" fontSize="8">
                     8. आयु
@@ -344,7 +376,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 8) % 12) + 1}
                   </text>
                   <text x="345" y="290" textAnchor="middle" fill="#1e293b" fontSize="10" fontWeight="bold">
-                    {getPlanetsInHouse(9).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(9).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="345" y="305" textAnchor="middle" fill="#FF671F" fontSize="8">
                     9. भाग्य
@@ -358,7 +390,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 9) % 12) + 1}
                   </text>
                   <text x="295" y="200" textAnchor="middle" fill="#1e293b" fontSize="11" fontWeight="bold">
-                    {getPlanetsInHouse(10).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(10).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="295" y="218" textAnchor="middle" fill="#FF671F" fontSize="9" fontWeight="semibold">
                     10. कर्म
@@ -372,7 +404,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 10) % 12) + 1}
                   </text>
                   <text x="345" y="115" textAnchor="middle" fill="#1e293b" fontSize="10" fontWeight="bold">
-                    {getPlanetsInHouse(11).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(11).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="345" y="130" textAnchor="middle" fill="#FF671F" fontSize="8">
                     11. लाभ
@@ -386,7 +418,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {((ascIndex + 11) % 12) + 1}
                   </text>
                   <text x="300" y="65" textAnchor="middle" fill="#1e293b" fontSize="10" fontWeight="bold">
-                    {getPlanetsInHouse(12).map(p => p.planet.slice(0, 3)).join(' ')}
+                    {getPlanetsInHouse(12).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="300" y="80" textAnchor="middle" fill="#FF671F" fontSize="8">
                     12. व्यय
@@ -396,8 +428,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
             </div>
           ) : (
             /* SOUTH INDIAN FIXED BOX CHART */
-            <div className="w-full max-w-md aspect-square grid grid-cols-4 grid-rows-4 gap-1 p-2 bg-[#FFFDF9] dark:bg-slate-950 rounded-3xl border-2 border-[#FF671F] shadow-xl shadow-[#FF671F]/10">
-              {/* 12 Outer Boxes fixed by Zodiac order: Pisces(top-left-2), Aries(top-left-1), Taurus, Gemini... */}
+            <div className="w-full max-w-md aspect-square grid grid-cols-4 grid-rows-4 gap-1 p-2 bg-[#FFFDF9] rounded-3xl border-2 border-[#FF671F] shadow-xl shadow-[#FF671F]/10">
               {[
                 { rashi: 'मीन', houseNum: ((11 - ascIndex + 12) % 12) + 1, col: 1, row: 1 },
                 { rashi: 'मेष', houseNum: ((0 - ascIndex + 12) % 12) + 1, col: 2, row: 1 },
@@ -425,8 +456,8 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                       isSelected
                         ? 'bg-[#FF671F]/20 border-[#FF671F] ring-2 ring-[#FF671F]'
                         : isLagna
-                        ? 'bg-amber-100/50 dark:bg-amber-950/40 border-amber-400'
-                        : 'bg-white dark:bg-slate-900 border-[#FF671F]/30 hover:bg-[#FFF5F0]'
+                        ? 'bg-amber-100/60 border-amber-400 font-bold'
+                        : 'bg-white border-[#FF671F]/30 hover:bg-[#FFF5F0]'
                     }`}
                   >
                     <div className="flex items-center justify-between text-[10px] font-bold text-[#CC5218]">
@@ -438,8 +469,8 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                       )}
                     </div>
 
-                    <div className="text-[10px] font-bold text-stone-800 dark:text-stone-200 text-center my-0.5 leading-tight">
-                      {housePlanets.map(p => p.planet.slice(0, 3)).join(', ') || '-'}
+                    <div className="text-[10px] font-bold text-stone-800 text-center my-0.5 leading-tight">
+                      {housePlanets.map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(', ') || '-'}
                     </div>
 
                     <div className="text-[9px] text-[#FF671F] font-semibold text-right">
@@ -452,13 +483,13 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
               {/* Center 2x2 area */}
               <div 
                 style={{ gridColumn: '2 / span 2', gridRow: '2 / span 2' }}
-                className="bg-[#FFF5F0] dark:bg-slate-900/60 rounded-2xl flex flex-col items-center justify-center p-3 text-center border border-[#FF671F]/20"
+                className="bg-[#FFF5F0] rounded-2xl flex flex-col items-center justify-center p-3 text-center border border-[#FF671F]/20"
               >
-                <span className="font-yatra text-lg text-[#CC5218] dark:text-amber-400 font-bold">
-                  भवानी लग्न चक्र
+                <span className="font-yatra text-base sm:text-lg text-[#CC5218] font-bold">
+                  {chartType === 'D1' ? 'भवानी लग्न चक्र (D-1)' : 'भवानी नवमांश चक्र (D-9)'}
                 </span>
-                <span className="text-[10px] text-stone-600 dark:text-stone-400 mt-1">
-                  लग्न: <strong>{ascendantRashi}</strong>
+                <span className="text-[11px] text-stone-700 mt-1 font-medium">
+                  लग्न: <strong>{activeAscendant.split(' ')[0]}</strong>
                 </span>
               </div>
             </div>
@@ -467,23 +498,17 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
 
         {/* Right Column: Interactive House Inspector Flyout */}
         <div className="lg:col-span-5">
-          <div 
-            className={`rounded-3xl p-5 border shadow-xl transition-all ${
-              isDark 
-                ? 'bg-slate-900 border-amber-500/30 text-amber-100' 
-                : 'bg-white border-[#FF671F]/25 shadow-[#FF671F]/5'
-            }`}
-          >
-            <div className="flex items-center justify-between border-b border-amber-500/20 pb-3 mb-4">
+          <div className="rounded-3xl p-5 border shadow-xl bg-white border-[#FF671F]/25 shadow-[#FF671F]/5">
+            <div className="flex items-center justify-between border-b border-[#FF671F]/20 pb-3 mb-4">
               <div className="flex items-center gap-2">
                 <span className="w-8 h-8 rounded-full bg-[#FF671F] text-white flex items-center justify-center font-bold text-sm">
                   {selectedHouse}
                 </span>
                 <div>
-                  <h4 className="font-yatra text-lg text-[#CC5218] dark:text-amber-300 font-bold">
+                  <h4 className="font-yatra text-lg text-[#CC5218] font-bold">
                     {lang === 'hi' ? activeHouseMeta.nameHi : activeHouseMeta.nameGu}
                   </h4>
-                  <span className="text-xs text-stone-900 dark:text-stone-400 font-semibold">
+                  <span className="text-xs text-stone-900 font-semibold">
                     {lang === 'hi' ? `राशि: ${activeHouseRashi}` : `રાશિ: ${activeHouseRashi}`}
                   </span>
                 </div>
@@ -492,8 +517,8 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
 
             <div className="space-y-3 text-xs sm:text-sm">
               {/* Planets in House */}
-              <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-[#FFFDF9] border-[#FF671F]/20'}`}>
-                <span className="text-stone-900 dark:text-stone-400 block text-xs mb-1 font-bold">
+              <div className="p-3 rounded-2xl border bg-[#FFFDF9] border-[#FF671F]/20">
+                <span className="text-stone-900 block text-xs mb-1 font-bold">
                   {lang === 'hi' ? 'इस भाव में स्थित ग्रह:' : 'આ ભાવમાં રહેલા ગ્રહો:'}
                 </span>
                 {activeHousePlanets.length > 0 ? (
@@ -503,41 +528,41 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                         key={idx}
                         className="bg-[#FF671F] text-white px-2.5 py-1 rounded-lg font-bold text-xs shadow-xs"
                       >
-                        {p.planet} ({p.dignity})
+                        {p.planet} {p.dms ? `(${p.dms})` : `(${p.degree}°)`} {p.isRetrograde ? '• वक्र' : ''} {p.isCombust ? '• अस्त' : ''}
                       </span>
                     ))}
                   </div>
                 ) : (
-                  <span className="text-stone-700 dark:text-stone-400 font-medium italic">
+                  <span className="text-stone-700 font-medium italic">
                     {lang === 'hi' ? 'कोई प्रत्यक्ष ग्रह नहीं (दृष्टि प्रभाव संभव)' : 'કોઈ પ્રત્યક્ષ ગ્રહ નથી'}
                   </span>
                 )}
               </div>
 
               {/* Karaka Planet */}
-              <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-[#FFFDF9] border-[#FF671F]/20'}`}>
-                <span className="text-stone-900 dark:text-stone-400 block text-xs font-bold">
+              <div className="p-3 rounded-2xl border bg-[#FFFDF9] border-[#FF671F]/20">
+                <span className="text-stone-900 block text-xs font-bold">
                   {lang === 'hi' ? 'प्राकृतिक कारक ग्रह:' : 'કારક ગ્રહ:'}
                 </span>
-                <strong className="text-[#CC5218] dark:text-amber-300 font-bold">
+                <strong className="text-[#CC5218] font-bold">
                   {lang === 'hi' ? activeHouseMeta.karakaHi : activeHouseMeta.karakaGu}
                 </strong>
               </div>
 
               {/* Classical Significance */}
-              <div className={`p-3.5 rounded-2xl border-l-4 border-amber-500 ${isDark ? 'bg-slate-950 text-stone-200' : 'bg-[#FFF5F0] text-stone-950'}`}>
-                <span className="text-xs font-bold text-[#CC5218] dark:text-amber-400 block mb-1">
+              <div className="p-3.5 rounded-2xl border-l-4 border-[#FF671F] bg-[#FFF5F0] text-stone-950">
+                <span className="text-xs font-bold text-[#CC5218] block mb-1">
                   {lang === 'hi' ? 'शास्त्रीय फल व प्रभाव:' : 'શાસ્ત્રીય ફળ અને પ્રભાવ:'}
                 </span>
-                <p className="leading-relaxed text-xs sm:text-sm font-medium text-stone-950 dark:text-stone-200">
+                <p className="leading-relaxed text-xs sm:text-sm font-medium text-stone-950">
                   {lang === 'hi' ? activeHouseMeta.significanceHi : activeHouseMeta.significanceGu}
                 </p>
               </div>
             </div>
 
             {/* Quick 12 Houses Navigation row */}
-            <div className="mt-4 pt-3 border-t border-amber-500/20">
-              <span className="text-xs text-stone-900 dark:text-stone-300 font-bold block mb-1.5">
+            <div className="mt-4 pt-3 border-t border-[#FF671F]/20">
+              <span className="text-xs text-stone-900 font-bold block mb-1.5">
                 {lang === 'hi' ? 'अन्य भाव चुनें (1 से 12):' : 'અન્ય ભાવ પસંદ કરો:'}
               </span>
               <div className="grid grid-cols-6 gap-1">
@@ -549,8 +574,6 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     className={`py-1 rounded-lg text-xs font-bold transition-all ${
                       selectedHouse === h
                         ? 'bg-[#FF671F] text-white shadow-xs'
-                        : isDark
-                        ? 'bg-slate-800 text-stone-300 hover:bg-slate-700'
                         : 'bg-[#FFF5F0] text-stone-950 border border-[#FF671F]/30 hover:bg-[#FFEAE0]'
                     }`}
                   >

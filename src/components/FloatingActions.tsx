@@ -1,64 +1,53 @@
 import React from 'react';
-import { Phone, MessageCircle, Sparkles } from 'lucide-react';
+import { PhoneCall } from 'lucide-react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
 
 interface FloatingActionsProps {
-  onOpenAskAI: () => void;
+  onOpenAskAI?: () => void;
 }
 
-export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenAskAI }) => {
+export const FloatingActions: React.FC<FloatingActionsProps> = () => {
   return (
-    <>
-      {/* LEFT SIDE: WhatsApp Floating Button */}
-      <div className="fixed bottom-5 left-5 z-40 flex items-center pointer-events-auto">
-        <a
-          href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('प्रणाम पंडित जी! मुझे भवानी ज्योतिष केंद्र, मेहसाणा से परामर्श चाहिए।')}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white flex items-center justify-center shadow-2xl shadow-emerald-600/50 transition-all hover:scale-110 border-2 border-white relative group active:scale-95"
-          title="WhatsApp पर बात करें"
-          aria-label="WhatsApp"
-        >
-          <MessageCircle className="w-7 h-7 fill-current" />
-          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white animate-ping" />
-          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white" />
-          
-          {/* Tooltip on hover */}
-          <span className="hidden group-hover:block absolute left-16 bg-stone-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-lg">
-            WhatsApp चैट
-          </span>
-        </a>
-      </div>
+    <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 pointer-events-auto select-none">
+      {/* Attractive Glowing Pulse Rings */}
+      <div className="relative group">
+        {/* Ambient Glow / Radar Wave */}
+        <span className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 opacity-80 blur-md group-hover:opacity-100 transition-opacity duration-500 animate-pulse pointer-events-none" />
+        <span className="absolute -inset-1 rounded-full border-2 border-emerald-400/50 animate-ping pointer-events-none opacity-40" />
 
-      {/* RIGHT SIDE: Call Button + AI Ask */}
-      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3 pointer-events-auto">
-        {/* AI Ask trigger */}
-        <button
-          type="button"
-          onClick={onOpenAskAI}
-          className="group flex items-center gap-2 bg-purple-700 hover:bg-purple-800 text-white px-3.5 py-2.5 rounded-full shadow-xl shadow-purple-900/30 transition-all hover:scale-105 border border-purple-400/40 text-xs sm:text-sm font-bold"
-        >
-          <Sparkles className="w-4 h-4 text-amber-300 animate-spin-slow" />
-          <span className="hidden sm:inline">AI ज्योतिषी से पूछें</span>
-        </button>
-
-        {/* Direct Call Button on Right Side */}
+        {/* Floating Call Button */}
         <a
           href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-          className="w-14 h-14 rounded-full bg-[#FF671F] hover:bg-[#CC5218] text-white flex items-center justify-center shadow-2xl shadow-[#FF671F]/50 transition-all hover:scale-110 border-2 border-white relative group active:scale-95"
-          title="सीधा कॉल करें"
-          aria-label="Call Now"
+          className="relative flex items-center gap-2.5 sm:gap-3 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 text-white p-1.5 sm:p-2 pr-4 sm:pr-5 rounded-full shadow-[0_10px_35px_rgba(5,150,105,0.55)] border-2 border-amber-300/90 transition-all duration-300 hover:scale-105 active:scale-95 group-hover:shadow-[0_14px_45px_rgba(5,150,105,0.75)]"
+          title={`पंडित जी से सीधा संपर्क करें: ${ASTROLOGER_INFO.phonePrimary}`}
+          aria-label="पंडित जी को सीधा कॉल करें"
         >
-          <Phone className="w-7 h-7 animate-bounce" />
-          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white animate-ping" />
-          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white" />
-
-          {/* Tooltip on hover */}
-          <span className="hidden group-hover:block absolute right-16 bg-stone-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-lg">
-            सीधा कॉल करें ({ASTROLOGER_INFO.phonePrimary})
+          {/* Circular Phone Icon with Glow */}
+          <span className="relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white text-emerald-700 shadow-md group-hover:rotate-12 transition-transform duration-300 shrink-0">
+            <PhoneCall className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 fill-emerald-600 animate-bounce" />
+            
+            {/* Live Active Status Indicator Dot */}
+            <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-amber-400 rounded-full border-2 border-white shadow-xs">
+              <span className="absolute inset-0 rounded-full bg-amber-300 animate-ping opacity-75" />
+            </span>
           </span>
+
+          {/* Text Information Block */}
+          <div className="flex flex-col items-start leading-tight text-left">
+            <span className="text-[10px] sm:text-[11px] font-bold text-amber-300 tracking-wider flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 inline-block animate-pulse" />
+              <span>पंडित जी उपलब्ध हैं</span>
+            </span>
+            <span className="font-yatra text-sm sm:text-base font-bold text-white tracking-wide drop-shadow-sm">
+              सीधा कॉल करें
+            </span>
+            <span className="text-[10px] sm:text-[11px] font-bold font-mono text-emerald-100 opacity-95">
+              {ASTROLOGER_INFO.phonePrimary}
+            </span>
+          </div>
         </a>
       </div>
-    </>
+    </div>
   );
 };
+
