@@ -75,20 +75,32 @@ export interface PlanetPosition {
 export interface BirthPanchang {
   samvatVikram: string;
   samvatShaka: string;
+  samvatsaraName?: string;
   hinduMonth: string;
+  amantaMonth?: string;
+  purnimantaMonth?: string;
   paksha: 'शुक्ल पक्ष' | 'कृष्ण पक्ष';
   tithi: string;
+  sunriseTithi?: string;
+  birthTithi?: string;
+  tithiEnding?: string;
   tithiNumber: number;
   tithiLord: string;
   nakshatra: string;
+  nakshatraEnding?: string;
   nakshatraCharan: number;
   nakshatraLord: string;
   nakshatraAkshar: string;
+  paya?: string;
   yoga: string;
+  yogaEnding?: string;
   yogaDescription: string;
   karana: string;
+  karanaEnding?: string;
   dayOfWeek: string;
   dayLord: string;
+  kalnirnayDay?: string;
+  isBeforeSunrise?: boolean;
   sunrise: string;
   sunset: string;
   ishtaKaal: string;
@@ -104,6 +116,7 @@ export interface BirthPanchang {
     name: string;
     type: 'शुभ' | 'अमृत' | 'लाभ' | 'चर' | 'रोग' | 'काल' | 'उद्वेग';
     effect: string;
+    timeWindow?: string;
   };
   muhurat?: {
     abhijit: string;

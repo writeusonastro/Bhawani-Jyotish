@@ -849,7 +849,7 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                 {[
                   {
                     id: 'panchang',
-                    label: lang === 'en' ? '1. Birth Panchang' : lang === 'hi' ? '1. जन्म पंचांग' : '૧. જન્મ પંચાંગ',
+                    label: lang === 'en' ? '1. Kalnirnay Panchang' : lang === 'hi' ? '1. कालनिर्णय पंचांग' : '૧. કાલનિર્ણય પંચાંગ',
                     icon: Calendar,
                   },
                   {
@@ -903,15 +903,126 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                 })}
               </div>
 
-              {/* TAB 1: Complete Birth Panchang & Avakahada Chakra */}
+              {/* TAB 1: Complete Birth Panchang & Avakahada Chakra (कालनिर्णय पंचांग व वैदिक पंचांग) */}
               {activeTab === 'panchang' && (
                 <div className="space-y-5">
-                  {/* Birth Hindu Calendar Box */}
+                  {/* Dedicated Kalnirnay Panchang Standards Box */}
+                  <div className="p-4 sm:p-5 rounded-2xl border-2 bg-gradient-to-br from-amber-50/90 via-orange-50/60 to-white border-amber-300 shadow-sm space-y-3.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-amber-200/90 pb-2.5">
+                      <div className="flex items-center gap-2">
+                        <span className="px-2.5 py-1 rounded-lg bg-[#CC5218] text-white text-[11px] font-bold tracking-wider shadow-xs uppercase">
+                          कालनिर्णय पंचांग मानक (Kalnirnay Standard)
+                        </span>
+                        <span className="text-xs font-bold text-amber-950">
+                          राष्ट्रीय दृक गणित व शालिवाहन शक संगत
+                        </span>
+                      </div>
+                      <span className="text-xs font-bold text-[#CC5218] bg-amber-100/90 px-2.5 py-1 rounded-md border border-amber-300">
+                        {result.birthPanchang.samvatShaka}
+                      </span>
+                    </div>
+
+                    {/* Sunrise Tithi (Calendar Box) vs Birth Tithi (Exact Kundli) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                      <div className="p-3 rounded-xl bg-white/95 border border-amber-300 space-y-1 shadow-2xs">
+                        <div className="flex items-center justify-between">
+                          <span className="text-stone-600 font-bold text-[11px]">कालनिर्णय दैनिक उदय तिथि (Sunrise Tithi)</span>
+                          <span className="text-[10px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full font-bold">
+                            कैलेंडर मुख्य बॉक्स
+                          </span>
+                        </div>
+                        <div className="font-bold text-[#CC5218] text-sm">
+                          {result.birthPanchang.sunriseTithi || result.birthPanchang.tithi}
+                        </div>
+                        <p className="text-[11px] text-stone-600 leading-tight">
+                          कालनिर्णय कैलेंडर में तारीख के मुख्य चौकोर बॉक्स में यही सूर्योदय कालीन तिथि छपी होती है।
+                        </p>
+                      </div>
+
+                      <div className="p-3 rounded-xl bg-white/95 border border-emerald-300 space-y-1 shadow-2xs">
+                        <div className="flex items-center justify-between">
+                          <span className="text-stone-600 font-bold text-[11px]">जन्म समय की वास्तविक तिथि (Birth Tithi)</span>
+                          <span className="text-[10px] bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full font-bold">
+                            कुंडली स्पष्ट
+                          </span>
+                        </div>
+                        <div className="font-bold text-emerald-800 text-sm">
+                          {result.birthPanchang.birthTithi || result.birthPanchang.tithi}
+                        </div>
+                        <p className="text-[11px] text-stone-600 leading-tight">
+                          तिथि समाप्ति काल: <strong>{result.birthPanchang.tithiEnding}</strong>
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Month Comparison (Amanta vs Purnimanta) & Day of Week */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                      <div className="p-2.5 rounded-xl bg-white border border-amber-200">
+                        <span className="text-stone-500 font-bold block text-[10px]">अमान्त मास (कालनिर्णय मुख्य)</span>
+                        <strong className="text-stone-900 text-xs block">{result.birthPanchang.amantaMonth || result.birthPanchang.hinduMonth}</strong>
+                        <span className="text-[10px] text-stone-500">महाराष्ट्र, गुजरात व दक्षिण भारत मानक</span>
+                      </div>
+
+                      <div className="p-2.5 rounded-xl bg-white border border-amber-200">
+                        <span className="text-stone-500 font-bold block text-[10px]">पूर्णिमान्त मास (उत्तर भारत)</span>
+                        <strong className="text-stone-900 text-xs block">{result.birthPanchang.purnimantaMonth || result.birthPanchang.hinduMonth}</strong>
+                        <span className="text-[10px] text-stone-500">उ.प्र., बिहार, राज., म.प्र., दिल्ली</span>
+                      </div>
+
+                      <div className="p-2.5 rounded-xl bg-white border border-amber-200">
+                        <span className="text-stone-500 font-bold block text-[10px]">कालनिर्णय पंचांग वार (अहोरात्र)</span>
+                        <strong className="text-[#CC5218] text-xs block">{result.birthPanchang.kalnirnayDay || result.birthPanchang.dayOfWeek}</strong>
+                        <span className="text-[10px] text-stone-500">वार स्वामी: {result.birthPanchang.dayLord}</span>
+                      </div>
+                    </div>
+
+                    {/* Before Sunrise Alert if birth is between 00:00 midnight and sunrise */}
+                    {result.birthPanchang.isBeforeSunrise && (
+                      <div className="p-2.5 rounded-xl bg-amber-100 border border-amber-400 text-xs text-amber-950 flex items-start gap-2">
+                        <span className="text-base leading-none">⚠️</span>
+                        <div>
+                          <strong className="block text-[11px] text-amber-950">सूर्योदय पूर्व जन्म विशेष सूचना (कालनिर्णय अहोरात्र नियम):</strong>
+                          <p className="text-[11px] leading-relaxed text-stone-700">
+                            जन्म सूर्योदय ({result.birthPanchang.sunrise}) से पूर्व रात्रि (मध्यरात्रि पश्चात) हुआ है। कालनिर्णय पंचांग में नया दिन सूर्योदय से माना जाता है, अतः पंचांग अनुसार वार <strong>{result.birthPanchang.kalnirnayDay}</strong> मान्य है।
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Quick Nakshatra, Paya & Samvatsara highlights */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs pt-1">
+                      <div className="p-2 rounded-lg bg-white/90 border border-amber-200">
+                        <span className="text-[10px] text-stone-500 block font-semibold">जन्म नक्षत्र व समाप्ति</span>
+                        <strong className="text-stone-900 text-xs block">{result.birthPanchang.nakshatra}</strong>
+                        <span className="text-[10px] text-indigo-700 font-medium">{result.birthPanchang.nakshatraEnding}</span>
+                      </div>
+
+                      <div className="p-2 rounded-lg bg-white/90 border border-amber-200">
+                        <span className="text-[10px] text-stone-500 block font-semibold">नक्षत्र नामाक्षर व चरण</span>
+                        <strong className="text-[#CC5218] text-xs block">'{result.birthPanchang.nakshatraAkshar}' (चरण {result.birthPanchang.nakshatraCharan})</strong>
+                        <span className="text-[10px] text-stone-600">स्वामी: {result.birthPanchang.nakshatraLord}</span>
+                      </div>
+
+                      <div className="p-2 rounded-lg bg-white/90 border border-amber-200">
+                        <span className="text-[10px] text-stone-500 block font-semibold">जन्म पाया (Paya)</span>
+                        <strong className="text-emerald-800 text-xs block">{result.birthPanchang.paya?.split('-')[0] || 'रजत पाया'}</strong>
+                        <span className="text-[10px] text-stone-500">चंद्र स्थिति अनुसार</span>
+                      </div>
+
+                      <div className="p-2 rounded-lg bg-white/90 border border-amber-200">
+                        <span className="text-[10px] text-stone-500 block font-semibold">संवत्सर (Jovian Year)</span>
+                        <strong className="text-stone-900 text-xs block">{result.birthPanchang.samvatsaraName || 'आनंद'}</strong>
+                        <span className="text-[10px] text-stone-500">६० संवत्सर चक्र</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Comprehensive Birth Vedic Details Grid */}
                   <div className="p-4 rounded-2xl border bg-[#FFFDF9] border-[#FF671F]/30 space-y-4">
                     <div className="flex items-center justify-between border-b border-[#FF671F]/20 pb-2">
                       <h4 className="font-yatra text-base text-[#CC5218] flex items-center gap-1.5 font-bold">
                         <Compass className="w-4 h-4 text-[#FF671F]" />
-                        <span>जन्म कालीन हिंदू पंचांग (Birth Panchang)</span>
+                        <span>विस्तृत जन्म पंचांग विवरण (Full Panchang Details)</span>
                       </h4>
                       <span className="text-xs font-semibold text-stone-600">
                         {result.birthPanchang.samvatVikram}
@@ -932,25 +1043,25 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                       </div>
 
                       <div className="p-2.5 rounded-xl border bg-white border-[#FF671F]/20">
-                        <span className="text-stone-500 font-bold block text-[10px]">तिथि एवं तिथि स्वामी</span>
+                        <span className="text-stone-500 font-bold block text-[10px]">तिथि (उदय व जन्मकालीन)</span>
                         <strong className="text-[#CC5218] text-xs block">{result.birthPanchang.tithi}</strong>
-                        <span className="text-[10px] text-stone-600">स्वामी: {result.birthPanchang.tithiLord}</span>
+                        <span className="text-[10px] text-stone-600">उदय तिथि: {result.birthPanchang.sunriseTithi?.split(' ')[1] || ''}</span>
                       </div>
 
                       <div className="p-2.5 rounded-xl border bg-white border-[#FF671F]/20">
                         <span className="text-stone-500 font-bold block text-[10px]">नक्षत्र व चरण</span>
                         <strong className="text-stone-900 text-xs block">{result.birthPanchang.nakshatra} (चरण {result.birthPanchang.nakshatraCharan})</strong>
-                        <span className="text-[10px] text-stone-600">स्वामी: {result.birthPanchang.nakshatraLord}</span>
+                        <span className="text-[10px] text-stone-600">{result.birthPanchang.nakshatraEnding}</span>
                       </div>
 
                       <div className="p-2.5 rounded-xl border bg-white border-[#FF671F]/20">
                         <span className="text-stone-500 font-bold block text-[10px]">नित्य योग (Yoga)</span>
                         <strong className="text-emerald-800 text-xs block">{result.birthPanchang.yoga}</strong>
-                        <span className="text-[10px] text-stone-600 truncate block">{result.birthPanchang.yogaDescription.slice(0, 24)}...</span>
+                        <span className="text-[10px] text-stone-600">{result.birthPanchang.yogaEnding || result.birthPanchang.yogaDescription.slice(0, 24)}</span>
                       </div>
 
                       <div className="p-2.5 rounded-xl border bg-white border-[#FF671F]/20">
-                        <span className="text-stone-500 font-bold block text-[10px]">करण (Karana)</span>
+                        <span className="text-stone-500 font-bold block text-[10px]">करण व वार</span>
                         <strong className="text-stone-900 text-xs block">{result.birthPanchang.karana}</strong>
                         <span className="text-[10px] text-stone-600">{result.birthPanchang.dayOfWeek} ({result.birthPanchang.dayLord})</span>
                       </div>
@@ -973,7 +1084,7 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                       </div>
 
                       <div className="p-2.5 rounded-xl border bg-white border-[#FF671F]/20">
-                        <span className="text-stone-500 font-bold block text-[10px]">लाहिड़ी अयनांश मान</span>
+                        <span className="text-stone-500 font-bold block text-[10px]">लाहिड़ी अयनांश मान (Lahiri)</span>
                         <strong className="text-indigo-900 font-mono text-xs block">
                           {result.birthPanchang.lahiriAyanamshaDms || result.birthPanchang.ayanamsha}
                         </strong>
@@ -984,6 +1095,12 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                         <span className="text-stone-500 font-bold block text-[10px]">दिनमान एवं रात्रिमान</span>
                         <strong className="text-stone-900 text-xs block">{result.birthPanchang.dinmaan || '३० घटी'}</strong>
                         <span className="text-[10px] text-stone-600">{result.birthPanchang.raatrimaan || '३० घटी'}</span>
+                      </div>
+
+                      <div className="p-2.5 rounded-xl border bg-white border-[#FF671F]/20">
+                        <span className="text-stone-500 font-bold block text-[10px]">जन्म पाया (Paya)</span>
+                        <strong className="text-emerald-800 text-xs block">{result.birthPanchang.paya?.split(' ')[0] || 'रजत'}</strong>
+                        <span className="text-[10px] text-stone-600 truncate block">{result.birthPanchang.paya?.slice(0, 26)}...</span>
                       </div>
                     </div>
                   </div>
@@ -1008,10 +1125,17 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                         </span>
                       </div>
                       <div className="p-2 rounded-xl bg-white border border-amber-200 text-xs">
-                        <div className="font-bold text-[#CC5218] text-sm">
-                          {result.birthPanchang.birthChoghadiya?.name || 'शुभ चौघड़िया'}
+                        <div className="flex items-center justify-between">
+                          <div className="font-bold text-[#CC5218] text-sm">
+                            {result.birthPanchang.birthChoghadiya?.name || 'शुभ चौघड़िया'}
+                          </div>
+                          {result.birthPanchang.birthChoghadiya?.timeWindow && (
+                            <span className="text-[10px] font-mono text-stone-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                              समय: {result.birthPanchang.birthChoghadiya.timeWindow}
+                            </span>
+                          )}
                         </div>
-                        <div className="text-[11px] text-stone-600 mt-0.5">
+                        <div className="text-[11px] text-stone-600 mt-1">
                           प्रभाव: <strong>{result.birthPanchang.birthChoghadiya?.effect || 'अति शुभ फलदायी'}</strong>
                         </div>
                       </div>

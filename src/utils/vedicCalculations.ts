@@ -629,7 +629,7 @@ function calculateBirthChoghadiya(
   birthDecimalHour: number,
   sunriseHour: number,
   sunsetHour: number
-): { name: string; type: 'शुभ' | 'अमृत' | 'लाभ' | 'चर' | 'रोग' | 'काल' | 'उद्वेग'; effect: string } {
+): { name: string; type: 'शुभ' | 'अमृत' | 'लाभ' | 'चर' | 'रोग' | 'काल' | 'उद्वेग'; effect: string; timeWindow: string } {
   const DAY_CHOGHADIYA_ORDER = [
     ['उद्वेग', 'चर', 'लाभ', 'अमृत', 'काल', 'शुभ', 'रोग', 'उद्वेग'], // Sun
     ['अमृत', 'काल', 'शुभ', 'रोग', 'उद्वेग', 'चर', 'लाभ', 'अमृत'], // Mon
@@ -650,20 +650,35 @@ function calculateBirthChoghadiya(
     ['लाभ', 'उद्वेग', 'शुभ', 'अमृत', 'चर', 'रोग', 'काल', 'लाभ']  // Sat night
   ];
 
+  const formatClock = (hDec: number) => {
+    const hNorm = ((hDec % 24) + 24) % 24;
+    const h = Math.floor(hNorm);
+    const m = Math.round((hNorm - h) * 60);
+    const period = h >= 12 ? 'PM' : 'AM';
+    const displayH = h % 12 === 0 ? 12 : h % 12;
+    return `${displayH}:${m.toString().padStart(2, '0')} ${period}`;
+  };
+
   const isDay = birthDecimalHour >= sunriseHour && birthDecimalHour < sunsetHour;
   let choghadiyaName = 'अमृत';
+  let slotStart = sunriseHour;
+  let slotEnd = sunsetHour;
 
   if (isDay) {
     const dayLen = sunsetHour - sunriseHour;
     const slotLen = dayLen / 8;
     const slotIdx = Math.min(7, Math.max(0, Math.floor((birthDecimalHour - sunriseHour) / slotLen)));
     choghadiyaName = DAY_CHOGHADIYA_ORDER[dayOfWeek][slotIdx];
+    slotStart = sunriseHour + slotIdx * slotLen;
+    slotEnd = slotStart + slotLen;
   } else {
     let nightElapsed = birthDecimalHour >= sunsetHour ? birthDecimalHour - sunsetHour : birthDecimalHour + 24 - sunsetHour;
     const nightLen = (24 - sunsetHour) + sunriseHour;
     const slotLen = nightLen / 8;
     const slotIdx = Math.min(7, Math.max(0, Math.floor(nightElapsed / slotLen)));
     choghadiyaName = NIGHT_CHOGHADIYA_ORDER[dayOfWeek][slotIdx];
+    slotStart = (sunsetHour + slotIdx * slotLen) % 24;
+    slotEnd = (slotStart + slotLen) % 24;
   }
 
   const effectMap: { [k: string]: { type: 'शुभ' | 'अमृत' | 'लाभ' | 'चर' | 'रोग' | 'काल' | 'उद्वेग'; effect: string } } = {
@@ -679,7 +694,8 @@ function calculateBirthChoghadiya(
   return {
     name: choghadiyaName,
     type: (effectMap[choghadiyaName]?.type || 'शुभ') as any,
-    effect: effectMap[choghadiyaName]?.effect || 'सामान्य फलदायी'
+    effect: effectMap[choghadiyaName]?.effect || 'सामान्य फलदायी',
+    timeWindow: `${formatClock(slotStart)} - ${formatClock(slotEnd)}`
   };
 }
 
@@ -1527,7 +1543,7 @@ export function calculateVedicKundli(input: KundliInput): KundliResult {
   const chalitHouses = Object.values(chalitHousesMap);
   const navamshaHouses = Object.values(navamshaHousesMap);
 
-  // 7. Complete Birth Panchang Calculations (हिंदू पंचांग)
+  // 7. Complete Birth Panchang Calculations (कालनिर्णय पंचांग व वैदिक पंचांग मानक)
   const sunElevation = normalizeDeg(sunData.tropicalDeg);
   const ayan: BirthPanchang['ayan'] = (sunElevation >= 270 || sunElevation < 90) 
     ? 'उत्तरायण (Uttarayana)' 
@@ -1541,19 +1557,81 @@ export function calculateVedicKundli(input: KundliInput): KundliResult {
   const rituIdx = Math.floor(((sunElevation + 30) % 360) / 60);
   const ritu = rituNames[rituIdx] || rituNames[1];
 
-  // Elongation for Tithi & Paksha
+  // Astronomical Sunrise & Sunset
+  const sunRiseSet = calculateSunriseSunset(input.year, input.month, input.day, cityLat, cityLon);
+  const dinmaanHours = sunRiseSet.dayDurationHours;
+  const raatrimaanHours = 24 - dinmaanHours;
+
+  const dinmaanGhati = Math.floor(dinmaanHours * 2.5);
+  const dinmaanPala = Math.round((dinmaanHours * 2.5 - dinmaanGhati) * 60);
+
+  const raatriGhati = Math.floor(raatrimaanHours * 2.5);
+  const raatriPala = Math.round((raatrimaanHours * 2.5 - raatriGhati) * 60);
+
+  // Decimal birth hour & Ishta Kaal
+  const birthDecimalHour = input.hour + input.minute / 60;
+  let ishtaHours = birthDecimalHour - sunRiseSet.sunriseHour;
+  if (ishtaHours < 0) ishtaHours += 24;
+  const ishtaGhati = Math.floor(ishtaHours * 2.5);
+  const ishtaPala = Math.round((ishtaHours * 2.5 - ishtaGhati) * 60);
+
+  // Elongation for Tithi & Paksha at exact Birth Time
   const moonSunElongation = normalizeDeg(moonData.siderealDeg - sunData.siderealDeg);
   const tithiIndex = Math.floor(moonSunElongation / 12); // 0 to 29
   const tithiNumber = tithiIndex + 1;
   const isShukla = tithiIndex < 15;
   const paksha: BirthPanchang['paksha'] = isShukla ? 'शुक्ल पक्ष' : 'कृष्ण पक्ष';
-  const tithi = `${paksha} ${TITHI_NAMES[tithiIndex] || 'पूर्णिमा'}`;
+  const birthTithi = `${paksha} ${TITHI_NAMES[tithiIndex] || 'पूर्णिमा'}`;
   const tithiLord = TITHI_LORDS[tithiIndex] || 'भगवान विष्णु';
+
+  // Calculate Sunrise Tithi (उदय तिथि - Exact Kalnirnay Date Box Value)
+  const sunriseH = Math.floor(sunRiseSet.sunriseHour);
+  const sunriseM = Math.round((sunRiseSet.sunriseHour - sunriseH) * 60);
+  const sunriseJdData = getJulianDayIST(input.year, input.month, input.day, sunriseH, sunriseM);
+  const sunAtSunrise = calculateSun(sunriseJdData.t, ayanamsha);
+  const moonAtSunrise = calculateMoon(sunriseJdData.t, ayanamsha);
+  const sunriseElongation = normalizeDeg(moonAtSunrise.siderealDeg - sunAtSunrise.siderealDeg);
+  const sunriseTithiIdx = Math.floor(sunriseElongation / 12);
+  const isSunriseShukla = sunriseTithiIdx < 15;
+  const sunrisePaksha = isSunriseShukla ? 'शुक्ल पक्ष' : 'कृष्ण (वद्य) पक्ष';
+  const sunriseTithi = `${sunrisePaksha} ${TITHI_NAMES[sunriseTithiIdx] || 'पूर्णिमा'}`;
+
+  // Tithi Ending Time (अवधि)
+  const currentTithiEndElong = (tithiIndex + 1) * 12;
+  const elongRemaining = currentTithiEndElong - moonSunElongation;
+  const hoursRemainingInTithi = elongRemaining / 0.508;
+  const tithiEndDecimalHour = (birthDecimalHour + hoursRemainingInTithi) % 24;
+  const tEndH = Math.floor(tithiEndDecimalHour);
+  const tEndM = Math.round((tithiEndDecimalHour - tEndH) * 60);
+  const tEndPeriod = tEndH >= 12 ? 'PM' : 'AM';
+  const tEndDisplayH = tEndH % 12 === 0 ? 12 : tEndH % 12;
+  const tithiEnding = `${tEndDisplayH}:${tEndM.toString().padStart(2, '0')} ${tEndPeriod} तक (लगभग)`;
+
+  // Nakshatra Ending Time
+  const nakSpan = 360 / 27;
+  const degInNak = moonData.siderealDeg % nakSpan;
+  const degRemainingInNak = nakSpan - degInNak;
+  const nakHoursRemaining = degRemainingInNak / 0.549;
+  const nakEndDecimalHour = (birthDecimalHour + nakHoursRemaining) % 24;
+  const nEndH = Math.floor(nakEndDecimalHour);
+  const nEndM = Math.round((nakEndDecimalHour - nEndH) * 60);
+  const nEndPeriod = nEndH >= 12 ? 'PM' : 'AM';
+  const nEndDisplayH = nEndH % 12 === 0 ? 12 : nEndH % 12;
+  const nakshatraEnding = `${nEndDisplayH}:${nEndM.toString().padStart(2, '0')} ${nEndPeriod} तक (लगभग)`;
 
   // Nitya Yoga calculation: (Sun + Moon) % 360
   const yogaDegree = normalizeDeg(sunData.siderealDeg + moonData.siderealDeg);
   const yogaIndex = Math.floor(yogaDegree / (360 / 27));
   const yogaObj = VEDIC_YOGAS[yogaIndex] || VEDIC_YOGAS[0];
+  const degInYoga = yogaDegree % (360 / 27);
+  const degRemainingInYoga = (360 / 27) - degInYoga;
+  const yogaHoursRemaining = degRemainingInYoga / 0.59;
+  const yogaEndDecimalHour = (birthDecimalHour + yogaHoursRemaining) % 24;
+  const yEndH = Math.floor(yogaEndDecimalHour);
+  const yEndM = Math.round((yogaEndDecimalHour - yEndH) * 60);
+  const yEndPeriod = yEndH >= 12 ? 'PM' : 'AM';
+  const yEndDisplayH = yEndH % 12 === 0 ? 12 : yEndH % 12;
+  const yogaEnding = `${yEndDisplayH}:${yEndM.toString().padStart(2, '0')} ${yEndPeriod} तक`;
 
   // Karana calculation: Half-tithi
   const halfTithi = Math.floor(moonSunElongation / 6); // 0 to 59
@@ -1571,7 +1649,7 @@ export function calculateVedicKundli(input: KundliInput): KundliResult {
     karanaName = KARANA_NAMES[9]; // Naga
   }
 
-  // Day of Week & Varesh
+  // Day of Week & Kalnirnay Ahoratra Vaar
   const dayNames = [
     { name: 'रविवार (Sunday)', lord: 'सूर्य देव' },
     { name: 'सोमवार (Monday)', lord: 'चंद्र देव' },
@@ -1582,41 +1660,51 @@ export function calculateVedicKundli(input: KundliInput): KundliResult {
     { name: 'शनिवार (Saturday)', lord: 'शनि देव' }
   ];
   const birthJsDate = new Date(input.year, input.month - 1, input.day);
-  const dayOfWeekObj = dayNames[birthJsDate.getDay()];
+  const calendarDayIdx = birthJsDate.getDay();
+  const dayOfWeekObj = dayNames[calendarDayIdx];
+  const isBeforeSunrise = birthDecimalHour < sunRiseSet.sunriseHour;
+  const hinduDayIdx = isBeforeSunrise ? (calendarDayIdx + 6) % 7 : calendarDayIdx;
+  const hinduDayObj = dayNames[hinduDayIdx];
+  const kalnirnayDay = isBeforeSunrise
+    ? `${hinduDayObj.name.split(' ')[0]} की रात्रि (सूर्योदय पूर्व जन्म, वारेश: ${hinduDayObj.lord})`
+    : `${dayOfWeekObj.name}`;
 
-  // Hindu Month (Masa)
-  const hinduMonth = HINDU_MONTHS[(sunRashiIdx + 11) % 12];
+  // Hindu Lunar Month (Masa) Calculation according to Kalnirnay (Amanta) & North Indian (Purnimanta)
+  const daysSinceAmavasya = moonSunElongation / 12.1904;
+  const sunDegAtAmavasya = normalizeDeg(sunData.siderealDeg - (daysSinceAmavasya * 0.9856));
+  const sunRashiAtAmavasya = Math.floor(sunDegAtAmavasya / 30);
+  const amantaMonthIdx = (sunRashiAtAmavasya + 1) % 12;
+  const amantaMonth = HINDU_MONTHS[amantaMonthIdx];
+  const purnimantaMonthIdx = isShukla ? amantaMonthIdx : (amantaMonthIdx + 1) % 12;
+  const purnimantaMonth = HINDU_MONTHS[purnimantaMonthIdx];
+  const hinduMonth = `${amantaMonth} (अमान्त - कालनिर्णय)`;
 
-  // Vikram & Shaka Samvat
-  const vikramSamvatYear = input.year + (input.month >= 4 ? 57 : 56);
-  const shakaSamvatYear = input.year - (input.month >= 4 ? 78 : 79);
-  const samvatsaraName = SAMVATSARA_NAMES[(vikramSamvatYear + 9) % 60] || 'आनंद';
-
-  // Astronomical Sunrise & Sunset
-  const sunRiseSet = calculateSunriseSunset(input.year, input.month, input.day, cityLat, cityLon);
-  const dinmaanHours = sunRiseSet.dayDurationHours;
-  const raatrimaanHours = 24 - dinmaanHours;
-
-  const dinmaanGhati = Math.floor(dinmaanHours * 2.5);
-  const dinmaanPala = Math.round((dinmaanHours * 2.5 - dinmaanGhati) * 60);
-
-  const raatriGhati = Math.floor(raatrimaanHours * 2.5);
-  const raatriPala = Math.round((raatrimaanHours * 2.5 - raatriGhati) * 60);
-
-  // Ishta Kaal (Time elapsed from sunrise to birth time in Ghati-Pala)
-  const birthDecimalHour = input.hour + input.minute / 60;
-  let ishtaHours = birthDecimalHour - sunRiseSet.sunriseHour;
-  if (ishtaHours < 0) ishtaHours += 24;
-  const ishtaGhati = Math.floor(ishtaHours * 2.5);
-  const ishtaPala = Math.round((ishtaHours * 2.5 - ishtaGhati) * 60);
+  // Shalivahana Shaka & Vikram Samvat (Kalnirnay Standard)
+  const isAfterGudiPadwa = amantaMonthIdx > 0 || (amantaMonthIdx === 0 && isShukla);
+  const shakaSamvatYear = input.year - (isAfterGudiPadwa ? 78 : 79);
+  const vikramSamvatYear = shakaSamvatYear + 135;
+  const samvatsaraIdx = (shakaSamvatYear + 11) % 60;
+  const samvatsaraName = SAMVATSARA_NAMES[samvatsaraIdx] || 'आनंद';
 
   // Avakahada Chakra
   const moonHouseFromLagna = ((moonRashiIdx - ascendantIdx + 12) % 12) + 1;
   const avakahadaChakra = calculateAvakahadaChakra(moonRashiIdx, nakshatraIdx, nakshatraCharan, moonHouseFromLagna);
 
+  // Birth Paya (पाया)
+  let paya = 'रजत पाया (Silver)';
+  if ([2, 5, 9].includes(moonHouseFromLagna)) {
+    paya = 'रजत पाया (Silver) - अत्यंत शुभ, विद्या, धन व ऐश्वर्य प्रदाता';
+  } else if ([1, 6, 11].includes(moonHouseFromLagna)) {
+    paya = 'स्वर्ण पाया (Gold) - शुभ, मध्यम फल, परिश्रम से प्रतिष्ठा';
+  } else if ([3, 7, 10].includes(moonHouseFromLagna)) {
+    paya = 'ताम्र पाया (Copper) - शुभ फलदायी, साहसी व उन्नति कारक';
+  } else {
+    paya = 'लौह पाया (Iron) - संघर्षशील, ईष्ट आराधना व शांति शुभ';
+  }
+
   // Birth Choghadiya & Muhurat
-  const birthChoghadiya = calculateBirthChoghadiya(birthJsDate.getDay(), birthDecimalHour, sunRiseSet.sunriseHour, sunRiseSet.sunsetHour);
-  const muhurat = calculateMuhurat(birthJsDate.getDay(), sunRiseSet.sunriseHour, sunRiseSet.sunsetHour);
+  const birthChoghadiya = calculateBirthChoghadiya(calendarDayIdx, birthDecimalHour, sunRiseSet.sunriseHour, sunRiseSet.sunsetHour);
+  const muhurat = calculateMuhurat(calendarDayIdx, sunRiseSet.sunriseHour, sunRiseSet.sunsetHour);
 
   // Sarvashtakavarga (337 Bindus)
   const sarvashtakavarga = calculateSarvashtakavarga(
@@ -1626,21 +1714,32 @@ export function calculateVedicKundli(input: KundliInput): KundliResult {
 
   const birthPanchang: BirthPanchang = {
     samvatVikram: `विक्रम संवत ${vikramSamvatYear} (${samvatsaraName} संवत्सर)`,
-    samvatShaka: `शक संवत ${shakaSamvatYear}`,
+    samvatShaka: `शके ${shakaSamvatYear} (${samvatsaraName})`,
+    samvatsaraName,
     hinduMonth,
+    amantaMonth,
+    purnimantaMonth,
     paksha,
-    tithi,
+    tithi: birthTithi,
+    sunriseTithi,
+    birthTithi,
+    tithiEnding,
     tithiNumber,
     tithiLord,
     nakshatra: NAKSHATRAS[nakshatraIdx] || NAKSHATRAS[0],
+    nakshatraEnding,
     nakshatraCharan,
     nakshatraLord: NAKSHATRA_LORDS[nakshatraIdx % 27],
     nakshatraAkshar: avakahadaChakra.naamAkshar,
+    paya,
     yoga: yogaObj.name,
+    yogaEnding,
     yogaDescription: yogaObj.desc,
     karana: karanaName,
     dayOfWeek: dayOfWeekObj.name,
     dayLord: dayOfWeekObj.lord,
+    kalnirnayDay,
+    isBeforeSunrise,
     sunrise: sunRiseSet.sunrise,
     sunset: sunRiseSet.sunset,
     ishtaKaal: `${ishtaGhati} घटी ${ishtaPala} पल (${Math.floor(ishtaHours)} घंटे ${Math.round((ishtaHours - Math.floor(ishtaHours)) * 60)} मिनट सूर्योदय पश्चात)`,
