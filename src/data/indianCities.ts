@@ -11,7 +11,7 @@ export interface IndianCity {
   popular?: boolean;
 }
 
-export const INDIAN_CITIES_DATABASE: IndianCity[] = [
+const BASE_INDIAN_CITIES: IndianCity[] = [
   // --- GUJARAT ---
   { name: "मेहसाणा (Mehsana)", nameHi: "मेहसाणा", nameGu: "મહેસાણા", nameEn: "Mehsana", state: "गुजरात (Gujarat)", stateHi: "गुजरात", stateGu: "ગુજરાત", lat: 23.5880, lon: 72.3693, popular: true },
   { name: "अहमदाबाद (Ahmedabad)", nameHi: "अहमदाबाद", nameGu: "અમદાવાદ", nameEn: "Ahmedabad", state: "गुजरात (Gujarat)", stateHi: "गुजरात", stateGu: "ગુજરાત", lat: 23.0225, lon: 72.5714, popular: true },
@@ -230,23 +230,30 @@ export const INDIAN_CITIES_DATABASE: IndianCity[] = [
   { name: "मडगांव (Margao - Goa)", nameHi: "मडगांव", nameGu: "મડગાંવ", nameEn: "Margao", state: "गोवा (Goa)", stateHi: "गोवा", stateGu: "ગોવા", lat: 15.2832, lon: 73.9862 }
 ];
 
+import { EXPANDED_TOWNS_AND_TEHSILS } from './expandedCitiesData';
+
+export const INDIAN_CITIES_DATABASE: IndianCity[] = [
+  ...BASE_INDIAN_CITIES,
+  ...EXPANDED_TOWNS_AND_TEHSILS
+];
+
 export const INDIAN_STATES: string[] = [
   "गुजरात (Gujarat)",
-  "महाराष्ट्र (Maharashtra)",
-  "दिल्ली (Delhi)",
-  "उत्तर प्रदेश (Uttar Pradesh)",
   "राजस्थान (Rajasthan)",
+  "महाराष्ट्र (Maharashtra)",
   "मध्य प्रदेश (Madhya Pradesh)",
+  "उत्तर प्रदेश (Uttar Pradesh)",
+  "दिल्ली (Delhi NCR)",
+  "बिहार (Bihar)",
+  "हरियाणा (Haryana)",
+  "पंजाब (Punjab)",
+  "उत्तराखंड (Uttarakhand)",
+  "हिमाचल प्रदेश (Himachal Pradesh)",
   "कर्नाटक (Karnataka)",
+  "पश्चिम बंगाल (West Bengal)",
   "तमिलनाडु (Tamil Nadu)",
   "तेलंगाना (Telangana)",
   "आंध्र प्रदेश (Andhra Pradesh)",
-  "पश्चिम बंगाल (West Bengal)",
-  "बिहार (Bihar)",
-  "पंजाब (Punjab)",
-  "हरियाणा (Haryana)",
-  "उत्तराखंड (Uttarakhand)",
-  "हिमाचल प्रदेश (Himachal Pradesh)",
   "ओडिशा (Odisha)",
   "झारखंड (Jharkhand)",
   "छत्तीसगढ़ (Chhattisgarh)",
@@ -255,8 +262,16 @@ export const INDIAN_STATES: string[] = [
   "जम्मू और कश्मीर (J&K)",
   "गोवा (Goa)",
   "लद्दाख (Ladakh)",
-  "मेघालय (Meghalaya)",
+  "चंडीगढ़ (Chandigarh)",
   "त्रिपुरा (Tripura)",
+  "मेघालय (Meghalaya)",
+  "मणिपुर (Manipur)",
+  "नागालैंड (Nagaland)",
+  "मिजोरम (Mizoram)",
+  "अरुणाचल प्रदेश (Arunachal Pradesh)",
   "सिक्किम (Sikkim)",
-  "मणिपुर (Manipur)"
+  "पुडुचेरी (Puducherry)",
+  "दादरा और नगर हवेली एवं दमन दीव (DNH & DD)",
+  "अंडमान और निकोबार (Andaman & Nicobar)",
+  "लक्षद्वीप (Lakshadweep)"
 ];

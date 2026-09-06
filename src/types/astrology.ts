@@ -65,6 +65,11 @@ export interface PlanetPosition {
   avastha: 'बाल (Infant)' | 'कुमार (Youth)' | 'युवा (Adult)' | 'वृद्ध (Elder)' | 'मृत (Feeble)';
   navamshaRashi: string;
   navamshaHouse: number;
+  speed?: string;
+  speedDeg?: number;
+  karaka?: string;
+  karakaHi?: string;
+  chalitHouse?: number;
 }
 
 export interface BirthPanchang {
@@ -93,6 +98,19 @@ export interface BirthPanchang {
   ritu: string;
   sunSign: string;
   moonSign: string;
+  ayanamsha?: string;
+  lahiriAyanamshaDms?: string;
+  birthChoghadiya?: {
+    name: string;
+    type: 'शुभ' | 'अमृत' | 'लाभ' | 'चर' | 'रोग' | 'काल' | 'उद्वेग';
+    effect: string;
+  };
+  muhurat?: {
+    abhijit: string;
+    rahuKaal: string;
+    gulikaKaal: string;
+    yamaganda: string;
+  };
 }
 
 export interface AvakahadaChakra {
@@ -168,6 +186,7 @@ export interface KundliResult {
   nakshatraCharan: number;
   currentDasha: string;
   dashaEndYear: number;
+  birthDashaBalance?: string;
   manglikStatus: 'मांगलिक (Manglik)' | 'आंशिक मांगलिक (Partial Manglik)' | 'गैर-मांगलिक (Non-Manglik)';
   birthPanchang: BirthPanchang;
   avakahadaChakra: AvakahadaChakra;
@@ -175,6 +194,10 @@ export interface KundliResult {
   navamshaPlanets: PlanetPosition[];
   houses: { houseNumber: number; rashi: string; planetsInHouse: string[] }[];
   navamshaHouses: { houseNumber: number; rashi: string; planetsInHouse: string[] }[];
+  chandraHouses?: { houseNumber: number; rashi: string; planetsInHouse: string[] }[];
+  chalitHouses?: { houseNumber: number; rashi: string; cuspDms: string; planetsInHouse: string[] }[];
+  jaiminiKarakas?: { karaka: string; karakaHi: string; planet: string; planetHi: string; degree: number; dms: string }[];
+  sarvashtakavarga?: { rashi: string; rashiHi: string; rashiNum: number; score: number; status?: string }[];
   dashaTimeline: DashaPeriod[];
   specialYogas: VedicYoga[];
   doshaAnalysis: DoshaAnalysis;

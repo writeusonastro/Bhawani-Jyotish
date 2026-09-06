@@ -6,6 +6,7 @@ interface KundliChartVisualizerProps {
   planets: PlanetPosition[];
   navamshaPlanets?: PlanetPosition[];
   ascendantRashi: string;
+  moonRashi?: string;
   lang: Language;
   isDark?: boolean;
 }
@@ -179,20 +180,25 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
   planets,
   navamshaPlanets,
   ascendantRashi,
+  moonRashi,
   lang,
   isDark = false
 }) => {
-  const [chartType, setChartType] = useState<'D1' | 'D9'>('D1');
+  const [chartType, setChartType] = useState<'D1' | 'CHANDRA' | 'CHALIT' | 'D9'>('D1');
   const [chartStyle, setChartStyle] = useState<'north' | 'south'>('north');
   const [selectedHouse, setSelectedHouse] = useState<number | null>(1);
 
-  const activePlanets = chartType === 'D9' && navamshaPlanets ? navamshaPlanets : planets;
-  const activeAscendant = chartType === 'D9' && navamshaPlanets && navamshaPlanets.length > 0 
-    ? navamshaPlanets[0].navamshaRashi || ascendantRashi
-    : ascendantRashi;
+  // Determine active Ascendant rashi for each chart type
+  let activeAscendant = ascendantRashi;
+  if (chartType === 'CHANDRA' && moonRashi) {
+    activeAscendant = moonRashi;
+  } else if (chartType === 'D9' && navamshaPlanets && navamshaPlanets.length > 0) {
+    activeAscendant = navamshaPlanets[0].navamshaRashi || ascendantRashi;
+  }
 
   // Calculate Rashi assigned to each house
   const ascIndex = Math.max(0, RASHI_ORDER.findIndex(r => activeAscendant.includes(r)));
+  const moonIndex = moonRashi ? Math.max(0, RASHI_ORDER.findIndex(r => moonRashi.includes(r))) : 0;
 
   const getRashiForHouse = (houseNum: number): string => {
     const rashiIdx = (ascIndex + (houseNum - 1)) % 12;
@@ -200,7 +206,22 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
   };
 
   const getPlanetsInHouse = (houseNum: number): PlanetPosition[] => {
-    return activePlanets.filter(p => p.house === houseNum);
+    if (chartType === 'D9') {
+      const sourcePlanets = navamshaPlanets && navamshaPlanets.length > 0 ? navamshaPlanets : planets;
+      return sourcePlanets.filter(p => (p.navamshaHouse || p.house) === houseNum);
+    }
+    if (chartType === 'CHANDRA') {
+      return planets.filter(p => {
+        const pRashiIdx = RASHI_ORDER.findIndex(r => p.rashi.includes(r));
+        const houseFromMoon = ((pRashiIdx - moonIndex + 12) % 12) + 1;
+        return houseFromMoon === houseNum;
+      });
+    }
+    if (chartType === 'CHALIT') {
+      return planets.filter(p => (p.chalitHouse || p.house) === houseNum);
+    }
+    // D1
+    return planets.filter(p => p.house === houseNum);
   };
 
   // Active House details
@@ -210,11 +231,11 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* Controls Bar: D1/D9 Toggle & North/South Style */}
+      {/* Controls Bar: Chart Selection & North/South Style */}
       <div className="flex flex-wrap items-center justify-between gap-3 bg-[#FFF5F0] p-3 rounded-2xl border border-[#FF671F]/20">
         <div className="flex flex-wrap items-center gap-2">
-          {/* Chart Type (D1 Lagna / D9 Navamsha) */}
-          <div className="flex bg-white rounded-xl p-1 border border-[#FF671F]/30 text-xs">
+          {/* Chart Type (D1 Lagna / Chandra / Chalit / D9 Navamsha) */}
+          <div className="flex flex-wrap bg-white rounded-xl p-1 border border-[#FF671F]/30 text-xs">
             <button
               type="button"
               onClick={() => setChartType('D1')}
@@ -224,7 +245,29 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                   : 'text-stone-700 hover:text-[#CC5218]'
               }`}
             >
-              {lang === 'hi' ? 'लग्न कुंडली (D-1)' : 'લગ્ન કુંડળી (D-1)'}
+              {lang === 'hi' ? 'लग्न (D-1)' : 'લગ્ન (D-1)'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setChartType('CHANDRA')}
+              className={`px-3 py-1 rounded-lg font-bold transition-all ${
+                chartType === 'CHANDRA'
+                  ? 'bg-[#FF671F] text-white shadow-sm'
+                  : 'text-stone-700 hover:text-[#CC5218]'
+              }`}
+            >
+              {lang === 'hi' ? 'चंद्र कुंडली' : 'ચંદ્ર કુંડળી'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setChartType('CHALIT')}
+              className={`px-3 py-1 rounded-lg font-bold transition-all ${
+                chartType === 'CHALIT'
+                  ? 'bg-[#FF671F] text-white shadow-sm'
+                  : 'text-stone-700 hover:text-[#CC5218]'
+              }`}
+            >
+              {lang === 'hi' ? 'भाव चलित' : 'ભાવ ચલિત'}
             </button>
             <button
               type="button"
@@ -235,7 +278,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                   : 'text-stone-700 hover:text-[#CC5218]'
               }`}
             >
-              {lang === 'hi' ? 'नवमांश कुंडली (D-9)' : 'નવમાંશ કુંડળી (D-9)'}
+              {lang === 'hi' ? 'नवमांश (D-9)' : 'નવમાંશ (D-9)'}
             </button>
           </div>
 

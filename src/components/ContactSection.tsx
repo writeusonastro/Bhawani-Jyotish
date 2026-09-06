@@ -27,22 +27,28 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     <section id="contact-section" className="py-8 sm:py-12 px-4 max-w-6xl mx-auto">
       {/* Title & Subtitle */}
       <div className="text-center max-w-3xl mx-auto mb-10">
-        <span className="inline-block bg-[#FF671F]/15 dark:bg-amber-950 text-[#CC5218] dark:text-amber-300 font-bold px-4 py-1.5 rounded-full text-sm border border-[#FF671F]/30 mb-3">
-          📍{' '}
-          {lang === 'en'
-            ? 'Renowned Vedic Astrological Center in North Gujarat'
-            : lang === 'hi'
-            ? 'उत्तर गुजरात का प्रतिष्ठित ज्योतिष संस्थान'
-            : 'ઉત્તર ગુજરાતનું પ્રતિષ્ઠિત જ્યોતિષ કેન્દ્ર'}
-        </span>
-        <h2 className="font-yatra text-3xl sm:text-5xl text-[#CC5218] dark:text-amber-400 mb-3">
+        <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold border mb-3 shadow-xs ${
+          isDark 
+            ? 'bg-amber-950/60 text-amber-300 border-amber-500/40' 
+            : 'bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 text-[#CC5218] border-amber-400/50'
+        }`}>
+          <span>📍</span>
+          <span className="font-['Cinzel'] tracking-wide">
+            {lang === 'en'
+              ? '✦ Royal Astrological Sansthan of North Gujarat ✦'
+              : lang === 'hi'
+              ? '✦ उत्तर गुजरात का प्रतिष्ठित राजज्योतिष संस्थान ✦'
+              : '✦ ઉત્તર ગુજરાતનું પ્રતિષ્ઠિત રાજજ્યોતિષ સંસ્થાન ✦'}
+          </span>
+        </div>
+        <h2 className="font-['Marcellus'] font-serif text-3xl sm:text-5xl text-[#CC5218] dark:text-amber-400 mb-3 tracking-tight">
           {lang === 'en'
             ? 'Bhavani Jyotish Kendra - Contact & Office Address'
             : lang === 'hi'
             ? 'भवानी ज्योतिष केंद्र - संपर्क एवं कार्यालय पता'
             : 'ભવાની જ્યોતિષ કેન્દ્ર - સંપર્ક અને સરનામું'}
         </h2>
-        <p className="text-base sm:text-lg text-black font-extrabold dark:text-stone-300">
+        <p className="text-base sm:text-lg text-stone-800 font-medium dark:text-stone-300">
           {lang === 'en'
             ? 'In-person visits available at our Mehsana office. Phone & WhatsApp consultations available for distant and international clients.'
             : lang === 'hi'
@@ -55,7 +61,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
       <div className={`rounded-3xl p-6 sm:p-10 border-2 shadow-2xl space-y-8 ${
         isDark 
           ? 'bg-slate-900 border-amber-500/40 text-stone-100' 
-          : 'bg-white border-[#FF671F]/30 shadow-[#FF671F]/10 text-black'
+          : 'bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFF9F2] border-amber-400/40 shadow-xl shadow-amber-900/5 text-stone-950'
       }`}>
         {/* Top 4 Key Contact Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -260,7 +266,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
           <a
             href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-            className="bg-[#FF671F] hover:bg-[#CC5218] text-white font-yatra text-base sm:text-lg py-3.5 px-8 rounded-2xl shadow-xl shadow-[#FF671F]/30 transition-all text-center flex items-center justify-center gap-2"
+            className="bg-gradient-to-r from-[#D9531E] via-[#FF671F] to-[#CC5218] hover:from-[#B84214] hover:to-[#D9531E] text-white font-['Marcellus'] font-serif text-base sm:text-lg py-3.5 px-8 rounded-2xl shadow-xl shadow-amber-900/20 transition-all text-center flex items-center justify-center gap-2 border border-amber-300/30"
           >
             <Phone className="w-5 h-5 text-amber-200 animate-bounce" />
             <span>
@@ -278,11 +284,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-yatra text-base sm:text-lg py-3.5 px-8 rounded-2xl shadow-xl shadow-emerald-600/30 transition-all text-center flex items-center justify-center gap-2"
+            className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-['Marcellus'] font-serif text-base sm:text-lg py-3.5 px-8 rounded-2xl shadow-xl shadow-emerald-600/30 transition-all text-center flex items-center justify-center gap-2"
           >
             <MessageCircle className="w-5 h-5" />
             <span>
-              {lang === 'en' ? 'Message on WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर बात करें' : 'વોટ્સએપ પર વાત કરો'}
+              {lang === 'en' ? 'Book via WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर अपॉइंटमेंट लें' : 'વોટ્સએપ પર વાત કરો'}
             </span>
           </a>
         </div>

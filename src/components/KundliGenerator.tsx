@@ -8,8 +8,12 @@ import {
   ScrollText, Sparkles, Printer, CheckCircle2, MessageCircle, 
   MapPin, Search, ChevronDown, Compass, Calendar, Clock,
   Check, Info, Sun, Moon, Flame, ShieldAlert, Award, ChevronRight,
-  BookOpen, HeartHandshake, Eye
+  BookOpen, HeartHandshake, Eye, Globe, Loader2, Home, Navigation, Layers
 } from 'lucide-react';
+import { 
+  searchOnlineIndianPlace, 
+  ALL_INDIAN_STATES_AND_DISTRICTS 
+} from '../data/villageSearchService';
 
 interface KundliGeneratorProps {
   lang: Language;
@@ -21,8 +25,19 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
   const [selectedState, setSelectedState] = useState<string>('सभी राज्य (All India)');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState<boolean>(false);
-  const [isCustomLocation, setIsCustomLocation] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<'panchang' | 'chart' | 'planets' | 'dasha' | 'yogas' | 'predictions'>('panchang');
+  const [locationMode, setLocationMode] = useState<'cityList' | 'onlineVillage' | 'districtVillage' | 'customCoords'>('cityList');
+  const [activeTab, setActiveTab] = useState<'panchang' | 'chart' | 'planets' | 'ashtakavarga' | 'dasha' | 'yogas' | 'predictions'>('panchang');
+
+  // Online village live search states
+  const [onlineVillageQuery, setOnlineVillageQuery] = useState<string>('');
+  const [onlineResults, setOnlineResults] = useState<typeof INDIAN_CITIES_DATABASE[0][]>([]);
+  const [isSearchingOnline, setIsSearchingOnline] = useState<boolean>(false);
+  const [onlineSearchedOnce, setOnlineSearchedOnce] = useState<boolean>(false);
+
+  // District & Village Selector state
+  const [pickerStateIndex, setPickerStateIndex] = useState<number>(0); // Default Gujarat
+  const [pickerDistrictIndex, setPickerDistrictIndex] = useState<number>(1); // Default Mehsana
+  const [customVillageName, setCustomVillageName] = useState<string>('');
 
   const defaultCity = INDIAN_CITIES_DATABASE[0]; // Mehsana
 
@@ -65,6 +80,37 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
       longitude: city.lon
     }));
     setIsCityDropdownOpen(false);
+  };
+
+  const handleOnlineVillageSearch = async (queryText?: string) => {
+    const q = (queryText !== undefined ? queryText : onlineVillageQuery).trim();
+    if (!q || q.length < 2) return;
+    setIsSearchingOnline(true);
+    setOnlineSearchedOnce(true);
+    try {
+      const places = await searchOnlineIndianPlace(q);
+      setOnlineResults(places);
+    } catch {
+      setOnlineResults([]);
+    } finally {
+      setIsSearchingOnline(false);
+    }
+  };
+
+  const handleSelectDistrictVillage = () => {
+    const stateObj = ALL_INDIAN_STATES_AND_DISTRICTS[pickerStateIndex] || ALL_INDIAN_STATES_AND_DISTRICTS[0];
+    const distObj = stateObj.districts[pickerDistrictIndex] || stateObj.districts[0];
+    const vName = customVillageName.trim() || distObj.nameHi;
+    const fullCityName = `${vName} (${distObj.nameHi})`;
+
+    setFormData(prev => ({
+      ...prev,
+      cityName: fullCityName,
+      state: stateObj.state,
+      latitude: distObj.lat,
+      longitude: distObj.lon
+    }));
+    setLocationMode('cityList');
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -234,24 +280,75 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                 </div>
               </div>
 
-              {/* Birth Place / City Selection (Pan India Database) */}
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="block font-semibold text-stone-950">
-                    {lang === 'hi' ? 'जन्म स्थान (Birth Location - Pan India)' : 'જન્મ સ્થળ (ભારત)'}
+              {/* Birth Place / City & Village Selection (Pan India 600,000+ Villages) */}
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-1">
+                  <label className="block text-xs sm:text-sm font-bold text-amber-950">
+                    {lang === 'hi' ? 'जन्म स्थान (भारत के सभी शहर व गाँव)' : 'જન્મ સ્થળ (ભારતના તમામ શહેરો અને ગામો)'}
                   </label>
+                  <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                    ✓ अखिल भारतीय डेटाबेस + लाइव गाँव सर्च
+                  </span>
+                </div>
+
+                {/* Mode Selector Tabs */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-1 bg-amber-100/60 rounded-xl border border-amber-200/80 text-[11px]">
                   <button
                     type="button"
-                    onClick={() => setIsCustomLocation(!isCustomLocation)}
-                    className="text-[11px] font-medium underline transition-colors text-[#CC5218] hover:text-[#993D12]"
+                    onClick={() => setLocationMode('cityList')}
+                    className={`py-1.5 px-2 rounded-lg font-medium transition-all text-center flex items-center justify-center gap-1 ${
+                      locationMode === 'cityList'
+                        ? 'bg-white text-[#CC5218] font-bold shadow-sm border border-amber-300'
+                        : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
+                    }`}
                   >
-                    {isCustomLocation ? 'सूची में से चुनें (Select from list)' : 'कस्टम अक्षांश / देशांतर जोड़ें'}
+                    <MapPin className="w-3 h-3 text-[#FF671F]" />
+                    <span>प्रमुख शहर (400+)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setLocationMode('onlineVillage')}
+                    className={`py-1.5 px-2 rounded-lg font-medium transition-all text-center flex items-center justify-center gap-1 ${
+                      locationMode === 'onlineVillage'
+                        ? 'bg-white text-[#CC5218] font-bold shadow-sm border border-amber-300'
+                        : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
+                    }`}
+                  >
+                    <Globe className="w-3 h-3 text-blue-600" />
+                    <span>गाँव लाइव सर्च</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setLocationMode('districtVillage')}
+                    className={`py-1.5 px-2 rounded-lg font-medium transition-all text-center flex items-center justify-center gap-1 ${
+                      locationMode === 'districtVillage'
+                        ? 'bg-white text-[#CC5218] font-bold shadow-sm border border-amber-300'
+                        : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
+                    }`}
+                  >
+                    <Home className="w-3 h-3 text-emerald-600" />
+                    <span>जिला व गाँव</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setLocationMode('customCoords')}
+                    className={`py-1.5 px-2 rounded-lg font-medium transition-all text-center flex items-center justify-center gap-1 ${
+                      locationMode === 'customCoords'
+                        ? 'bg-white text-[#CC5218] font-bold shadow-sm border border-amber-300'
+                        : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
+                    }`}
+                  >
+                    <Compass className="w-3 h-3 text-amber-600" />
+                    <span>अक्षांश/देशांतर</span>
                   </button>
                 </div>
 
-                {!isCustomLocation ? (
+                {/* MODE 1: Static Cities & Towns (400+ entries) */}
+                {locationMode === 'cityList' && (
                   <div className="space-y-2">
-                    {/* State Selector filter */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <div>
                         <span className="text-[11px] block mb-0.5 text-stone-600">
@@ -272,15 +369,14 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                         </select>
                       </div>
 
-                      {/* City Search Box */}
                       <div>
                         <span className="text-[11px] block mb-0.5 text-stone-600">
-                          शहर खोजें (Search City):
+                          शहर या कस्बा खोजें:
                         </span>
                         <div className="relative">
                           <input
                             type="text"
-                            placeholder="उदा. Mehsana, Ahmedabad, Delhi..."
+                            placeholder="उदा. Mehsana, Ahmedabad, Vadnagar, Kheralu..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onFocus={() => setIsCityDropdownOpen(true)}
@@ -291,7 +387,27 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                       </div>
                     </div>
 
-                    {/* Selected City Display & Dropdown Picker */}
+                    {/* Quick Live Search Prompt if typed */}
+                    {searchQuery.trim().length >= 2 && (
+                      <div className="p-2 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300/80 flex items-center justify-between text-xs">
+                        <span className="text-amber-900 font-medium">
+                          क्या आप <strong>'{searchQuery}'</strong> गाँव पूरे भारत में खोजना चाहते हैं?
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setOnlineVillageQuery(searchQuery);
+                            setLocationMode('onlineVillage');
+                            handleOnlineVillageSearch(searchQuery);
+                          }}
+                          className="px-2.5 py-1 rounded-lg text-white font-semibold text-[11px] bg-[#FF671F] hover:bg-[#CC5218] transition-colors shrink-0 shadow-sm"
+                        >
+                          गाँव लाइव खोजें →
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Dropdown Display Button */}
                     <div className="relative">
                       <button
                         type="button"
@@ -314,20 +430,32 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                       {isCityDropdownOpen && (
                         <div className="absolute z-30 w-full mt-1.5 max-h-56 overflow-y-auto rounded-2xl border shadow-2xl p-1.5 space-y-1 bg-white border-[#FF671F]/30">
                           <div className="px-2 py-1 text-[11px] font-semibold border-b flex justify-between text-[#CC5218] border-stone-100">
-                            <span>{filteredCities.length} शहर उपलब्ध</span>
+                            <span>{filteredCities.length} शहर व कस्बे उपलब्ध</span>
                             <span className="text-stone-400">अक्षांश/देशांतर सहित</span>
                           </div>
 
                           {filteredCities.length === 0 ? (
-                            <div className="p-3 text-center text-xs text-stone-400">
-                              कोई शहर नहीं मिला। कृपया नाम जांचें या कस्टम विकल्प चुनें।
+                            <div className="p-3 text-center text-xs space-y-2 text-stone-600">
+                              <p>डेटाबेस में '{searchQuery}' नहीं मिला।</p>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setOnlineVillageQuery(searchQuery);
+                                  setLocationMode('onlineVillage');
+                                  handleOnlineVillageSearch(searchQuery);
+                                }}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-[#FF671F] hover:bg-[#CC5218]"
+                              >
+                                <Globe className="w-3.5 h-3.5" />
+                                <span>गाँव लाइव सर्च से तुरंत खोजें</span>
+                              </button>
                             </div>
                           ) : (
                             filteredCities.map((c) => {
                               const isSelected = formData.cityName === c.name;
                               return (
                                 <button
-                                  key={`${c.name}-${c.state}`}
+                                  key={`${c.name}-${c.state}-${c.lat}`}
                                   type="button"
                                   onClick={() => handleCitySelect(c)}
                                   className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
@@ -353,9 +481,203 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                       )}
                     </div>
                   </div>
-                ) : (
-                  /* Custom Location Input */
-                  <div className="p-3 rounded-2xl border space-y-2.5 bg-amber-50/40 border-amber-200">
+                )}
+
+                {/* MODE 2: Online Village Live Search (OpenStreetMap Geocoding for ANY village) */}
+                {locationMode === 'onlineVillage' && (
+                  <div className="p-3.5 rounded-2xl border space-y-3 bg-gradient-to-b from-blue-50/50 to-amber-50/30 border-blue-200">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <div className="font-bold text-xs text-blue-950 flex items-center gap-1.5">
+                          <Globe className="w-3.5 h-3.5 text-blue-600" />
+                          <span>भारत के किसी भी गाँव को लाइव खोजें (Live Village Search)</span>
+                        </div>
+                        <p className="text-[11px] text-stone-600 mt-0.5">
+                          भारत के 6 लाख से अधिक गाँवों, तहसीलों व मजरों के सटीक भौगोलिक निर्देशांक खोजें।
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Search Bar */}
+                    <div className="flex gap-2">
+                      <div className="relative flex-1">
+                        <input
+                          type="text"
+                          placeholder="गाँव का नाम दर्ज करें (उदा. Balol, Gozaria, Kherva, Salasar...)"
+                          value={onlineVillageQuery}
+                          onChange={(e) => setOnlineVillageQuery(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              handleOnlineVillageSearch();
+                            }
+                          }}
+                          className="w-full pl-8 pr-3 py-2 rounded-xl text-xs border focus:outline-none focus:ring-2 bg-white border-blue-300 text-stone-900 focus:ring-blue-500"
+                        />
+                        <Search className="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-blue-500" />
+                      </div>
+                      <button
+                        type="button"
+                        disabled={isSearchingOnline || onlineVillageQuery.trim().length < 2}
+                        onClick={() => handleOnlineVillageSearch()}
+                        className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 transition-colors flex items-center gap-1.5 shrink-0 shadow-sm"
+                      >
+                        {isSearchingOnline ? (
+                          <>
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            <span>खोज रहे हैं...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Search className="w-3.5 h-3.5" />
+                            <span>खोजें</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Quick Suggestions Chips */}
+                    <div className="flex flex-wrap items-center gap-1 text-[10px]">
+                      <span className="text-stone-500 font-medium">त्वरित उदाहरण:</span>
+                      {['Balol (बालोल)', 'Kherva (खेरवा)', 'Gojariya (गोझारिया)', 'Vadnagar', 'Dhamnod', 'Khatu', 'Salasar'].map((s) => {
+                        const clean = s.split(' ')[0];
+                        return (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() => {
+                              setOnlineVillageQuery(clean);
+                              handleOnlineVillageSearch(clean);
+                            }}
+                            className="px-2 py-0.5 rounded-md bg-white border border-blue-200 text-blue-800 hover:bg-blue-100 transition-colors"
+                          >
+                            {s}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Online Results Display */}
+                    {onlineSearchedOnce && (
+                      <div className="space-y-1.5 pt-1">
+                        <div className="text-[11px] font-semibold text-stone-700 flex items-center justify-between">
+                          <span>मिले परिणाम ({onlineResults.length}):</span>
+                          {onlineResults.length > 0 && <span className="text-emerald-700 font-normal">क्लिक करके चुनें</span>}
+                        </div>
+
+                        {onlineResults.length === 0 && !isSearchingOnline ? (
+                          <div className="p-3 text-center text-xs bg-white/80 rounded-xl border border-stone-200 text-stone-600">
+                            '{onlineVillageQuery}' नाम से कोई गाँव नहीं मिला। कृपया स्पेलिंग जांचें या 'जिला व गाँव' विकल्प से जिला चुनें।
+                          </div>
+                        ) : (
+                          <div className="max-h-48 overflow-y-auto space-y-1 pr-1">
+                            {onlineResults.map((place, idx) => (
+                              <button
+                                key={`${place.name}-${idx}`}
+                                type="button"
+                                onClick={() => {
+                                  handleCitySelect(place);
+                                  setLocationMode('cityList');
+                                }}
+                                className="w-full text-left p-2.5 rounded-xl border bg-white hover:bg-blue-50 hover:border-blue-300 transition-all text-xs flex items-center justify-between group"
+                              >
+                                <div>
+                                  <div className="font-bold text-stone-900 group-hover:text-blue-700 flex items-center gap-1.5">
+                                    <Home className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                                    <span>{place.name}</span>
+                                  </div>
+                                  <div className="text-[10px] text-stone-500 mt-0.5">
+                                    {place.state} • {place.lat.toFixed(4)}°N, {place.lon.toFixed(4)}°E
+                                  </div>
+                                </div>
+                                <span className="text-[11px] text-blue-600 font-semibold group-hover:translate-x-0.5 transition-transform">
+                                  चुनें →
+                                </span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* MODE 3: District & Village Selection (Select State, District, and type any Village) */}
+                {locationMode === 'districtVillage' && (
+                  <div className="p-3.5 rounded-2xl border space-y-2.5 bg-gradient-to-b from-emerald-50/50 to-amber-50/30 border-emerald-200">
+                    <div className="font-bold text-xs text-emerald-950 flex items-center gap-1.5">
+                      <Home className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>जिला व गाँव चयन (Select by State & District)</span>
+                    </div>
+                    <p className="text-[11px] text-stone-600">
+                      अपना राज्य और जिला चुनें, फिर अपने गाँव का नाम दर्ज करें।
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {/* State Selector */}
+                      <div>
+                        <label className="block text-[11px] font-semibold text-stone-700 mb-0.5">
+                          राज्य (State):
+                        </label>
+                        <select
+                          value={pickerStateIndex}
+                          onChange={(e) => {
+                            setPickerStateIndex(parseInt(e.target.value) || 0);
+                            setPickerDistrictIndex(0);
+                          }}
+                          className="w-full px-2.5 py-1.5 rounded-xl text-xs border bg-white border-emerald-300 text-stone-900 focus:ring-1 focus:ring-emerald-500"
+                        >
+                          {ALL_INDIAN_STATES_AND_DISTRICTS.map((st, idx) => (
+                            <option key={st.state} value={idx}>{st.state}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* District Selector */}
+                      <div>
+                        <label className="block text-[11px] font-semibold text-stone-700 mb-0.5">
+                          जिला (District):
+                        </label>
+                        <select
+                          value={pickerDistrictIndex}
+                          onChange={(e) => setPickerDistrictIndex(parseInt(e.target.value) || 0)}
+                          className="w-full px-2.5 py-1.5 rounded-xl text-xs border bg-white border-emerald-300 text-stone-900 focus:ring-1 focus:ring-emerald-500"
+                        >
+                          {(ALL_INDIAN_STATES_AND_DISTRICTS[pickerStateIndex]?.districts || []).map((dist, idx) => (
+                            <option key={dist.name} value={idx}>{dist.nameHi} ({dist.name})</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Village Name input */}
+                    <div>
+                      <label className="block text-[11px] font-semibold text-stone-700 mb-0.5">
+                        गाँव / कस्बे का नाम दर्ज करें (Village Name):
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          placeholder="उदा. बालोल, गोझारिया, खेरवा, रामपुर, देलवाड़ा..."
+                          value={customVillageName}
+                          onChange={(e) => setCustomVillageName(e.target.value)}
+                          className="flex-1 px-3 py-1.5 rounded-xl text-xs border bg-white border-emerald-300 text-stone-900 focus:ring-1 focus:ring-emerald-500"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleSelectDistrictVillage}
+                          className="px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-emerald-700 hover:bg-emerald-800 transition-colors shrink-0 shadow-sm"
+                        >
+                          ✓ यह गाँव सेट करें
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* MODE 4: Custom Coordinates */}
+                {locationMode === 'customCoords' && (
+                  <div className="p-3 rounded-2xl border space-y-2.5 bg-amber-50/50 border-amber-200">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <div>
                         <label className="block text-[11px] font-semibold mb-0.5 text-stone-700">
@@ -418,12 +740,16 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                 )}
 
                 {/* Location verification badge */}
-                <div className="mt-1.5 px-2.5 py-1 rounded-lg text-[11px] flex items-center justify-between bg-[#FFF5F0] text-[#CC5218]">
+                <div className="px-3 py-2 rounded-xl text-xs flex flex-wrap items-center justify-between gap-1.5 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border border-amber-300/80 text-amber-950">
                   <span className="flex items-center gap-1.5">
-                    <Compass className="w-3.5 h-3.5 text-amber-500" />
-                    <span>निर्देशांक: {formData.latitude?.toFixed(2) || '23.59'}°N, {formData.longitude?.toFixed(2) || '72.37'}°E</span>
+                    <MapPin className="w-4 h-4 text-[#FF671F] shrink-0" />
+                    <span className="font-semibold">चुना गया स्थान:</span>
+                    <span className="font-bold text-[#CC5218]">{formData.cityName}</span>
+                    <span className="text-stone-500">({formData.state})</span>
                   </span>
-                  <span className="font-semibold text-emerald-700">भारतीय मानक समय (IST)</span>
+                  <span className="text-[11px] text-stone-600 font-mono">
+                    {formData.latitude?.toFixed(4)}°N, {formData.longitude?.toFixed(4)}°E (IST +5:30)
+                  </span>
                 </div>
               </div>
 
@@ -528,27 +854,32 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                   },
                   {
                     id: 'chart',
-                    label: lang === 'en' ? '2. Chart (D1/D9)' : lang === 'hi' ? '2. कुंडली चक्र (D1/D9)' : '૨. કુંડળી ચક્ર',
+                    label: lang === 'en' ? '2. Kundli Charts' : lang === 'hi' ? '2. कुंडली चक्र' : '૨. કુંડળી ચક્ર',
                     icon: Eye,
                   },
                   {
                     id: 'planets',
-                    label: lang === 'en' ? '3. Planetary Positions' : lang === 'hi' ? '3. ग्रह स्थिति' : '૩. ગ્રહ સ્થિતિ',
+                    label: lang === 'en' ? '3. Planets & Ephemeris' : lang === 'hi' ? '3. ग्रह स्थिति व कारक' : '૩. ગ્રહ સ્થિતિ',
                     icon: Sun,
                   },
                   {
+                    id: 'ashtakavarga',
+                    label: lang === 'en' ? '4. Ashtakavarga' : lang === 'hi' ? '4. अष्टकवर्ग (337)' : '૪. અષ્ટકવર્ગ',
+                    icon: Layers,
+                  },
+                  {
                     id: 'dasha',
-                    label: lang === 'en' ? '4. Vimshottari Dasha' : lang === 'hi' ? '4. विंशोत्तरी दशा' : '૪. વિંશોત્તરી દશા',
+                    label: lang === 'en' ? '5. Vimshottari Dasha' : lang === 'hi' ? '5. विंशोत्तरी दशा' : '૫. વિંશોત્તરી દશા',
                     icon: Clock,
                   },
                   {
                     id: 'yogas',
-                    label: lang === 'en' ? '5. Yogas & Doshas' : lang === 'hi' ? '5. योग एवं दोष' : '૫. યોગ અને દોષ',
+                    label: lang === 'en' ? '6. Yogas & Doshas' : lang === 'hi' ? '6. योग एवं दोष' : '૬. યોગ અને દોષ',
                     icon: Award,
                   },
                   {
                     id: 'predictions',
-                    label: lang === 'en' ? '6. Predictions & Remedies' : lang === 'hi' ? '6. फलादेश व उपाय' : '૬. ફલાદેશ અને ઉપાય',
+                    label: lang === 'en' ? '7. Predictions & Remedies' : lang === 'hi' ? '7. फलादेश व उपाय' : '૭. ફલાદેશ અને ઉપાય',
                     icon: Sparkles,
                   },
                 ].map(tab => {
@@ -640,6 +971,72 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                         <strong className="text-stone-900 text-xs block">{result.birthPanchang.ayan}</strong>
                         <span className="text-[10px] text-stone-600">{result.birthPanchang.ritu}</span>
                       </div>
+
+                      <div className="p-2.5 rounded-xl border bg-white border-[#FF671F]/20">
+                        <span className="text-stone-500 font-bold block text-[10px]">लाहिड़ी अयनांश मान</span>
+                        <strong className="text-indigo-900 font-mono text-xs block">
+                          {result.birthPanchang.lahiriAyanamshaDms || result.birthPanchang.ayanamsha}
+                        </strong>
+                        <span className="text-[10px] text-stone-500">Drik Ganit / NC Lahiri</span>
+                      </div>
+
+                      <div className="p-2.5 rounded-xl border bg-white border-[#FF671F]/20">
+                        <span className="text-stone-500 font-bold block text-[10px]">दिनमान एवं रात्रिमान</span>
+                        <strong className="text-stone-900 text-xs block">{result.birthPanchang.dinmaan || '३० घटी'}</strong>
+                        <span className="text-[10px] text-stone-600">{result.birthPanchang.raatrimaan || '३० घटी'}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Birth Choghadiya & Muhurat Box (Hindu Calendar App Standard) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {/* Choghadiya Card */}
+                    <div className="p-3.5 rounded-2xl border bg-amber-50/60 border-amber-300 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-xs text-amber-950 flex items-center gap-1.5">
+                          <Sun className="w-3.5 h-3.5 text-amber-600" />
+                          <span>जन्म समय चौघड़िया (Birth Choghadiya)</span>
+                        </span>
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          result.birthPanchang.birthChoghadiya?.type === 'अमृत' || result.birthPanchang.birthChoghadiya?.type === 'शुभ' || result.birthPanchang.birthChoghadiya?.type === 'लाभ'
+                            ? 'bg-emerald-100 text-emerald-800'
+                            : result.birthPanchang.birthChoghadiya?.type === 'चर'
+                            ? 'bg-blue-100 text-blue-800'
+                            : 'bg-rose-100 text-rose-800'
+                        }`}>
+                          {result.birthPanchang.birthChoghadiya?.type || 'शुभ'}
+                        </span>
+                      </div>
+                      <div className="p-2 rounded-xl bg-white border border-amber-200 text-xs">
+                        <div className="font-bold text-[#CC5218] text-sm">
+                          {result.birthPanchang.birthChoghadiya?.name || 'शुभ चौघड़िया'}
+                        </div>
+                        <div className="text-[11px] text-stone-600 mt-0.5">
+                          प्रभाव: <strong>{result.birthPanchang.birthChoghadiya?.effect || 'अति शुभ फलदायी'}</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Muhurat & Rahu Kaal Card */}
+                    <div className="p-3.5 rounded-2xl border bg-orange-50/60 border-orange-300 space-y-2">
+                      <span className="font-bold text-xs text-stone-900 flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5 text-[#CC5218]" />
+                        <span>शुभ-अशुभ मुहूर्त मान (Muhurat)</span>
+                      </span>
+                      <div className="grid grid-cols-2 gap-2 text-[11px]">
+                        <div className="p-2 rounded-xl bg-white border border-orange-200">
+                          <span className="text-emerald-700 font-bold block">अभिजीत मुहूर्त:</span>
+                          <span className="font-semibold text-stone-800">
+                            {result.birthPanchang.muhurat?.abhijit || '11:48 - 12:40'}
+                          </span>
+                        </div>
+                        <div className="p-2 rounded-xl bg-white border border-orange-200">
+                          <span className="text-rose-700 font-bold block">राहु काल (अशुभ):</span>
+                          <span className="font-semibold text-stone-800">
+                            {result.birthPanchang.muhurat?.rahuKaal || '14:00 - 15:30'}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -695,13 +1092,14 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                 </div>
               )}
 
-              {/* TAB 2: Interactive Chart Visualizer (D1 & D9) */}
+              {/* TAB 2: Interactive Chart Visualizer (D1, Chandra, Chalit, D9) */}
               {activeTab === 'chart' && (
                 <div className="space-y-4">
                   <KundliChartVisualizer
                     planets={result.planets}
                     navamshaPlanets={result.navamshaPlanets}
                     ascendantRashi={result.ascendantRashi}
+                    moonRashi={result.moonRashi}
                     lang={lang}
                     isDark={isDark}
                   />
@@ -717,27 +1115,49 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                         <tr className="bg-[#FFF5F0] text-[#CC5218] font-bold">
                           <th className="p-2.5 border border-[#FF671F]/20">ग्रह (Planet)</th>
                           <th className="p-2.5 border border-[#FF671F]/20">राशि (Rashi)</th>
-                          <th className="p-2.5 border border-[#FF671F]/20">अंश (DMS)</th>
-                          <th className="p-2.5 border border-[#FF671F]/20">भाव</th>
+                          <th className="p-2.5 border border-[#FF671F]/20">भोगांश (DMS)</th>
+                          <th className="p-2.5 border border-[#FF671F]/20">लग्न/चलित भाव</th>
                           <th className="p-2.5 border border-[#FF671F]/20">नक्षत्र (चरण)</th>
+                          <th className="p-2.5 border border-[#FF671F]/20">जैमिनी कारक</th>
+                          <th className="p-2.5 border border-[#FF671F]/20">दैनिक गति</th>
                           <th className="p-2.5 border border-[#FF671F]/20">अवस्था</th>
                           <th className="p-2.5 border border-[#FF671F]/20">स्थिति (Dignity)</th>
-                          <th className="p-2.5 border border-[#FF671F]/20">गति/दशा</th>
                         </tr>
                       </thead>
                       <tbody>
                         {result.planets.map((p) => (
                           <tr key={p.planet} className="hover:bg-[#FFFDF9] transition-colors">
                             <td className="p-2.5 border border-[#FF671F]/20 font-bold text-stone-950">
-                              {p.planet}
+                              <div className="flex items-center gap-1.5">
+                                <span>{p.planet}</span>
+                                {p.isRetrograde && (
+                                  <span className="px-1 py-0.2 rounded text-[9px] bg-rose-100 text-rose-800 font-bold border border-rose-300">वक्र</span>
+                                )}
+                                {p.isCombust && (
+                                  <span className="px-1 py-0.2 rounded text-[9px] bg-amber-100 text-amber-900 font-bold border border-amber-300">अस्त</span>
+                                )}
+                              </div>
                             </td>
                             <td className="p-2.5 border border-[#FF671F]/20 font-medium">{p.rashi}</td>
                             <td className="p-2.5 border border-[#FF671F]/20 font-mono text-[#CC5218] font-semibold">
                               {p.dms || `${p.degree}°`}
                             </td>
-                            <td className="p-2.5 border border-[#FF671F]/20 font-bold text-stone-900">{p.house} भाव</td>
+                            <td className="p-2.5 border border-[#FF671F]/20 font-bold text-stone-900">
+                              <span>{p.house} भाव</span>
+                              {p.chalitHouse && p.chalitHouse !== p.house && (
+                                <span className="ml-1 text-[10px] text-indigo-700 bg-indigo-50 px-1 py-0.5 rounded">
+                                  चलित: {p.chalitHouse}
+                                </span>
+                              )}
+                            </td>
                             <td className="p-2.5 border border-[#FF671F]/20 text-[11px]">
                               {p.nakshatra} ({p.nakshatraCharan})
+                            </td>
+                            <td className="p-2.5 border border-[#FF671F]/20 text-[11px] font-semibold text-[#CC5218]">
+                              {p.karaka || '-'}
+                            </td>
+                            <td className="p-2.5 border border-[#FF671F]/20 font-mono text-[10px] text-stone-600">
+                              {p.speed ? `${p.speed}/दिन` : '-'}
                             </td>
                             <td className="p-2.5 border border-[#FF671F]/20 text-[11px] font-semibold text-stone-700">
                               {p.avastha}
@@ -751,19 +1171,6 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                             }`}>
                               {p.dignity}
                             </td>
-                            <td className="p-2.5 border border-[#FF671F]/20 text-[11px]">
-                              <div className="flex flex-wrap gap-1">
-                                {p.isRetrograde && (
-                                  <span className="px-1.5 py-0.2 rounded bg-rose-100 text-rose-800 font-bold border border-rose-300">वक्र</span>
-                                )}
-                                {p.isCombust && (
-                                  <span className="px-1.5 py-0.2 rounded bg-amber-100 text-amber-900 font-bold border border-amber-300">अस्त</span>
-                                )}
-                                {!p.isRetrograde && !p.isCombust && (
-                                  <span className="text-emerald-700 font-medium">मार्गी</span>
-                                )}
-                              </div>
-                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -772,9 +1179,166 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                 </div>
               )}
 
-              {/* TAB 4: Vimshottari Mahadasha Timeline */}
+              {/* TAB 4: Ashtakavarga & Jaimini Karakas (Hindu Calendar Standard) */}
+              {activeTab === 'ashtakavarga' && (
+                <div className="space-y-6">
+                  {/* Sarvashtakavarga 337 Points */}
+                  <div className="p-4 rounded-2xl border bg-white border-[#FF671F]/30 space-y-4 shadow-sm">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#FF671F]/20 pb-2.5">
+                      <div className="flex items-center gap-2">
+                        <Layers className="w-5 h-5 text-[#FF671F]" />
+                        <div>
+                          <h4 className="font-yatra text-base text-[#CC5218] font-bold">
+                            सर्वाष्टकवर्ग चक्र (Sarvashtakavarga - 337 Bindus)
+                          </h4>
+                          <p className="text-[11px] text-stone-600">
+                            पाराशरी ज्योतिष अनुसार 12 राशियों का समग्र शुभत्व बिंदु मान (मानक योग: 337)
+                          </p>
+                        </div>
+                      </div>
+                      <div className="px-3 py-1 rounded-xl bg-amber-50 border border-amber-200 text-xs font-bold text-amber-900">
+                        कुल बिंदु: 337
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 text-xs">
+                      {(result.sarvashtakavarga || []).map((item, idx) => {
+                        const isHigh = item.score >= 30;
+                        const isGood = item.score >= 28 && item.score < 30;
+                        const isAverage = item.score >= 25 && item.score < 28;
+                        return (
+                          <div
+                            key={idx}
+                            className={`p-3 rounded-xl border transition-all ${
+                              isHigh
+                                ? 'bg-emerald-50/70 border-emerald-300'
+                                : isGood
+                                ? 'bg-amber-50/70 border-amber-300'
+                                : isAverage
+                                ? 'bg-stone-50 border-stone-200'
+                                : 'bg-rose-50/60 border-rose-200'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="font-bold text-stone-900">
+                                {idx + 1}. {item.rashiHi} ({item.rashi})
+                              </span>
+                              <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                                isHigh
+                                  ? 'bg-emerald-600 text-white'
+                                  : isGood
+                                  ? 'bg-amber-600 text-white'
+                                  : isAverage
+                                  ? 'bg-stone-600 text-white'
+                                  : 'bg-rose-600 text-white'
+                              }`}>
+                                {item.score}
+                              </span>
+                            </div>
+                            <div className="text-[11px] font-semibold text-stone-600 mt-1.5 flex items-center justify-between">
+                              <span>स्थिति:</span>
+                              <span className={
+                                isHigh ? 'text-emerald-800' : isGood ? 'text-amber-800' : isAverage ? 'text-stone-700' : 'text-rose-800'
+                              }>
+                                {item.status}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-stone-50 text-[11px] text-stone-600 border border-stone-200 space-y-1">
+                      <strong>अष्टकवर्ग विश्लेषण नियम:</strong>
+                      <p>
+                        • 28 बिंदु को औसत (साम्यावस्था) माना जाता है। 28 से अधिक बिंदु वाली राशि में गोचरस्थ ग्रह अत्यंत शुभ व अनुकूल परिणाम देते हैं। 30+ बिंदु वाले भाव/राशि भाग्योदय व कार्य सिद्धि के मुख्य कारक होते हैं।
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Jaimini 7 Chara Karakas Table */}
+                  <div className="p-4 rounded-2xl border bg-white border-[#FF671F]/30 space-y-3 shadow-sm">
+                    <div className="flex items-center gap-2 border-b border-[#FF671F]/20 pb-2">
+                      <Award className="w-5 h-5 text-[#FF671F]" />
+                      <div>
+                        <h4 className="font-yatra text-base text-[#CC5218] font-bold">
+                          जैमिनी चर कारक तालिका (Jaimini 7 Chara Karakas)
+                        </h4>
+                        <p className="text-[11px] text-stone-600">
+                          महर्षि जैमिनी के सूत्र अनुसार सर्वाधिक भोगांश से न्यूनतम भोगांश तक 7 चर कारक
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-xs text-left border-collapse border rounded-xl overflow-hidden border-stone-200">
+                        <thead>
+                          <tr className="bg-[#FFF5F0] text-[#CC5218] font-bold">
+                            <th className="p-2 border border-[#FF671F]/20">कारक (Karaka)</th>
+                            <th className="p-2 border border-[#FF671F]/20">कारक ग्रह (Planet)</th>
+                            <th className="p-2 border border-[#FF671F]/20">भोगांश (DMS / Degree)</th>
+                            <th className="p-2 border border-[#FF671F]/20">ज्योतिषीय प्रतिनिधित्व (Signification)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {(result.jaiminiKarakas || []).map((k, idx) => {
+                            const significanceMap: Record<string, string> = {
+                              'Atmakaraka (AK)': 'आत्मा, आत्मबल, स्वास्थ्य, मूल स्वभाव एवं जीवन का सर्वोच्च उद्देश्य',
+                              'Amatyakaraka (AmK)': 'आजीविका, कर्म, वित्त, उच्च पद, बुद्धिमत्ता व सामाजिक प्रतिष्ठा',
+                              'Bhratrikaraka (BK)': 'सहोदर (भाई-बहन), पराक्रम, उत्साह व गुरुजन संबंध',
+                              'Matrikaraka (MK)': 'माता, मातृसुख, वाहन, भूमि, भवन, गृह सुख व मन की शांति',
+                              'Putrakaraka (PK)': 'संतान सुख, उच्च शिक्षा, विद्या, बुद्धि, मंत्र सिद्धि व रचनात्मकता',
+                              'Gnatikaraka (GK)': 'शत्रु, रोग, ऋण, प्रतिस्पर्धा, संघर्ष व जीवन की चुनौतियां',
+                              'Darakaraka (DK)': 'जीवनसाथी (पति/पत्नी), वैवाहिक सुख, व्यापारिक साझेदार व सहयोग'
+                            };
+                            return (
+                              <tr key={idx} className="hover:bg-[#FFFDF9] transition-colors">
+                                <td className="p-2 border border-stone-200 font-bold text-stone-900">
+                                  <span>{k.karakaHi}</span>
+                                  <span className="text-[10px] text-stone-500 font-normal ml-1 block">{k.karaka}</span>
+                                </td>
+                                <td className="p-2 border border-stone-200 font-bold text-[#CC5218]">
+                                  {k.planetHi} ({k.planet})
+                                </td>
+                                <td className="p-2 border border-stone-200 font-mono text-[11px]">
+                                  <strong>{k.dms}</strong> ({k.degree.toFixed(2)}°)
+                                </td>
+                                <td className="p-2 border border-stone-200 text-stone-700 text-[11px]">
+                                  {significanceMap[k.karaka] || 'ज्योतिषीय चर कारकत्व'}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* TAB 5: Vimshottari Mahadasha Timeline */}
               {activeTab === 'dasha' && (
                 <div className="space-y-4">
+                  {/* Birth Dasha Balance Banner (Drik Hindu Calendar Standard) */}
+                  {result.birthDashaBalance && (
+                    <div className="p-3.5 rounded-2xl border bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300 flex flex-wrap items-center justify-between gap-2 shadow-sm">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-[#CC5218]" />
+                        <div>
+                          <span className="text-[11px] font-bold text-stone-600 block">
+                            जन्म के समय नक्षत्र चरणानुसार दशा शेष (Birth Dasha Balance):
+                          </span>
+                          <strong className="text-sm text-[#CC5218]">
+                            {result.birthDashaBalance}
+                          </strong>
+                        </div>
+                      </div>
+                      <span className="text-xs px-2.5 py-1 rounded-lg bg-white border border-amber-200 text-stone-700 font-semibold">
+                        जन्म नक्षत्र: {result.nakshatra} (चरण {result.nakshatraCharan})
+                      </span>
+                    </div>
+                  )}
+
                   <div className="flex items-center justify-between">
                     <h4 className="font-yatra text-base text-[#CC5218] font-bold flex items-center gap-1.5">
                       <Clock className="w-4 h-4 text-[#FF671F]" />
@@ -1045,26 +1609,22 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                 <button
                   type="button"
                   onClick={() => onAskAI(`मेरी कुंडली लग्न ${result.ascendantRashi}, चंद्र राशि ${result.moonRashi}, नक्षत्र ${result.nakshatra} (चरण ${result.nakshatraCharan}) एवं जन्म तिथि ${result.birthPanchang.tithi} है। वर्तमान में ${result.currentDasha} महादशा चल रही है। कृपया मुझे करियर व जीवन के लिए मार्गदर्शन दें।`)}
-                  className="flex-1 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 bg-[#FF671F] hover:bg-[#CC5218] text-white shadow-[#FF671F]/20"
+                  className="flex-1 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 bg-gradient-to-r from-[#D9531E] via-[#FF671F] to-[#CC5218] hover:from-[#B84214] hover:to-[#D9531E] text-white shadow-amber-900/20"
                 >
-                  <Sparkles className="w-4 h-4" />
+                  <Sparkles className="w-4 h-4 text-amber-200" />
                   <span>{lang === 'hi' ? 'इस सटीक कुंडली पर AI ज्योतिषी से पूछें' : 'આ કુંડળી પર પ્રશ્ન પૂછો'}</span>
                 </button>
 
                 <a
                   href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                    lang === 'en'
-                      ? `🚩 Jai Maa Bhavani!\nPranam Pandit Ji 🙏✨\n\nI generated my Janam Kundli on your website and would like a comprehensive personal astrological consultation:\n\n👤 Name: ${formData.name}\n📅 Birth Date: ${formData.day}/${formData.month}/${formData.year}\n📍 City: ${formData.cityName}\n✨ Ascendant (Lagna): ${result.ascendantRashi.split(' ')[0]}\n🌙 Moon Sign: ${result.moonRashi.split(' ')[0]}\n⭐ Nakshatra: ${result.nakshatra.split(' ')[0]}\n📜 Tithi: ${result.birthPanchang.tithi}\n\nKindly guide me on how to proceed with the detailed consultation. Thank you!`
-                      : lang === 'gu'
-                      ? `🚩 જય મા ભવાની!\nસાદર પ્રણામ પંડિતજી 🙏✨\n\nમેં આપની વેબસાઇટ પર મારી જન્મ કુંડળી તૈયાર કરી છે અને તેના આધારે આપની સાથે વિસ્તૃત પરામર્શ કરવો છે:\n\n👤 નામ: ${formData.name}\n📅 જન્મ તારીખ: ${formData.day}/${formData.month}/${formData.year}\n📍 જન્મ સ્થળ: ${formData.cityName}\n✨ લગ્ન રાશિ: ${result.ascendantRashi.split(' ')[0]}\n🌙 ચંદ્ર રાશિ: ${result.moonRashi.split(' ')[0]}\n⭐ નક્ષત્ર: ${result.nakshatra.split(' ')[0]}\n📜 તિથિ: ${result.birthPanchang.tithi}\n\nકૃપા કરી પરામર્શ માટે અનુકૂળ સમય અને વિગત જણાવશો. ધન્યવાદ!`
-                      : `🚩 ॐ नमः शिवाय!\nसादर प्रणाम पंडित जी 🙏✨\n\nमैंने आपकी वेबसाइट पर अपनी जन्म कुंडली तैयार की है और इसके आधार पर आपसे संपूर्ण व्यक्तिगत परामर्श प्राप्त करना है:\n\n👤 नाम: ${formData.name}\n📅 जन्म तिथि: ${formData.day}/${formData.month}/${formData.year}\n📍 जन्म स्थान: ${formData.cityName}\n✨ लग्न: ${result.ascendantRashi.split(' ')[0]}\n🌙 चंद्र राशि: ${result.moonRashi.split(' ')[0]}\n⭐ नक्षत्र: ${result.nakshatra.split(' ')[0]}\n📜 जन्म तिथि: ${result.birthPanchang.tithi}\n\nकृपया विस्तृत फलादेश व परामर्श हेतु उपलब्ध समय साझा करें। धन्यवाद!`
+                    `नमस्ते पंडित जी 🙏 मुझे अपनी कुंडली दिखानी है और व्यक्तिगत परामर्श लेना है। कृपया अपॉइंटमेंट का समय साझा करें ✨\n\n👤 नाम: ${formData.name}\n📅 जन्म तिथि: ${formData.day}/${formData.month}/${formData.year}\n📍 जन्म स्थान: ${formData.cityName}\n✨ लग्न: ${result.ascendantRashi.split(' ')[0]}\n🌙 चंद्र राशि: ${result.moonRashi.split(' ')[0]}\n⭐ नक्षत्र: ${result.nakshatra.split(' ')[0]}`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-md"
+                  className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>{lang === 'hi' ? 'पंडित जी से व्हाट्सएप पर बात करें' : 'પંડિતજી સાથે વાત કરો'}</span>
+                  <span>{lang === 'hi' ? 'व्हाट्सएप पर अपॉइंटमेंट लें' : 'પંડિતજી સાથે વાત કરો'}</span>
                 </a>
               </div>
             </div>

@@ -26,28 +26,28 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
     <div className={`py-8 px-4 max-w-7xl mx-auto transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border mb-2 ${
+        <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold border mb-3 shadow-xs ${
           isDark 
-            ? 'bg-amber-950/40 text-amber-300 border-amber-500/30' 
-            : 'bg-[#FFF5F0] text-[#CC5218] border-[#FF671F]/30'
+            ? 'bg-amber-950/60 text-amber-300 border-amber-500/40' 
+            : 'bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 text-[#CC5218] border-amber-400/50'
         }`}>
           <Sparkles className="w-4 h-4 text-[#FF671F]" />
-          <span>
+          <span className="font-['Cinzel'] tracking-wide">
             {lang === 'en'
-              ? 'Daily Horoscope & Planetary Transits'
+              ? '✦ Royal Daily Horoscope & Planetary Transits ✦'
               : lang === 'hi'
-              ? 'दैनिक राशिफल एवं ग्रह गोचर'
-              : 'દૈનિક રાશિફળ અને ગ્રહ ગોચર'}
+              ? '✦ राजज्योतिष दैनिक राशिफल एवं ग्रह गोचर ✦'
+              : '✦ રાજજ્યોતિષ દૈનિક રાશિફળ અને ગ્રહ ગોચર ✦'}
           </span>
         </div>
-        <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
+        <h2 className="font-['Marcellus'] font-serif text-3xl sm:text-5xl mb-3 tracking-tight text-[#CC5218] dark:text-amber-300">
           {lang === 'en'
             ? 'Today’s Horoscope (12 Zodiac Signs)'
             : lang === 'hi'
             ? 'आज का राशिफल (12 राशियां)'
             : 'આજનું રાશિફળ (12 રાશિઓ)'}
         </h2>
-        <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
+        <p className={`text-sm sm:text-base font-medium ${isDark ? 'text-stone-300' : 'text-stone-800'}`}>
           {lang === 'en'
             ? 'Select your sign to discover your day’s fortune, career, relationships, vitality, and authentic Vedic remedies'
             : lang === 'hi'
@@ -65,19 +65,19 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
               key={rashi.id}
               type="button"
               onClick={() => handleSelectRashi(rashi.id)}
-              className={`p-3 rounded-2xl border transition-all text-center flex flex-col items-center justify-center relative ${
+              className={`p-3 rounded-2xl border-2 transition-all text-center flex flex-col items-center justify-center relative group ${
                 isSelected
-                  ? 'bg-gradient-to-b from-[#FF671F] to-[#CC5218] text-white border-[#CC5218] shadow-lg shadow-[#FF671F]/30 scale-105 z-10'
+                  ? 'bg-gradient-to-b from-[#FF671F] via-[#E05314] to-[#B84214] text-white border-amber-300 shadow-xl shadow-[#FF671F]/30 scale-105 z-10'
                   : isDark 
-                  ? 'bg-stone-900 hover:bg-stone-800 text-stone-200 border-stone-800 shadow-sm'
-                  : 'bg-white hover:bg-[#FFF5F0] text-stone-950 border-[#FF671F]/20 hover:border-[#FF671F]/50 shadow-sm'
+                  ? 'bg-stone-900 hover:bg-stone-800 text-stone-200 border-amber-500/20 shadow-sm'
+                  : 'bg-white hover:bg-gradient-to-b hover:from-amber-50/70 hover:to-orange-50/50 text-stone-950 border-amber-300/40 hover:border-amber-400 shadow-sm'
               }`}
             >
-              <span className="text-2xl sm:text-3xl mb-1">{rashi.symbol}</span>
+              <span className="text-2xl sm:text-3xl mb-1 filter drop-shadow-sm">{rashi.symbol}</span>
               <span className="font-bold text-sm sm:text-base">
                 {lang === 'en' ? rashi.nameEn : lang === 'hi' ? rashi.nameHi : rashi.nameGu}
               </span>
-              <span className={`text-[10px] ${isSelected ? 'text-amber-100' : isDark ? 'text-stone-400 font-bold' : 'text-stone-900 font-bold'}`}>
+              <span className={`text-[10px] ${isSelected ? 'text-amber-200 font-semibold' : isDark ? 'text-stone-400 font-medium' : 'text-stone-600 font-medium'}`}>
                 {lang === 'en' ? rashi.nameHi : rashi.nameEn}
               </span>
             </button>
@@ -86,10 +86,10 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
       </div>
 
       {/* Selected Rashi Detail Card */}
-      <div className={`rounded-3xl p-5 sm:p-8 border shadow-xl relative overflow-hidden transition-all ${
+      <div className={`rounded-3xl p-5 sm:p-8 border-2 shadow-2xl relative overflow-hidden transition-all ${
         isDark 
-          ? 'bg-stone-900/95 border-amber-500/20 shadow-black/40' 
-          : 'bg-white border-[#FF671F]/25 shadow-[#FF671F]/5'
+          ? 'bg-stone-900/95 border-amber-500/40 shadow-black/50' 
+          : 'bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFF9F2] border-amber-400/40 shadow-xl shadow-amber-900/5'
       }`}>
         {/* Top Details Header */}
         <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b ${
@@ -294,15 +294,19 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
             </div>
 
             {/* Direct Consultation CTA Card */}
-            <div className="bg-gradient-to-br from-[#FF671F] to-[#CC5218] text-white rounded-2xl p-5 shadow-lg shadow-[#FF671F]/20">
-              <h4 className="font-yatra text-lg sm:text-xl mb-1">
-                {lang === 'en'
-                  ? `${selectedRashi.nameEn} Personalized Solution`
-                  : lang === 'hi'
-                  ? `${selectedRashi.nameHi} राशि विशेष समाधान`
-                  : `${selectedRashi.nameGu} રાશિ વિશેષ સમાધાન`}
+            <div className="bg-gradient-to-br from-[#92400E] via-[#D97706] to-[#B45309] text-white rounded-2xl p-5 shadow-xl shadow-amber-900/20 border border-amber-300/40 relative overflow-hidden">
+              <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none" />
+              <h4 className="font-['Marcellus'] font-serif text-lg sm:text-xl mb-1 text-amber-100 flex items-center gap-1.5">
+                <span>👑</span>
+                <span>
+                  {lang === 'en'
+                    ? `${selectedRashi.nameEn} Royal Astrological Solution`
+                    : lang === 'hi'
+                    ? `${selectedRashi.nameHi} राशि राजशाही व्यक्तिगत परामर्श`
+                    : `${selectedRashi.nameGu} રાશિ વિશેષ સમાધાન`}
+                </span>
               </h4>
-              <p className="text-xs text-amber-100 mb-4 leading-relaxed">
+              <p className="text-xs text-amber-100/90 mb-4 leading-relaxed">
                 {lang === 'en'
                   ? 'Obtain authentic customized astrological remedies and horoscope analysis tailored to your birth chart.'
                   : lang === 'hi'
@@ -313,25 +317,21 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
               <div className="flex flex-col gap-2">
                 <a
                   href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                    lang === 'en'
-                      ? `🚩 Jai Maa Bhavani!\nPranam Pandit Ji 🙏✨\n\nI checked today's Rashifal on your website for ${selectedRashi.nameEn} (${selectedRashi.symbol}). I would like personal astrological guidance and remedies regarding my chart.\n\nKindly advise on consultation availability. Thank you!`
-                      : lang === 'gu'
-                      ? `🚩 જય મા ભવાની!\nસાદર પ્રણામ પંડિતજી 🙏✨\n\nમેં આપની વેબસાઇટ પર આજનું રાશિફળ (${selectedRashi.nameGu}) જોયું. મારે મારી કુંડળી અનુસાર વ્યક્તિગત માર્ગદર્શન અને ઉપાયો જાણવા છે.\n\nકૃપા કરી અનુકૂળ સમય જણાવશો. ધન્યવાદ!`
-                      : `🚩 ॐ नमः शिवाय!\nसादर प्रणाम पंडित जी 🙏✨\n\nमैंने आपकी वेबसाइट पर आज का ${selectedRashi.nameHi} राशिफल देखा। मुझे अपनी कुंडली के आधार पर व्यक्तिगत मार्गदर्शन एवं शास्त्रोक्त उपाय जानने हैं।\n\nकृपया परामर्श हेतु समय प्रदान करें। धन्यवाद!`
+                    "नमस्ते पंडित जी 🙏 मुझे अपनी कुंडली दिखानी है और व्यक्तिगत परामर्श लेना है। कृपया अपॉइंटमेंट का समय साझा करें ✨"
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-white hover:bg-amber-50 text-[#CC5218] font-bold py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-sm flex items-center justify-center gap-1.5"
+                  className="w-full bg-white hover:bg-amber-50 text-[#CC5218] font-bold py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-1.5 hover:scale-[1.01]"
                 >
-                  <MessageCircle className="w-4 h-4 text-emerald-600" />
-                  <span>{lang === 'en' ? 'Consult on WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर प्रश्न पूछें' : 'વોટ્સએપ પર પૂછો'}</span>
+                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                  <span>{lang === 'en' ? 'Consult on WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर अपॉइंटमेंट लें' : 'વોટ્સએપ પર પૂછો'}</span>
                 </a>
 
                 <a
                   href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                  className="w-full bg-black/20 hover:bg-black/30 text-white font-bold py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 border border-white/30"
+                  className="w-full bg-black/25 hover:bg-black/40 text-amber-100 font-bold py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 border border-amber-300/30"
                 >
-                  <Phone className="w-3.5 h-3.5" />
+                  <Phone className="w-3.5 h-3.5 text-amber-300" />
                   <span>{lang === 'en' ? 'Call Pandit Ji' : lang === 'hi' ? 'पंडित जी से बात करें' : 'પંડિતજી સાથે વાત કરો'}</span>
                 </a>
               </div>

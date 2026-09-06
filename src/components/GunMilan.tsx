@@ -40,28 +40,28 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
     <div className={`py-8 px-4 max-w-7xl mx-auto transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
       {/* Section Title */}
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border mb-2 ${
+        <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold border mb-3 shadow-xs ${
           isDark 
-            ? 'bg-rose-950/40 text-rose-300 border-rose-500/30' 
-            : 'bg-rose-50 text-rose-700 border-rose-200'
+            ? 'bg-rose-950/60 text-rose-300 border-rose-500/40' 
+            : 'bg-gradient-to-r from-rose-50 via-amber-50 to-rose-50 text-[#CC5218] border-amber-300/60'
         }`}>
-          <HeartHandshake className="w-4 h-4 text-rose-400" />
-          <span>
+          <HeartHandshake className="w-4 h-4 text-rose-500" />
+          <span className="font-['Cinzel'] tracking-wide">
             {lang === 'en'
-              ? 'Vedic Ashtakoot Matchmaking'
+              ? '✦ Royal Vedic Ashtakoot Vivah Milan ✦'
               : lang === 'hi'
-              ? 'वैदिक विवाह अष्टकूट मिलान'
-              : 'વૈદિક લગ્ન અષ્ટકૂટ મિલાન'}
+              ? '✦ राजशाही वैदिक विवाह अष्टकूट मिलान ✦'
+              : '✦ રાજશાહી વૈદિક લગ્ન અષ્ટકૂટ મિલાન ✦'}
           </span>
         </div>
-        <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
+        <h2 className="font-['Marcellus'] font-serif text-3xl sm:text-5xl mb-3 tracking-tight text-[#CC5218] dark:text-amber-300">
           {lang === 'en'
             ? 'Kundli Milan (36 Guna Compatibility)'
             : lang === 'hi'
             ? 'कुंडली मिलान (36 गुण विचार)'
             : 'કુંડળી મિલાન (36 ગુણ વિચાર)'}
         </h2>
-        <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
+        <p className={`text-sm sm:text-base font-medium ${isDark ? 'text-stone-300' : 'text-stone-800'}`}>
           {lang === 'en'
             ? 'Authentic 36 Guna matching based on Groom and Bride birth nakshatra and rashi, analyzing Nadi dosha, Bhakoot dosha, and marital happiness'
             : lang === 'hi'
@@ -351,26 +351,22 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                  className="flex-1 bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-[#D9531E] via-[#FF671F] to-[#CC5218] hover:from-[#B84214] hover:to-[#D9531E] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2"
                 >
-                  <Phone className="w-4 h-4" />
+                  <Phone className="w-4 h-4 text-amber-200" />
                   <span>{lang === 'en' ? 'Direct Phone Consultation' : lang === 'hi' ? 'सीधे फोन पर परामर्श करें' : 'ફોન પર પરામર્શ કરો'}</span>
                 </a>
 
                 <a
                   href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                    lang === 'en'
-                      ? `🚩 Jai Maa Bhavani!\nPranam Pandit Ji 🙏✨\n\nI checked Kundli Matchmaking on your website for:\n🤵 Groom: ${result.boyName}\n👰 Bride: ${result.girlName}\n✨ Score: ${result.totalGunas}/36 Gunas (${result.verdict})\n\nI would like your personal Vedic guidance regarding Manglik dosha, Nadi dosha, and marital harmony.\nKindly let me know when we can discuss. Thank you!`
-                      : lang === 'gu'
-                      ? `🚩 જય મા ભવાની!\nસાદર પ્રણામ પંડિતજી 🙏✨\n\nમેં આપની વેબસાઇટ પર કુંડળી ગુણ મિલાન કર્યું છે:\n🤵 વર: ${result.boyName}\n👰 કન્યા: ${result.girlName}\n✨ ગુણ: ${result.totalGunas}/36 ગુણ\n\nલગ્ન જીવન, માંગલિક દોષ અને નાડી દોષના સચોટ માર્ગદર્શન માટે આપની સાથે વાત કરવી છે.\nકૃપા કરી અનુકૂળ સમય જણાવશો. ધન્યવાદ!`
-                      : `🚩 ॐ नमः शिवाय!\nसादर प्रणाम पंडित जी 🙏✨\n\nमैंने आपकी वेबसाइट पर विवाह कुंडली मिलान किया है:\n🤵 वर: ${result.boyName}\n👰 कन्या: ${result.girlName}\n✨ गुण मिलान: ${result.totalGunas}/36 गुण (${result.verdict})\n\nवैवाहिक जीवन की सुख-शांति, मांगलिक दोष एवं नाड़ी विचार हेतु आपका व्यक्तिगत वैदिक परामर्श प्राप्त करना है।\nकृपया परामर्श हेतु समय प्रदान करें। धन्यवाद!`
+                    "नमस्ते पंडित जी 🙏 मुझे अपनी कुंडली दिखानी है और व्यक्तिगत परामर्श लेना है। कृपया अपॉइंटमेंट का समय साझा करें ✨"
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>{lang === 'en' ? 'Send Kundli on WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर कुंडली भेजें' : 'કુંડળી મોકલો'}</span>
+                  <span>{lang === 'en' ? 'Send Kundli on WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर अपॉइंटमेंट लें' : 'કુંડળી મોકલો'}</span>
                 </a>
               </div>
             </div>
