@@ -792,20 +792,20 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                     type="button"
                     onClick={() => setShowPrintPreview(true)}
                     className="flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-bold transition-all bg-amber-50 hover:bg-amber-100 text-[#991b1b] border-amber-300 shadow-xs cursor-pointer"
-                    title="स्वस्तिक बॉर्डर सहित सम्पूर्ण 2-पृष्ठ A4 PDF प्रिंट प्रीव्यू देखें"
+                    title="स्वस्तिक बॉर्डर सहित सम्पूर्ण 6-पृष्ठ A4 PDF प्रिंट प्रीव्यू देखें"
                   >
                     <Eye className="w-4 h-4 text-[#991b1b]" />
-                    <span>प्रिंट प्रीव्यू (स्वस्तिक बॉर्डर)</span>
+                    <span>प्रिंट प्रीव्यू (6 पृष्ठ)</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handlePrint}
                     className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-gradient-to-r from-[#991b1b] to-[#CC5218] text-white hover:brightness-110 shadow-sm cursor-pointer"
-                    title="सीधा A4 PDF प्रिंट या सेव करें"
+                    title="सम्पूर्ण 6-पृष्ठ A4 PDF प्रिंट या सेव करें"
                   >
                     <Printer className="w-4 h-4" />
-                    <span>PDF प्रिंट करें</span>
+                    <span>PDF प्रिंट (6 पृष्ठ)</span>
                   </button>
 
                   <span className={`px-3 py-1 rounded-full text-xs font-bold ${
@@ -1793,10 +1793,10 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
             </div>
             <div>
               <h3 className="font-yatra text-base sm:text-lg text-amber-200 leading-tight">
-                वैदिक जन्म कुण्डली - PDF प्रिंट प्रीव्यू (चारों तरफ स्वस्तिक बॉर्डर)
+                शास्त्रोक्त वैदिक जन्म पत्रिका - सम्पूर्ण ६ पृष्ठ A4 प्रिंट प्रीव्यू (स्वस्तिक बॉर्डर)
               </h3>
               <p className="text-[11px] text-amber-100/80">
-                A4 पृष्ठ १ व २ • शास्त्रोक्त संरेखण (Proper Aligned View) • {formData.name}
+                A4 पृष्ठ १ से ६ • फलादेश • योग • विंशोत्तरी दशा • ग्रह स्पष्ट • कालनिर्णय पंचांग • {formData.name}
               </p>
             </div>
           </div>
