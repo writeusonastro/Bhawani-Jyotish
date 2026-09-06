@@ -1,13 +1,14 @@
 import React from 'react';
-import { Phone, MessageCircle, Clock, MapPin, Sparkles, Moon, Sun, Gem, BookOpen, Flame } from 'lucide-react';
-import { ASTROLOGER_INFO } from '../data/astrologyData';
+import { Phone, MessageCircle, Clock } from 'lucide-react';
+import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
 import { AnimatedLogo } from './AnimatedLogo';
+import { Language } from '../types/astrology';
 
 interface HeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  lang: 'hi' | 'gu';
-  setLang: (l: 'hi' | 'gu') => void;
+  lang: Language;
+  setLang: (l: Language) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,62 +18,76 @@ export const Header: React.FC<HeaderProps> = ({
   setLang,
 }) => {
   const navItems = [
-    { id: 'rashifal', labelHi: 'दैनिक राशिफल', labelGu: 'દૈનિક રાશિફળ' },
-    { id: 'kundli', labelHi: 'जन्म कुंडली', labelGu: 'જન્મ કુંડળી' },
-    { id: 'gun-milan', labelHi: 'विवाह गुण मिलान', labelGu: 'લગ્ન ગુણ મિલાન' },
-    { id: 'gemstones', labelHi: '💎 लकी रत्न व रुद्राक्ष', labelGu: '💎 રત્ન અને રુદ્રાક્ષ' },
-    { id: 'japa-mala', labelHi: '📿 डिजिटल जप माला', labelGu: '📿 ડિજિટલ માળા' },
-    { id: 'daily-wisdom', labelHi: '📜 सुविचार व वास्तु', labelGu: '📜 સુવિચાર અને વાસ્તુ' },
-    { id: 'panchang', labelHi: 'पंचांग व मुहूर्त', labelGu: 'પંચાંગ અને મુહૂર્ત' },
-    { id: 'dosh-guide', labelHi: 'दोष निवारण', labelGu: 'દોષ નિવારણ' },
-    { id: 'services', labelHi: 'विशेष सेवाएं', labelGu: 'વિશેષ સેવાઓ' },
-    { id: 'ask-astrologer', labelHi: 'ज्योतिषी से पूछें (AI)', labelGu: 'જ્યોતિષીને પૂછો' },
-    { id: 'contact', labelHi: 'संपर्क व पता', labelGu: 'સંપર્ક અને સરનામું' }
+    { id: 'rashifal', labelHi: 'दैनिक राशिफल', labelGu: 'દૈનિક રાશિફળ', labelEn: 'Horoscope' },
+    { id: 'kundli', labelHi: 'जन्म कुंडली', labelGu: 'જન્મ કુંડળી', labelEn: 'Janam Kundli' },
+    { id: 'gun-milan', labelHi: 'विवाह गुण मिलान', labelGu: 'લગ્ન ગુણ મિલાન', labelEn: 'Gun Milan' },
+    { id: 'gemstones', labelHi: '💎 लकी रत्न व रुद्राक्ष', labelGu: '💎 રત્ન અને રુદ્રાક્ષ', labelEn: '💎 Gemstones' },
+    { id: 'japa-mala', labelHi: '📿 डिजिटल जप माला', labelGu: '📿 ડિજિટલ માળા', labelEn: '📿 Japa Mala' },
+    { id: 'daily-wisdom', labelHi: '📜 सुविचार व वास्तु', labelGu: '📜 સુવિચાર અને વાસ્તુ', labelEn: '📜 Vastu Wisdom' },
+    { id: 'panchang', labelHi: 'पंचांग व मुहूर्त', labelGu: 'પંચાંગ અને મુહૂર્ત', labelEn: 'Panchang' },
+    { id: 'dosh-guide', labelHi: 'दोष निवारण', labelGu: 'દોષ નિવારણ', labelEn: 'Dosha Guide' },
+    { id: 'services', labelHi: 'विशेष सेवाएं', labelGu: 'વિશેષ સેવાઓ', labelEn: 'Services' },
+    { id: 'ask-astrologer', labelHi: 'ज्योतिषी से पूछें (AI)', labelGu: 'જ્યોતિષીને પૂછો', labelEn: 'Ask AI Astrologer' },
+    { id: 'contact', labelHi: 'संपर्क व पता', labelGu: 'સંપર્ક અને સરનામું', labelEn: 'Contact' }
   ];
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md shadow-md border-b bg-white/95 border-[#FF671F]/20 text-[#2C2420]">
-      {/* Top sacred emergency & contact strip */}
-      <div className="bg-gradient-to-r from-[#CC5218] via-[#FF671F] to-[#CC5218] text-white text-xs sm:text-sm py-1.5 px-4">
+    <header className="sticky top-0 z-50 backdrop-blur-md shadow-lg border-b bg-[#FFFDF8]/98 border-amber-500/30 text-[#2C2420]">
+      {/* Top sacred royal shloka & contact strip */}
+      <div className="bg-gradient-to-r from-[#631422] via-[#852E10] to-[#631422] text-amber-100 text-xs sm:text-sm py-1.5 px-4 border-b border-amber-400/30">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
           <div className="flex items-center gap-2 font-medium">
-            <span className="bg-amber-400 text-amber-950 px-2 py-0.5 rounded-full text-xs font-bold animate-pulse">
-              🚩 ॐ श्री भवान्यै नमः
+            <span className="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 text-amber-950 px-2.5 py-0.5 rounded-full text-xs font-black shadow-xs flex items-center gap-1 border border-amber-500">
+              <span>👑</span>
+              <span>राजकीय वैदिक ज्योतिष पीठ</span>
             </span>
-            <span className="hidden sm:inline">
-              {lang === 'hi' ? 'वैदिक ज्योतिष एवं संपूर्ण समाधान केंद्र - मेहसाणा, गुजरात' : 'વૈદિક જ્યોતિષ અને સંપૂર્ણ સમાધાન કેન્દ્ર - મહેસાણા, ગુજરાત'}
+            <span className="hidden sm:inline font-yatra tracking-wider text-amber-200 text-xs sm:text-sm">
+              🪔 ॥ ॐ श्री भवान्यै नमः ॥ ॐ नमः शिवाय ॥ 🪔
             </span>
           </div>
 
           <div className="flex items-center gap-3 text-xs sm:text-sm">
-            <div className="hidden md:flex items-center gap-1 opacity-90">
-              <Clock className="w-3.5 h-3.5" />
-              <span>{lang === 'hi' ? 'प्रातः 8:00 - रात्रि 8:00' : 'સવારે 8:00 - રાત્રે 8:00'}</span>
+            <div className="hidden md:flex items-center gap-1.5 text-amber-200 font-medium">
+              <Clock className="w-3.5 h-3.5 text-amber-300" />
+              <span>
+                {lang === 'en'
+                  ? '8:00 AM - 8:00 PM'
+                  : lang === 'hi'
+                  ? 'प्रातः 8:00 - रात्रि 8:00'
+                  : 'સવારે 8:00 - રાત્રે 8:00'}
+              </span>
             </div>
             
             <a 
               href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-              className="flex items-center gap-1 font-bold hover:text-amber-200 transition-colors bg-black/15 px-2 py-0.5 rounded"
+              className="flex items-center gap-1.5 font-bold text-amber-100 hover:text-white transition-colors bg-amber-950/60 border border-amber-400/40 px-2.5 py-0.5 rounded-md shadow-xs"
             >
-              <Phone className="w-3.5 h-3.5 text-amber-300" />
+              <Phone className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
               <span>{ASTROLOGER_INFO.phonePrimary}</span>
             </a>
 
             {/* Language toggle */}
-            <div className="flex items-center bg-black/25 rounded-md p-0.5 text-xs">
+            <div className="flex items-center bg-black/40 rounded-lg p-0.5 text-xs font-semibold border border-amber-400/30">
               <button
                 type="button"
                 onClick={() => setLang('hi')}
-                className={`px-2 py-0.5 rounded transition-all ${lang === 'hi' ? 'bg-white text-[#CC5218] font-bold' : 'text-white/80 hover:text-white'}`}
+                className={`px-2 py-0.5 rounded transition-all ${lang === 'hi' ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-amber-950 font-black shadow-xs' : 'text-amber-200/80 hover:text-white'}`}
               >
                 हिंदी
               </button>
               <button
                 type="button"
                 onClick={() => setLang('gu')}
-                className={`px-2 py-0.5 rounded transition-all ${lang === 'gu' ? 'bg-white text-[#CC5218] font-bold' : 'text-white/80 hover:text-white'}`}
+                className={`px-2 py-0.5 rounded transition-all ${lang === 'gu' ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-amber-950 font-black shadow-xs' : 'text-amber-200/80 hover:text-white'}`}
               >
                 ગુજરાતી
+              </button>
+              <button
+                type="button"
+                onClick={() => setLang('en')}
+                className={`px-2 py-0.5 rounded transition-all ${lang === 'en' ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-amber-950 font-black shadow-xs' : 'text-amber-200/80 hover:text-white'}`}
+              >
+                English
               </button>
             </div>
           </div>
@@ -88,16 +103,20 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <AnimatedLogo size="md" lang={lang} />
           <div>
-            <div className="flex items-center gap-2">
-              <h1 className="font-yatra text-2xl sm:text-3xl text-[#CC5218] tracking-wide">
-                भवानी ज्योतिष
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="font-yatra text-2xl sm:text-3xl text-[#852E10] tracking-wide flex items-center gap-1.5">
+                <span>{lang === 'en' ? 'Bhavani Jyotish' : 'भवानी ज्योतिष'}</span>
               </h1>
-              <span className="text-xs px-2 py-0.5 rounded-full font-semibold border bg-[#FFF5F0] border-[#FF671F]/30 text-[#CC5218]">
-                मेहसाणा (गुजरात)
+              <span className="text-xs px-2.5 py-0.5 rounded-full font-bold border bg-gradient-to-r from-amber-100 to-orange-50 border-amber-400 text-[#852E10] shadow-xs">
+                👑 {lang === 'en' ? 'Mehsana (Gujarat)' : 'नागलपुर, मेहसाणा'}
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-stone-900 font-semibold">
-              {lang === 'hi' ? 'सटीक ज्योतिषीय समाधान एवं वैदिक मार्गदर्शन' : 'સચોટ જ્યોતિષીય સમાધાન અને વૈદિક માર્ગદર્શન'}
+            <p className="text-xs sm:text-sm text-stone-900 font-bold tracking-wide">
+              {lang === 'en'
+                ? ASTROLOGER_INFO.taglineEn
+                : lang === 'hi'
+                ? ASTROLOGER_INFO.tagline
+                : ASTROLOGER_INFO.taglineGu}
             </p>
           </div>
         </div>
@@ -105,38 +124,40 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Action Buttons */}
         <div className="flex items-center gap-2.5 w-full md:w-auto justify-center md:justify-end">
           <a
-            href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('प्रणाम पंडित जी! मुझे भवानी ज्योतिष केंद्र, मेहसाणा से ज्योतिषीय परामर्श प्राप्त करना है।')}`}
+            href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+              getWhatsAppConsultationMessage(lang)
+            )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-500/20"
+            className="flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-600/20 border border-emerald-400/40 hover:scale-105 active:scale-95"
           >
             <MessageCircle className="w-4 h-4" />
-            <span>व्हाट्सएप</span>
+            <span>{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
           </a>
 
           <a
             href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-            className="flex items-center gap-1.5 bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-[#FF671F]/30"
+            className="flex items-center gap-1.5 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 hover:from-amber-700 hover:to-orange-700 text-white font-yatra tracking-wide px-5 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-amber-600/30 border-2 border-amber-300 hover:scale-105 active:scale-95"
           >
-            <Phone className="w-4 h-4" />
-            <span>{lang === 'hi' ? 'कॉल करें' : 'કોલ કરો'}</span>
+            <Phone className="w-4 h-4 text-amber-200" />
+            <span>{lang === 'en' ? 'Call Now' : lang === 'hi' ? 'तुरंत कॉल करें' : 'કોલ કરો'}</span>
           </a>
         </div>
       </div>
 
       {/* Navigation Links */}
-      <div className="border-t overflow-x-auto no-scrollbar bg-[#FFFDF9] border-[#FF671F]/15">
-        <div className="max-w-7xl mx-auto px-4 flex items-center gap-1 py-1 sm:py-1.5 whitespace-nowrap min-w-max">
+      <div className="border-t overflow-x-auto no-scrollbar bg-gradient-to-r from-[#FFFDF8] via-[#FAF5EC] to-[#FFFDF8] border-amber-500/25">
+        <div className="max-w-7xl mx-auto px-4 flex items-center gap-1 py-1.5 whitespace-nowrap min-w-max">
           <button
             type="button"
             onClick={() => setActiveTab('home')}
-            className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-colors ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all ${
               activeTab === 'home'
-                ? 'bg-[#FF671F] text-white shadow-sm'
-                : 'text-stone-950 hover:text-[#CC5218] hover:bg-[#FFF5F0]'
+                ? 'bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-white shadow-md shadow-amber-600/30 border border-amber-300/70'
+                : 'text-stone-900 hover:text-[#852E10] hover:bg-amber-100/60'
             }`}
           >
-            {lang === 'hi' ? '🏠 मुख्य पृष्ठ' : '🏠 મુખપૃષ્ઠ'}
+            {lang === 'en' ? '🏛️ Raj Darbar' : lang === 'hi' ? '🏛️ मुख्य द्वार' : '🏛️ મુખપૃષ્ઠ'}
           </button>
           
           {navItems.map((item) => (
@@ -144,13 +165,13 @@ export const Header: React.FC<HeaderProps> = ({
               key={item.id}
               type="button"
               onClick={() => setActiveTab(item.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-colors ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all ${
                 activeTab === item.id
-                  ? 'bg-[#FF671F] text-white shadow-sm'
-                  : 'text-stone-950 hover:text-[#CC5218] hover:bg-[#FFF5F0]'
+                  ? 'bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-white shadow-md shadow-amber-600/30 border border-amber-300/70'
+                  : 'text-stone-900 hover:text-[#852E10] hover:bg-amber-100/60'
               }`}
             >
-              {lang === 'hi' ? item.labelHi : item.labelGu}
+              {lang === 'en' ? item.labelEn : lang === 'hi' ? item.labelHi : item.labelGu}
             </button>
           ))}
         </div>

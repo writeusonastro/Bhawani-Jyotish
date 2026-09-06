@@ -1,11 +1,12 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Language } from '../types/astrology';
 
 interface AnimatedLogoProps {
   size?: 'sm' | 'md' | 'lg';
   showText?: boolean;
   isDark?: boolean;
-  lang?: 'hi' | 'gu';
+  lang?: Language;
 }
 
 export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
@@ -185,12 +186,14 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
                   : 'bg-[#FFF5F0] border-[#FF671F]/30 text-[#CC5218]'
               }`}
             >
-              मेहसाणा (गुजरात)
+              {lang === 'en' ? 'Mehsana (Gujarat)' : 'मेहसाणा (गुजरात)'}
             </span>
           </div>
 
           <p className="text-xs sm:text-sm text-stone-900 dark:text-stone-300 font-semibold">
-            {lang === 'hi'
+            {lang === 'en'
+              ? 'Precise Astrological Solutions & Vedic Guidance'
+              : lang === 'hi'
               ? 'सटीक ज्योतिषीय समाधान एवं वैदिक मार्गदर्शन'
               : 'સચોટ જ્યોતિષીય સમાધાન અને વૈદિક માર્ગદર્શન'}
           </p>

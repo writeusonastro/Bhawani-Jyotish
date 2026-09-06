@@ -1,110 +1,171 @@
 import React, { useState } from 'react';
-import { Compass, BookOpen, RefreshCw, Sparkles, CheckCircle2, Home, Sun } from 'lucide-react';
+import { Compass, BookOpen, RefreshCw, Sparkles, CheckCircle2, Home } from 'lucide-react';
+import { Language } from '../types/astrology';
 
 interface DailyWisdomVastuProps {
-  lang: 'hi' | 'gu';
+  lang: Language;
   isDark?: boolean;
 }
 
 interface ShlokaData {
   sanskrit: string;
-  source: { hi: string; gu: string };
-  meaning: { hi: string; gu: string };
+  source: { hi: string; gu: string; en: string };
+  meaning: { hi: string; gu: string; en: string };
 }
 
 interface VastuData {
-  title: { hi: string; gu: string };
-  direction: { hi: string; gu: string };
-  guidance: { hi: string; gu: string };
-  benefit: { hi: string; gu: string };
+  title: { hi: string; gu: string; en: string };
+  direction: { hi: string; gu: string; en: string };
+  guidance: { hi: string; gu: string; en: string };
+  benefit: { hi: string; gu: string; en: string };
   icon: string;
 }
 
 const SHLOKAS: ShlokaData[] = [
   {
     sanskrit: 'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥',
-    source: { hi: 'श्रीमद्भगवद्गीता (अध्याय 2, श्लोक 47)', gu: 'શ્રીમદ્ ભગવદ્ ગીતા (અધ્યાય 2, શ્લોક 47)' },
+    source: { 
+      hi: 'श्रीमद्भगवद्गीता (अध्याय 2, श्लोक 47)', 
+      gu: 'શ્રીમદ્ ભગવદ્ ગીતા (અધ્યાય 2, શ્લોક 47)',
+      en: 'Shrimad Bhagavad Gita (Chapter 2, Verse 47)'
+    },
     meaning: {
       hi: 'तुम्हारा अधिकार केवल कर्म करने में है, फल की चिंता में नहीं। इसलिए निष्काम भाव से निरंतर श्रेष्ठ कर्म करते रहो।',
-      gu: 'તમારો અધિકાર માત્ર કર્મ કરવામાં છે, ફળની ચિંતામાં નહીં. માટે સતત શ્રેષ્ઠ કર્મ કરતા રહો.'
+      gu: 'તમારો અધિકાર માત્ર કર્મ કરવામાં છે, ફળની ચિંતામાં નહીં. માટે સતત શ્રેષ્ઠ કર્મ કરતા રહો.',
+      en: 'You have a right only to work, never to its fruits. Let not the fruit of action be your motive, nor let your attachment be to inaction.'
     }
   },
   {
     sanskrit: 'उद्यमेन हि सिध्यन्ति कार्याणि न मनोरथैः। न हि सुप्तस्य सिंहस्य प्रविशन्ति मुखे मृगाः॥',
-    source: { hi: 'हितोपदेश (प्रस्ताविका)', gu: 'હિતોપદેશ' },
+    source: { 
+      hi: 'हितोपदेश (प्रस्ताविका)', 
+      gu: 'હિતોપદેશ',
+      en: 'Hitopadesha (Prologue)'
+    },
     meaning: {
       hi: 'सभी कार्य परिश्रम और पुरुषार्थ से ही सिद्ध होते हैं, केवल सोचने से नहीं। सोते हुए सिंह के मुख में हिरण स्वयं नहीं आता।',
-      gu: 'બધા કાર્યો પરિશ્રમથી જ સિદ્ધ થાય છે, માત્ર મનોરથોથી નહીં. સૂતેલા સિંહના મોંમાં શિકાર આપમેળે આવતો નથી.'
+      gu: 'બધા કાર્યો પરિશ્રમથી જ સિદ્ધ થાય છે, માત્ર મનોરથોથી નહીં. સૂતેલા સિંહના મોંમાં શિકાર આપમેળે આવતો નથી.',
+      en: 'Tasks are accomplished only through persistent effort and diligence, not by mere wishful thinking. Deer do not enter the mouth of a sleeping lion on their own.'
     }
   },
   {
     sanskrit: 'सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः। सर्वे भद्राणि पश्यन्तु मा कश्चिद् दुःखभाग्भवेत्॥',
-    source: { hi: 'बृहदारण्यक उपनिषद्', gu: 'બૃહદારણ્યક ઉપનિષદ્' },
+    source: { 
+      hi: 'बृहदारण्यक उपनिषद्', 
+      gu: 'બૃહદારણ્યક ઉપનિષદ્',
+      en: 'Brihadaranyaka Upanishad'
+    },
     meaning: {
       hi: 'सभी सुखी हों, सभी रोगमुक्त व निरोगी हों, सभी का मंगलमय कल्याण हो और संसार में किसी को भी कोई कष्ट न हो।',
-      gu: 'બધા સુખી થાય, બધા નિરોગી બને, સૌનું કલ્યાણ થાય અને કોઈને પણ દુઃખ ન થાય.'
+      gu: 'બધા સુખી થાય, બધા નિરોગી બને, સૌનું કલ્યાણ થાય અને કોઈને પણ દુઃખ ન થાય.',
+      en: 'May all sentient beings be happy, may all be free from illness, may all see what is auspicious, and may no one suffer grief.'
     }
   },
   {
     sanskrit: 'विद्या ददाति विनयं विनयाद्याति पात्रताम्। पात्रत्वाद्धनमाप्नोति धनाद्धर्मं ततः सुखम्॥',
-    source: { hi: 'नीति शतक', gu: 'નીતિ શતક' },
+    source: { 
+      hi: 'नीति शतक', 
+      gu: 'નીતિ શતક',
+      en: 'Neeti Shatakam'
+    },
     meaning: {
       hi: 'सच्ची विद्या नम्रता देती है, नम्रता से योग्यता, योग्यता से धन, धन से धर्म और धर्म से परम सुख की प्राप्ति होती है।',
-      gu: 'સાચી વિદ્યા નમ્રતા આપે છે, નમ્રતાથી યોગ્યતા, યોગ્યતાથી ધન, ધનથી ધર્મ અને તેનાથી પરમ સુખ મળે છે.'
+      gu: 'સાચી વિદ્યા નમ્રતા આપે છે, નમ્રતાથી યોગ્યતા, યોગ્યતાથી ધન, ધનથી ધર્મ અને તેનાથી પરમ સુખ મળે છે.',
+      en: 'True knowledge yields humility; from humility comes worthiness; from worthiness one attains wealth; through righteous wealth comes virtue, and thence true happiness.'
     }
   }
 ];
 
 const VASTU_TIPS: VastuData[] = [
   {
-    title: { hi: 'ईशान कोण (North-East) की दिव्य ऊर्जा', gu: 'ઈશાન ખૂણો (North-East) દિવ્ય ઊર્જા' },
-    direction: { hi: 'उत्तर-पूर्व दिशा (ईशान)', gu: 'ઉત્તર-પૂર્વ દિશા (ઈશાન)' },
+    title: { 
+      hi: 'ईशान कोण (North-East) की दिव्य ऊर्जा', 
+      gu: 'ઈશાન ખૂણો (North-East) દિવ્ય ઊર્જા',
+      en: 'Divine Energy of North-East (Ishanya)'
+    },
+    direction: { 
+      hi: 'उत्तर-पूर्व दिशा (ईशान)', 
+      gu: 'ઉત્તર-પૂર્વ દિશા (ઈશાન)',
+      en: 'North-East Direction'
+    },
     guidance: {
       hi: 'घर के ईशान कोण को हमेशा स्वच्छ, हल्का व खुला रखें। यहां कलश में गंगाजल, पूजा स्थल या तुलसी का पौधा रखना सर्वोत्तम है।',
-      gu: 'ઘરના ઈશાન ખૂણાને હંમેશાં સાફ અને હળવો રાખો. અહીં પૂજા સ્થળ કે તુલસીનો છોડ રાખવો શ્રેષ્ઠ છે.'
+      gu: 'ઘરના ઈશાન ખૂણાને હંમેશાં સાફ અને હળવો રાખો. અહીં પૂજા સ્થળ કે તુલસીનો છોડ રાખવો શ્રેષ્ઠ છે.',
+      en: 'Keep the North-East zone of your home immaculate, lightweight, and clutter-free. Establishing a prayer sanctum, sacred water vessel, or holy Basil (Tulsi) here brings supreme harmony.'
     },
     benefit: {
       hi: 'सकारात्मक ऊर्जा का संचार और मानसिक तनाव से पूर्ण मुक्ति',
-      gu: 'સકારાત્મક ઊર્જા અને માનસિક શાંતિ'
+      gu: 'સકારાત્મક ઊર્જા અને માનસિક શાંતિ',
+      en: 'Enhanced cosmic prana and profound peace of mind'
     },
     icon: '🕉️'
   },
   {
-    title: { hi: 'तिजोरी व धन संग्रह की सही दिशा', gu: 'તિજોરી અને ધન સ્થાન' },
-    direction: { hi: 'दक्षिण या नैऋत्य दिशा', gu: 'દક્ષિણ અથવા નૈઋત્ય દિશા' },
+    title: { 
+      hi: 'तिजोरी व धन संग्रह की सही दिशा', 
+      gu: 'તિજોરી અને ધન સ્થાન',
+      en: 'Auspicious Wealth & Safe Placement'
+    },
+    direction: { 
+      hi: 'दक्षिण या नैऋत्य दिशा', 
+      gu: 'દક્ષિણ અથવા નૈઋત્ય દિશા',
+      en: 'South or South-West Wall'
+    },
     guidance: {
       hi: 'धन रखने की अलमारी को दक्षिण दीवार के सहारे इस प्रकार रखें कि उसका दरवाजा उत्तर (कुबेर दिशा) की ओर खुले।',
-      gu: 'તિજોરીને દક્ષિણ દિવાલ તરફ રાખો જેથી તેનો દરવાજો ઉત્તર (કુબેર દિશા) તરફ ખૂલે.'
+      gu: 'તિજોરીને દક્ષિણ દિવાલ તરફ રાખો જેથી તેનો દરવાજો ઉત્તર (કુબેર દિશા) તરફ ખૂલે.',
+      en: 'Place cash lockers and valuables against the southern wall so the locker door opens toward the North, the auspicious realm of Lord Kuber.'
     },
     benefit: {
       hi: 'अनावश्यक फिजूलखर्ची पर रोक और स्थायी धन-वैभव की वृद्धि',
-      gu: 'બિનજરૂરી ખર્ચ અટકે અને લક્ષ્મીજીની કૃપા જળવાય'
+      gu: 'બિનજરૂરી ખર્ચ અટકે અને લક્ષ્મીજીની કૃપા જળવાય',
+      en: 'Curbs wasteful expenditures and preserves lasting prosperity'
     },
     icon: '💰'
   },
   {
-    title: { hi: 'रसोईघर (Kitchen) और आग्नेय ऊर्जा', gu: 'રસોડું અને અગ્નિ ઊર્જા' },
-    direction: { hi: 'दक्षिण-पूर्व दिशा (आग्नेय कोण)', gu: 'દક્ષિણ-પૂર્વ દિશા (અગ્નિ ખૂણો)' },
+    title: { 
+      hi: 'रसोईघर (Kitchen) और आग्नेय ऊर्जा', 
+      gu: 'રસોડું અને અગ્નિ ઊર્જા',
+      en: 'Kitchen Placement & Agni Element'
+    },
+    direction: { 
+      hi: 'दक्षिण-पूर्व दिशा (आग्नेय कोण)', 
+      gu: 'દક્ષિણ-પૂર્વ દિશા (અગ્નિ ખૂણો)',
+      en: 'South-East (Agneya Corner)'
+    },
     guidance: {
       hi: 'खाना बनाते समय गृहणी का मुख पूर्व दिशा की ओर होना चाहिए। चूल्हे और पानी के नल के बीच उचित दूरी रखें।',
-      gu: 'રસોઈ કરતી વખતે મુખ પૂર્વ દિશામાં હોવું જોઈએ. ગેસ અને પાણી વચ્ચે યોગ્ય અંતર રાખો.'
+      gu: 'રસોઈ કરતી વખતે મુખ પૂર્વ દિશામાં હોવું જોઈએ. ગેસ અને પાણી વચ્ચે યોગ્ય અંતર રાખો.',
+      en: 'Face East while cooking to harness revitalizing solar energy. Ensure a respectful distance between the fire stove and the water sink.'
     },
     benefit: {
       hi: 'परिवार के सभी सदस्यों का उत्तम स्वास्थ्य व अन्नपूर्णा की कृपा',
-      gu: 'પરિવારનું ઉત્તમ સ્વાસ્થ્ય અને અન્નપૂર્ણાની કૃપા'
+      gu: 'પરિવારનું ઉત્તમ સ્વાસ્થ્ય અને અન્નપૂર્ણાની કૃપા',
+      en: 'Vital vitality for family members and perpetual abundance'
     },
     icon: '🔥'
   },
   {
-    title: { hi: 'मुख्य द्वार (Main Entrance) का वास्तु', gu: 'મુખ્ય દ્વારનું વાસ્તુ' },
-    direction: { hi: 'उत्तर या पूर्व दिशा', gu: 'ઉત્તર અથવા પૂર્વ દિશા' },
+    title: { 
+      hi: 'मुख्य द्वार (Main Entrance) का वास्तु', 
+      gu: 'મુખ્ય દ્વારનું વાસ્તુ',
+      en: 'Main Entrance Sacred Auspiciousness'
+    },
+    direction: { 
+      hi: 'उत्तर या पूर्व दिशा', 
+      gu: 'ઉત્તર અથવા પૂર્વ દિશા',
+      en: 'North or East Entrance'
+    },
     guidance: {
       hi: 'मुख्य द्वार पर हल्दी-कंकू से ॐ या स्वास्तिक का चिह्न बनाएं। शाम के समय मुख्य द्वार पर घी/तिल का दीपक जलाएं।',
-      gu: 'મુખ્ય દરવાજા પર કંકુથી સ્વસ્તિક બનાવો અને સાંજે દીવો પ્રગટાવો.'
+      gu: 'મુખ્ય દરવાજા પર કંકુથી સ્વસ્તિક બનાવો અને સાંજે દીવો પ્રગટાવો.',
+      en: 'Draw a holy Swastika or Om emblem at your entrance with turmeric and vermilion. Lighting an evening sesame oil or ghee lamp invites divine blessings.'
     },
     benefit: {
       hi: 'नकारात्मक ऊर्जा का प्रवेश वर्जित और गृह में सौभाग्य आगमन',
-      gu: 'નકારાત્મક શક્તિઓ દૂર થાય અને સુખ-શાંતિ વધે'
+      gu: 'નકારાત્મક શક્તિઓ દૂર થાય અને સુખ-શાંતિ વધે',
+      en: 'Repels negative vibrations and welcomes auspicious good fortune'
     },
     icon: '🚪'
   }
@@ -145,7 +206,11 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
                   <BookOpen className="w-4 h-4" />
                 </span>
                 <span className="font-yatra text-sm text-[#CC5218] font-bold">
-                  {lang === 'hi' ? 'दैनिक वैदिक सुविचार एवं श्लोक' : 'દૈનિક વૈદિક સુવિચાર અને શ્લોક'}
+                  {lang === 'en'
+                    ? 'Daily Vedic Shloka & Wisdom'
+                    : lang === 'hi'
+                    ? 'दैनिक वैदिक सुविचार एवं श्लोक'
+                    : 'દૈનિક વૈદિક સુવિચાર અને શ્લોક'}
                 </span>
               </div>
 
@@ -157,10 +222,10 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
                     ? 'border-amber-700/60 bg-amber-950/40 text-amber-300 hover:bg-amber-900/60' 
                     : 'border-[#FF671F]/30 bg-white text-[#CC5218] hover:bg-[#FFF5F0]'
                 }`}
-                title="अन्य श्लोक देखें"
+                title={lang === 'en' ? 'View next shloka' : 'अन्य श्लोक देखें'}
               >
                 <RefreshCw className="w-3 h-3" />
-                <span>{lang === 'hi' ? 'अन्य श्लोक' : 'અન્ય શ્લોક'}</span>
+                <span>{lang === 'en' ? 'Next Shloka' : lang === 'hi' ? 'अन्य श्लोक' : 'અન્ય શ્લોક'}</span>
               </button>
             </div>
 
@@ -175,7 +240,7 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
 
             <p className="text-xs sm:text-sm leading-relaxed mt-2 text-stone-950 dark:text-stone-200 font-medium">
               <strong className="text-amber-950 dark:text-amber-400 font-bold">
-                {lang === 'hi' ? 'सरल भावार्थ: ' : 'સરળ ભાવાર્થ: '}
+                {lang === 'en' ? 'Essence & Meaning: ' : lang === 'hi' ? 'सरल भावार्थ: ' : 'સરળ ભાવાર્થ: '}
               </strong>
               {shloka.meaning[lang]}
             </p>
@@ -183,7 +248,13 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
 
           <div className="mt-4 pt-3 border-t border-amber-500/20 text-[11px] flex items-center gap-2 text-stone-950 dark:text-amber-400 font-semibold">
             <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-            <span>{lang === 'hi' ? 'प्रातःकाल इस श्लोक का स्मरण करने से दिन शुभ और ऊर्जावान बनता है।' : 'સવારે આ શ્લોકનું સ્મરણ કરવાથી દિવસ મંગળમય બને છે.'}</span>
+            <span>
+              {lang === 'en'
+                ? 'Contemplating this sacred verse in the morning brings auspicious energy throughout the day.'
+                : lang === 'hi'
+                ? 'प्रातःकाल इस श्लोक का स्मरण करने से दिन शुभ और ऊर्जावान बनता है।'
+                : 'સવારે આ શ્લોકનું સ્મરણ કરવાથી દિવસ મંગળમય બને છે.'}
+            </span>
           </div>
         </div>
 
@@ -204,7 +275,11 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
                   <Compass className="w-4 h-4" />
                 </span>
                 <span className="font-yatra text-sm text-[#CC5218] font-bold">
-                  {lang === 'hi' ? 'दैनिक वास्तु उपाय (Vastu Tip of the Day)' : 'દૈનિક વાસ્તુ ઉપાય (Vastu Tip)'}
+                  {lang === 'en'
+                    ? 'Daily Vastu Tip & Energy'
+                    : lang === 'hi'
+                    ? 'दैनिक वास्तु उपाय (Vastu Tip of the Day)'
+                    : 'દૈનિક વાસ્તુ ઉપાય (Vastu Tip)'}
                 </span>
               </div>
 
@@ -216,10 +291,10 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
                     ? 'border-amber-700/60 bg-amber-950/40 text-amber-300 hover:bg-amber-900/60' 
                     : 'border-[#FF671F]/30 bg-white text-[#CC5218] hover:bg-[#FFF5F0]'
                 }`}
-                title="अन्य वास्तु उपाय"
+                title={lang === 'en' ? 'View next tip' : 'अन्य वास्तु उपाय'}
               >
                 <RefreshCw className="w-3 h-3" />
-                <span>{lang === 'hi' ? 'अन्य उपाय' : 'અન્ય ઉપાય'}</span>
+                <span>{lang === 'en' ? 'Next Tip' : lang === 'hi' ? 'अन्य उपाय' : 'અન્ય ઉપાય'}</span>
               </button>
             </div>
 
@@ -240,7 +315,7 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
             <div className={`mt-3 p-3 rounded-xl border flex items-center gap-2 text-xs font-semibold ${isDark ? 'bg-emerald-950/40 border-emerald-700/40 text-emerald-300' : 'bg-emerald-50 border-emerald-200 text-emerald-950'}`}>
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>
-                <strong>{lang === 'hi' ? 'वास्तु फल: ' : 'વાસ્તુ ફળ: '}</strong>
+                <strong>{lang === 'en' ? 'Vastu Benefit: ' : lang === 'hi' ? 'वास्तु फल: ' : 'વાસ્તુ ફળ: '}</strong>
                 {vastu.benefit[lang]}
               </span>
             </div>
@@ -248,7 +323,13 @@ export const DailyWisdomVastu: React.FC<DailyWisdomVastuProps> = ({ lang, isDark
 
           <div className="mt-4 pt-3 border-t border-amber-500/20 text-[11px] flex items-center gap-2 text-stone-900 dark:text-stone-400 font-medium">
             <Home className="w-3.5 h-3.5 text-amber-600" />
-            <span>{lang === 'hi' ? 'गृह, दुकान एवं ऑफिस में वास्तु दोष निवारण हेतु प्रामाणिक शास्त्रीय नियम।' : 'ઘર અને દુકાનમાં વાસ્તુ દોષ નિવારણ માટે પ્રમાણિક શાસ્ત્રીય નિયમો.'}</span>
+            <span>
+              {lang === 'en'
+                ? 'Authentic architectural Vedic principles for harmonizing home, store, and office energies.'
+                : lang === 'hi'
+                ? 'गृह, दुकान एवं ऑफिस में वास्तु दोष निवारण हेतु प्रामाणिक शास्त्रीय नियम।'
+                : 'ઘર અને દુકાનમાં વાસ્તુ દોષ નિવારણ માટે પ્રમાણિક શાસ્ત્રીય નિયમો.'}
+            </span>
           </div>
         </div>
       </div>

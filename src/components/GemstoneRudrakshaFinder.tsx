@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Gem, Sparkles, ShieldCheck, CheckCircle2, Phone, MessageCircle, Info, Calendar } from 'lucide-react';
+import { Gem, ShieldCheck, Phone, MessageCircle, Calendar } from 'lucide-react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
+import { Language } from '../types/astrology';
 
 interface GemstoneRudrakshaFinderProps {
-  lang: 'hi' | 'gu';
+  lang: Language;
   isDark?: boolean;
 }
 
@@ -330,13 +331,25 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
             : 'bg-[#FFF5F0] text-[#CC5218] border-[#FF671F]/30'
         }`}>
           <Gem className="w-4 h-4 text-[#FF671F]" />
-          <span>{lang === 'hi' ? 'प्रामाणिक रत्न एवं रुद्राक्ष परामर्श' : 'પ્રમાણિક રત્ન અને રુદ્રાક્ષ પરામર્શ'}</span>
+          <span>
+            {lang === 'en'
+              ? 'Authentic Gemstone & Rudraksha Consultation'
+              : lang === 'hi'
+              ? 'प्रामाणिक रत्न एवं रुद्राक्ष परामर्श'
+              : 'પ્રમાણિક રત્ન અને રુદ્રાક્ષ પરામર્શ'}
+          </span>
         </div>
         <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
-          {lang === 'hi' ? 'लकी रत्न एवं रुद्राक्ष रिकमेंडर' : 'લકી રત્ન અને રુદ્રાક્ષ ભલામણ'}
+          {lang === 'en'
+            ? 'Lucky Gemstone & Rudraksha Recommender'
+            : lang === 'hi'
+            ? 'लकी रत्न एवं रुद्राक्ष रिकमेंडर'
+            : 'લકી રત્ન અને રુદ્રાક્ષ ભલામણ'}
         </h2>
         <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
-          {lang === 'hi'
+          {lang === 'en'
+            ? 'Select your Zodiac sign or birth date to discover your auspicious gemstone, energizing rules, lucky day & suitable Rudraksha'
+            : lang === 'hi'
             ? 'अपनी जन्म राशि या जन्म तिथि चुनें और जानें अपना भाग्यशाली रत्न, धारण विधि, शुभ दिन व उपयुक्त रुद्राक्ष'
             : 'તમારી જન્મ રાશિ પસંદ કરો અને જાણો તમારો ભાગ્યશાળી રત્ન અને યોગ્ય રુદ્રાક્ષ'}
         </p>
@@ -355,7 +368,9 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
           <div className="md:col-span-4">
             <label className={`block text-xs font-bold mb-1.5 flex items-center gap-1.5 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
               <Calendar className="w-4 h-4 text-[#FF671F]" />
-              <span>{lang === 'hi' ? 'जन्म तारीख से खोजें (Optional):' : 'જન્મ તારીખથી શોધો:'}</span>
+              <span>
+                {lang === 'en' ? 'Find by Date of Birth (Optional):' : lang === 'hi' ? 'जन्म तारीख से खोजें (Optional):' : 'જન્મ તારીખથી શોધો:'}
+              </span>
             </label>
             <input
               type="date"
@@ -372,7 +387,7 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
           {/* Rashi Grid */}
           <div className="md:col-span-8">
             <label className={`block text-xs font-bold mb-1.5 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
-              {lang === 'hi' ? 'या अपनी जन्म राशि चुनें:' : 'અથવા તમારી જન્મ રાશિ પસંદ કરો:'}
+              {lang === 'en' ? 'Or choose your Zodiac Sign:' : lang === 'hi' ? 'या अपनी जन्म राशि चुनें:' : 'અથવા તમારી જન્મ રાશિ પસંદ કરો:'}
             </label>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
               {RASHI_DATA.map((r, idx) => (
@@ -388,7 +403,7 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
                       : 'bg-[#FFF5F0] text-stone-950 border border-[#FF671F]/20 hover:bg-[#FFEAE0]'
                   }`}
                 >
-                  {lang === 'hi' ? r.rashiHi.split(' ')[0] : r.rashiGu.split(' ')[0]}
+                  {lang === 'en' ? r.rashiEn : lang === 'hi' ? r.rashiHi.split(' ')[0] : r.rashiGu.split(' ')[0]}
                 </button>
               ))}
             </div>
@@ -419,10 +434,10 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
                 >
                   <span className="text-6xl mb-2 drop-shadow-md">💎</span>
                   <h4 className="font-yatra text-xl text-[#CC5218] dark:text-amber-300 font-bold">
-                    {lang === 'hi' ? selected.gemstoneHi : selected.gemstoneGu}
+                    {lang === 'en' ? selected.gemstoneHi : lang === 'hi' ? selected.gemstoneHi : selected.gemstoneGu}
                   </h4>
                   <span className="text-xs text-stone-900 dark:text-stone-400 font-bold mt-1">
-                    {lang === 'hi' ? `स्वामी ग्रह: ${selected.lordHi}` : `સ્વામી ગ્રહ: ${selected.lordHi}`}
+                    {lang === 'en' ? `Ruling Planet: ${selected.lordHi}` : lang === 'hi' ? `स्वामी ग्रह: ${selected.lordHi}` : `સ્વામી ગ્રહ: ${selected.lordHi}`}
                   </span>
                 </div>
               </div>
@@ -431,7 +446,7 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
             <div className="mt-4 flex flex-wrap justify-center gap-2">
               <span className="text-xs bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 px-3 py-1 rounded-full font-bold border border-emerald-300 flex items-center gap-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                <span>100% शुद्ध एवं लैब प्रमाणित (Certified)</span>
+                <span>{lang === 'en' ? '100% Authentic & Lab Certified' : '100% शुद्ध एवं लैब प्रमाणित (Certified)'}</span>
               </span>
             </div>
           </div>
@@ -441,10 +456,10 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-amber-500/20 pb-3">
               <div>
                 <span className="text-xs text-[#FF671F] font-bold uppercase tracking-wider">
-                  {lang === 'hi' ? 'राशि फलादेश आधारित सिफारिश' : 'રાશિ આધારિત ભલામણ'}
+                  {lang === 'en' ? 'Zodiac Astrological Recommendation' : lang === 'hi' ? 'राशि फलादेश आधारित सिफारिश' : 'રાશિ આધારિત ભલામણ'}
                 </span>
                 <h3 className="font-yatra text-2xl sm:text-3xl text-[#CC5218] dark:text-amber-300">
-                  {lang === 'hi' ? selected.rashiHi : selected.rashiGu}
+                  {lang === 'en' ? selected.rashiEn : lang === 'hi' ? selected.rashiHi : selected.rashiGu}
                 </h3>
               </div>
 
@@ -459,34 +474,34 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
               <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-[#FFFDF9] border-[#FF671F]/20'}`}>
                 <span className="text-stone-950 dark:text-stone-400 block text-xs font-semibold">
-                  {lang === 'hi' ? 'उपयुक्त धातु (Metal):' : 'યોગ્ય ધાતુ:'}
+                  {lang === 'en' ? 'Suitable Metal:' : lang === 'hi' ? 'उपयुक्त धातु (Metal):' : 'યોગ્ય ધાતુ:'}
                 </span>
                 <strong className="text-stone-950 dark:text-amber-300 font-bold">
-                  {lang === 'hi' ? selected.metalHi : selected.metalGu}
+                  {lang === 'en' ? selected.metalHi : lang === 'hi' ? selected.metalHi : selected.metalGu}
                 </strong>
               </div>
 
               <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-[#FFFDF9] border-[#FF671F]/20'}`}>
                 <span className="text-stone-950 dark:text-stone-400 block text-xs font-semibold">
-                  {lang === 'hi' ? 'धारण अंगुली (Finger):' : 'પહેરવાની આંગળી:'}
+                  {lang === 'en' ? 'Wearing Finger:' : lang === 'hi' ? 'धारण अंगुली (Finger):' : 'પહેરવાની આંગળી:'}
                 </span>
                 <strong className="text-stone-950 dark:text-amber-300 font-bold">
-                  {lang === 'hi' ? selected.fingerHi : selected.fingerGu}
+                  {lang === 'en' ? selected.fingerHi : lang === 'hi' ? selected.fingerHi : selected.fingerGu}
                 </strong>
               </div>
 
               <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-[#FFFDF9] border-[#FF671F]/20'}`}>
                 <span className="text-stone-950 dark:text-stone-400 block text-xs font-semibold">
-                  {lang === 'hi' ? 'शुभ दिन व समय:' : 'શુભ દિવસ અને સમય:'}
+                  {lang === 'en' ? 'Auspicious Day & Time:' : lang === 'hi' ? 'शुभ दिन व समय:' : 'શુભ દિવસ અને સમય:'}
                 </span>
                 <strong className="text-stone-950 dark:text-amber-300 font-bold">
-                  {lang === 'hi' ? selected.dayHi : selected.dayGu}
+                  {lang === 'en' ? selected.dayHi : lang === 'hi' ? selected.dayHi : selected.dayGu}
                 </strong>
               </div>
 
               <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-[#FFFDF9] border-[#FF671F]/20'}`}>
                 <span className="text-stone-950 dark:text-stone-400 block text-xs font-semibold">
-                  {lang === 'hi' ? 'उपरत्न (Substitute):' : 'ઉપરત્ન:'}
+                  {lang === 'en' ? 'Substitute Stone:' : lang === 'hi' ? 'उपरत्न (Substitute):' : 'ઉપરત્ન:'}
                 </span>
                 <strong className="text-stone-950 dark:text-amber-300 font-bold">
                   {selected.substituteStoneHi}
@@ -497,7 +512,11 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
             {/* Energizing Mantra Box */}
             <div className={`p-3.5 rounded-2xl border-l-4 border-amber-500 ${isDark ? 'bg-slate-950 text-amber-200' : 'bg-[#FFF5F0] text-stone-950'}`}>
               <span className="text-xs font-bold text-[#CC5218] dark:text-amber-400 block">
-                {lang === 'hi' ? 'प्राण-प्रतिष्ठा सिद्ध मंत्र (108 बार जप करें):' : 'પ્રાણ-પ્રતિષ્ઠા સિદ્ધ મંત્ર:'}
+                {lang === 'en'
+                  ? 'Consecration & Energizing Mantra (Chant 108 Times):'
+                  : lang === 'hi'
+                  ? 'प्राण-प्रतिष्ठा सिद्ध मंत्र (108 बार जप करें):'
+                  : 'પ્રાણ-પ્રતિષ્ઠા સિદ્ધ મંત્ર:'}
               </span>
               <p className="font-serif font-bold text-sm sm:text-base mt-1 text-stone-950 dark:text-amber-300">
                 "{selected.mantra}"
@@ -507,9 +526,9 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
             {/* Benefits */}
             <p className="text-xs sm:text-sm text-stone-950 dark:text-stone-300 leading-relaxed font-medium">
               <strong className="text-[#CC5218] dark:text-amber-400 font-bold">
-                {lang === 'hi' ? 'रत्न एवं रुद्राक्ष के प्रमुख लाभ: ' : 'મુખ્ય લાભો: '}
+                {lang === 'en' ? 'Key Astrological Benefits: ' : lang === 'hi' ? 'रत्न एवं रुद्राक्ष के प्रमुख लाभ: ' : 'મુખ્ય લાભો: '}
               </strong>
-              {lang === 'hi' ? selected.benefitsHi : selected.benefitsGu}
+              {lang === 'en' ? selected.benefitsHi : lang === 'hi' ? selected.benefitsHi : selected.benefitsGu}
             </p>
 
             {/* Consultation CTA */}
@@ -519,17 +538,27 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
                 className="bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center gap-1.5"
               >
                 <Phone className="w-4 h-4" />
-                <span>{lang === 'hi' ? 'पंडित जी से फोन पर सलाह लें' : 'પંડિતજી સાથે ફોન પર વાત કરો'}</span>
+                <span>
+                  {lang === 'en' ? 'Call Pandit Ji for Advice' : lang === 'hi' ? 'पंडित जी से फोन पर सलाह लें' : 'પંડિતજી સાથે ફોન પર વાત કરો'}
+                </span>
               </a>
 
               <a
-                href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`प्रणाम पंडित जी! मुझे ${selected.rashiHi} के लिए सिद्ध ${selected.gemstoneHi} या ${selected.rudrakshaHi} प्राप्त करने हेतु परामर्श चाहिए।`)}`}
+                href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                  lang === 'en'
+                    ? `🚩 Jai Maa Bhavani!\nPranam Pandit Ji 🙏✨\n\nI visited your Bhavani Jyotish Kendra website. Based on my rashi (${selected.rashiEn}), I would like your expert recommendation for energized, certified ${selected.gemstoneHi} / ${selected.rudrakshaHi}.\n\nKindly guide me on suitability, wearing rituals, and energized consultation. Thank you!`
+                    : lang === 'gu'
+                    ? `🚩 જય મા ભવાની!\nસાદર પ્રણામ પંડિતજી 🙏✨\n\nમેં આપની ભવાની જ્યોતિષ કેન્દ્ર વેબસાઇટ જોઈ. મારી રાશિ (${selected.rashiGu}) માટે સિદ્ધ રત્ન (${selected.gemstoneGu}) અને રુદ્રાક્ષ (${selected.rudrakshaGu}) ધારણ કરવા અંગે આપનું માર્ગદર્શન મેળવવું છે.\n\nકૃપા કરી વિગત અને અનુકૂળ સમય જણાવશો. ધન્યવાદ!`
+                    : `🚩 ॐ नमः शिवाय!\nसादर प्रणाम पंडित जी 🙏✨\n\nमैंने आपकी भवानी ज्योतिष केंद्र वेबसाइट देखी। मेरी राशि (${selected.rashiHi}) के अनुसार सिद्ध रत्न (${selected.gemstoneHi}) अथवा प्राण-प्रतिष्ठित रुद्राक्ष (${selected.rudrakshaHi}) धारण करने हेतु आपका मार्गदर्शन चाहिए।\n\nकृपया धारण विधि एवं परामर्श प्रक्रिया साझा करें। धन्यवाद!`
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center gap-1.5"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>{lang === 'hi' ? 'सिद्ध रत्न ऑर्डर करें (WhatsApp)' : 'રત્ન ઓર્ડર કરો (WhatsApp)'}</span>
+                <span>
+                  {lang === 'en' ? 'Order via WhatsApp' : lang === 'hi' ? 'सिद्ध रत्न ऑर्डर करें (WhatsApp)' : 'રત્ન ઓર્ડર કરો (WhatsApp)'}
+                </span>
               </a>
             </div>
           </div>

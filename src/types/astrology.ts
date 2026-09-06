@@ -1,3 +1,5 @@
+export type Language = 'hi' | 'gu' | 'en';
+
 export interface RashiInfo {
   id: number;
   nameHi: string;

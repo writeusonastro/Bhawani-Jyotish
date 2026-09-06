@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { PlanetPosition } from '../types/astrology';
+import { PlanetPosition, Language } from '../types/astrology';
 import { Sparkles, Info, Eye, Layers } from 'lucide-react';
 
 interface KundliChartVisualizerProps {
   planets: PlanetPosition[];
   navamshaPlanets?: PlanetPosition[];
   ascendantRashi: string;
-  lang: 'hi' | 'gu';
+  lang: Language;
   isDark?: boolean;
 }
 
@@ -14,10 +14,13 @@ interface HouseMeta {
   number: number;
   nameHi: string;
   nameGu: string;
+  nameEn: string;
   significanceHi: string;
   significanceGu: string;
+  significanceEn: string;
   karakaHi: string;
   karakaGu: string;
+  karakaEn: string;
 }
 
 const HOUSE_DATA: HouseMeta[] = [
@@ -25,109 +28,145 @@ const HOUSE_DATA: HouseMeta[] = [
     number: 1,
     nameHi: 'प्रथम भाव (तनु भाव / लग्न)',
     nameGu: 'પ્રથમ ભાવ (તનુ ભાવ / લગ્ન)',
+    nameEn: '1st House (Tanu / Ascendant)',
     significanceHi: 'शरीर, व्यक्तित्व, स्वास्थ्य, आत्मबल, रूप-रंग और जीवन का संपूर्ण दृष्टिकोण।',
     significanceGu: 'શરીર, વ્યક્તિત્વ, સ્વાસ્થ્ય અને આત્મવિશ્વાસ.',
+    significanceEn: 'Physical body, personality, self-confidence, vitality, and general outlook on life.',
     karakaHi: 'सूर्य (Sun)',
-    karakaGu: 'સૂર્ય (Sun)'
+    karakaGu: 'સૂર્ય (Sun)',
+    karakaEn: 'Sun (Surya)'
   },
   {
     number: 2,
     nameHi: 'द्वितीय भाव (धन भाव / कुटुम्ब)',
     nameGu: 'દ્વિતીય ભાવ (ધન ભાવ / કુટુંબ)',
+    nameEn: '2nd House (Dhana / Family & Wealth)',
     significanceHi: 'संचित धन, परिवार, वाणी, प्रारंभिक शिक्षा और खान-पान।',
     significanceGu: 'સંચિત ધન, પરિવાર અને વાણી.',
+    significanceEn: 'Accumulated wealth, immediate family, speech, primary values, and assets.',
     karakaHi: 'गुरु / बृहस्पति (Jupiter)',
-    karakaGu: 'ગુરુ (Jupiter)'
+    karakaGu: 'ગુરુ (Jupiter)',
+    karakaEn: 'Jupiter (Guru)'
   },
   {
     number: 3,
     nameHi: 'तृतीय भाव (सहज भाव / पराक्रम)',
     nameGu: 'તૃતીય ભાવ (સહજ ભાવ / પરાક્રમ)',
+    nameEn: '3rd House (Sahaja / Courage & Siblings)',
     significanceHi: 'छोटे भाई-बहन, साहस, पराक्रम, छोटी यात्राएं और संचार कौशल।',
     significanceGu: 'નાના ભાઈ-બહેન, સાહસ અને મુસાફરી.',
+    significanceEn: 'Younger siblings, courage, efforts, short travel, and communication skills.',
     karakaHi: 'मंगल (Mars)',
-    karakaGu: 'મંગળ (Mars)'
+    karakaGu: 'મંગળ (Mars)',
+    karakaEn: 'Mars (Mangal)'
   },
   {
     number: 4,
     nameHi: 'चतुर्थ भाव (सुख भाव / मातृ भाव)',
     nameGu: 'ચતુર્થ ભાવ (સુખ ભાવ / માતૃ ભાવ)',
+    nameEn: '4th House (Sukha / Mother & Home)',
     significanceHi: 'माता का सुख, भूमि, मकान, वाहन, गृहस्थ शांति और मानसिक संतोष।',
     significanceGu: 'માતાનું સુખ, જમીન-મકાન, વાહન અને માનસિક શાંતિ.',
+    significanceEn: 'Mother, land, property, vehicles, domestic comfort, and inner contentment.',
     karakaHi: 'चंद्रमा (Moon)',
-    karakaGu: 'ચંદ્ર (Moon)'
+    karakaGu: 'ચંદ્ર (Moon)',
+    karakaEn: 'Moon (Chandra)'
   },
   {
     number: 5,
     nameHi: 'पंचम भाव (सुत / विद्या भाव)',
     nameGu: 'પંચમ ભાવ (સંતતિ / વિદ્યા ભાવ)',
+    nameEn: '5th House (Suta / Children & Intellect)',
     significanceHi: 'संतान सुख, उच्च बुद्धि, पूर्वजन्म पुण्य, मंत्र साधना और रचनात्मक प्रतिभा।',
     significanceGu: 'સંતાન સુખ, બુદ્ધિ અને પ્રતિભા.',
+    significanceEn: 'Progeny, higher intellect, creative talents, speculative gains, and poorva punya.',
     karakaHi: 'गुरु / बृहस्पति (Jupiter)',
-    karakaGu: 'ગુરુ (Jupiter)'
+    karakaGu: 'ગુરુ (Jupiter)',
+    karakaEn: 'Jupiter (Guru)'
   },
   {
     number: 6,
     nameHi: 'षष्ठ भाव (रिपु / रोग भाव)',
     nameGu: 'ષષ્ઠ ભાવ (શત્રુ / રોગ ભાવ)',
+    nameEn: '6th House (Ripu / Enemies & Health)',
     significanceHi: 'शत्रु, रोग, ऋण (कर्ज), कोर्ट-कचहरी, प्रतियोगिता और दैनिक सेवा।',
     significanceGu: 'શત્રુ, રોગ, દેવું અને સ્પર્ધાત્મક પરીક્ષા.',
+    significanceEn: 'Enemies, diseases, debts, legal matters, competition, and day-to-day work.',
     karakaHi: 'मंगल एवं शनि (Mars & Saturn)',
-    karakaGu: 'મંગળ અને શનિ'
+    karakaGu: 'મંગળ અને શનિ',
+    karakaEn: 'Mars & Saturn'
   },
   {
     number: 7,
     nameHi: 'सप्तम भाव (जाया / कलत्र भाव)',
     nameGu: 'સપ્તમ ભાવ (દાંપત્ય / લગ્ન ભાવ)',
+    nameEn: '7th House (Jaya / Marriage & Partnership)',
     significanceHi: 'पति/पत्नी, वैवाहिक जीवन, साझेदारी (Partnership) और जनसंपर्क।',
     significanceGu: 'પતિ/પત્ની, દાંપત્ય સુખ અને ભાગીદારી.',
+    significanceEn: 'Spouse, married life, business partnerships, and public dealings.',
     karakaHi: 'शुक्र (Venus)',
-    karakaGu: 'શુક્ર (Venus)'
+    karakaGu: 'શુક્ર (Venus)',
+    karakaEn: 'Venus (Shukra)'
   },
   {
     number: 8,
     nameHi: 'अष्टम भाव (आयु / मृत्यु भाव)',
     nameGu: 'અષ્ટમ ભાવ (આયુષ્ય / સંશોધન ભાવ)',
+    nameEn: '8th House (Ayu / Longevity & Transformation)',
     significanceHi: 'दीर्घायु, गुप्त धन, पैतृक संपत्ति, आकस्मिक घटनाएं और गूढ़ विद्याएं।',
     significanceGu: 'આયુષ્ય, ગૂઢ વિદ્યા અને આકસ્મિક ધન.',
+    significanceEn: 'Longevity, occult sciences, inheritance, unexpected transformations, and research.',
     karakaHi: 'शनि (Saturn)',
-    karakaGu: 'શનિ (Saturn)'
+    karakaGu: 'શનિ (Saturn)',
+    karakaEn: 'Saturn (Shani)'
   },
   {
     number: 9,
     nameHi: 'नवम भाव (भाग्य / धर्म भाव)',
     nameGu: 'નવમ ભાવ (ભાગ્ય / ધર્મ ભાવ)',
+    nameEn: '9th House (Bhagya / Fortune & Dharma)',
     significanceHi: 'भाग्य, धर्म, गुरु, पिता, उच्च शिक्षा, तीर्थ यात्रा और ईश्वरीय कृपा।',
     significanceGu: 'ભાગ્ય, ધર્મ, ગુરુ અને તીર્થયાત્રા.',
+    significanceEn: 'Fortune, spirituality, guru, father, pilgrimage, and divine grace.',
     karakaHi: 'गुरु एवं सूर्य (Jupiter & Sun)',
-    karakaGu: 'ગુરુ અને સૂર્ય'
+    karakaGu: 'ગુરુ અને સૂર્ય',
+    karakaEn: 'Jupiter & Sun'
   },
   {
     number: 10,
     nameHi: 'दशम भाव (कर्म भाव / राज्य)',
     nameGu: 'દશમ ભાવ (કર્મ ભાવ / પદવી)',
+    nameEn: '10th House (Karma / Career & Profession)',
     significanceHi: 'आजीविका, पद-प्रतिष्ठा, सरकारी नौकरी, व्यवसाय और समाज में प्रभुत्व।',
     significanceGu: 'નોકરી, વ્યવસાય, માન-સન્માન અને પદવી.',
+    significanceEn: 'Career, profession, social status, government favor, and reputation.',
     karakaHi: 'सूर्य, बुध, गुरु व शनि',
-    karakaGu: 'સૂર્ય, બુધ, ગુરુ અને શનિ'
+    karakaGu: 'સૂર્ય, બુધ, ગુરુ અને શનિ',
+    karakaEn: 'Sun, Mercury, Jupiter, Saturn'
   },
   {
     number: 11,
     nameHi: 'एकादश भाव (लाभ / आय भाव)',
     nameGu: 'એકાદશ ભાવ (લાભ / આવક ભાવ)',
+    nameEn: '11th House (Labha / Gains & Network)',
     significanceHi: 'समस्त प्रकार के लाभ, आय के स्रोत, बड़े भाई-बहन और मनोकामना पूर्ति।',
     significanceGu: 'આવક, લાભ, મોટા ભાઈ-બહેન અને સિદ્ધિ.',
+    significanceEn: 'Inflow of gains, profits, elder siblings, social networks, and fulfilled desires.',
     karakaHi: 'गुरु (Jupiter)',
-    karakaGu: 'ગુરુ (Jupiter)'
+    karakaGu: 'ગુરુ (Jupiter)',
+    karakaEn: 'Jupiter (Guru)'
   },
   {
     number: 12,
     nameHi: 'द्वादश भाव (व्यय / मोक्ष भाव)',
     nameGu: 'દ્વાદશ ભાવ (ખર્ચ / મોક્ષ ભાવ)',
+    nameEn: '12th House (Vyaya / Moksha & Foreign Lands)',
     significanceHi: 'विदेश यात्रा, खर्च, मोक्ष, अस्पताल, आध्यात्मिक एकांत और दान-पुण्य।',
     significanceGu: 'વિદેશ યાત્રા, ખર્ચ, મોક્ષ અને દાન.',
+    significanceEn: 'Foreign travels, expenditures, spiritual liberation, subconscious, and charities.',
     karakaHi: 'शनि एवं केतु (Saturn & Ketu)',
-    karakaGu: 'શનિ અને કેતુ'
+    karakaGu: 'શનિ અને કેતુ',
+    karakaEn: 'Saturn & Ketu'
   }
 ];
 
@@ -506,10 +545,10 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                 </span>
                 <div>
                   <h4 className="font-yatra text-lg text-[#CC5218] font-bold">
-                    {lang === 'hi' ? activeHouseMeta.nameHi : activeHouseMeta.nameGu}
+                    {lang === 'en' ? activeHouseMeta.nameEn : lang === 'hi' ? activeHouseMeta.nameHi : activeHouseMeta.nameGu}
                   </h4>
                   <span className="text-xs text-stone-900 font-semibold">
-                    {lang === 'hi' ? `राशि: ${activeHouseRashi}` : `રાશિ: ${activeHouseRashi}`}
+                    {lang === 'en' ? `Sign: ${activeHouseRashi}` : lang === 'hi' ? `राशि: ${activeHouseRashi}` : `રાશિ: ${activeHouseRashi}`}
                   </span>
                 </div>
               </div>
@@ -519,7 +558,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
               {/* Planets in House */}
               <div className="p-3 rounded-2xl border bg-[#FFFDF9] border-[#FF671F]/20">
                 <span className="text-stone-900 block text-xs mb-1 font-bold">
-                  {lang === 'hi' ? 'इस भाव में स्थित ग्रह:' : 'આ ભાવમાં રહેલા ગ્રહો:'}
+                  {lang === 'en' ? 'Planets in this house:' : lang === 'hi' ? 'इस भाव में स्थित ग्रह:' : 'આ ભાવમાં રહેલા ગ્રહો:'}
                 </span>
                 {activeHousePlanets.length > 0 ? (
                   <div className="flex flex-wrap gap-1.5">
@@ -534,7 +573,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                   </div>
                 ) : (
                   <span className="text-stone-700 font-medium italic">
-                    {lang === 'hi' ? 'कोई प्रत्यक्ष ग्रह नहीं (दृष्टि प्रभाव संभव)' : 'કોઈ પ્રત્યક્ષ ગ્રહ નથી'}
+                    {lang === 'en' ? 'No direct planets (aspect influences apply)' : lang === 'hi' ? 'कोई प्रत्यक्ष ग्रह नहीं (दृष्टि प्रभाव संभव)' : 'કોઈ પ્રત્યક્ષ ગ્રહ નથી'}
                   </span>
                 )}
               </div>
@@ -542,20 +581,20 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
               {/* Karaka Planet */}
               <div className="p-3 rounded-2xl border bg-[#FFFDF9] border-[#FF671F]/20">
                 <span className="text-stone-900 block text-xs font-bold">
-                  {lang === 'hi' ? 'प्राकृतिक कारक ग्रह:' : 'કારક ગ્રહ:'}
+                  {lang === 'en' ? 'Natural Karaka Planet:' : lang === 'hi' ? 'प्राकृतिक कारक ग्रह:' : 'કારક ગ્રહ:'}
                 </span>
                 <strong className="text-[#CC5218] font-bold">
-                  {lang === 'hi' ? activeHouseMeta.karakaHi : activeHouseMeta.karakaGu}
+                  {lang === 'en' ? activeHouseMeta.karakaEn : lang === 'hi' ? activeHouseMeta.karakaHi : activeHouseMeta.karakaGu}
                 </strong>
               </div>
 
               {/* Classical Significance */}
               <div className="p-3.5 rounded-2xl border-l-4 border-[#FF671F] bg-[#FFF5F0] text-stone-950">
                 <span className="text-xs font-bold text-[#CC5218] block mb-1">
-                  {lang === 'hi' ? 'शास्त्रीय फल व प्रभाव:' : 'શાસ્ત્રીય ફળ અને પ્રભાવ:'}
+                  {lang === 'en' ? 'Classical Significance & Impact:' : lang === 'hi' ? 'शास्त्रीय फल व प्रभाव:' : 'શાસ્ત્રીય ફળ અને પ્રભાવ:'}
                 </span>
                 <p className="leading-relaxed text-xs sm:text-sm font-medium text-stone-950">
-                  {lang === 'hi' ? activeHouseMeta.significanceHi : activeHouseMeta.significanceGu}
+                  {lang === 'en' ? activeHouseMeta.significanceEn : lang === 'hi' ? activeHouseMeta.significanceHi : activeHouseMeta.significanceGu}
                 </p>
               </div>
             </div>
@@ -563,7 +602,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
             {/* Quick 12 Houses Navigation row */}
             <div className="mt-4 pt-3 border-t border-[#FF671F]/20">
               <span className="text-xs text-stone-900 font-bold block mb-1.5">
-                {lang === 'hi' ? 'अन्य भाव चुनें (1 से 12):' : 'અન્ય ભાવ પસંદ કરો:'}
+                {lang === 'en' ? 'Select other house (1 to 12):' : lang === 'hi' ? 'अन्य भाव चुनें (1 से 12):' : 'અન્ય ભાવ પસંદ કરો:'}
               </span>
               <div className="grid grid-cols-6 gap-1">
                 {Array.from({ length: 12 }, (_, i) => i + 1).map(h => (

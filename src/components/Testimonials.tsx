@@ -1,9 +1,10 @@
 import React from 'react';
 import { TESTIMONIALS } from '../data/astrologyData';
 import { Star, Quote, MapPin } from 'lucide-react';
+import { Language } from '../types/astrology';
 
 interface TestimonialProps {
-  lang: 'hi' | 'gu';
+  lang: Language;
   isDark?: boolean;
 }
 
@@ -17,13 +18,25 @@ export const Testimonials: React.FC<TestimonialProps> = ({ lang, isDark = false 
           isDark ? 'bg-amber-950/40 text-amber-300 border-amber-500/30' : 'bg-[#FFF5F0] text-[#CC5218] border-[#FF671F]/30'
         }`}>
           <span>⭐</span>
-          <span>{lang === 'hi' ? 'भक्तों एवं जातकों के अनुभव' : 'જાતકોના અનુભવો'}</span>
+          <span>
+            {lang === 'en'
+              ? 'Client Stories & Spiritual Experiences'
+              : lang === 'hi'
+              ? 'भक्तों एवं जातकों के अनुभव'
+              : 'જાતકોના અનુભવો'}
+          </span>
         </div>
         <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
-          {lang === 'hi' ? 'संतुष्ट जातकों की सच्ची प्रतिक्रियाएं' : 'સંતુષ્ટ જાતકોનો પ્રતિસાદ'}
+          {lang === 'en'
+            ? 'Real Feedback from Satisfied Devotees'
+            : lang === 'hi'
+            ? 'संतुष्ट जातकों की सच्ची प्रतिक्रियाएं'
+            : 'સંતુષ્ટ જાતકોનો પ્રતિસાદ'}
         </h2>
         <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
-          {lang === 'hi'
+          {lang === 'en'
+            ? 'Heartfelt experiences from clients across Mehsana, Visnagar, Ahmedabad, Unjha & throughout Gujarat'
+            : lang === 'hi'
             ? 'मेहसाणा, विसनगर, अहमदाबाद, ऊंझा और संपूर्ण गुजरात से पधारे जातकों के अनुभव'
             : 'મહેસાણા, વિસનગર, અમદાવાદ, ઊંઝા અને ગુજરાતના શ્રદ્ધાળુઓના અનુભવ'}
         </p>

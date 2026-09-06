@@ -1,14 +1,26 @@
 import React from 'react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
-import { Phone, MessageCircle, Mail, MapPin, Clock, ShieldCheck, Heart, Sparkles } from 'lucide-react';
+import { Phone, MessageCircle, Mail, MapPin, Clock } from 'lucide-react';
 import { AnimatedLogo } from './AnimatedLogo';
+import { Language } from '../types/astrology';
 
 interface FooterProps {
   setActiveTab: (tab: string) => void;
-  lang: 'hi' | 'gu';
+  lang: Language;
 }
 
 export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
+  const getAddress = () => {
+    if (lang === 'en') return ASTROLOGER_INFO.addressEn;
+    if (lang === 'hi') return ASTROLOGER_INFO.address;
+    return ASTROLOGER_INFO.addressGu;
+  };
+
+  const getTimings = () => {
+    if (lang === 'en') return ASTROLOGER_INFO.timingsEn;
+    return ASTROLOGER_INFO.timings;
+  };
+
   return (
     <footer id="contact" className="bg-[#1F1714] text-[#E5DCD6] pt-14 pb-8 border-t-4 border-[#FF671F]">
       <div className="max-w-7xl mx-auto px-4">
@@ -20,16 +32,18 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
               <AnimatedLogo size="sm" isDark={true} lang={lang} />
               <div>
                 <h3 className="font-yatra text-2xl text-amber-400">
-                  भवानी ज्योतिष
+                  {lang === 'en' ? 'Bhavani Jyotish' : 'भवानी ज्योतिष'}
                 </h3>
                 <span className="text-xs text-amber-200/80 block">
-                  मेहसाणा (गुजरात)
+                  {lang === 'en' ? 'Mehsana, Gujarat' : 'मेहसाणा (गुजरात)'}
                 </span>
               </div>
             </div>
 
             <p className="text-xs sm:text-sm text-stone-200 leading-relaxed">
-              {lang === 'hi'
+              {lang === 'en'
+                ? 'North Gujarat’s premier Vedic astrology centre dedicated to human welfare through authentic Parashar Hora Shastra, natal charts, and sacred ritual ceremonies for over 35+ years.'
+                : lang === 'hi'
                 ? '३५+ वर्षों से वैदिक ज्योतिष, पराशर होरा शास्त्र एवं शास्त्रोक्त अनुष्ठानों द्वारा जन-कल्याण हेतु समर्पित उत्तर गुजरात का प्रतिष्ठित ज्योतिष संस्थान।'
                 : '૩૫+ વર્ષોથી વૈદિક જ્યોતિષ અને શાસ્ત્રોક્ત અનુષ્ઠાન દ્વારા માર્ગદર્શન કરતું મહેસાણાનું પ્રતિષ્ઠિત જ્યોતિષ કેન્દ્ર.'}
             </p>
@@ -43,7 +57,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
           {/* Quick Navigation Links */}
           <div className="space-y-3">
             <h4 className="font-yatra text-lg text-amber-400 pb-1 border-b border-[#FF671F]/30">
-              {lang === 'hi' ? 'महत्वपूर्ण सेवाएं' : 'મહત્વપૂર્ણ સેવાઓ'}
+              {lang === 'en' ? 'Quick Services' : lang === 'hi' ? 'महत्वपूर्ण सेवाएं' : 'મહત્વપૂર્ણ સેવાઓ'}
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-stone-200">
               <li>
@@ -53,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
                   className="hover:text-amber-300 transition-colors flex items-center gap-1.5"
                 >
                   <span className="text-[#FF671F]">▸</span>
-                  <span>जन्म कुंडली एवं महादशा</span>
+                  <span>{lang === 'en' ? 'Janam Kundli & Mahadasha' : 'जन्म कुंडली एवं महादशा'}</span>
                 </button>
               </li>
               <li>
@@ -63,7 +77,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
                   className="hover:text-amber-300 transition-colors flex items-center gap-1.5"
                 >
                   <span className="text-[#FF671F]">▸</span>
-                  <span>36 गुण विवाह मिलान</span>
+                  <span>{lang === 'en' ? '36 Guna Kundli Matching' : '36 गुण विवाह मिलान'}</span>
                 </button>
               </li>
               <li>
@@ -73,7 +87,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
                   className="hover:text-amber-300 transition-colors flex items-center gap-1.5"
                 >
                   <span className="text-[#FF671F]">▸</span>
-                  <span>दैनिक 12 राशि राशिफल</span>
+                  <span>{lang === 'en' ? 'Daily Horoscope (12 Rashis)' : 'दैनिक 12 राशि राशिफल'}</span>
                 </button>
               </li>
               <li>
@@ -83,7 +97,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
                   className="hover:text-amber-300 transition-colors flex items-center gap-1.5"
                 >
                   <span className="text-[#FF671F]">▸</span>
-                  <span>कालसर्प व मांगलिक शांति</span>
+                  <span>{lang === 'en' ? 'Kalsarp & Manglik Shanti' : 'कालसर्प व मांगलिक शांति'}</span>
                 </button>
               </li>
               <li>
@@ -93,7 +107,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
                   className="hover:text-amber-300 transition-colors flex items-center gap-1.5"
                 >
                   <span className="text-[#FF671F]">▸</span>
-                  <span>दैनिक पंचांग व चौघड़िया</span>
+                  <span>{lang === 'en' ? 'Daily Panchang & Choghadiya' : 'दैनिक पंचांग व चौघड़िया'}</span>
                 </button>
               </li>
             </ul>
@@ -102,7 +116,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
           {/* Contact Details */}
           <div className="space-y-3">
             <h4 className="font-yatra text-lg text-amber-400 pb-1 border-b border-[#FF671F]/30">
-              {lang === 'hi' ? 'संपर्क एवं परामर्श' : 'સંપર્ક અને પરામર્શ'}
+              {lang === 'en' ? 'Contact & Consultation' : lang === 'hi' ? 'संपर्क एवं परामर्श' : 'સંપર્ક અને પરામર્શ'}
             </h4>
             <div className="space-y-2.5 text-xs sm:text-sm text-white font-medium">
               <a
@@ -125,7 +139,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
 
               <div className="flex items-start gap-2 text-stone-100 font-medium">
                 <Clock className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />
-                <span>{ASTROLOGER_INFO.timings}</span>
+                <span>{getTimings()}</span>
               </div>
 
               <div className="flex items-start gap-2 text-stone-100 font-medium">
@@ -138,13 +152,13 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
           {/* Office Address & Map Button */}
           <div className="space-y-3">
             <h4 className="font-yatra text-lg text-amber-400 pb-1 border-b border-[#FF671F]/30">
-              {lang === 'hi' ? 'कार्यालय का पता (Mehsana)' : 'ઓફિસનું સરનામું'}
+              {lang === 'en' ? 'Office Address (Mehsana)' : lang === 'hi' ? 'कार्यालय का पता (Mehsana)' : 'ઓફિસનું સરનામું'}
             </h4>
             <div className="p-3.5 rounded-2xl bg-white/10 border border-white/20 text-xs sm:text-sm text-white space-y-2">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <p className="leading-relaxed font-bold text-stone-100">
-                  {lang === 'hi' ? ASTROLOGER_INFO.address : ASTROLOGER_INFO.addressGu}
+                  {getAddress()}
                 </p>
               </div>
 
@@ -154,7 +168,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
                 rel="noopener noreferrer"
                 className="inline-block w-full text-center bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold py-2.5 rounded-xl text-xs transition-colors shadow-md mt-1"
               >
-                📍 गूगल मैप पर दिशा देखें (Directions)
+                {lang === 'en' ? '📍 View on Google Maps (Directions)' : '📍 गूगल मैप पर दिशा देखें (Directions)'}
               </a>
             </div>
           </div>
@@ -163,7 +177,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
         {/* Bottom copyright and blessings */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-300">
           <div>
-            © {new Date().getFullYear()} भवानी ज्योतिष (Bhavani Jyotish) - मेहसाणा, गुजरात। सर्वाधिकार सुरक्षित।
+            © {new Date().getFullYear()} भवानी ज्योतिष (Bhavani Jyotish) - Mehsana, Gujarat. All rights reserved.
           </div>
 
           <div className="text-amber-400/90 font-medium">

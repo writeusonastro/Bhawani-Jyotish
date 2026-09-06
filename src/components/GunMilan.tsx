@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { GunMilanResult } from '../types/astrology';
+import { GunMilanResult, Language } from '../types/astrology';
 import { calculateGunMilan } from '../utils/vedicCalculations';
 import { RASHIS, NAKSHATRAS, ASTROLOGER_INFO } from '../data/astrologyData';
 import { HeartHandshake, Sparkles, CheckCircle2, AlertTriangle, ShieldCheck, Phone, MessageCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface GunMilanProps {
-  lang: 'hi' | 'gu';
+  lang: Language;
   isDark?: boolean;
 }
 
@@ -46,13 +46,25 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
             : 'bg-rose-50 text-rose-700 border-rose-200'
         }`}>
           <HeartHandshake className="w-4 h-4 text-rose-400" />
-          <span>{lang === 'hi' ? 'वैदिक विवाह अष्टकूट मिलान' : 'વૈદિક લગ્ન અષ્ટકૂટ મિલાન'}</span>
+          <span>
+            {lang === 'en'
+              ? 'Vedic Ashtakoot Matchmaking'
+              : lang === 'hi'
+              ? 'वैदिक विवाह अष्टकूट मिलान'
+              : 'વૈદિક લગ્ન અષ્ટકૂટ મિલાન'}
+          </span>
         </div>
         <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
-          {lang === 'hi' ? 'कुंडली मिलान (36 गुण विचार)' : 'કુંડળી મિલાન (36 ગુણ વિચાર)'}
+          {lang === 'en'
+            ? 'Kundli Milan (36 Guna Compatibility)'
+            : lang === 'hi'
+            ? 'कुंडली मिलान (36 गुण विचार)'
+            : 'કુંડળી મિલાન (36 ગુણ વિચાર)'}
         </h2>
         <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
-          {lang === 'hi'
+          {lang === 'en'
+            ? 'Authentic 36 Guna matching based on Groom and Bride birth nakshatra and rashi, analyzing Nadi dosha, Bhakoot dosha, and marital happiness'
+            : lang === 'hi'
             ? 'वर एवं वधू के जन्म नक्षत्र व राशि अनुसार 36 गुणों, नाड़ी दोष, भकूट दोष एवं दांपत्य सुख का प्रामाणिक मिलान'
             : 'વર અને કન્યાના નક્ષત્ર અને રાશિ અનુસાર 36 ગુણો અને દાંપત્ય સુખનું શાસ્ત્રોક્ત મિલાન'}
         </p>
@@ -70,7 +82,9 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
               isDark ? 'text-amber-300 border-amber-500/20' : 'text-[#CC5218] border-[#FF671F]/15'
             }`}>
               <Sparkles className={`w-5 h-5 ${isDark ? 'text-amber-400' : 'text-[#FF671F]'}`} />
-              <span>{lang === 'hi' ? 'वर-वधू विवरण दर्ज करें' : 'વર-કન્યા વિગત દાખલ કરો'}</span>
+              <span>
+                {lang === 'en' ? 'Enter Couple Details' : lang === 'hi' ? 'वर-वधू विवरण दर्ज करें' : 'વર-કન્યા વિગત દાખલ કરો'}
+              </span>
             </h3>
 
             {/* Boy Details */}
@@ -79,12 +93,12 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
             }`}>
               <div className={`font-bold text-xs sm:text-sm flex items-center gap-2 ${isDark ? 'text-blue-300' : 'text-blue-900'}`}>
                 <span>👦</span>
-                <span>{lang === 'hi' ? 'वर का विवरण (Groom Details)' : 'વરની વિગત'}</span>
+                <span>{lang === 'en' ? 'Groom Details' : lang === 'hi' ? 'वर का विवरण (Groom Details)' : 'વરની વિગત'}</span>
               </div>
 
               <div>
                 <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
-                  {lang === 'hi' ? 'वर का नाम' : 'વરનું નામ'}
+                  {lang === 'en' ? "Groom's Name" : lang === 'hi' ? 'वर का नाम' : 'વરનું નામ'}
                 </label>
                 <input
                   type="text"
@@ -96,14 +110,14 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                       ? 'bg-stone-800 border-stone-700 text-stone-100 focus:ring-blue-400' 
                       : 'bg-white border-blue-200 text-stone-900 focus:ring-blue-500'
                   }`}
-                  placeholder="वर का नाम"
+                  placeholder={lang === 'en' ? "Groom's name" : "वर का नाम"}
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
                   <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
-                    {lang === 'hi' ? 'वर की राशि' : 'વરની રાશિ'}
+                    {lang === 'en' ? "Groom's Rashi" : lang === 'hi' ? 'वर की राशि' : 'વરની રાશિ'}
                   </label>
                   <select
                     value={boyRashiIdx}
@@ -115,14 +129,14 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                     }`}
                   >
                     {RASHIS.map((r, idx) => (
-                      <option key={r.id} value={idx}>{r.symbol} {r.nameHi}</option>
+                      <option key={r.id} value={idx}>{r.symbol} {lang === 'en' ? r.nameEn : r.nameHi}</option>
                     ))}
                   </select>
                 </div>
 
                 <div>
                   <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
-                    {lang === 'hi' ? 'वर का नक्षत्र' : 'વરનું નક્ષત્ર'}
+                    {lang === 'en' ? "Groom's Nakshatra" : lang === 'hi' ? 'वर का नक्षत्र' : 'વરનું નક્ષત્ર'}
                   </label>
                   <select
                     value={boyNakshatraIdx}
@@ -147,12 +161,12 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
             }`}>
               <div className={`font-bold text-xs sm:text-sm flex items-center gap-2 ${isDark ? 'text-rose-300' : 'text-rose-900'}`}>
                 <span>👧</span>
-                <span>{lang === 'hi' ? 'वधू का विवरण (Bride Details)' : 'કન્યાની વિગત'}</span>
+                <span>{lang === 'en' ? 'Bride Details' : lang === 'hi' ? 'वधू का विवरण (Bride Details)' : 'કન્યાની વિગત'}</span>
               </div>
 
               <div>
                 <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
-                  {lang === 'hi' ? 'वधू का नाम' : 'કન્યાનું નામ'}
+                  {lang === 'en' ? "Bride's Name" : lang === 'hi' ? 'वधू का नाम' : 'કન્યાનું નામ'}
                 </label>
                 <input
                   type="text"
@@ -164,14 +178,14 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                       ? 'bg-stone-800 border-stone-700 text-stone-100 focus:ring-rose-400' 
                       : 'bg-white border-rose-200 text-stone-900 focus:ring-rose-500'
                   }`}
-                  placeholder="वधू का नाम"
+                  placeholder={lang === 'en' ? "Bride's name" : "वधू का नाम"}
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
                   <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
-                    {lang === 'hi' ? 'वधू की राशि' : 'કન્યાની રાશિ'}
+                    {lang === 'en' ? "Bride's Rashi" : lang === 'hi' ? 'वधू की राशि' : 'કન્યાની રાશિ'}
                   </label>
                   <select
                     value={girlRashiIdx}
@@ -183,14 +197,14 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                     }`}
                   >
                     {RASHIS.map((r, idx) => (
-                      <option key={r.id} value={idx}>{r.symbol} {r.nameHi}</option>
+                      <option key={r.id} value={idx}>{r.symbol} {lang === 'en' ? r.nameEn : r.nameHi}</option>
                     ))}
                   </select>
                 </div>
 
                 <div>
                   <label className={`block text-xs font-bold mb-1 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
-                    {lang === 'hi' ? 'वधू का नक्षत्र' : 'કન્યાનું નક્ષત્ર'}
+                    {lang === 'en' ? "Bride's Nakshatra" : lang === 'hi' ? 'वधू का नक्षत्र' : 'કન્યાનું નક્ષત્ર'}
                   </label>
                   <select
                     value={girlNakshatraIdx}
@@ -214,7 +228,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
               className="w-full bg-gradient-to-r from-[#FF671F] to-[#CC5218] hover:from-[#CC5218] hover:to-[#FF671F] text-white font-yatra text-base py-3 rounded-2xl shadow-lg shadow-[#FF671F]/30 transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
             >
               <HeartHandshake className="w-5 h-5 text-amber-200" />
-              <span>{lang === 'hi' ? '36 गुण मिलान देखें' : '36 ગુણ મિલાન જુઓ'}</span>
+              <span>{lang === 'en' ? 'Check 36 Guna Milan' : lang === 'hi' ? '36 गुण मिलान देखें' : '36 ગુણ મિલાન જુઓ'}</span>
             </button>
           </form>
         </div>
@@ -340,17 +354,23 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                   className="flex-1 bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>{lang === 'hi' ? 'सीधे फोन पर परामर्श करें' : 'ફોન પર પરામર્શ કરો'}</span>
+                  <span>{lang === 'en' ? 'Direct Phone Consultation' : lang === 'hi' ? 'सीधे फोन पर परामर्श करें' : 'ફોન પર પરામર્શ કરો'}</span>
                 </a>
 
                 <a
-                  href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`प्रणाम पंडित जी! मैंने ${result.boyName} और ${result.girlName} का गुण मिलान किया है (${result.totalGunas}/36 गुण)। कृपया व्यक्तिगत विवाह परामर्श प्रदान करें।`)}`}
+                  href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                    lang === 'en'
+                      ? `🚩 Jai Maa Bhavani!\nPranam Pandit Ji 🙏✨\n\nI checked Kundli Matchmaking on your website for:\n🤵 Groom: ${result.boyName}\n👰 Bride: ${result.girlName}\n✨ Score: ${result.totalGunas}/36 Gunas (${result.verdict})\n\nI would like your personal Vedic guidance regarding Manglik dosha, Nadi dosha, and marital harmony.\nKindly let me know when we can discuss. Thank you!`
+                      : lang === 'gu'
+                      ? `🚩 જય મા ભવાની!\nસાદર પ્રણામ પંડિતજી 🙏✨\n\nમેં આપની વેબસાઇટ પર કુંડળી ગુણ મિલાન કર્યું છે:\n🤵 વર: ${result.boyName}\n👰 કન્યા: ${result.girlName}\n✨ ગુણ: ${result.totalGunas}/36 ગુણ\n\nલગ્ન જીવન, માંગલિક દોષ અને નાડી દોષના સચોટ માર્ગદર્શન માટે આપની સાથે વાત કરવી છે.\nકૃપા કરી અનુકૂળ સમય જણાવશો. ધન્યવાદ!`
+                      : `🚩 ॐ नमः शिवाय!\nसादर प्रणाम पंडित जी 🙏✨\n\nमैंने आपकी वेबसाइट पर विवाह कुंडली मिलान किया है:\n🤵 वर: ${result.boyName}\n👰 कन्या: ${result.girlName}\n✨ गुण मिलान: ${result.totalGunas}/36 गुण (${result.verdict})\n\nवैवाहिक जीवन की सुख-शांति, मांगलिक दोष एवं नाड़ी विचार हेतु आपका व्यक्तिगत वैदिक परामर्श प्राप्त करना है।\nकृपया परामर्श हेतु समय प्रदान करें। धन्यवाद!`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>{lang === 'hi' ? 'व्हाट्सएप पर कुंडली भेजें' : 'કુંડળી મોકલો'}</span>
+                  <span>{lang === 'en' ? 'Send Kundli on WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर कुंडली भेजें' : 'કુંડળી મોકલો'}</span>
                 </a>
               </div>
             </div>

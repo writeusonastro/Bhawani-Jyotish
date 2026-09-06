@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, RotateCcw, Volume2, VolumeX, Flame, Award, Heart, CheckCircle } from 'lucide-react';
+import { RotateCcw, Volume2, VolumeX, Flame, Award } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { Language } from '../types/astrology';
 
 interface DigitalJapaMalaProps {
-  lang: 'hi' | 'gu';
+  lang: Language;
   isDark?: boolean;
 }
 
@@ -11,8 +12,10 @@ interface JapaMantra {
   id: string;
   nameHi: string;
   nameGu: string;
+  nameEn: string;
   deityHi: string;
   deityGu: string;
+  deityEn: string;
   sanskrit: string;
   frequency: number;
 }
@@ -22,8 +25,10 @@ const MANTRAS: JapaMantra[] = [
     id: 'gayatri',
     nameHi: 'गायत्री महामंत्र',
     nameGu: 'ગાયત્રી મહામંત્ર',
+    nameEn: 'Gayatri Mahamantra',
     deityHi: 'मां गायत्री / सूर्य देव',
     deityGu: 'મા ગાયત્રી / સૂર્ય દેવ',
+    deityEn: 'Maa Gayatri / Lord Surya',
     sanskrit: 'ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्॥',
     frequency: 432
   },
@@ -31,8 +36,10 @@ const MANTRAS: JapaMantra[] = [
     id: 'mahamrityunjaya',
     nameHi: 'महामृत्युंजय मंत्र',
     nameGu: 'મહામૃત્યુંજય મંત્ર',
+    nameEn: 'Mahamrityunjaya Mantra',
     deityHi: 'भगवान शिव (आरोग्य एवं रक्षा)',
     deityGu: 'ભગવાન શિવ (આરોગ્ય રક્ષા)',
+    deityEn: 'Lord Shiva (Health & Protection)',
     sanskrit: 'ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम्। उर्वारुकमिव बन्धनान्मृत्योर्मुक्षीय मामृतात्॥',
     frequency: 528
   },
@@ -40,8 +47,10 @@ const MANTRAS: JapaMantra[] = [
     id: 'shiva',
     nameHi: 'शिव पंचाक्षर मंत्र',
     nameGu: 'શિવ પંચાક્ષર મંત્ર',
+    nameEn: 'Shiva Panchakshara Mantra',
     deityHi: 'देवाधिदेव महादेव',
     deityGu: 'દેવાધિદેવ મહાદેવ',
+    deityEn: 'Lord Shiva (Mahadev)',
     sanskrit: 'ॐ नमः शिवाय॥',
     frequency: 272
   },
@@ -49,8 +58,10 @@ const MANTRAS: JapaMantra[] = [
     id: 'ganesh',
     nameHi: 'श्री गणेश बीज मंत्र',
     nameGu: 'શ્રી ગણેશ બીજ મંત્ર',
+    nameEn: 'Shri Ganesh Beej Mantra',
     deityHi: 'विघ्नहर्ता श्री गणेश',
     deityGu: 'વિઘ્નહર્તા શ્રી ગણેશ',
+    deityEn: 'Lord Ganesha (Obstacle Remover)',
     sanskrit: 'ॐ गं गणपतये नमः॥',
     frequency: 396
   },
@@ -58,8 +69,10 @@ const MANTRAS: JapaMantra[] = [
     id: 'krishna',
     nameHi: 'हरे कृष्ण महामंत्र',
     nameGu: 'હરે કૃષ્ણ મહામંત્ર',
+    nameEn: 'Hare Krishna Mahamantra',
     deityHi: 'श्री राधा-कृष्ण',
     deityGu: 'શ્રી રાધા-કૃષ્ણ',
+    deityEn: 'Shri Radha-Krishna',
     sanskrit: 'हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे। हरे राम हरे राम राम राम हरे हरे॥',
     frequency: 639
   },
@@ -67,8 +80,10 @@ const MANTRAS: JapaMantra[] = [
     id: 'durga',
     nameHi: 'दुर्गा नवार्ण मंत्र',
     nameGu: 'દુર્ગા નવર્ણ મંત્ર',
+    nameEn: 'Durga Navarna Mantra',
     deityHi: 'मां भवानी जगदम्बा',
     deityGu: 'મા ભવાની જગદંબા',
+    deityEn: 'Maa Durga Jagadamba',
     sanskrit: 'ॐ ऐं ह्रीं क्लीं चामुण्डायै विच्चे॥',
     frequency: 741
   }
@@ -157,19 +172,39 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
 
   const percentage = Math.round((count / 108) * 100);
 
+  const getMantraName = (m: JapaMantra) => {
+    if (lang === 'en') return m.nameEn;
+    if (lang === 'hi') return m.nameHi;
+    return m.nameGu;
+  };
+
+  const getMantraDeity = (m: JapaMantra) => {
+    if (lang === 'en') return m.deityEn;
+    if (lang === 'hi') return m.deityHi;
+    return m.deityGu;
+  };
+
   return (
     <div className="py-12 px-4 max-w-5xl mx-auto">
       {/* Title */}
       <div className="text-center max-w-2xl mx-auto mb-8">
         <div className="inline-flex items-center gap-2 bg-[#FFF5F0] text-[#CC5218] px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border border-[#FF671F]/30 mb-2">
           <Flame className="w-4 h-4 text-[#FF671F]" />
-          <span>{lang === 'hi' ? 'आध्यात्मिक साधना एवं जप' : 'આધ્યાત્મિક સાધના અને જપ'}</span>
+          <span>
+            {lang === 'en'
+              ? 'Spiritual Sadhana & Japa'
+              : lang === 'hi'
+              ? 'आध्यात्मिक साधना एवं जप'
+              : 'આધ્યાત્મિક સાધના અને જપ'}
+          </span>
         </div>
         <h2 className="font-yatra text-2xl sm:text-4xl text-[#CC5218] mb-2">
-          {lang === 'hi' ? 'डिजिटल १०८ जप माला' : 'ડિજિટલ ૧૦૮ જપ માળા'}
+          {lang === 'en' ? 'Digital 108 Japa Mala' : lang === 'hi' ? 'डिजिटल १०८ जप माला' : 'ડિજિટલ ૧૦૮ જપ માળા'}
         </h2>
         <p className="text-sm text-stone-900 font-medium">
-          {lang === 'hi'
+          {lang === 'en'
+            ? 'Chant sacred mantras 108 times daily for mental peace, planetary appeasement & inner wellness'
+            : lang === 'hi'
             ? 'ग्रह शांति, मानसिक एकाग्रता एवं आत्म-कल्याण हेतु 108 मंत्रों का नित्य जाप करें'
             : 'ગ્રહ શાંતિ અને માનસિક એકાગ્રતા માટે 108 મંત્રોનો નિત્ય જાપ કરો'}
         </p>
@@ -186,7 +221,7 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
         {/* Mantra Selector */}
         <div className="mb-6">
           <label className="block text-xs font-bold text-[#CC5218] dark:text-amber-400 uppercase tracking-wider mb-2.5">
-            {lang === 'hi' ? 'मंत्र का चयन करें:' : 'મંત્ર પસંદ કરો:'}
+            {lang === 'en' ? 'Select Sacred Mantra:' : lang === 'hi' ? 'मंत्र का चयन करें:' : 'મંત્ર પસંદ કરો:'}
           </label>
           <div className="flex flex-wrap gap-2">
             {MANTRAS.map((m) => (
@@ -205,7 +240,7 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
                     : 'bg-[#FFF5F0] text-stone-950 border border-[#FF671F]/30 hover:bg-[#FFEAE0]'
                 }`}
               >
-                {lang === 'hi' ? m.nameHi : m.nameGu}
+                {getMantraName(m)}
               </button>
             ))}
           </div>
@@ -220,7 +255,7 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
           }`}
         >
           <span className="text-[11px] bg-black/25 text-amber-200 px-3 py-0.5 rounded-full border border-amber-300/30">
-            {lang === 'hi' ? selectedMantra.deityHi : selectedMantra.deityGu}
+            {getMantraDeity(selectedMantra)}
           </span>
           <p className="font-serif text-base sm:text-xl font-bold mt-2.5 leading-relaxed">
             "{selectedMantra.sanskrit}"
@@ -262,14 +297,14 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
             >
               <div className="w-full h-full rounded-full bg-gradient-to-b from-stone-900 to-stone-950 flex flex-col items-center justify-center p-3 text-center shadow-inner">
                 <span className="text-xs text-amber-400 font-medium tracking-wide">
-                  {lang === 'hi' ? 'स्पर्श करें (Tap)' : 'સ્પર્શ કરો (Tap)'}
+                  {lang === 'en' ? 'Touch / Tap Bead' : lang === 'hi' ? 'स्पर्श करें (Tap)' : 'સ્પર્શ કરો (Tap)'}
                 </span>
                 <div className="text-4xl sm:text-5xl font-yatra text-amber-100 my-1">
                   {count}
                   <span className="text-base text-amber-400/80 font-sans">/108</span>
                 </div>
                 <span className="text-[11px] text-amber-300 font-medium">
-                  {percentage}% {lang === 'hi' ? 'पूर्ण' : 'પૂર્ણ'}
+                  {percentage}% {lang === 'en' ? 'Completed' : lang === 'hi' ? 'पूर्ण' : 'પૂર્ણ'}
                 </span>
               </div>
             </button>
@@ -280,7 +315,7 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
             <div className={`px-4 py-2 rounded-xl flex items-center gap-2 text-xs font-bold border ${isDark ? 'bg-amber-950/60 border-amber-700 text-amber-300' : 'bg-[#FFF5F0] border-[#FF671F]/30 text-[#CC5218]'}`}>
               <Award className="w-4 h-4 text-[#FF671F]" />
               <span>
-                {lang === 'hi' ? 'संपूर्ण मालाएं: ' : 'સંપૂર્ણ માળા: '}
+                {lang === 'en' ? 'Completed Malas: ' : lang === 'hi' ? 'संपूर्ण मालाएं: ' : 'સંપૂર્ણ માળા: '}
                 <strong className="text-sm font-yatra">{completedMalas}</strong>
               </span>
             </div>
@@ -297,7 +332,11 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
               title="ध्वनि चालू/बंद"
             >
               {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-              <span>{soundEnabled ? (lang === 'hi' ? 'ध्वनि चालू' : 'ધ્વનિ ચાલુ') : (lang === 'hi' ? 'ध्वनि म्यूट' : 'ધ્વનિ બંધ')}</span>
+              <span>
+                {soundEnabled
+                  ? (lang === 'en' ? 'Sound ON' : lang === 'hi' ? 'ध्वनि चालू' : 'ધ્વનિ ચાલુ')
+                  : (lang === 'en' ? 'Sound Muted' : lang === 'hi' ? 'ध्वनि म्यूट' : 'ધ્વનિ બંધ')}
+              </span>
             </button>
 
             {/* Reset Counter */}
@@ -312,7 +351,7 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
               title="काउंट रीसेट करें"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              <span>{lang === 'hi' ? 'रीसेट' : 'રીસેટ'}</span>
+              <span>{lang === 'en' ? 'Reset' : lang === 'hi' ? 'रीसेट' : 'રીસેટ'}</span>
             </button>
 
             {/* Auto Chant Toggle */}
@@ -326,8 +365,8 @@ export const DigitalJapaMala: React.FC<DigitalJapaMalaProps> = ({ lang, isDark =
               }`}
             >
               {isAutoChanting 
-                ? (lang === 'hi' ? 'रोकें (Stop Auto)' : 'રોકો (Stop Auto)') 
-                : (lang === 'hi' ? '⚡ स्वतः जप (Auto)' : '⚡ આપમેળે જપ')}
+                ? (lang === 'en' ? 'Stop Auto' : lang === 'hi' ? 'रोकें (Stop Auto)' : 'રોકો (Stop Auto)') 
+                : (lang === 'en' ? '⚡ Auto Chant' : lang === 'hi' ? '⚡ स्वतः जप (Auto)' : '⚡ આપમેળે જપ')}
             </button>
           </div>
         </div>

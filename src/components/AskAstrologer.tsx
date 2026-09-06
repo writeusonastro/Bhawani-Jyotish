@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Send, Sparkles, User, Bot, AlertCircle, Phone, MessageCircle, RefreshCw } from 'lucide-react';
-import { ASTROLOGER_INFO } from '../data/astrologyData';
+import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
 import { generateVedicAstrologyGuidance } from '../utils/vedicAstrologyEngine';
+import { Language } from '../types/astrology';
 
 interface Message {
   id: string;
@@ -11,19 +12,37 @@ interface Message {
 }
 
 interface AskAstrologerProps {
-  lang: 'hi' | 'gu';
+  lang: Language;
   initialQuery?: string;
   isDark?: boolean;
 }
 
-const COMMON_QUESTIONS = [
-  "विवाह में विलंब हो रहा है, योग्य जीवनसाथी कब मिलेगा?",
-  "व्यापार में लगातार घाटा हो रहा है, क्या उपाय करें?",
-  "सरकारी नौकरी या मनचाही पदोन्नति का योग कब है?",
-  "कुंडली में मांगलिक दोष या कालसर्प दोष का प्रभाव कैसे दूर करें?",
-  "विदेश यात्रा या पीआर (PR) के योग कब बन रहे हैं?",
-  "संतान प्राप्ति में बाधा आ रही है, कौन सा अनुष्ठान करें?"
-];
+const COMMON_QUESTIONS = {
+  hi: [
+    "विवाह में विलंब हो रहा है, योग्य जीवनसाथी कब मिलेगा?",
+    "व्यापार में लगातार घाटा हो रहा है, क्या उपाय करें?",
+    "सरकारी नौकरी या मनचाही पदोन्नति का योग कब है?",
+    "कुंडली में मांगलिक दोष या कालसर्प दोष का प्रभाव कैसे दूर करें?",
+    "विदेश यात्रा या पीआर (PR) के योग कब बन रहे हैं?",
+    "संतान प्राप्ति में बाधा आ रही है, कौन सा अनुष्ठान करें?"
+  ],
+  gu: [
+    "લગ્નમાં વિલંબ થઈ રહ્યો છે, યોગ્ય જીવનસાથી ક્યારે મળશે?",
+    "વેપારમાં સતત ખોટ થઈ રહી છે, શું ઉપાય કરવો?",
+    "સરકારી નોકરી કે પ્રમોશનના યોગ ક્યારે છે?",
+    "માંગલિક દોષ કે કાલસર્પ દોષનો પ્રભાવ કેવી રીતે દૂર કરવો?",
+    "વિદેશ યાત્રા કે પીઆર (PR) ના યોગ ક્યારે બની રહ્યા છે?",
+    "સંતાન પ્રાપ્તિ માટે કયો વૈદિક ઉપાય કરવો?"
+  ],
+  en: [
+    "Delay in marriage: when will I find a suitable partner?",
+    "Facing continuous losses in business, what are the remedies?",
+    "When will I get a government job or promotion?",
+    "How to remove Manglik or Kaal Sarp dosha effects?",
+    "When are the chances for foreign travel or PR?",
+    "Facing obstacles in childbirth, what ritual should be done?"
+  ]
+};
 
 export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery, isDark = false }) => {
   const [question, setQuestion] = useState(initialQuery || '');
@@ -31,8 +50,12 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
     {
       id: 'welcome',
       sender: 'astrologer',
-      text: '🚩 जय माँ भवानी! मैं भवानी ज्योतिष केंद्र, मेहसाणा से आचार्य जी का डिजिटल वैदिक सहायक हूँ। आप विवाह, करियर, व्यापार, स्वास्थ्य, मांगलिक दोष या किसी भी समस्या के संबंध में प्रश्न पूछ सकते हैं।',
-      timestamp: 'अभी'
+      text: lang === 'en'
+        ? '🚩 Jai Maa Bhavani! I am the digital Vedic assistant for Acharya Virendra Kumar Joshi at Bhavani Jyotish Kendra, Mehsana. You can ask questions regarding marriage, career, business, health, Manglik dosha, or any astrological query.'
+        : lang === 'gu'
+        ? '🚩 જય મા ભવાની! હું ભવાની જ્યોતિષ કેન્દ્ર, મહેસાણાથી આચાર્યજીનો ડિજિટલ વૈદિક સહાયક છું. આપ લગ્ન, કારકિર્દી, વેપાર, આરોગ્ય કે માંગલિક દોષ વિષયે પ્રશ્ન પૂછી શકો છો.'
+        : '🚩 जय माँ भवानी! मैं भवानी ज्योतिष केंद्र, मेहसाणा से आचार्य जी का डिजिटल वैदिक सहायक हूँ। आप विवाह, करियर, व्यापार, स्वास्थ्य, मांगलिक दोष या किसी भी समस्या के संबंध में प्रश्न पूछ सकते हैं।',
+      timestamp: lang === 'en' ? 'Now' : 'अभी'
     }
   ]);
   const [loading, setLoading] = useState(false);
@@ -58,7 +81,7 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           question: textToSend,
-          lang: lang === 'hi' ? 'हिंदी' : 'गुजराती'
+          lang: lang === 'en' ? 'English' : lang === 'hi' ? 'हिंदी' : 'गुजराती'
         })
       });
 
@@ -70,13 +93,15 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
         sender: 'astrologer',
-        text: data.answer || '🚩 माँ भवानी की कृपा से आपकी समस्या का शीघ्र समाधान होगा। विस्तृत परामर्श हेतु पंडित जी से संपर्क करें।',
+        text: data.answer || (lang === 'en'
+          ? '🚩 By the grace of Maa Bhavani, your query will find resolution. For detailed horoscope reading, please contact Pandit Ji.'
+          : '🚩 माँ भवानी की कृपा से आपकी समस्या का शीघ्र समाधान होगा। विस्तृत परामर्श हेतु पंडित जी से संपर्क करें।'),
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages((prev) => [...prev, botMsg]);
     } catch (err) {
       console.error("API route unavailable (static hosting mode), utilizing client-side Vedic intelligence:", err);
-      // Smart Vedic client-side fallback (ideal for GitHub Pages / Hostinger Static Hosting)
+      // Smart Vedic client-side fallback
       const offlineAnswer = generateVedicAstrologyGuidance(textToSend, lang);
       const fallbackMsg: Message = {
         id: (Date.now() + 1).toString(),
@@ -90,6 +115,8 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
     }
   };
 
+  const quickQuestions = COMMON_QUESTIONS[lang] || COMMON_QUESTIONS.hi;
+
   return (
     <div className={`py-8 px-4 max-w-5xl mx-auto transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
       {/* Section Title */}
@@ -100,13 +127,17 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
             : 'bg-purple-50 text-purple-700 border-purple-200'
         }`}>
           <Sparkles className="w-4 h-4 text-purple-400" />
-          <span>{lang === 'hi' ? '24x7 वैदिक AI ज्योतिषी परामर्श' : '24x7 વૈદિક AI જ્યોતિષી પરામર્શ'}</span>
+          <span>
+            {lang === 'en' ? '24x7 Vedic AI Astrologer Consultation' : lang === 'hi' ? '24x7 वैदिक AI ज्योतिषी परामर्श' : '24x7 વૈદિક AI જ્યોતિષી પરામર્શ'}
+          </span>
         </div>
         <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
-          {lang === 'hi' ? 'पूछें ज्योतिषी से (तत्काल समाधान)' : 'પૂછો જ્યોતિષીને (ત્વરિત સમાધાન)'}
+          {lang === 'en' ? 'Ask Astrologer (Instant Answers)' : lang === 'hi' ? 'पूछें ज्योतिषी से (तत्काल समाधान)' : 'પૂછો જ્યોતિષીને (ત્વરિત સમાધાન)'}
         </h2>
         <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-900'}`}>
-          {lang === 'hi'
+          {lang === 'en'
+            ? 'Get instant and authentic Vedic guidance for your questions based on Parashara astrology, planets, and constellations'
+            : lang === 'hi'
             ? 'पाराशर वैदिक ज्योतिष एवं ग्रह-नक्षत्रों के आधार पर अपने प्रश्नों का त्वरित एवं प्रामाणिक मार्गदर्शन पाएं'
             : 'શાસ્ત્રોક્ત વૈદિક જ્યોતિષ આધારિત તમારા પ્રશ્નોનું ત્વરિત અને સચોટ માર્ગદર્શન મેળવો'}
         </p>
@@ -115,10 +146,10 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
       {/* Suggested Quick Questions */}
       <div className="mb-6">
         <span className={`text-xs font-bold block mb-2 ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
-          {lang === 'hi' ? '💡 अक्सर पूछे जाने वाले प्रश्न (Quick Select):' : '💡 સામાન્ય પ્રશ્નો:'}
+          {lang === 'en' ? '💡 Common Inquiries (Quick Select):' : lang === 'hi' ? '💡 अक्सर पूछे जाने वाले प्रश्न (Quick Select):' : '💡 સામાન્ય પ્રશ્નો:'}
         </span>
         <div className="flex flex-wrap gap-2">
-          {COMMON_QUESTIONS.map((q, idx) => (
+          {quickQuestions.map((q, idx) => (
             <button
               key={idx}
               type="button"
@@ -149,11 +180,11 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
             </div>
             <div>
               <h4 className="font-yatra text-lg leading-tight">
-                {lang === 'hi' ? 'भवानी ज्योतिष - वैदिक समाधान' : 'ભવાની જ્યોતિષ - વૈદિક સમાધાન'}
+                {lang === 'en' ? 'Bhavani Jyotish - Vedic Solutions' : lang === 'hi' ? 'भवानी ज्योतिष - वैदिक समाधान' : 'ભવાની જ્યોતિષ - વૈદિક સમાધાન'}
               </h4>
               <span className="text-xs text-amber-200 flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                ऑनलाइन सक्रिय (Online)
+                {lang === 'en' ? 'Active Online' : 'ऑनलाइन सक्रिय (Online)'}
               </span>
             </div>
           </div>
@@ -164,7 +195,7 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
               className="p-2 rounded-xl bg-white/20 hover:bg-white/30 transition-colors text-white text-xs font-bold flex items-center gap-1"
             >
               <Phone className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">कॉल करें</span>
+              <span className="hidden sm:inline">{lang === 'en' ? 'Call Now' : 'कॉल करें'}</span>
             </a>
           </div>
         </div>
@@ -224,7 +255,11 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
                   : 'bg-white border-[#FF671F]/20 text-[#CC5218]'
               }`}>
                 <RefreshCw className="w-4 h-4 animate-spin text-[#FF671F]" />
-                <span>ग्रह-नक्षत्रों की गणना एवं फलादेश तैयार हो रहा है...</span>
+                <span>
+                  {lang === 'en'
+                    ? 'Calculating planetary transits and preparing Vedic insight...'
+                    : 'ग्रह-नक्षत्रों की गणना एवं फलादेश तैयार हो रहा है...'}
+                </span>
               </div>
             </div>
           )}
@@ -244,7 +279,13 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
             type="text"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder={lang === 'hi' ? 'अपना ज्योतिषीय प्रश्न यहाँ लिखें (उदा. शादी कब होगी?)...' : 'તમારો પ્રશ્ન અહીં લખો...'}
+            placeholder={
+              lang === 'en'
+                ? 'Type your astrological question here (e.g. When will I get married?)...'
+                : lang === 'hi'
+                ? 'अपना ज्योतिषीय प्रश्न यहाँ लिखें (उदा. शादी कब होगी?)...'
+                : 'તમારો પ્રશ્ન અહીં લખો...'
+            }
             className={`flex-1 px-4 py-2.5 rounded-xl border focus:outline-none focus:ring-2 focus:ring-[#FF671F] text-xs sm:text-sm font-medium ${
               isDark 
                 ? 'bg-stone-800 border-stone-700 text-stone-100 placeholder:text-stone-400' 
@@ -257,7 +298,7 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
             className="bg-[#FF671F] hover:bg-[#CC5218] disabled:opacity-50 text-white font-bold px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center gap-1.5 shrink-0"
           >
             <Send className="w-4 h-4" />
-            <span className="hidden sm:inline">पूछें</span>
+            <span className="hidden sm:inline">{lang === 'en' ? 'Ask' : 'पूछें'}</span>
           </button>
         </form>
       </div>
@@ -271,7 +312,9 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
         <div className="flex items-center gap-2">
           <span>🚩</span>
           <span>
-            {lang === 'hi'
+            {lang === 'en'
+              ? 'For personal horoscope analysis and severe issues, contact Pandit Ji directly'
+              : lang === 'hi'
               ? 'गंभीर समस्याओं या विस्तृत कुंडली परामर्श के लिए पंडित जी से सीधे संपर्क करें'
               : 'ગંભીર સમસ્યાઓ માટે પંડિતજીને રૂબરૂ અથવા ફોન પર સંપર્ક કરો'}
           </span>
@@ -283,16 +326,16 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
             className="bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5"
           >
             <Phone className="w-3.5 h-3.5" />
-            <span>कॉल करें</span>
+            <span>{lang === 'en' ? 'Call Now' : 'कॉल करें'}</span>
           </a>
           <a
-            href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('प्रणाम पंडित जी! मुझे अपनी जन्म कुंडली के संबंध में परामर्श चाहिए।')}`}
+            href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(getWhatsAppConsultationMessage(lang))}`}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5"
           >
             <MessageCircle className="w-3.5 h-3.5" />
-            <span>व्हाट्सएप</span>
+            <span>{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
           </a>
         </div>
       </div>

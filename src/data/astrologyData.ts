@@ -3,13 +3,23 @@ import { RashiInfo, AstrologicalService, PanchangInfo, Testimonial } from '../ty
 export const ASTROLOGER_INFO = {
   name: "पंडित श्री विरेंद्र कुमार जोशी (आचार्य)",
   nameGu: "પંડિત શ્રી વિરેન્દ્ર કુમાર જોશી (આચાર્ય)",
+  nameEn: "Pt. Shri Virendra Kumar Joshi (Acharya)",
   centerName: "भवानी ज्योतिष केंद्र",
+  centerNameGu: "ભવાની જ્યોતિષ કેન્દ્ર",
+  centerNameEn: "Bhavani Astrology Center",
   tagline: "सटीक ज्योतिषीय समाधान एवं वैदिक मार्गदर्शन",
+  taglineGu: "સચોટ જ્યોતિષીય સમાધાન અને વૈદિક માર્ગદર્શન",
+  taglineEn: "Precise Astrological Solutions & Vedic Guidance",
   experience: "35+ वर्षों का वैदिक अनुभव",
+  experienceGu: "35+ વર્ષોનો વૈદિક અનુભવ",
+  experienceEn: "35+ Years of Vedic Experience",
   experienceYears: 35,
   location: "नागलपुर, मेहसाणा (गुजरात) - 384002",
+  locationGu: "નાગલપુર, મહેસાણા (ગુજરાત) - 384002",
+  locationEn: "Nagalpur, Mehsana (Gujarat) - 384002",
   aboutHi: "आचार्य पंडित श्री विरेंद्र कुमार जोशी जी उत्तर गुजरात, मेहसाणा (नागलपुर) के प्रतिष्ठित वैदिक ज्योतिषाचार्य हैं। उन्होंने परंपरागत वैदिक ज्योतिष, फलित ज्योतिष एवं कर्मकांड द्वारा अनवरत साधना से देश-विदेश के हजारों जातकों का कुंडली फलादेश, विवाह मिलान, कालसर्प शांति, वास्तु दोष निवारण एवं नवग्रह शांति द्वारा सफल मार्गदर्शन किया है।",
   aboutGu: "આચાર્ય પંડિત શ્રી વિરેન્દ્ર કુમાર જોશી ઉત્તર ગુજરાત, મહેસાણા (નાગલપુર)ના સુપ્રસિદ્ધ વૈદિક જ્યોતિષાચાર્ય છે. તેમણે પરંપરાગત વૈદિક જ્યોતિષ, કુંડળી ફલાદેશ, લગ્ન ગુણ મિલાન, કાલસર્પ શાંતિ, વાસ્તુ દોષ નિવારણ અને નવગ્રહ પૂજન દ્વારા હજારો પરિવારોને સચોટ માર્ગદર્શન આપ્યું છે.",
+  aboutEn: "Acharya Pandit Shri Virendra Kumar Joshi is a distinguished Vedic astrologer from Nagalpur, Mehsana (North Gujarat). With over 35 years of dedicated practice in Vedic Astrology and sacred Karmakand, he has successfully guided over 15,000 families across India and abroad in horoscope analysis, marriage compatibility, Kaal Sarp and Pitra Dosha remedies, Vastu consultations, and Navagraha shanti.",
   satisfiedClients: "15,000+",
   phonePrimary: "+91 99090 87902",
   phoneSecondary: "+91 99090 87902",
@@ -17,10 +27,24 @@ export const ASTROLOGER_INFO = {
   email: "writeusonastro@gmail.com",
   address: "नागलपुर, मेहसाणा - 384002 (गुजरात)",
   addressGu: "નાગલપુર, મહેસાણા - 384002 (ગુજરાત)",
+  addressEn: "Nagalpur, Mehsana - 384002 (Gujarat, India)",
   timings: "प्रातः 8:00 बजे से रात्रि 8:00 बजे तक (8:00 AM - 8:00 PM)",
   timingsGu: "સવારે 8:00 થી રાત્રે 8:00 વાગ્યા સુધી (8:00 AM - 8:00 PM)",
+  timingsEn: "8:00 AM to 8:00 PM (Monday - Sunday)",
   mapCoordinates: "23.5880,72.3693",
 };
+
+export function getWhatsAppConsultationMessage(lang: 'hi' | 'gu' | 'en' = 'hi'): string {
+  if (lang === 'en') {
+    return `Hello Pandit Ji 🙏 I would like to get my Kundli analyzed and take personal consultation. Please share the appointment timing ✨`;
+  }
+
+  if (lang === 'gu') {
+    return `નમસ્તે પંડિતજી 🙏 મારે મારી કુંડળી બતાવવી છે અને વ્યક્તિગત પરામર્શ લેવો છે. કૃપા કરી અપોઇન્ટમેન્ટનો સમય જણાવશો ✨`;
+  }
+
+  return `नमस्ते पंडित जी 🙏 मुझे अपनी कुंडली दिखानी है और व्यक्तिगत परामर्श लेना है। कृपया अपॉइंटमेंट का समय साझा करें ✨`;
+}
 
 export const RASHIS: RashiInfo[] = [
   {

@@ -36,6 +36,52 @@
   font-family: 'Rozha One', serif;
 }
 
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-marcellus {
+  font-family: 'Marcellus', serif;
+}
+
+/* Royal Golden Shimmer & Regal Aesthetics */
+.royal-gold-gradient {
+  background: linear-gradient(135deg, #92400E 0%, #D97706 25%, #F59E0B 50%, #FBBF24 75%, #B45309 100%);
+}
+
+.royal-gold-gradient-text {
+  background: linear-gradient(135deg, #B45309 0%, #D97706 30%, #F59E0B 60%, #78350F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.royal-gold-glow {
+  box-shadow: 0 0 30px -5px rgba(217, 119, 6, 0.3);
+}
+
+.royal-gold-border {
+  border: 1.5px solid rgba(245, 158, 11, 0.45);
+  box-shadow: 0 10px 30px -10px rgba(180, 83, 9, 0.15);
+}
+
+.royal-jali-pattern {
+  background-color: #FFFDF8;
+  background-image: 
+    radial-gradient(#D97706 0.85px, transparent 0.85px),
+    radial-gradient(#B45309 0.85px, #FFFDF8 0.85px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+.dark .royal-jali-pattern {
+  background-color: #0d0a06;
+  background-image: 
+    radial-gradient(#f59e0b 0.85px, transparent 0.85px),
+    radial-gradient(#b45309 0.85px, #0d0a06 0.85px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
 /* Sacred Vedic glowing & patterned backgrounds */
 .bg-sacred-pattern {
   background-color: #FFFDF9;

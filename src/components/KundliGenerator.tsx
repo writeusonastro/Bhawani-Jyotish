@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { KundliInput, KundliResult } from '../types/astrology';
+import { KundliInput, KundliResult, Language } from '../types/astrology';
 import { calculateVedicKundli } from '../utils/vedicCalculations';
 import { INDIAN_CITIES_DATABASE, INDIAN_STATES } from '../data/indianCities';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 interface KundliGeneratorProps {
-  lang: 'hi' | 'gu';
+  lang: Language;
   onAskAI: (context: string) => void;
   isDark?: boolean;
 }
@@ -83,13 +83,25 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
       <div className="text-center max-w-3xl mx-auto mb-8">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border mb-2 bg-[#FFF5F0] text-[#CC5218] border-[#FF671F]/30">
           <ScrollText className="w-4 h-4 text-[#FF671F]" />
-          <span>{lang === 'hi' ? 'शास्त्रोक्त हिंदू पंचांग एवं जन्म कुंडली' : 'શાસ્ત્રોક્ત હિન્દુ પંચાંગ અને જન્મ કુંડળી'}</span>
+          <span>
+            {lang === 'en'
+              ? 'Vedic Hindu Panchang & Janam Kundli'
+              : lang === 'hi'
+              ? 'शास्त्रोक्त हिंदू पंचांग एवं जन्म कुंडली'
+              : 'શાસ્ત્રોક્ત હિન્દુ પંચાંગ અને જન્મ કુંડળી'}
+          </span>
         </div>
         <h2 className="font-yatra text-2xl sm:text-4xl mb-2 text-[#CC5218]">
-          {lang === 'hi' ? 'सटीक वैदिक पंचांग, कुंडली व ग्रह गणना' : 'સચોટ વૈદિક પંચાંગ અને જન્મ કુંડળી'}
+          {lang === 'en'
+            ? 'Accurate Vedic Panchang, Kundli & Planetary Calculations'
+            : lang === 'hi'
+            ? 'सटीक वैदिक पंचांग, कुंडली व ग्रह गणना'
+            : 'સચોટ વૈદિક પંચાંગ અને જન્મ કુંડળી'}
         </h2>
         <p className="text-sm text-stone-700 font-medium">
-          {lang === 'hi'
+          {lang === 'en'
+            ? 'Comprehensive Hindu Calendar, Vikram Samvat, Tithi, Nakshatra, Karan, Yoga, Ishtakala, Avakahada Chakra, Navamsha (D9), Vimshottari Mahadasha & Doshas'
+            : lang === 'hi'
             ? 'हिंदू पंचांग अनुसार विक्रम संवत, तिथि, नक्षत्र, करण, योग, इष्टकाल, अवकहड़ा चक्र, नवमांश (D9), महादशा व सर्वदोष विचार'
             : 'હિન્દુ પંચાંગ મુજબ વિક્રમ સંવત, તિથિ, નક્ષત્ર, ઇષ્ટકાળ, અવકહડા ચક્ર, નવમાંશ અને મહાદશા ગણતરી'}
         </p>
@@ -102,7 +114,9 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
             <h3 className="font-yatra text-xl mb-4 pb-2 border-b flex items-center justify-between text-[#CC5218] border-[#FF671F]/15">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-[#FF671F]" />
-                <span>{lang === 'hi' ? 'जन्म विवरण दर्ज करें' : 'જન્મ વિગત દાખલ કરો'}</span>
+                <span>
+                  {lang === 'en' ? 'Enter Birth Details' : lang === 'hi' ? 'जन्म विवरण दर्ज करें' : 'જન્મ વિગત દાખલ કરો'}
+                </span>
               </div>
               <span className="text-xs px-2.5 py-0.5 rounded-full font-sans font-semibold border bg-amber-50 text-amber-800 border-amber-200">
                 लाहिड़ी अयनांश (Lahiri)
@@ -112,7 +126,7 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
             <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
               <div>
                 <label className="block font-semibold mb-1 text-stone-950">
-                  {lang === 'hi' ? 'पूरा नाम (Full Name)' : 'પૂરું નામ'}
+                  {lang === 'en' ? 'Full Name' : lang === 'hi' ? 'पूरा नाम (Full Name)' : 'પૂરું નામ'}
                 </label>
                 <input
                   type="text"
@@ -127,22 +141,22 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block font-semibold mb-1 text-stone-950">
-                    {lang === 'hi' ? 'लिंग (Gender)' : 'લિંગ'}
+                    {lang === 'en' ? 'Gender' : lang === 'hi' ? 'लिंग (Gender)' : 'લિંગ'}
                   </label>
                   <select
                     value={formData.gender}
                     onChange={(e) => setFormData({ ...formData, gender: e.target.value as any })}
                     className="w-full px-3 py-2.5 rounded-xl border focus:outline-none focus:ring-2 transition-all bg-[#FFFDF9] border-[#FF671F]/30 text-stone-900 focus:ring-[#FF671F]"
                   >
-                    <option value="male">{lang === 'hi' ? 'पुरुष (Male)' : 'પુરુષ'}</option>
-                    <option value="female">{lang === 'hi' ? 'महिला (Female)' : 'મહિલા'}</option>
-                    <option value="other">{lang === 'hi' ? 'अन्य' : 'અન્ય'}</option>
+                    <option value="male">{lang === 'en' ? 'Male' : lang === 'hi' ? 'पुरुष (Male)' : 'પુરુષ'}</option>
+                    <option value="female">{lang === 'en' ? 'Female' : lang === 'hi' ? 'महिला (Female)' : 'મહિલા'}</option>
+                    <option value="other">{lang === 'en' ? 'Other' : lang === 'hi' ? 'अन्य' : 'અન્ય'}</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block font-semibold mb-1 text-stone-950">
-                    {lang === 'hi' ? 'जन्म वर्ष (Year)' : 'જન્મ वर्ष'}
+                    {lang === 'en' ? 'Birth Year' : lang === 'hi' ? 'जन्म वर्ष (Year)' : 'જન્મ वर्ष'}
                   </label>
                   <input
                     type="number"
@@ -507,12 +521,36 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
               {/* Navigation Tabs */}
               <div className="flex overflow-x-auto gap-1.5 pb-2 mb-4 border-b border-[#FF671F]/20 no-scrollbar">
                 {[
-                  { id: 'panchang', label: '1. जन्म पंचांग', icon: Calendar },
-                  { id: 'chart', label: '2. कुंडली चक्र (D1/D9)', icon: Eye },
-                  { id: 'planets', label: '3. ग्रह स्थिति', icon: Sun },
-                  { id: 'dasha', label: '4. विंशोत्तरी दशा', icon: Clock },
-                  { id: 'yogas', label: '5. योग एवं दोष', icon: Award },
-                  { id: 'predictions', label: '6. फलादेश व उपाय', icon: Sparkles },
+                  {
+                    id: 'panchang',
+                    label: lang === 'en' ? '1. Birth Panchang' : lang === 'hi' ? '1. जन्म पंचांग' : '૧. જન્મ પંચાંગ',
+                    icon: Calendar,
+                  },
+                  {
+                    id: 'chart',
+                    label: lang === 'en' ? '2. Chart (D1/D9)' : lang === 'hi' ? '2. कुंडली चक्र (D1/D9)' : '૨. કુંડળી ચક્ર',
+                    icon: Eye,
+                  },
+                  {
+                    id: 'planets',
+                    label: lang === 'en' ? '3. Planetary Positions' : lang === 'hi' ? '3. ग्रह स्थिति' : '૩. ગ્રહ સ્થિતિ',
+                    icon: Sun,
+                  },
+                  {
+                    id: 'dasha',
+                    label: lang === 'en' ? '4. Vimshottari Dasha' : lang === 'hi' ? '4. विंशोत्तरी दशा' : '૪. વિંશોત્તરી દશા',
+                    icon: Clock,
+                  },
+                  {
+                    id: 'yogas',
+                    label: lang === 'en' ? '5. Yogas & Doshas' : lang === 'hi' ? '5. योग एवं दोष' : '૫. યોગ અને દોષ',
+                    icon: Award,
+                  },
+                  {
+                    id: 'predictions',
+                    label: lang === 'en' ? '6. Predictions & Remedies' : lang === 'hi' ? '6. फलादेश व उपाय' : '૬. ફલાદેશ અને ઉપાય',
+                    icon: Sparkles,
+                  },
                 ].map(tab => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
@@ -1014,7 +1052,13 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                 </button>
 
                 <a
-                  href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`प्रणाम पंडित जी! मैंने भवानी ज्योतिष वेबसाइट पर अपनी जन्म कुंडली (${formData.name}, जन्म: ${formData.day}/${formData.month}/${formData.year}, ${formData.cityName}) देखी है। लग्न: ${result.ascendantRashi.split(' ')[0]}, चंद्र राशि: ${result.moonRashi.split(' ')[0]}, नक्षत्र: ${result.nakshatra.split(' ')[0]}, तिथि: ${result.birthPanchang.tithi}। मैं विस्तृत परामर्श प्राप्त करना चाहता हूँ।`)}`}
+                  href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                    lang === 'en'
+                      ? `🚩 Jai Maa Bhavani!\nPranam Pandit Ji 🙏✨\n\nI generated my Janam Kundli on your website and would like a comprehensive personal astrological consultation:\n\n👤 Name: ${formData.name}\n📅 Birth Date: ${formData.day}/${formData.month}/${formData.year}\n📍 City: ${formData.cityName}\n✨ Ascendant (Lagna): ${result.ascendantRashi.split(' ')[0]}\n🌙 Moon Sign: ${result.moonRashi.split(' ')[0]}\n⭐ Nakshatra: ${result.nakshatra.split(' ')[0]}\n📜 Tithi: ${result.birthPanchang.tithi}\n\nKindly guide me on how to proceed with the detailed consultation. Thank you!`
+                      : lang === 'gu'
+                      ? `🚩 જય મા ભવાની!\nસાદર પ્રણામ પંડિતજી 🙏✨\n\nમેં આપની વેબસાઇટ પર મારી જન્મ કુંડળી તૈયાર કરી છે અને તેના આધારે આપની સાથે વિસ્તૃત પરામર્શ કરવો છે:\n\n👤 નામ: ${formData.name}\n📅 જન્મ તારીખ: ${formData.day}/${formData.month}/${formData.year}\n📍 જન્મ સ્થળ: ${formData.cityName}\n✨ લગ્ન રાશિ: ${result.ascendantRashi.split(' ')[0]}\n🌙 ચંદ્ર રાશિ: ${result.moonRashi.split(' ')[0]}\n⭐ નક્ષત્ર: ${result.nakshatra.split(' ')[0]}\n📜 તિથિ: ${result.birthPanchang.tithi}\n\nકૃપા કરી પરામર્શ માટે અનુકૂળ સમય અને વિગત જણાવશો. ધન્યવાદ!`
+                      : `🚩 ॐ नमः शिवाय!\nसादर प्रणाम पंडित जी 🙏✨\n\nमैंने आपकी वेबसाइट पर अपनी जन्म कुंडली तैयार की है और इसके आधार पर आपसे संपूर्ण व्यक्तिगत परामर्श प्राप्त करना है:\n\n👤 नाम: ${formData.name}\n📅 जन्म तिथि: ${formData.day}/${formData.month}/${formData.year}\n📍 जन्म स्थान: ${formData.cityName}\n✨ लग्न: ${result.ascendantRashi.split(' ')[0]}\n🌙 चंद्र राशि: ${result.moonRashi.split(' ')[0]}\n⭐ नक्षत्र: ${result.nakshatra.split(' ')[0]}\n📜 जन्म तिथि: ${result.birthPanchang.tithi}\n\nकृपया विस्तृत फलादेश व परामर्श हेतु उपलब्ध समय साझा करें। धन्यवाद!`
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-md"
