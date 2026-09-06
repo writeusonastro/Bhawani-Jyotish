@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ASTRO_SERVICES, ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
-import { ScrollText, HeartHandshake, ShieldAlert, Briefcase, Users, Compass, Gem, Flame, CheckCircle, Sparkles, Phone, MessageCircle, Crown } from 'lucide-react';
+import { ScrollText, HeartHandshake, ShieldAlert, Briefcase, Users, Compass, Gem, Flame, CheckCircle, Sparkles, Phone, MessageCircle } from 'lucide-react';
+import { RajputSymbol } from './RajputSymbol';
+import { VerifiedBadge } from './VerifiedBadge';
 import { Language } from '../types/astrology';
 
 interface ServicesSectionProps {
@@ -35,7 +37,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             ? 'bg-amber-950/60 text-amber-300 border-amber-500/40 shadow-amber-950/40' 
             : 'bg-gradient-to-r from-amber-100 via-yellow-50 to-orange-100 text-[#852E10] border-amber-400/60'
         }`}>
-          <Crown className="w-4 h-4 text-amber-500" />
+          <RajputSymbol size="xs" />
           <span>
             {lang === 'en'
               ? 'Royal Vedic Astrological Services'
@@ -133,10 +135,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white transition-all shadow-xs border border-emerald-400/50"
+                  className="px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white transition-all shadow-xs border border-emerald-400/50 flex items-center gap-1"
                   title={lang === 'en' ? 'WhatsApp Consultation' : 'व्हाट्सएप पर परामर्श लें'}
                 >
                   <MessageCircle className="w-4 h-4" />
+                  <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
                 </a>
               </div>
             </div>
@@ -172,10 +175,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto justify-center">
           <a
             href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-            className="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 hover:from-amber-700 hover:to-orange-700 text-white font-bold px-6 py-3 rounded-full text-xs sm:text-sm transition-all shadow-lg border border-amber-300 flex items-center gap-2"
+            className="w-full sm:w-auto justify-center bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 hover:from-amber-700 hover:to-orange-700 text-white font-bold px-6 py-3 rounded-full text-xs sm:text-sm transition-all shadow-lg border border-amber-300 flex items-center gap-2"
           >
             <Phone className="w-4 h-4 text-amber-200" />
             <span>{lang === 'en' ? 'Call Pandit Ji Directly' : lang === 'hi' ? 'सीधे फोन पर बात करें' : 'ફોન પર વાત કરો'}</span>

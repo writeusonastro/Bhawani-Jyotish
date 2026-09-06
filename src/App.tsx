@@ -16,6 +16,7 @@ import { DailyWisdomVastu } from './components/DailyWisdomVastu';
 import { DigitalJapaMala } from './components/DigitalJapaMala';
 import { GemstoneRudrakshaFinder } from './components/GemstoneRudrakshaFinder';
 import { ContactSection } from './components/ContactSection';
+import { VerifiedBadge } from './components/VerifiedBadge';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from './data/astrologyData';
 import { Language } from './types/astrology';
 import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, CheckCircle2, Mail, Navigation } from 'lucide-react';
@@ -95,8 +96,9 @@ export function App() {
                   </div>
 
                   <div className="mt-4">
-                    <h3 className="font-yatra text-xl text-[#CC5218]">
-                      {lang === 'en' ? ASTROLOGER_INFO.nameEn : lang === 'hi' ? ASTROLOGER_INFO.name : ASTROLOGER_INFO.nameGu}
+                    <h3 className="font-yatra text-xl text-[#CC5218] flex items-center justify-center gap-1.5">
+                      <span>{lang === 'en' ? ASTROLOGER_INFO.nameEn : lang === 'hi' ? ASTROLOGER_INFO.name : ASTROLOGER_INFO.nameGu}</span>
+                      <VerifiedBadge size="sm" tooltipText="पंडित श्री विरेंद्र कुमार जोशी - अधिकृत सत्यापित ज्योतिषाचार्य" />
                     </h3>
                     <p className="text-xs text-stone-950 font-semibold">
                       {lang === 'en' ? ASTROLOGER_INFO.experienceEn : lang === 'hi' ? ASTROLOGER_INFO.experience : ASTROLOGER_INFO.experienceGu} | {lang === 'en' ? ASTROLOGER_INFO.locationEn : lang === 'hi' ? ASTROLOGER_INFO.location : ASTROLOGER_INFO.locationGu}
@@ -243,6 +245,7 @@ export function App() {
 
       {/* Floating Call & WhatsApp Buttons */}
       <FloatingActions
+        lang={lang}
         onOpenAskAI={() => {
           setActiveTab('ask-astrologer');
           window.scrollTo({ top: 0, behavior: 'smooth' });

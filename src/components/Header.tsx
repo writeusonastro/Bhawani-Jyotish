@@ -1,7 +1,9 @@
 import React from 'react';
-import { Phone, MessageCircle, Clock } from 'lucide-react';
+import { Phone, MessageCircle, Clock, Instagram, Facebook } from 'lucide-react';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
 import { AnimatedLogo } from './AnimatedLogo';
+import { VerifiedBadge } from './VerifiedBadge';
+import { RajputSymbol } from './RajputSymbol';
 import { Language } from '../types/astrology';
 
 interface HeaderProps {
@@ -37,9 +39,14 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="bg-gradient-to-r from-[#631422] via-[#852E10] to-[#631422] text-amber-100 text-xs sm:text-sm py-1.5 px-4 border-b border-amber-400/30">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
           <div className="flex items-center gap-2 font-medium">
-            <span className="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 text-amber-950 px-2.5 py-0.5 rounded-full text-xs font-black shadow-xs flex items-center gap-1 border border-amber-500">
-              <span>👑</span>
+            <span className="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 text-amber-950 px-2.5 py-0.5 rounded-full text-xs font-black shadow-xs flex items-center gap-1.5 border border-amber-500">
+              <RajputSymbol size="xs" />
               <span>राजकीय वैदिक ज्योतिष पीठ</span>
+            </span>
+            <span className="inline-flex items-center gap-1 text-[11px] bg-black/30 text-amber-200 border border-amber-400/40 px-2.5 py-0.5 rounded-full font-bold shadow-xs">
+              <span className="text-amber-300">पंजी. सं.:</span>
+              <span className="font-mono text-amber-100 font-black tracking-wide">{ASTROLOGER_INFO.registrationNo}</span>
+              <VerifiedBadge size="xs" tooltipText="शासकीय पंजीकृत वैदिक संस्थान" />
             </span>
             <span className="hidden sm:inline font-yatra tracking-wider text-amber-200 text-xs sm:text-sm">
               🪔 ॥ ॐ श्री भवान्यै नमः ॥ ॐ नमः शिवाय ॥ 🪔
@@ -58,6 +65,37 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
             </div>
             
+            {/* Social Media Links */}
+            <div className="hidden lg:flex items-center gap-1.5 border-r border-amber-400/30 pr-2">
+              <a
+                href={ASTROLOGER_INFO.socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Instagram Profile"
+                className="p-1 rounded hover:bg-white/10 text-pink-400 hover:text-pink-300 transition-colors"
+              >
+                <Instagram className="w-3.5 h-3.5" />
+              </a>
+              <a
+                href={ASTROLOGER_INFO.socialLinks.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Facebook Page"
+                className="p-1 rounded hover:bg-white/10 text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                <Facebook className="w-3.5 h-3.5" />
+              </a>
+              <a
+                href={ASTROLOGER_INFO.socialLinks.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="WhatsApp Channel"
+                className="p-1 rounded hover:bg-white/10 text-emerald-400 hover:text-emerald-300 transition-colors"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+              </a>
+            </div>
+
             <a 
               href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
               className="flex items-center gap-1.5 font-bold text-amber-100 hover:text-white transition-colors bg-amber-950/60 border border-amber-400/40 px-2.5 py-0.5 rounded-md shadow-xs"
@@ -106,9 +144,11 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="flex items-center gap-2 flex-wrap">
               <h1 className="font-yatra text-2xl sm:text-3xl text-[#852E10] tracking-wide flex items-center gap-1.5">
                 <span>{lang === 'en' ? 'Bhavani Jyotish' : 'भवानी ज्योतिष'}</span>
+                <VerifiedBadge size="sm" tooltipText="भवानी ज्योतिष - अधिकृत एवं सत्यापित वैदिक संस्थान" />
               </h1>
-              <span className="text-xs px-2.5 py-0.5 rounded-full font-bold border bg-gradient-to-r from-amber-100 to-orange-50 border-amber-400 text-[#852E10] shadow-xs">
-                👑 {lang === 'en' ? 'Mehsana (Gujarat)' : 'नागलपुर, मेहसाणा'}
+              <span className="text-xs px-2.5 py-0.5 rounded-full font-bold border bg-gradient-to-r from-amber-100 to-orange-50 border-amber-400 text-[#852E10] shadow-xs flex items-center gap-1.5">
+                <RajputSymbol size="xs" />
+                <span>{lang === 'en' ? 'Mehsana (Gujarat)' : 'नागलपुर, मेहसाणा'}</span>
               </span>
             </div>
             <p className="text-xs sm:text-sm text-stone-900 font-bold tracking-wide">
@@ -133,6 +173,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <MessageCircle className="w-4 h-4" />
             <span>{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
+            <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
           </a>
 
           <a

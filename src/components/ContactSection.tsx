@@ -1,6 +1,8 @@
 import React from 'react';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
-import { MapPin, Phone, MessageCircle, Clock, Mail, Navigation } from 'lucide-react';
+import { MapPin, Phone, MessageCircle, Clock, Mail, Navigation, Facebook, Instagram, Share2, ShieldCheck } from 'lucide-react';
+import { VerifiedBadge } from './VerifiedBadge';
+import { RajputSymbol } from './RajputSymbol';
 import { Language } from '../types/astrology';
 
 interface ContactSectionProps {
@@ -25,30 +27,65 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
   return (
     <section id="contact-section" className="py-8 sm:py-12 px-4 max-w-6xl mx-auto">
-      {/* Title & Subtitle */}
-      <div className="text-center max-w-3xl mx-auto mb-10">
-        <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold border mb-3 shadow-xs ${
-          isDark 
-            ? 'bg-amber-950/60 text-amber-300 border-amber-500/40' 
-            : 'bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 text-[#CC5218] border-amber-400/50'
-        }`}>
-          <span>📍</span>
-          <span className="font-['Cinzel'] tracking-wide">
-            {lang === 'en'
-              ? '✦ Royal Astrological Sansthan of North Gujarat ✦'
-              : lang === 'hi'
-              ? '✦ उत्तर गुजरात का प्रतिष्ठित राजज्योतिष संस्थान ✦'
-              : '✦ ઉત્તર ગુજરાતનું પ્રતિષ્ઠિત રાજજ્યોતિષ સંસ્થાન ✦'}
-          </span>
+      {/* Title & Subtitle - Beautifully Aligned & Structured */}
+      <div className="text-center max-w-4xl mx-auto mb-10">
+        {/* Badges Row - North Gujarat Heritage & Official Govt Registration */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-4">
+          <div className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold border shadow-xs ${
+            isDark 
+              ? 'bg-amber-950/60 text-amber-300 border-amber-500/40' 
+              : 'bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 text-[#CC5218] border-amber-400/50'
+          }`}>
+            <RajputSymbol size="xs" />
+            <span className="font-['Cinzel'] tracking-wide">
+              {lang === 'en'
+                ? '✦ Royal Astrological Sansthan of North Gujarat ✦'
+                : lang === 'hi'
+                ? '✦ उत्तर गुजरात का प्रतिष्ठित राजज्योतिष संस्थान ✦'
+                : '✦ ઉત્તર ગુજરાતનું પ્રતિષ્ઠિત રાજજ્યોતિષ સંસ્થાન ✦'}
+            </span>
+          </div>
+
+          {/* Official Govt. Registration Number Badge */}
+          <div className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold border shadow-xs ${
+            isDark
+              ? 'bg-emerald-950/60 border-emerald-500/50 text-emerald-300'
+              : 'bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border-emerald-500/50 text-emerald-900'
+          }`}>
+            <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+            <span>{lang === 'en' ? 'Govt. Regd. No.:' : 'पंजीकरण संख्या:'}</span>
+            <span className="font-mono font-black tracking-wider text-[#B83E07] dark:text-amber-300">
+              {ASTROLOGER_INFO.registrationNo}
+            </span>
+            <VerifiedBadge size="xs" tooltipText="शासकीय पंजीकृत वैदिक संस्थान" />
+          </div>
         </div>
-        <h2 className="font-['Marcellus'] font-serif text-3xl sm:text-5xl text-[#CC5218] dark:text-amber-400 mb-3 tracking-tight">
-          {lang === 'en'
-            ? 'Bhavani Jyotish Kendra - Contact & Office Address'
-            : lang === 'hi'
-            ? 'भवानी ज्योतिष केंद्र - संपर्क एवं कार्यालय पता'
-            : 'ભવાની જ્યોતિષ કેન્દ્ર - સંપર્ક અને સરનામું'}
+
+        {/* Main Title - Perfectly Symmetrical & Centered */}
+        <h2 className="font-['Marcellus'] font-serif text-center flex flex-col items-center justify-center mb-3">
+          {/* Main Institution Name */}
+          <span className="text-3xl sm:text-5xl font-black text-[#852E10] dark:text-amber-400 tracking-tight flex items-center justify-center gap-2 flex-wrap">
+            <span>
+              {lang === 'en' ? 'Bhavani Jyotish Kendra' : lang === 'hi' ? 'भवानी ज्योतिष केंद्र' : 'ભવાની જ્યોતિષ કેન્દ્ર'}
+            </span>
+            <VerifiedBadge size="sm" tooltipText="सत्यापित मुख्य ज्योतिष संस्थान" />
+          </span>
+
+          {/* Subtitle - Contact & Office Address with Balanced Decorative Dividers */}
+          <span className="text-base sm:text-2xl md:text-3xl text-stone-700 dark:text-amber-200 font-semibold mt-1.5 flex items-center justify-center gap-2 sm:gap-4 w-full">
+            <span className="hidden xs:block flex-1 max-w-[40px] sm:max-w-[120px] h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-amber-500 rounded-full" />
+            <span className="tracking-wide text-[#B83E07] dark:text-amber-300 text-center">
+              {lang === 'en'
+                ? 'Contact & Office Address'
+                : lang === 'hi'
+                ? 'संपर्क एवं कार्यालय पता'
+                : 'સંપર્ક અને કાર્યાલય સરનામું'}
+            </span>
+            <span className="hidden xs:block flex-1 max-w-[40px] sm:max-w-[120px] h-0.5 bg-gradient-to-l from-transparent via-amber-400 to-amber-500 rounded-full" />
+          </span>
         </h2>
-        <p className="text-base sm:text-lg text-stone-800 font-medium dark:text-stone-300">
+
+        <p className="text-sm sm:text-base lg:text-lg text-stone-800 font-medium dark:text-stone-300 max-w-2xl mx-auto leading-relaxed text-center">
           {lang === 'en'
             ? 'In-person visits available at our Mehsana office. Phone & WhatsApp consultations available for distant and international clients.'
             : lang === 'hi'
@@ -90,6 +127,18 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   ? 'लैंडमार्क: नागलपुर मुख्य मार्ग, मेहसाणा - 384002 (उत्तर गुजरात)'
                   : 'લેન્ડમાર્ક: નાગલપુર મુખ્ય માર્ગ, મહેસાણા - 384002 (ગુજરાત)'}
               </p>
+
+              {/* Registration Information */}
+              <div className="flex items-center gap-2 pt-2 border-t border-amber-500/20 flex-wrap text-xs sm:text-sm">
+                <span className="font-bold text-stone-700 dark:text-stone-300 flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <span>{lang === 'en' ? 'Registration No:' : 'संस्थान पंजीकरण संख्या:'}</span>
+                </span>
+                <span className="font-mono font-black text-[#852E10] dark:text-amber-300 bg-amber-100/80 dark:bg-amber-950/80 px-2 py-0.5 rounded border border-amber-400/50">
+                  {ASTROLOGER_INFO.registrationNo}
+                </span>
+                <VerifiedBadge size="xs" tooltipText="शासकीय अधिकृत संस्थान" />
+              </div>
             </div>
 
             <a
@@ -129,8 +178,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               >
                 {ASTROLOGER_INFO.phonePrimary}
               </a>
-              <p className="text-sm sm:text-base text-black font-bold dark:text-stone-300">
-                {lang === 'en' ? 'Pandit Virendra Kumar Joshi (Acharya)' : lang === 'hi' ? 'पंडित श्री विरेंद्र कुमार जोशी (आचार्य)' : 'પંડિત શ્રી વિરેન્દ્ર કુમાર જોશી'}
+              <p className="text-sm sm:text-base text-black font-bold dark:text-stone-300 flex items-center gap-1.5 flex-wrap">
+                <span>{lang === 'en' ? 'Pandit Virendra Kumar Joshi' : lang === 'hi' ? 'पंडित श्री विरेंद्र कुमार जोशी' : 'પંડિત શ્રી વિરેન્દ્ર કુમાર જોશી'}</span>
+                <VerifiedBadge size="sm" tooltipText="सत्यापित मुख्य ज्योतिषी" />
               </p>
             </div>
 
@@ -153,6 +203,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>{lang === 'en' ? 'WhatsApp Chat' : lang === 'hi' ? 'व्हाट्सएप चैट' : 'વોટ્સએપ'}</span>
+                <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
               </a>
             </div>
           </div>
@@ -262,35 +313,113 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
         </div>
 
-        {/* Bottom Action CTA */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-          <a
-            href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-            className="bg-gradient-to-r from-[#D9531E] via-[#FF671F] to-[#CC5218] hover:from-[#B84214] hover:to-[#D9531E] text-white font-['Marcellus'] font-serif text-base sm:text-lg py-3.5 px-8 rounded-2xl shadow-xl shadow-amber-900/20 transition-all text-center flex items-center justify-center gap-2 border border-amber-300/30"
-          >
-            <Phone className="w-5 h-5 text-amber-200 animate-bounce" />
-            <span>
-              {lang === 'en'
-                ? `Call Now (${ASTROLOGER_INFO.phonePrimary})`
-                : lang === 'hi'
-                ? `तुरंत कॉल करें (${ASTROLOGER_INFO.phonePrimary})`
-                : `તરત કોલ કરો (${ASTROLOGER_INFO.phonePrimary})`}
+        {/* Social Media & Online Channels */}
+        <div className={`p-6 rounded-2xl border-2 space-y-4 ${
+          isDark ? 'bg-slate-950/90 border-amber-500/30' : 'bg-[#FFFDF9] border-amber-300 shadow-sm'
+        }`}>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 pb-3 border-b border-amber-500/20">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-xl bg-[#FF671F] text-white shrink-0">
+                <Share2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-yatra text-lg text-black dark:text-amber-400 font-bold leading-tight">
+                  {lang === 'en' ? 'Follow Bhavani Jyotish on Social Media' : lang === 'hi' ? 'भवानी ज्योतिष के सोशल मीडिया हैंडल्स' : 'ભવાની જ્યોતિષ સોશિયલ મીડિયા'}
+                </h4>
+                <p className="text-xs text-stone-600 dark:text-stone-300 mt-0.5">
+                  {lang === 'en' ? 'Get daily panchang, rashifal, festival muhurats and live astrological remedies' : 'दैनिक पंचांग, राशिफल, विशेष पर्व मुहूर्त एवं प्रमाणित ज्योतिषीय उपाय'}
+                </p>
+              </div>
+            </div>
+            <span className="text-xs px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950 text-[#CC5218] dark:text-amber-300 font-bold border border-amber-300/40 shrink-0 self-start sm:self-center">
+              {lang === 'en' ? 'Official Links' : 'आधिकारिक लिंक्स'}
             </span>
-          </a>
+          </div>
 
-          <a
-            href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-              getWhatsAppConsultationMessage(lang)
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-['Marcellus'] font-serif text-base sm:text-lg py-3.5 px-8 rounded-2xl shadow-xl shadow-emerald-600/30 transition-all text-center flex items-center justify-center gap-2"
-          >
-            <MessageCircle className="w-5 h-5" />
-            <span>
-              {lang === 'en' ? 'Book via WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर अपॉइंटमेंट लें' : 'વોટ્સએપ પર વાત કરો'}
-            </span>
-          </a>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            <a
+              href={ASTROLOGER_INFO.socialLinks?.instagram || "https://www.instagram.com/writeusonastro/"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center justify-center p-4 rounded-xl bg-pink-50 hover:bg-pink-100 dark:bg-pink-950/40 dark:hover:bg-pink-900/60 border border-pink-200 dark:border-pink-800 transition-all hover:scale-105 text-center group shadow-xs"
+            >
+              <Instagram className="w-7 h-7 text-pink-600 dark:text-pink-400 mb-1.5 transition-transform group-hover:scale-110" />
+              <span className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center justify-center gap-1">
+                <span>Instagram</span>
+                <VerifiedBadge size="xs" tooltipText="आधिकारिक सत्यापित Instagram" />
+              </span>
+              <span className="text-xs text-stone-500 dark:text-stone-400">@writeusonastro</span>
+            </a>
+
+            <a
+              href={ASTROLOGER_INFO.socialLinks?.facebook || "https://www.facebook.com/bhawanijyotishgujarat/"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center justify-center p-4 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/40 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800 transition-all hover:scale-105 text-center group shadow-xs"
+            >
+              <Facebook className="w-7 h-7 text-[#1877F2] mb-1.5 transition-transform group-hover:scale-110" />
+              <span className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center justify-center gap-1">
+                <span>Facebook</span>
+                <VerifiedBadge size="xs" tooltipText="आधिकारिक सत्यापित Facebook" />
+              </span>
+              <span className="text-xs text-stone-500 dark:text-stone-400">@bhawanijyotishgujarat</span>
+            </a>
+
+            <a
+              href={ASTROLOGER_INFO.socialLinks?.whatsapp || `https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center justify-center p-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/60 border border-emerald-200 dark:border-emerald-800 transition-all hover:scale-105 text-center group shadow-xs"
+            >
+              <MessageCircle className="w-7 h-7 text-[#25D366] mb-1.5 transition-transform group-hover:scale-110" />
+              <span className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center justify-center gap-1">
+                <span>WhatsApp</span>
+                <VerifiedBadge size="xs" tooltipText="आधिकारिक सत्यापित WhatsApp" />
+              </span>
+              <span className="text-xs text-stone-500 dark:text-stone-400">{ASTROLOGER_INFO.phonePrimary}</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom Action CTA - Centered & Mobile-Optimized directly below Social Media */}
+        <div className="pt-3 pb-2 flex flex-col items-center">
+          <div className="w-full max-w-2xl flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 sm:gap-4">
+            <a
+              id="contact-quick-call-btn"
+              href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+              className="w-full sm:flex-1 flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#D9531E] via-[#FF671F] to-[#CC5218] hover:from-[#B84214] hover:to-[#D9531E] text-white font-['Marcellus'] font-serif text-base sm:text-lg py-3.5 px-5 rounded-2xl shadow-xl shadow-amber-900/20 hover:shadow-amber-900/30 transition-all text-center border border-amber-300/40 min-h-[54px] group"
+            >
+              <Phone className="w-5 h-5 text-amber-200 shrink-0 group-hover:scale-110 transition-transform" />
+              <span className="flex items-center justify-center gap-1.5 flex-wrap">
+                <span className="font-bold whitespace-nowrap">
+                  {lang === 'en'
+                    ? 'Call Now:'
+                    : lang === 'hi'
+                    ? 'तुरंत कॉल करें:'
+                    : 'તરત કોલ કરો:'}
+                </span>
+                <span className="font-mono font-bold text-amber-100 tracking-wide text-sm sm:text-base whitespace-nowrap">
+                  {ASTROLOGER_INFO.phonePrimary}
+                </span>
+              </span>
+            </a>
+
+            <a
+              id="contact-whatsapp-btn"
+              href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                getWhatsAppConsultationMessage(lang)
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:flex-1 flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-['Marcellus'] font-serif text-base sm:text-lg py-3.5 px-5 rounded-2xl shadow-xl shadow-emerald-600/30 hover:shadow-emerald-600/40 transition-all text-center border border-emerald-300/30 min-h-[54px] group"
+            >
+              <MessageCircle className="w-5 h-5 shrink-0 group-hover:scale-110 transition-transform" />
+              <span className="flex items-center justify-center gap-1.5 whitespace-nowrap font-bold">
+                <span>{lang === 'en' ? 'Book via WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर परामर्श' : 'વોટ્સએપ પર વાત કરો'}</span>
+                <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

@@ -2,6 +2,8 @@ import React from 'react';
 import { Phone, MessageCircle, Sparkles, ShieldCheck, Award, Star, Compass, HeartHandshake, ScrollText, Flame } from 'lucide-react';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
 import { AnimatedLogo } from './AnimatedLogo';
+import { VerifiedBadge } from './VerifiedBadge';
+import { RajputSymbol } from './RajputSymbol';
 import { Language } from '../types/astrology';
 
 interface HeroProps {
@@ -36,22 +38,23 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false }
               ? 'bg-amber-950/80 border-amber-400/60 text-amber-200 shadow-amber-900/30' 
               : 'bg-gradient-to-r from-amber-100 via-yellow-50 to-orange-100 border-amber-400/80 text-[#7A2408] shadow-amber-500/15'
           }`}>
-            <span className="text-base">👑</span>
+            <RajputSymbol size="sm" />
             <span className="font-bold">
               {lang === 'en'
-                ? 'Royal Vedic Astrological Heritage • Mehsana, Gujarat'
+                ? '✦ Royal Vedic Astrological Heritage • North Gujarat ✦'
                 : lang === 'hi'
-                ? 'राजकीय वैदिक ज्योतिष पीठ • ३५+ वर्षों की प्रामाणिक परंपरा'
-                : 'રાજકીય વૈદિક જ્યોતિષ પીઠ • ૩૫+ વર્ષની પ્રમાણિત પરંપરા'}
+                ? '✦ उत्तर गुजरात का प्रतिष्ठित राजज्योतिष संस्थान ✦'
+                : '✦ ઉત્તર ગુજરાતનું પ્રતિષ્ઠિત રાજજ્યોતિષ સંસ્થાન ✦'}
             </span>
-            <span className="text-base">👑</span>
+            <RajputSymbol size="sm" />
           </div>
 
           {/* Main Hero Title */}
-          <h2 className={`font-yatra text-4xl sm:text-6xl lg:text-7xl mb-3 leading-tight tracking-wide drop-shadow-sm ${
+          <h2 className={`font-yatra text-4xl sm:text-6xl lg:text-7xl mb-3 leading-tight tracking-wide drop-shadow-sm flex items-center justify-center gap-2 sm:gap-3 flex-wrap ${
             isDark ? 'text-amber-300' : 'text-[#852E10]'
           }`}>
-            {lang === 'en' ? 'Bhavani Jyotish Kendra' : lang === 'hi' ? 'भवानी ज्योतिष केंद्र' : 'ભવાની જ્યોતિષ કેન્દ્ર'}
+            <span>{lang === 'en' ? 'Bhavani Jyotish Kendra' : lang === 'hi' ? 'भवानी ज्योतिष केंद्र' : 'ભવાની જ્યોતિષ કેન્દ્ર'}</span>
+            <VerifiedBadge size="lg" tooltipText="भवानी ज्योतिष केंद्र - आधिकारिक सत्यापित वैदिक पीठ" />
           </h2>
 
           <p className={`text-xl sm:text-2xl font-bold mb-3 font-marcellus tracking-wide ${
@@ -94,6 +97,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false }
             >
               <MessageCircle className="w-5 h-5" />
               <span>{lang === 'en' ? 'WhatsApp Consultation' : 'व्हाट्सएप पर परामर्श लें'}</span>
+              <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
             </a>
           </div>
 
@@ -193,28 +197,34 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false }
             isDark ? 'border-amber-500/30' : 'border-amber-400/40'
           }`}>
             <div className="flex flex-col items-center p-2 rounded-xl bg-amber-500/5 border border-amber-400/20">
-              <span className={`font-yatra text-2xl sm:text-3xl ${isDark ? 'text-amber-300' : 'text-[#852E10]'}`}>👑 ३५+</span>
+              <span className={`font-bold font-serif text-2xl sm:text-3xl flex items-center justify-center gap-1.5 ${isDark ? 'text-amber-300' : 'text-[#852E10]'}`}>
+                <RajputSymbol size="sm" />
+                <span>35+</span>
+              </span>
               <span className={`text-xs sm:text-sm font-bold ${isDark ? 'text-stone-200' : 'text-stone-900'}`}>
                 {lang === 'en' ? 'Years Vedic Tradition' : lang === 'hi' ? 'वर्षों की राजकीय साधना' : 'વર્ષોની રાજકીય સાધના'}
               </span>
             </div>
 
             <div className="flex flex-col items-center p-2 rounded-xl bg-amber-500/5 border border-amber-400/20">
-              <span className={`font-yatra text-2xl sm:text-3xl ${isDark ? 'text-amber-300' : 'text-[#852E10]'}`}>🪷 १५,०००+</span>
+              <span className={`font-bold font-serif text-2xl sm:text-3xl ${isDark ? 'text-amber-300' : 'text-[#852E10]'}`}>🪷 15,000+</span>
               <span className={`text-xs sm:text-sm font-bold ${isDark ? 'text-stone-200' : 'text-stone-900'}`}>
                 {lang === 'en' ? 'Satisfied Royal Clients' : lang === 'hi' ? 'संतुष्ट जातक व परिवार' : 'સંતુષ્ટ જાતકો અને પરિવારો'}
               </span>
             </div>
 
             <div className="flex flex-col items-center p-2 rounded-xl bg-amber-500/5 border border-amber-400/20">
-              <span className={`font-yatra text-2xl sm:text-3xl ${isDark ? 'text-amber-300' : 'text-[#852E10]'}`}>📜 १००%</span>
-              <span className={`text-xs sm:text-sm font-bold ${isDark ? 'text-stone-200' : 'text-stone-900'}`}>
-                {lang === 'en' ? 'Pure Vedic & Confidential' : lang === 'hi' ? 'गोपनीय व शास्त्रोक्त' : 'ગુપ્ત અને શાસ્ત્રોક્ત'}
+              <span className={`font-bold font-serif text-2xl sm:text-3xl ${isDark ? 'text-amber-300' : 'text-[#852E10]'}`}>
+                100%
+              </span>
+              <span className={`text-xs sm:text-sm font-bold flex items-center justify-center gap-1 flex-wrap ${isDark ? 'text-stone-200' : 'text-stone-900'}`}>
+                <span>{lang === 'en' ? 'Authentic Vedic' : lang === 'hi' ? 'शास्त्रोक्त प्रामाणिक' : 'શાસ્ત્રોક્ત પ્રમાણિત'}</span>
+                <VerifiedBadge size="xs" tooltipText="१००% प्रामाणिक वैदिक संस्थान" />
               </span>
             </div>
 
             <div className="flex flex-col items-center p-2 rounded-xl bg-amber-500/5 border border-amber-400/20">
-              <span className={`font-yatra text-2xl sm:text-3xl ${isDark ? 'text-amber-300' : 'text-[#852E10]'}`}>⭐ ४.૯ ★</span>
+              <span className={`font-bold font-serif text-2xl sm:text-3xl ${isDark ? 'text-amber-300' : 'text-[#852E10]'}`}>⭐ 4.9 ★</span>
               <span className={`text-xs sm:text-sm font-bold ${isDark ? 'text-stone-200' : 'text-stone-900'}`}>
                 {lang === 'en' ? 'Vedic Astrologer Rating' : lang === 'hi' ? 'सर्वश्रेष्ठ प्रामाणिक रेटिंग' : 'શ્રેષ્ઠ પ્રમાણિત રેટિંગ'}
               </span>

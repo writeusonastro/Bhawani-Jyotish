@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Send, Sparkles, User, Bot, AlertCircle, Phone, MessageCircle, RefreshCw } from 'lucide-react';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
 import { generateVedicAstrologyGuidance } from '../utils/vedicAstrologyEngine';
+import { VerifiedBadge } from './VerifiedBadge';
 import { Language } from '../types/astrology';
 
 interface Message {
@@ -51,10 +52,10 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
       id: 'welcome',
       sender: 'astrologer',
       text: lang === 'en'
-        ? '🚩 Jai Maa Bhavani! I am the digital Vedic assistant for Acharya Virendra Kumar Joshi at Bhavani Jyotish Kendra, Mehsana. You can ask questions regarding marriage, career, business, health, Manglik dosha, or any astrological query.'
+        ? '🚩 Jai Maa Bhavani! I am the digital Vedic assistant for Pandit Virendra Kumar Joshi at Bhavani Jyotish Kendra, Mehsana. You can ask questions regarding marriage, career, business, health, Manglik dosha, or any astrological query.'
         : lang === 'gu'
-        ? '🚩 જય મા ભવાની! હું ભવાની જ્યોતિષ કેન્દ્ર, મહેસાણાથી આચાર્યજીનો ડિજિટલ વૈદિક સહાયક છું. આપ લગ્ન, કારકિર્દી, વેપાર, આરોગ્ય કે માંગલિક દોષ વિષયે પ્રશ્ન પૂછી શકો છો.'
-        : '🚩 जय माँ भवानी! मैं भवानी ज्योतिष केंद्र, मेहसाणा से आचार्य जी का डिजिटल वैदिक सहायक हूँ। आप विवाह, करियर, व्यापार, स्वास्थ्य, मांगलिक दोष या किसी भी समस्या के संबंध में प्रश्न पूछ सकते हैं।',
+        ? '🚩 જય મા ભવાની! હું ભવાની જ્યોતિષ કેન્દ્ર, મહેસાણાથી પંડિતજીનો ડિજિટલ વૈદિક સહાયક છું. આપ લગ્ન, કારકિર્દી, વેપાર, આરોગ્ય કે માંગલિક દોષ વિષયે પ્રશ્ન પૂછી શકો છો.'
+        : '🚩 जय माँ भवानी! मैं भवानी ज्योतिष केंद्र, मेहसाणा से पंडित जी का डिजिटल वैदिक सहायक हूँ। आप विवाह, करियर, व्यापार, स्वास्थ्य, मांगलिक दोष या किसी भी समस्या के संबंध में प्रश्न पूछ सकते हैं।',
       timestamp: lang === 'en' ? 'Now' : 'अभी'
     }
   ]);
@@ -336,6 +337,7 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
           >
             <MessageCircle className="w-3.5 h-3.5" />
             <span>{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
+            <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
           </a>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { INDIAN_CITIES_DATABASE, INDIAN_STATES } from '../data/indianCities';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
 import { KundliChartVisualizer } from './KundliChartVisualizer';
 import { KundliPrintDocument } from './KundliPrintDocument';
+import { VerifiedBadge } from './VerifiedBadge';
 import { 
   ScrollText, Sparkles, Printer, CheckCircle2, MessageCircle, 
   MapPin, Search, ChevronDown, Compass, Calendar, Clock,
@@ -1760,11 +1761,16 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                         <span>॥ ॐ कुलदेवतायै नमः ॥</span>
                         <span>卐</span>
                       </div>
-                      <h4 className="font-yatra text-lg sm:text-xl text-[#991b1b] font-bold tracking-wide mt-1 drop-shadow-xs">
-                        ॥ श्री भवानी ज्योतिष केंद्र ॥ (Bhawani Jyotish)
+                      <h4 className="font-yatra text-lg sm:text-xl text-[#991b1b] font-bold tracking-wide mt-1 drop-shadow-xs flex items-center justify-center gap-1.5 flex-wrap">
+                        <span>॥ श्री भवानी ज्योतिष केंद्र ॥ (Bhawani Jyotish)</span>
+                        <VerifiedBadge size="sm" tooltipText="सत्यापित आधिकारिक संस्थान" />
                       </h4>
-                      <p className="text-[11px] font-bold text-[#B45309]">
-                        वैदिक जन्म पत्रिका, हस्तरेखा, वास्तु शास्त्र एवं नवग्रह दोष निवारण संस्थान
+                      <p className="text-[11px] font-bold text-[#B45309] flex items-center justify-center gap-1.5 flex-wrap">
+                        <span>वैदिक जन्म पत्रिका, हस्तरेखा, वास्तु शास्त्र एवं नवग्रह दोष निवारण</span>
+                        <span>•</span>
+                        <span className="font-mono text-[#991b1b] bg-amber-100/90 px-2 py-0.5 rounded border border-amber-300 font-bold">
+                          पंजी. सं.: {ASTROLOGER_INFO.registrationNo}
+                        </span>
                       </p>
                     </div>
 
@@ -1774,12 +1780,16 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                       {/* 1. Astrologer & Experience */}
                       <div className="p-3 rounded-xl bg-amber-50/80 border border-amber-300 space-y-1">
                         <span className="text-[10px] text-stone-500 font-bold block">मुख्य ज्योतिषाचार्य:</span>
-                        <strong className="text-sm text-[#991b1b] font-yatra tracking-wide block">
-                          {ASTROLOGER_INFO.name}
-                        </strong>
+                        <div className="flex items-center gap-1.5">
+                          <strong className="text-sm text-[#991b1b] font-yatra tracking-wide">
+                            {ASTROLOGER_INFO.name}
+                          </strong>
+                          <VerifiedBadge size="xs" tooltipText="सत्यापित मुख्य ज्योतिषाचार्य" />
+                        </div>
                         <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-200/80 text-amber-950 font-bold text-[11px] mt-1 border border-amber-300">
                           <span>⭐</span>
                           <span>अनुभव: {ASTROLOGER_INFO.experience}</span>
+                          <VerifiedBadge size="xs" tooltipText="सत्यापित वैदिक अनुभव" />
                         </div>
                         <p className="text-[10px] text-stone-600 mt-1">
                           ३५+ वर्षों की अनवरत वैदिक साधना एवं १५,०००+ संतुष्ट परिवारों का प्रामाणिक मार्गदर्शन।
@@ -1877,9 +1887,9 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
       </div>
     </div>
 
-    {/* Dedicated Print Patrika - hidden on screen, printed via window.print() */}
-    {result && (
-      <div className="hidden print:block">
+    {/* Dedicated Print Patrika when modal is closed - hidden on screen, printed via window.print() */}
+    {result && !showPrintPreview && (
+      <div id="kundli-print-container" className="hidden print:block">
         <KundliPrintDocument
           result={result}
           input={formData}
@@ -1890,18 +1900,33 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
 
     {/* Screen Print Preview Modal with full Swastik border & alignment */}
     {showPrintPreview && result && (
-      <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm flex flex-col items-center justify-start p-2 sm:p-4 print:hidden">
-        <div className="sticky top-2 z-20 w-full max-w-5xl bg-gradient-to-r from-[#631422] via-[#852E10] to-[#631422] text-white p-3 sm:p-4 rounded-2xl shadow-2xl flex flex-wrap items-center justify-between gap-3 border border-amber-400/40 mb-4">
+      <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm flex flex-col items-center justify-start p-2 sm:p-4 print:p-0 print:bg-transparent print:static print:overflow-visible print:block">
+        <div className="modal-print-toolbar sticky top-2 z-20 w-full max-w-5xl bg-gradient-to-r from-[#631422] via-[#852E10] to-[#631422] text-white p-3 sm:p-4 rounded-2xl shadow-2xl flex flex-wrap items-center justify-between gap-3 border border-amber-400/40 mb-4 print:hidden">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-400 text-stone-900 font-bold flex items-center justify-center text-xl shadow-md">
               卐
             </div>
             <div>
-              <h3 className="font-yatra text-base sm:text-lg text-amber-200 leading-tight">
-                शास्त्रोक्त वैदिक जन्म पत्रिका - सम्पूर्ण ६ पृष्ठ A4 प्रिंट प्रीव्यू (स्वस्तिक बॉर्डर)
+              <h3 className="font-yatra text-base sm:text-lg text-amber-200 leading-tight flex items-center gap-2 flex-wrap">
+                <span>शास्त्रोक्त वैदिक जन्म पत्रिका - सम्पूर्ण ६ पृष्ठ A4 प्रिंट प्रीव्यू</span>
+                <span className="text-xs font-mono font-bold text-amber-200 bg-black/40 px-2 py-0.5 rounded border border-amber-400/40">
+                  पंजी. {ASTROLOGER_INFO.registrationNo}
+                </span>
               </h3>
-              <p className="text-[11px] text-amber-100/80">
-                A4 पृष्ठ १ से ६ • फलादेश • योग • विंशोत्तरी दशा • ग्रह स्पष्ट • कालनिर्णय पंचांग • {formData.name}
+              <p className="text-[11px] text-amber-100/90 flex items-center gap-1.5 flex-wrap mt-0.5">
+                <span>A4 पृष्ठ १ से ६</span>
+                <span>•</span>
+                <span className="inline-flex items-center gap-1 text-amber-200 font-bold">
+                  <span>भवानी ज्योतिष केंद्र</span>
+                  <VerifiedBadge size="xs" tooltipText="सत्यापित संस्थान" />
+                </span>
+                <span>•</span>
+                <span className="inline-flex items-center gap-1 text-amber-200 font-bold">
+                  <span>{ASTROLOGER_INFO.name}</span>
+                  <VerifiedBadge size="xs" tooltipText="सत्यापित मुख्य ज्योतिषाचार्य" />
+                </span>
+                <span>•</span>
+                <span>जातक: {formData.name}</span>
               </p>
             </div>
           </div>
@@ -1929,7 +1954,7 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
         </div>
 
         {/* Document Container with A4 styling */}
-        <div className="w-full max-w-5xl bg-stone-200/90 p-2 sm:p-6 rounded-2xl shadow-inner overflow-x-auto flex flex-col items-center">
+        <div id="kundli-print-container" className="w-full max-w-5xl bg-stone-300/80 p-2 sm:p-6 rounded-2xl shadow-inner overflow-x-auto flex flex-col items-center print:bg-transparent print:p-0 print:shadow-none print:max-w-none print:block">
           <KundliPrintDocument
             result={result}
             input={formData}

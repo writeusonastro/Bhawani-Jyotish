@@ -232,6 +232,18 @@ export interface GunMilanResult {
   girlRashi: string;
   boyNakshatra: string;
   girlNakshatra: string;
+  boyCharan?: number;
+  girlCharan?: number;
+  boyLagna?: string;
+  girlLagna?: string;
+  boyManglik?: string;
+  girlManglik?: string;
+  manglikCompatibility?: string;
+  nadiParihar?: string;
+  bhakootParihar?: string;
+  ganaParihar?: string;
+  boyBirthData?: { dob: string; tob: string; pob: string };
+  girlBirthData?: { dob: string; tob: string; pob: string };
   totalGunas: number;
   maxGunas: number;
   percentage: number;

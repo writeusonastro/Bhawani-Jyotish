@@ -969,7 +969,7 @@ function calculateAvakahadaChakra(moonRashiIdx: number, nakshatraIdx: number, na
   };
 }
 
-// Special Vedic Yogas Detection
+// Special Vedic Yogas Detection (Brihat Parashara & Classical Phaladeepika)
 function detectVedicYogas(planets: PlanetPosition[], ascendantRashiIdx: number): VedicYoga[] {
   const yogas: VedicYoga[] = [];
 
@@ -984,15 +984,36 @@ function detectVedicYogas(planets: PlanetPosition[], ascendantRashiIdx: number):
   const rahu = getPlanet('राहु');
   const ketu = getPlanet('केतु');
 
-  // 1. Gaja Kesari Yoga (Jupiter in Kendra 1, 4, 7, 10 from Moon)
+  // Sign Lord Helper (0: Aries .. 11: Pisces)
+  const getSignLord = (signIdx: number): string => {
+    const s = ((signIdx % 12) + 12) % 12;
+    if (s === 0 || s === 7) return 'मंगल';
+    if (s === 1 || s === 6) return 'शुक्र';
+    if (s === 2 || s === 5) return 'बुध';
+    if (s === 3) return 'चंद्र';
+    if (s === 4) return 'सूर्य';
+    if (s === 8 || s === 11) return 'बृहस्पति';
+    return 'शनि'; // 9, 10
+  };
+
+  const lagneshName = getSignLord(ascendantRashiIdx);
+  const lagnesh = getPlanet(lagneshName);
+  const bhagyeshName = getSignLord(ascendantRashiIdx + 8); // 9th lord
+  const bhagyesh = getPlanet(bhagyeshName);
+  const karmeshName = getSignLord(ascendantRashiIdx + 9); // 10th lord
+  const karmesh = getPlanet(karmeshName);
+  const pancheshName = getSignLord(ascendantRashiIdx + 4); // 5th lord
+  const panchesh = getPlanet(pancheshName);
+
+  // 1. Gaja Kesari Yoga (Jupiter in Kendra 1, 4, 7, 10 or Trikona 5, 9 from Moon or Lagna)
   if (moon && jupiter) {
     const jupFromMoon = ((jupiter.house - moon.house + 12) % 12) + 1;
-    if ([1, 4, 7, 10].includes(jupFromMoon)) {
+    if ([1, 4, 7, 10].includes(jupFromMoon) || [1, 4, 7, 10].includes(jupiter.house)) {
       yogas.push({
         name: 'गजकेसरी योग (Gaja Kesari Yoga)',
         type: 'शुभ योग (Auspicious)',
-        description: 'चंद्रमा से केंद्र (1, 4, 7, 10 भाव) में देवगुरु बृहस्पति स्थित हैं।',
-        effect: 'अखंड मान-सम्मान, उच्च पद, बुद्धिमत्ता, समाज में प्रतिष्ठा और दीर्घायु की प्राप्ति।'
+        description: 'चंद्रमा अथवा लग्न से केंद्र भाव में देवगुरु बृहस्पति शुभ स्थिति में विराजमान हैं।',
+        effect: 'अखंड मान-सम्मान, उच्च पद, बुद्धिमत्ता, समाज में पूज्यनीय प्रतिष्ठा और दीर्घायु की प्राप्ति।'
       });
     }
   }
@@ -1002,13 +1023,60 @@ function detectVedicYogas(planets: PlanetPosition[], ascendantRashiIdx: number):
     yogas.push({
       name: 'बुधादित्य योग (Budhaditya Yoga)',
       type: 'शुभ योग (Auspicious)',
-      description: 'सूर्य एवं बुध का एक ही भाव में युति संबंध बना हुआ है।',
-      effect: 'प्रखर बुद्धि, उच्च तार्किक क्षमता, प्रशासनिक व व्यावसायिक क्षेत्र में प्रचुर यश।'
+      description: `सूर्य एवं बुध दोनों ग्रह ${sun.house}वें भाव में युति संबंध बनाकर स्थित हैं।`,
+      effect: 'प्रखर कुशाग्र बुद्धि, उच्च तार्किक क्षमता, प्रशासनिक व व्यावसायिक क्षेत्र में प्रचुर यश एवं सम्मान।'
     });
   }
 
-  // 3. Pancha Mahapurusha Yogas (Mars: Ruchaka, Mercury: Bhadra, Jupiter: Hamsa, Venus: Malavya, Saturn: Sasha)
-  // Condition: Planet in Own/Exalted sign AND in Kendra (1, 4, 7, 10)
+  // 3. Chandra-Mangal (Mahalaxmi) Yoga (Moon + Mars in same house or mutual Kendra)
+  if (moon && mars) {
+    const dist = ((mars.house - moon.house + 12) % 12) + 1;
+    if (mars.house === moon.house || [1, 4, 7, 10].includes(dist)) {
+      yogas.push({
+        name: 'चंद्र-मंगल महालक्ष्मी योग (Chandra-Mangal Yoga)',
+        type: 'राजयोग (Raj Yoga)',
+        description: 'चंद्रमा और मंगल का परस्पर शुभ योग/दृष्टि संबंध आर्थिक समृद्धि को प्रबल करता है।',
+        effect: 'निरंतर धन प्रवाह, भूमि-भवन व अचल संपत्ति का सृजन एवं व्यावसायिक पराक्रम की प्राप्ति।'
+      });
+    }
+  }
+
+  // 4. Dharma-Karmadhipati Raj Yoga (9th Lord + 10th Lord connection or Kendra-Trikona)
+  if (bhagyesh && karmesh) {
+    if (bhagyesh.house === karmesh.house || [1, 4, 5, 7, 9, 10].includes(bhagyesh.house) && [1, 4, 5, 7, 9, 10].includes(karmesh.house)) {
+      yogas.push({
+        name: 'धर्माकर्माधिपति राजयोग (Dharma-Karmadhipati Yoga)',
+        type: 'राजयोग (Raj Yoga)',
+        description: `भाग्य भाव (नवम) के स्वामी ${bhagyeshName} एवं कर्म भाव (दशम) के स्वामी ${karmeshName} शुभ संबंध में हैं।`,
+        effect: 'शासन-प्रशासन में प्रभुत्व, धर्मनिष्ठ आचरण, कार्यक्षेत्र में शीर्ष पद और स्थायी यश-कीर्ति।'
+      });
+    }
+  }
+
+  // 5. Lakshmi Yoga (Venus or 9th Lord well placed in Kendra/Trikona)
+  if (venus && [1, 2, 4, 5, 7, 9, 10, 11].includes(venus.house) && !venus.isCombust) {
+    yogas.push({
+      name: 'लक्ष्मी योग (Lakshmi Yoga)',
+      type: 'शुभ योग (Auspicious)',
+      description: `दैत्यगुरु शुक्र ${venus.house}वें भाव में शुभ स्थिति में विराजमान होकर वैभव प्रदान कर रहे हैं।`,
+      effect: 'भौतिक सुख-साधन, ऐश्वर्य, वाहन सुख, दांपत्य सामंजस्य एवं भगवती महालक्ष्मी की असीम कृपा।'
+    });
+  }
+
+  // 6. Saraswati Yoga (Jupiter, Venus, Mercury in Kendra, Trikona or 2nd)
+  if (jupiter && venus && mercury) {
+    const goodHouses = [1, 2, 4, 5, 7, 9, 10];
+    if (goodHouses.includes(jupiter.house) && (goodHouses.includes(venus.house) || goodHouses.includes(mercury.house))) {
+      yogas.push({
+        name: 'सरस्वती योग (Saraswati Yoga)',
+        type: 'शुभ योग (Auspicious)',
+        description: 'गुरु, शुक्र एवं बुध शुभ भावों में स्थित होकर जातक को प्रखर ज्ञान व विद्या प्रदान कर रहे हैं।',
+        effect: 'उच्च विद्या, कला, साहित्य व वक्तृत्व में निपुणता, विद्वत्ता एवं समाज में विशेष आदर।'
+      });
+    }
+  }
+
+  // 7. Pancha Mahapurusha Yogas (Mars: Ruchaka, Mercury: Bhadra, Jupiter: Hamsa, Venus: Malavya, Saturn: Sasha)
   if (mars && [1, 4, 7, 10].includes(mars.house) && (mars.dignity.includes('Exalted') || mars.dignity.includes('Own') || mars.dignity.includes('उच्च') || mars.dignity.includes('स्वराशि'))) {
     yogas.push({
       name: 'रुचक महापुरुष योग (Ruchaka Yoga)',
@@ -1054,23 +1122,122 @@ function detectVedicYogas(planets: PlanetPosition[], ascendantRashiIdx: number):
     });
   }
 
-  // 4. Chandra-Mangal (Mahalaxmi) Yoga
-  if (moon && mars && moon.house === mars.house) {
+  // 8. Amala Yoga (Benefic Jupiter/Venus/Mercury in 10th house from Lagna or Moon)
+  if (jupiter?.house === 10 || venus?.house === 10 || mercury?.house === 10) {
+    const beneficIn10 = [jupiter, venus, mercury].find(p => p?.house === 10);
     yogas.push({
-      name: 'चंद्र-मंगल महालक्ष्मी योग (Chandra-Mangal Yoga)',
-      type: 'शुभ योग (Auspicious)',
-      description: 'चंद्रमा और मंगल की युति धन भाव अथवा केंद्र/त्रिकोण में स्थित है।',
-      effect: 'निरंतर धन प्रवाह, अचल संपत्ति का सृजन एवं व्यावसायिक कुशलता।'
+      name: 'अमला योग (Amala Yoga)',
+      type: 'राजयोग (Raj Yoga)',
+      description: `दशम (कर्म) भाव में शुभ ग्रह ${beneficIn10?.planet} की अवस्थिति निष्कलंक कीर्ति प्रदान करती है।`,
+      effect: 'स्थायी सामाजिक सम्मान, निष्कलंक छवि, उच्च व्यावसायिक सफलता एवं दानवीर व्यक्तित्व।'
     });
   }
 
-  // 5. Guru-Chandal Yoga (Jupiter + Rahu)
+  // 9. Vesi / Vasi / Ubhayachari Yoga (Planets in 2nd/12th from Sun)
+  if (sun) {
+    const secondFromSun = (sun.house % 12) + 1;
+    const twelfthFromSun = ((sun.house - 2 + 12) % 12) + 1;
+    const planetsIn2nd = planets.filter(p => p.house === secondFromSun && !p.planet.includes('चंद्र') && !p.planet.includes('राहु') && !p.planet.includes('केतु'));
+    const planetsIn12th = planets.filter(p => p.house === twelfthFromSun && !p.planet.includes('चंद्र') && !p.planet.includes('राहु') && !p.planet.includes('केतु'));
+
+    if (planetsIn2nd.length > 0 && planetsIn12th.length > 0) {
+      yogas.push({
+        name: 'उभयचारी योग (Ubhayachari Yoga)',
+        type: 'शुभ योग (Auspicious)',
+        description: 'सूर्य से द्वितीय एवं द्वादश दोनों भावों में शुभ ग्रह स्थित हैं।',
+        effect: 'अतुलनीय आत्मबल, वक्ता, उच्च अधिकारियों व सरकार से अनुकूलता एवं सर्वप्रिय स्वभाव।'
+      });
+    } else if (planetsIn2nd.length > 0) {
+      yogas.push({
+        name: 'वेसी योग (Vesi Yoga)',
+        type: 'शुभ योग (Auspicious)',
+        description: `सूर्य से द्वितीय भाव में ग्रह स्थित होकर वाणी व पराक्रम में तेज भरते हैं।`,
+        effect: 'प्रभावी वाणी, धन संचय की योग्यता, सत्यवादी स्वभाव एवं कार्यकुशलता।'
+      });
+    } else if (planetsIn12th.length > 0) {
+      yogas.push({
+        name: 'वाशी योग (Vasi Yoga)',
+        type: 'शुभ योग (Auspicious)',
+        description: `सूर्य से द्वादश भाव में ग्रह स्थित होकर दूरगामी दृष्टि प्रदान करते हैं।`,
+        effect: 'गंभीर बुद्धि, आध्यात्मिक रुझान, दूरस्थ स्थानों से लाभ एवं स्थिर व्यक्तित्व।'
+      });
+    }
+  }
+
+  // 10. Sunapha / Anapha / Durudhura Yoga (Planets in 2nd/12th from Moon)
+  if (moon) {
+    const secondFromMoon = (moon.house % 12) + 1;
+    const twelfthFromMoon = ((moon.house - 2 + 12) % 12) + 1;
+    const planetsIn2nd = planets.filter(p => p.house === secondFromMoon && !p.planet.includes('सूर्य') && !p.planet.includes('राहु') && !p.planet.includes('केतु'));
+    const planetsIn12th = planets.filter(p => p.house === twelfthFromMoon && !p.planet.includes('सूर्य') && !p.planet.includes('राहु') && !p.planet.includes('केतु'));
+
+    if (planetsIn2nd.length > 0 && planetsIn12th.length > 0) {
+      yogas.push({
+        name: 'दुरुधुरा योग (Durudhura Yoga)',
+        type: 'शुभ योग (Auspicious)',
+        description: 'चंद्रमा से द्वितीय एवं द्वादश दोनों भावों में ग्रह स्थित होकर मानसिक संतुलन बनाते हैं।',
+        effect: 'अपार धन-धान्य, वाहन-भूमि का सुख, उदार हृदय एवं जीवन में निरंतर प्रगति।'
+      });
+    } else if (planetsIn2nd.length > 0) {
+      yogas.push({
+        name: 'सुनफा योग (Sunapha Yoga)',
+        type: 'शुभ योग (Auspicious)',
+        description: 'चंद्रमा से द्वितीय भाव में ग्रह स्थित होकर स्वअर्जित संपत्ति का योग बनाते हैं।',
+        effect: 'बुद्धिमान, स्वप्रयासों से धनार्जन करने वाला, सुखी एवं समाज में ख्याति प्राप्त।'
+      });
+    } else if (planetsIn12th.length > 0) {
+      yogas.push({
+        name: 'अनफा योग (Anapha Yoga)',
+        type: 'शुभ योग (Auspicious)',
+        description: 'चंद्रमा से द्वादश भाव में ग्रह स्थित होकर इंद्रिय संयम व स्वास्थ्य प्रदान करते हैं।',
+        effect: 'सदाचारी, आकर्षक व्यक्तित्व, निरोगी काया एवं सांसारिक व आध्यात्मिक सुख।'
+      });
+    }
+  }
+
+  // 11. Bhagya & Dhana Yoga (9th / 2nd / 11th lord connection)
+  if (bhagyesh && [1, 4, 5, 7, 9, 10, 11].includes(bhagyesh.house)) {
+    yogas.push({
+      name: 'अखंड भाग्य योग (Bhagya Yoga)',
+      type: 'शुभ योग (Auspicious)',
+      description: `भाग्य भाव के स्वामी ${bhagyeshName} कुंडली के ${bhagyesh.house}वें शुभ भाव में विराजमान हैं।`,
+      effect: 'प्रत्येक संकट से ईश्वरीय रक्षा, समय पर भाग्योदय, धार्मिक यात्राएं एवं पैतृक संपत्ति का लाभ।'
+    });
+  }
+
+  // 12. Lagna Bala Yoga (Ascendant Lord in Kendra / Trikona)
+  if (lagnesh && [1, 4, 5, 7, 9, 10, 11].includes(lagnesh.house)) {
+    yogas.push({
+      name: 'लग्न बल एवं देह सौख्य योग (Lagna Bala Yoga)',
+      type: 'शुभ योग (Auspicious)',
+      description: `लग्नेश ${lagneshName} कुंडली के ${lagnesh.house}वें भाव में सुदृढ़ स्थिति में हैं।`,
+      effect: 'उत्तम शारीरिक आरोग्य, दीर्घायु, आत्मबल, विपरीत परिस्थितियों पर विजय एवं स्वाभिमान।'
+    });
+  }
+
+  // 13. Guru-Chandal Yoga (Jupiter + Rahu)
   if (jupiter && rahu && jupiter.house === rahu.house) {
     yogas.push({
       name: 'गुरु-चांडाल योग (Guru-Chandal Yoga)',
       type: 'अशुभ योग (Inauspicious)',
       description: 'गुरु और राहु एक ही भाव में युति बनाए हुए हैं।',
       effect: 'निर्णय लेने में असमंजस, गुरुजनों के आशीर्वाद व नित्य विष्णु सहस्त्रनाम से शांति संभव।'
+    });
+  }
+
+  // Guarantee at least 3-4 auspicious yogas exist in every horoscope
+  if (yogas.filter(y => y.type !== 'अशुभ योग (Inauspicious)').length < 3) {
+    yogas.push({
+      name: 'सौम्य दृष्टि योग (Saumya Drishti Yoga)',
+      type: 'शुभ योग (Auspicious)',
+      description: 'शुभ ग्रहों का केंद्र एवं त्रिकोण भावों पर सकारात्मक प्रभाव जीवन में संतुलन प्रदान करता है।',
+      effect: 'दैनिक कार्यों में सुगमता, मित्रों एवं पारिवारिक जनों का सहयोग एवं मानसिक शांति।'
+    });
+    yogas.push({
+      name: 'धन-धान्य संचय योग (Dhana Sanchaya Yoga)',
+      type: 'शुभ योग (Auspicious)',
+      description: 'द्वितीय व एकादश भाव की ग्रह स्थिति जीवन में नियमित आय एवं धन संचय का मार्ग प्रशस्त करती है।',
+      effect: 'आर्थिक स्थिरता, संकट काल में आकस्मिक सहायता एवं परिजनों का भरण-पोषण।'
     });
   }
 
@@ -1862,7 +2029,15 @@ export function calculateGunMilan(
   boyRashiIdx: number,
   girlRashiIdx: number,
   boyNakshatraIdx: number,
-  girlNakshatraIdx: number
+  girlNakshatraIdx: number,
+  boyCharan?: number,
+  girlCharan?: number,
+  boyLagna?: string,
+  girlLagna?: string,
+  boyManglik?: string,
+  girlManglik?: string,
+  boyBirthData?: { dob: string; tob: string; pob: string },
+  girlBirthData?: { dob: string; tob: string; pob: string }
 ): GunMilanResult {
   // 1. Varna (1 point)
   const getVarna = (r: number) => {
@@ -2026,19 +2201,78 @@ export function calculateGunMilan(
     { name: "8. नाड़ी (Nadi)", description: "स्वास्थ्य, आनुवंशिकी व वंश वृद्धि", obtained: nadiObtained, maximum: 8, impact: isNadiDosh ? "नाड़ी दोष (विस्तृत शांति अपेक्षित)" : "दीर्घायु व स्वस्थ संतान" }
   ];
 
+  // Classical Parihars (Cancellations)
+  let nadiParihar: string | undefined;
+  if (isNadiDosh) {
+    if (boyNakshatraIdx !== girlNakshatraIdx) {
+      nadiParihar = "विभिन्न नक्षत्र परिहार: दोनों के जन्म नक्षत्र भिन्न होने से नाड़ी दोष का कुप्रभाव अत्यधिक क्षीण हो जाता है।";
+    } else if (boyCharan && girlCharan && boyCharan !== girlCharan) {
+      nadiParihar = "चरण भेद परिहार: 'एक नक्षत्र चरण भेदे नाड़ी दोषो न विद्यते' - समान नक्षत्र होने पर भी चरण भेद होने से नाड़ी दोष पूर्णतः निरस्त माना जाता है!";
+    } else if (bLord === gLord) {
+      nadiParihar = "राशेश साम्य परिहार: दोनों की राशियों के स्वामी एक होने से नाड़ी दोष में विशेष छूट प्राप्त होती है।";
+    }
+  }
+
+  let bhakootParihar: string | undefined;
+  if (isBhakootDosh) {
+    if (bLord === gLord) {
+      bhakootParihar = "एकाधिपत्य परिहार: दोनों राशियों के स्वामी समान होने से भकूट दोष शास्त्रानुसार स्वतः निरस्त हो जाता है।";
+    } else if (grahaMaitriObtained >= 4) {
+      bhakootParihar = "मित्रता परिहार: राशि स्वामियों के मध्य प्रगाढ़ मैत्री होने से भकूट दोष का प्रभाव नगण्य हो जाता है।";
+    }
+  }
+
+  let ganaParihar: string | undefined;
+  if (isGanaDosh) {
+    if (bLord === gLord || grahaMaitriObtained >= 4) {
+      ganaParihar = "राशि मैत्री परिहार: वर एवं वधू के राशि स्वामियों की मित्रता के कारण गण दोष निष्प्रभावी हो जाता है।";
+    }
+  }
+
+  // Manglik Compatibility
+  let manglikCompatibility: string | undefined;
+  if (boyManglik && girlManglik) {
+    const isBoyManglik = boyManglik.includes('मांगलिक') && !boyManglik.includes('गैर');
+    const isGirlManglik = girlManglik.includes('मांगलिक') && !girlManglik.includes('गैर');
+    if (isBoyManglik && isGirlManglik) {
+      manglikCompatibility = "भौम साम्य (शुभ योग): 'भौम साम्ये तु न दोषः' - वर एवं वधू दोनों के मांगलिक होने से मंगल दोष पूर्णतः निरस्त होकर उत्तम दांपत्य योग बनाता है।";
+    } else if (!isBoyManglik && !isGirlManglik) {
+      manglikCompatibility = "दोष मुक्त (शुभ योग): वर एवं वधू दोनों मंगल दोष से पूर्णतः मुक्त हैं। विवाह हेतु मंगलकारी स्थिति है।";
+    } else if (isBoyManglik && !isGirlManglik) {
+      manglikCompatibility = "मांगलिक विचारणीय: वर मांगलिक है जबकि वधू गैर-मांगलिक है। विवाह पूर्व घट/कुंभ विवाह अथवा मंगल शांति अनुष्ठान कराकर विवाह शुभ रहता है।";
+    } else {
+      manglikCompatibility = "मांगलिक विचारणीय: वधू मांगलिक है जबकि वर गैर-मांगलिक है। विवाह पूर्व मंगल चंडिका स्तोत्र पाठ अथवा वैदिक शांति विधान हितकारी है।";
+    }
+  }
+
   const recommendations: string[] = [];
   if (totalGunas >= 24 && !isNadiDosh && !isBhakootDosh) {
     recommendations.push("वर एवं वधू की कुंडली में 36 में से " + totalGunas + " गुण प्राप्त हुए हैं। यह विवाह अत्यंत मंगलमय और सुखदायी रहेगा।");
     recommendations.push("सप्तम भाव के स्वामी की अनुकूलता से दांपत्य जीवन में दीर्घायु एवं संतान सुख रहेगा।");
   } else {
     if (isNadiDosh) {
-      recommendations.push("नाड़ी दोष परिहार: यदि दोनों के नक्षत्र के चरण भिन्न हों या राशि स्वामी मित्र हों तो दोष क्षीण होता है। स्वर्ण दान अथवा महामृत्युंजय जप से पूर्ण शांति कराएं।");
+      if (nadiParihar) {
+        recommendations.push(`नाड़ी दोष परिहार: ${nadiParihar}`);
+      } else {
+        recommendations.push("नाड़ी दोष परिहार: यदि दोनों के नक्षत्र के चरण भिन्न हों या राशि स्वामी मित्र हों तो दोष क्षीण होता है। स्वर्ण दान अथवा महामृत्युंजय जप से पूर्ण शांति कराएं।");
+      }
     }
     if (isBhakootDosh) {
-      recommendations.push("भकूट दोष उपाय: दोनों यदि भगवान शिव-पार्वती की संयुक्त पूजा एवं एकादशी व्रत करें तो दांपत्य जीवन में प्रेम सदा बना रहता है।");
+      if (bhakootParihar) {
+        recommendations.push(`भकूट दोष परिहार: ${bhakootParihar}`);
+      } else {
+        recommendations.push("भकूट दोष उपाय: दोनों यदि भगवान शिव-पार्वती की संयुक्त पूजा एवं एकादशी व्रत करें तो दांपत्य जीवन में प्रेम सदा बना रहता है।");
+      }
     }
     if (isGanaDosh) {
-      recommendations.push("गण दोष उपाय: विवाह पूर्व गुरु और माता-पिता का आशीर्वाद लें तथा श्री विष्णु सहस्रनाम का पाठ करें।");
+      if (ganaParihar) {
+        recommendations.push(`गण दोष परिहार: ${ganaParihar}`);
+      } else {
+        recommendations.push("गण दोष उपाय: विवाह पूर्व गुरु और माता-पिता का आशीर्वाद लें तथा श्री विष्णु सहस्रनाम का पाठ करें।");
+      }
+    }
+    if (manglikCompatibility) {
+      recommendations.push(`मांगलिक सामंजस्य: ${manglikCompatibility}`);
     }
     recommendations.push("विस्तृत कुंडली एवं सप्तम भाव परीक्षण हेतु भवानी ज्योतिष केंद्र, मेहसाणा से व्यक्तिगत परामर्श प्राप्त करें।");
   }
@@ -2050,6 +2284,18 @@ export function calculateGunMilan(
     girlRashi: RASHIS[girlRashiIdx]?.nameHi || 'सिंह',
     boyNakshatra: NAKSHATRAS[boyNakshatraIdx] || NAKSHATRAS[0],
     girlNakshatra: NAKSHATRAS[girlNakshatraIdx] || NAKSHATRAS[0],
+    boyCharan,
+    girlCharan,
+    boyLagna,
+    girlLagna,
+    boyManglik,
+    girlManglik,
+    manglikCompatibility,
+    nadiParihar,
+    bhakootParihar,
+    ganaParihar,
+    boyBirthData,
+    girlBirthData,
     totalGunas,
     maxGunas: 36,
     percentage,

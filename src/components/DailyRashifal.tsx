@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { RASHIS } from '../data/astrologyData';
 import { Sparkles, Briefcase, Heart, Activity, Gem, Gift, Phone, MessageCircle } from 'lucide-react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
+import { RajputSymbol } from './RajputSymbol';
+import { VerifiedBadge } from './VerifiedBadge';
 import { Language } from '../types/astrology';
 
 interface DailyRashifalProps {
@@ -296,13 +298,13 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
             {/* Direct Consultation CTA Card */}
             <div className="bg-gradient-to-br from-[#92400E] via-[#D97706] to-[#B45309] text-white rounded-2xl p-5 shadow-xl shadow-amber-900/20 border border-amber-300/40 relative overflow-hidden">
               <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none" />
-              <h4 className="font-['Marcellus'] font-serif text-lg sm:text-xl mb-1 text-amber-100 flex items-center gap-1.5">
-                <span>👑</span>
+              <h4 className="font-['Marcellus'] font-serif text-lg sm:text-xl mb-1 text-amber-100 flex items-center gap-2">
+                <RajputSymbol size="sm" />
                 <span>
                   {lang === 'en'
                     ? `${selectedRashi.nameEn} Royal Astrological Solution`
                     : lang === 'hi'
-                    ? `${selectedRashi.nameHi} राशि राजशाही व्यक्तिगत परामर्श`
+                    ? `${selectedRashi.nameHi} राशि राजपूती विशेष परामर्श`
                     : `${selectedRashi.nameGu} રાશિ વિશેષ સમાધાન`}
                 </span>
               </h4>
@@ -321,10 +323,11 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onConsult, o
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-white hover:bg-amber-50 text-[#CC5218] font-bold py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-1.5 hover:scale-[1.01]"
+                  className="w-full bg-white hover:bg-amber-50 text-[#CC5218] font-bold py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 hover:scale-[1.01]"
                 >
                   <MessageCircle className="w-4 h-4 text-[#25D366]" />
                   <span>{lang === 'en' ? 'Consult on WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर अपॉइंटमेंट लें' : 'વોટ્સએપ પર પૂછો'}</span>
+                  <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
                 </a>
 
                 <a

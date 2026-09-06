@@ -1,47 +1,62 @@
 import React from 'react';
-import { PhoneCall } from 'lucide-react';
-import { ASTROLOGER_INFO } from '../data/astrologyData';
+import { PhoneCall, MessageCircle } from 'lucide-react';
+import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
+import { VerifiedBadge } from './VerifiedBadge';
 
 interface FloatingActionsProps {
   onOpenAskAI?: () => void;
+  lang?: 'hi' | 'gu' | 'en';
 }
 
-export const FloatingActions: React.FC<FloatingActionsProps> = () => {
+export const FloatingActions: React.FC<FloatingActionsProps> = ({ lang = 'hi' }) => {
   return (
-    <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 pointer-events-auto select-none print:hidden">
-      {/* Attractive Glowing Pulse Rings */}
+    <div className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-50 pointer-events-auto select-none print:hidden flex flex-col items-end gap-2.5">
+      {/* Floating WhatsApp Chat Button with Verified Blue Tick */}
       <div className="relative group">
-        {/* Ambient Glow / Radar Wave */}
-        <span className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 opacity-80 blur-md group-hover:opacity-100 transition-opacity duration-500 animate-pulse pointer-events-none" />
-        <span className="absolute -inset-1 rounded-full border-2 border-emerald-400/50 animate-ping pointer-events-none opacity-40" />
-
-        {/* Floating Call Button */}
+        {/* Glow behind WhatsApp */}
+        <span className="absolute -inset-1 rounded-full bg-emerald-500 opacity-70 blur-md group-hover:opacity-100 transition-opacity duration-300 animate-pulse pointer-events-none" />
+        
         <a
-          href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-          className="relative flex items-center gap-2.5 sm:gap-3 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 text-white p-1.5 sm:p-2 pr-4 sm:pr-5 rounded-full shadow-[0_10px_35px_rgba(5,150,105,0.55)] border-2 border-amber-300/90 transition-all duration-300 hover:scale-105 active:scale-95 group-hover:shadow-[0_14px_45px_rgba(5,150,105,0.75)]"
-          title={`पंडित जी से सीधा संपर्क करें: ${ASTROLOGER_INFO.phonePrimary}`}
-          aria-label="पंडित जी को सीधा कॉल करें"
+          href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(getWhatsAppConsultationMessage(lang))}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative flex items-center gap-2 bg-gradient-to-r from-[#25D366] via-[#20BA5A] to-[#128C7E] text-white py-2 px-3.5 sm:px-4 rounded-full shadow-[0_8px_25px_rgba(37,211,102,0.45)] border-2 border-white/80 transition-all duration-300 hover:scale-105 active:scale-95 group-hover:shadow-[0_12px_30px_rgba(37,211,102,0.65)]"
+          title={`पंडित जी से व्हाट्सएप पर चैट करें: ${ASTROLOGER_INFO.phonePrimary}`}
+          aria-label="पंडित जी से व्हाट्सएप चैट शुरू करें"
         >
-          {/* Circular Phone Icon with Glow */}
-          <span className="relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white text-emerald-700 shadow-md group-hover:rotate-12 transition-transform duration-300 shrink-0">
-            <PhoneCall className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 fill-emerald-600 animate-bounce" />
-            
-            {/* Live Active Status Indicator Dot */}
-            <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-amber-400 rounded-full border-2 border-white shadow-xs">
-              <span className="absolute inset-0 rounded-full bg-amber-300 animate-ping opacity-75" />
-            </span>
+          <span className="relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#25D366] shadow-sm shrink-0">
+            <MessageCircle className="w-5 h-5 text-[#25D366] fill-[#25D366]" />
+            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border border-white" />
           </span>
 
-          {/* Text Information Block */}
+          <div className="flex items-center gap-1.5 leading-tight">
+            <span className="font-yatra text-xs sm:text-sm font-bold text-white tracking-wide drop-shadow-xs">
+              {lang === 'en' ? 'WhatsApp Chat' : lang === 'hi' ? 'व्हाट्सएप चैट' : 'વોટ્સએપ ચેટ'}
+            </span>
+            <VerifiedBadge size="xs" tooltipText="सत्यापित आधिकारिक WhatsApp" />
+          </div>
+        </a>
+      </div>
+
+      {/* Floating Call Button */}
+      <div className="relative group">
+        <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-amber-500 to-[#FF671F] opacity-70 blur-md group-hover:opacity-100 transition-opacity duration-300 animate-pulse pointer-events-none" />
+
+        <a
+          href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+          className="relative flex items-center gap-2 sm:gap-2.5 bg-gradient-to-r from-[#FF671F] via-[#E05312] to-[#B83E07] text-white py-1.5 px-3 sm:px-3.5 rounded-full shadow-[0_8px_25px_rgba(255,103,31,0.45)] border-2 border-amber-300 transition-all duration-300 hover:scale-105 active:scale-95"
+          title={`पंडित जी को तुरंत कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}
+          aria-label="पंडित जी को सीधा कॉल करें"
+        >
+          <span className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-[#FF671F] shadow-xs shrink-0">
+            <PhoneCall className="w-4 h-4 text-[#FF671F] fill-[#FF671F]" />
+          </span>
+
           <div className="flex flex-col items-start leading-tight text-left">
-            <span className="text-[10px] sm:text-[11px] font-bold text-amber-300 tracking-wider flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 inline-block animate-pulse" />
-              <span>पंडित जी उपलब्ध हैं</span>
+            <span className="font-yatra text-xs sm:text-sm font-bold text-white tracking-wide">
+              {lang === 'en' ? 'Direct Call' : 'सीधा कॉल'}
             </span>
-            <span className="font-yatra text-sm sm:text-base font-bold text-white tracking-wide drop-shadow-sm">
-              सीधा कॉल करें
-            </span>
-            <span className="text-[10px] sm:text-[11px] font-bold font-mono text-emerald-100 opacity-95">
+            <span className="text-[10px] font-bold font-mono text-amber-100">
               {ASTROLOGER_INFO.phonePrimary}
             </span>
           </div>
@@ -50,4 +65,3 @@ export const FloatingActions: React.FC<FloatingActionsProps> = () => {
     </div>
   );
 };
-

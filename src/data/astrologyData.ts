@@ -1,9 +1,9 @@
 import { RashiInfo, AstrologicalService, PanchangInfo, Testimonial } from '../types/astrology';
 
 export const ASTROLOGER_INFO = {
-  name: "पंडित श्री विरेंद्र कुमार जोशी (आचार्य)",
-  nameGu: "પંડિત શ્રી વિરેન્દ્ર કુમાર જોશી (આચાર્ય)",
-  nameEn: "Pt. Shri Virendra Kumar Joshi (Acharya)",
+  name: "पंडित श्री विरेंद्र कुमार जोशी",
+  nameGu: "પંડિત શ્રી વિરેન્દ્ર કુમાર જોશી",
+  nameEn: "Pt. Shri Virendra Kumar Joshi",
   centerName: "भवानी ज्योतिष केंद्र",
   centerNameGu: "ભવાની જ્યોતિષ કેન્દ્ર",
   centerNameEn: "Bhavani Astrology Center",
@@ -17,10 +17,14 @@ export const ASTROLOGER_INFO = {
   location: "नागलपुर, मेहसाणा (गुजरात) - 384002",
   locationGu: "નાગલપુર, મહેસાણા (ગુજરાત) - 384002",
   locationEn: "Nagalpur, Mehsana (Gujarat) - 384002",
-  aboutHi: "आचार्य पंडित श्री विरेंद्र कुमार जोशी जी उत्तर गुजरात, मेहसाणा (नागलपुर) के प्रतिष्ठित वैदिक ज्योतिषाचार्य हैं। उन्होंने परंपरागत वैदिक ज्योतिष, फलित ज्योतिष एवं कर्मकांड द्वारा अनवरत साधना से देश-विदेश के हजारों जातकों का कुंडली फलादेश, विवाह मिलान, कालसर्प शांति, वास्तु दोष निवारण एवं नवग्रह शांति द्वारा सफल मार्गदर्शन किया है।",
-  aboutGu: "આચાર્ય પંડિત શ્રી વિરેન્દ્ર કુમાર જોશી ઉત્તર ગુજરાત, મહેસાણા (નાગલપુર)ના સુપ્રસિદ્ધ વૈદિક જ્યોતિષાચાર્ય છે. તેમણે પરંપરાગત વૈદિક જ્યોતિષ, કુંડળી ફલાદેશ, લગ્ન ગુણ મિલાન, કાલસર્પ શાંતિ, વાસ્તુ દોષ નિવારણ અને નવગ્રહ પૂજન દ્વારા હજારો પરિવારોને સચોટ માર્ગદર્શન આપ્યું છે.",
-  aboutEn: "Acharya Pandit Shri Virendra Kumar Joshi is a distinguished Vedic astrologer from Nagalpur, Mehsana (North Gujarat). With over 35 years of dedicated practice in Vedic Astrology and sacred Karmakand, he has successfully guided over 15,000 families across India and abroad in horoscope analysis, marriage compatibility, Kaal Sarp and Pitra Dosha remedies, Vastu consultations, and Navagraha shanti.",
+  aboutHi: "पंडित श्री विरेंद्र कुमार जोशी जी उत्तर गुजरात, मेहसाणा (नागलपुर) के प्रतिष्ठित वैदिक ज्योतिषी हैं। उन्होंने परंपरागत वैदिक ज्योतिष, फलित ज्योतिष एवं कर्मकांड द्वारा अनवरत साधना से देश-विदेश के हजारों जातकों का कुंडली फलादेश, विवाह मिलान, कालसर्प शांति, वास्तु दोष निवारण एवं नवग्रह शांति द्वारा सफल मार्गदर्शन किया है।",
+  aboutGu: "પંડિત શ્રી વિરેન્દ્ર કુમાર જોશી ઉત્તર ગુજરાત, મહેસાણા (નાગલપુર)ના સુપ્રસિદ્ધ વૈદિક જ્યોતિષાચાર્ય છે. તેમણે પરંપરાગત વૈદિક જ્યોતિષ, કુંડળી ફલાદેશ, લગ્ન ગુણ મિલાન, કાલસર્પ શાંતિ, વાસ્તુ દોષ નિવારણ અને નવગ્રહ પૂજન દ્વારા હજારો પરિવારોને સચોટ માર્ગદર્શન આપ્યું છે.",
+  aboutEn: "Pandit Shri Virendra Kumar Joshi is a distinguished Vedic astrologer from Nagalpur, Mehsana (North Gujarat). With over 35 years of dedicated practice in Vedic Astrology and sacred Karmakand, he has successfully guided over 15,000 families across India and abroad in horoscope analysis, marriage compatibility, Kaal Sarp and Pitra Dosha remedies, Vastu consultations, and Navagraha shanti.",
   satisfiedClients: "15,000+",
+  registrationNo: "GJ-14-0056740",
+  registrationLabel: "पंजीकृत सं. (Regd. No.): GJ-14-0056740",
+  registrationLabelGu: "નોંધણી નં. (Regd. No.): GJ-14-0056740",
+  registrationLabelEn: "Regd. No.: GJ-14-0056740",
   phonePrimary: "+91 99090 87902",
   phoneSecondary: "+91 99090 87902",
   whatsappNumber: "+919909087902",
@@ -32,6 +36,11 @@ export const ASTROLOGER_INFO = {
   timingsGu: "સવારે 8:00 થી રાત્રે 8:00 વાગ્યા સુધી (8:00 AM - 8:00 PM)",
   timingsEn: "8:00 AM to 8:00 PM (Monday - Sunday)",
   mapCoordinates: "23.5880,72.3693",
+  socialLinks: {
+    whatsapp: "https://wa.me/919909087902?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20%E0%A4%AA%E0%A4%82%E0%A4%A1%E0%A4%BF%E0%A4%A4%20%E0%A4%9C%E0%A5%80%20%F0%9F%99%8F%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%A4%E0%A4%BF%E0%A4%B7%20%E0%A4%AA%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%B0%E0%A5%8D%E0%A4% incompatibility%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F",
+    facebook: "https://www.facebook.com/bhawanijyotishgujarat/",
+    instagram: "https://www.instagram.com/writeusonastro/"
+  }
 };
 
 export function getWhatsAppConsultationMessage(lang: 'hi' | 'gu' | 'en' = 'hi'): string {
@@ -382,7 +391,7 @@ export const ASTRO_SERVICES: AstrologicalService[] = [
     titleGu: "નવગ્રહ શાંતિ પૂજા અને વિશિષ્ટ વૈદિક અનુષ્ઠાન",
     titleEn: "Navgraha Shanti Puja & Vedic Rituals",
     subtitle: "विद्वान ब्राह्मणों द्वारा शास्त्रोक्त विधि से गृह शांति व मनोकामना पूर्ति यज्ञ",
-    description: "सूर्य से लेकर केतु तक नौ ग्रहों के अशुभ प्रभावों को शांत करने तथा जीवन में आरोग्य, ऐश्वर्य, यश और दीर्घायु की प्राप्ति हेतु वैदिक आचार्यों द्वारा अनुष्ठान।",
+    description: "सूर्य से लेकर केतु तक नौ ग्रहों के अशुभ प्रभावों को शांत करने तथा जीवन में आरोग्य, ऐश्वर्य, यश और दीर्घायु की प्राप्ति हेतु वैदिक विद्वान ब्राह्मणों द्वारा अनुष्ठान।",
     icon: "Flame",
     keyBenefits: [
       "शनि साढ़े साती एवं ढैय्या का शांति अनुष्ठान",

@@ -1,7 +1,8 @@
 import React from 'react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
-import { Phone, MessageCircle, Mail, MapPin, Clock } from 'lucide-react';
+import { Phone, MessageCircle, Mail, MapPin, Clock, Facebook, Instagram, Share2, ShieldCheck } from 'lucide-react';
 import { AnimatedLogo } from './AnimatedLogo';
+import { VerifiedBadge } from './VerifiedBadge';
 import { Language } from '../types/astrology';
 
 interface FooterProps {
@@ -26,7 +27,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
       <div className="max-w-7xl mx-auto px-4">
         {/* Main 4 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Brand & Acharya Details */}
+          {/* Brand & Astrologer Details */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <AnimatedLogo size="sm" isDark={true} lang={lang} />
@@ -48,9 +49,16 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
                 : '૩૫+ વર્ષોથી વૈદિક જ્યોતિષ અને શાસ્ત્રોક્ત અનુષ્ઠાન દ્વારા માર્ગદર્શન કરતું મહેસાણાનું પ્રતિષ્ઠિત જ્યોતિષ કેન્દ્ર.'}
             </p>
 
-            <div className="pt-2 text-xs text-amber-300 font-semibold flex items-center gap-1.5">
+            <div className="pt-2 text-xs text-amber-300 font-semibold flex items-center gap-1.5 flex-wrap">
               <span>🔱</span>
               <span>{ASTROLOGER_INFO.name}</span>
+              <VerifiedBadge size="xs" tooltipText="सत्यापित मुख्य ज्योतिषी" />
+            </div>
+
+            <div className="flex items-center gap-1.5 text-xs text-amber-300 bg-amber-950/60 px-2.5 py-1 rounded-lg border border-amber-500/40 w-fit">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span>{lang === 'en' ? 'Certified Astrological Center' : 'प्रामाणिक वैदिक ज्योतिष पीठ'}</span>
+              <VerifiedBadge size="xs" tooltipText="सत्यापित ज्योतिष संस्थान" />
             </div>
           </div>
 
@@ -174,10 +182,68 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
           </div>
         </div>
 
+        {/* Social Media & Digital Channels Section */}
+        <div className="my-8 pt-6 border-t border-white/10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
+            <div className="flex items-center gap-3 text-center md:text-left">
+              <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#FF671F] to-[#CC5218] text-white shadow-md">
+                <Share2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h5 className="font-yatra text-base text-amber-300">
+                  {lang === 'en' ? 'Connect With Us on Social Media' : lang === 'hi' ? 'सोशल मीडिया पर भवानी ज्योतिष से जुड़ें' : 'સોશિયલ મીડિયા પર ભવાની જ્યોતિષ સાથે જોડાઓ'}
+                </h5>
+                <p className="text-xs text-stone-300">
+                  {lang === 'en' ? 'Daily Rashifal, Vedic Panchang, Muhurat updates & Live Q&A' : 'दैनिक राशिफल, पंचांग, शुभ मुहूर्त एवं विशेष उपाय की जानकारी प्राप्त करें'}
+                </p>
+              </div>
+            </div>
+
+            {/* Social Icons List */}
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <a
+                href={ASTROLOGER_INFO.socialLinks?.instagram || "https://www.instagram.com/writeusonastro/"}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram Profile"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-pink-500/20 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 border border-pink-500/40 text-white text-xs font-bold transition-all shadow-xs group hover:scale-105"
+              >
+                <Instagram className="w-4 h-4 text-pink-400 group-hover:text-white transition-colors" />
+                <span>Instagram</span>
+                <VerifiedBadge size="xs" tooltipText="सत्यापित Instagram प्रोफाइल" />
+              </a>
+
+              <a
+                href={ASTROLOGER_INFO.socialLinks?.facebook || "https://www.facebook.com/bhawanijyotishgujarat/"}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook Page"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1877F2]/20 hover:bg-[#1877F2] border border-[#1877F2]/40 text-white text-xs font-bold transition-all shadow-xs group hover:scale-105"
+              >
+                <Facebook className="w-4 h-4 text-[#1877F2] group-hover:text-white transition-colors" />
+                <span>Facebook</span>
+                <VerifiedBadge size="xs" tooltipText="सत्यापित Facebook पेज" />
+              </a>
+
+              <a
+                href={ASTROLOGER_INFO.socialLinks?.whatsapp || `https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp Channel"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366]/20 hover:bg-[#25D366] border border-[#25D366]/40 text-white text-xs font-bold transition-all shadow-xs group hover:scale-105"
+              >
+                <MessageCircle className="w-4 h-4 text-[#25D366] group-hover:text-white transition-colors" />
+                <span>WhatsApp</span>
+                <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* Bottom copyright and blessings */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-300">
           <div>
-            © {new Date().getFullYear()} भवानी ज्योतिष (Bhavani Jyotish) - Mehsana, Gujarat. All rights reserved.
+            © {new Date().getFullYear()} भवानी ज्योतिष (Bhavani Jyotish) • मेहसाणा (गुजरात)
           </div>
 
           <div className="text-amber-400/90 font-medium">

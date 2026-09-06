@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ShieldAlert, AlertTriangle, CheckCircle, Phone, MessageCircle } from 'lucide-react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
+import { VerifiedBadge } from './VerifiedBadge';
 import { Language } from '../types/astrology';
 
 interface DoshGuideProps {
@@ -263,6 +264,7 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, isDark = fals
           >
             <MessageCircle className="w-4 h-4 text-amber-200" />
             <span>{lang === 'en' ? 'Remedy Guidance on WhatsApp' : lang === 'hi' ? 'दोष निवारण सलाह लें' : 'દોષ નિવારણ સલાહ મેળવો'}</span>
+            <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
           </a>
         </div>
 
@@ -374,6 +376,7 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, isDark = fals
             >
               <MessageCircle className="w-4 h-4" />
               <span>{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
+              <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
             </a>
           </div>
         </div>

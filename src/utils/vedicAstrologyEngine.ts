@@ -23,7 +23,7 @@ export function generateVedicAstrologyGuidance(query: string, lang: 'hi' | 'gu' 
 2. Chant 'Om Namo Bhagavate Vasudevaya' or 'Om Kleem Krishnaya Namah' 108 times daily.
 3. Wear light yellow or white garments on Thursdays to strengthen Jupiter and Venus.
 
-📞 For in-depth Janam Kundli Milan, Manglik Dosh remedies & personal consultation with Acharya Virendra Kumar Joshi: ${ASTROLOGER_INFO.phonePrimary}`;
+📞 For in-depth Janam Kundli Milan, Manglik Dosh remedies & personal consultation with Pandit Virendra Kumar Joshi: ${ASTROLOGER_INFO.phonePrimary}`;
     }
     if (lang === 'gu') {
       return `🚩 જય મા ભવાની! તમારા લગ્ન યોગ વિશે જ્યોતિષીય વિશ્લેષણ:
@@ -60,7 +60,7 @@ export function generateVedicAstrologyGuidance(query: string, lang: 'hi' | 'gu' 
 2. Light a mustard oil diya beneath a Peepal tree on Saturdays and recite 'Om Sham Shanaishcharaya Namah'.
 3. Place a consecrated Shri Yantra or Kuber Yantra at your workplace for prosperity.
 
-📞 For dedicated Vyapar Vriddhi rituals and business guidance, contact Acharya Ji: ${ASTROLOGER_INFO.phonePrimary}`;
+📞 For dedicated Vyapar Vriddhi rituals and business guidance, contact Pandit Ji: ${ASTROLOGER_INFO.phonePrimary}`;
     }
     if (lang === 'gu') {
       return `🚩 જય મા ભવાની! નોકરી, વ્યાપાર અને કારકિર્દી સંબંધી વૈદિક માર્ગદર્શન:
@@ -134,7 +134,7 @@ export function generateVedicAstrologyGuidance(query: string, lang: 'hi' | 'gu' 
 2. Offer water to Lord Surya and feed grain/jaggery to sacred cows.
 3. Light a pure cow ghee lamp at your home altar daily.
 
-📞 For personalized Janam Kundli reading, palmistry & Vedic remedies, consult Acharya Virendra Kumar Joshi: ${ASTROLOGER_INFO.phonePrimary}`;
+📞 For personalized Janam Kundli reading, palmistry & Vedic remedies, consult Pandit Virendra Kumar Joshi: ${ASTROLOGER_INFO.phonePrimary}`;
   }
 
   if (lang === 'gu') {

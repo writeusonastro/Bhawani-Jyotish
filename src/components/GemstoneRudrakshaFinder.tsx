@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Gem, ShieldCheck, Phone, MessageCircle, Calendar } from 'lucide-react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
+import { VerifiedBadge } from './VerifiedBadge';
 import { Language } from '../types/astrology';
 
 interface GemstoneRudrakshaFinderProps {
@@ -552,8 +553,9 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
                 className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center gap-1.5"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>
-                  {lang === 'en' ? 'Order via WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर सिद्ध रत्न मंगाएं' : 'રત્ન ઓર્ડર કરો (WhatsApp)'}
+                <span className="flex items-center gap-1.5">
+                  <span>{lang === 'en' ? 'Order via WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर सिद्ध रत्न मंगाएं' : 'રત્ન ઓર્ડર કરો (WhatsApp)'}</span>
+                  <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
                 </span>
               </a>
             </div>

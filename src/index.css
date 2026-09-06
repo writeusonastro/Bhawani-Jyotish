@@ -224,23 +224,50 @@
 /* ========================================================================= */
 /* KUNDLI PDF PRINT & SWASTIK BORDER STYLES                                  */
 /* ========================================================================= */
+.print-page {
+  width: 210mm;
+  min-width: 210mm;
+  max-width: 210mm;
+  height: 297mm;
+  min-height: 297mm;
+  max-height: 297mm;
+  box-sizing: border-box;
+}
+
 @media print {
   @page {
     size: A4 portrait;
-    margin: 5mm 5mm 5mm 5mm;
+    margin: 0;
+  }
+
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
 
   html, body {
     background-color: #ffffff !important;
     background-image: none !important;
     color: #1a1a1a !important;
-    font-size: 11pt !important;
     margin: 0 !important;
     padding: 0 !important;
-    width: 100% !important;
+    width: 210mm !important;
+    height: auto !important;
     min-height: 100% !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+
+  #root,
+  main {
+    display: block !important;
+    position: static !important;
+    width: 210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: transparent !important;
   }
 
   /* Completely hide normal interactive web navigation and non-printable elements */
@@ -250,35 +277,48 @@
   .no-print,
   .floating-actions,
   #kundli-screen-view,
-  .no-dark-override {
+  .modal-print-toolbar,
+  .modal-backdrop-print-hide {
     display: none !important;
   }
 
   /* Force display of the dedicated Kundli print document */
+  #kundli-print-container,
   #kundli-print-root {
     display: block !important;
     visibility: visible !important;
-    position: relative !important;
-    width: 100% !important;
-    max-width: 100% !important;
+    position: static !important;
+    width: 210mm !important;
+    min-width: 210mm !important;
+    max-width: 210mm !important;
     margin: 0 auto !important;
     padding: 0 !important;
     background: #ffffff !important;
     box-shadow: none !important;
+    overflow: visible !important;
   }
 
   .print-page {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
     page-break-after: always !important;
     break-after: page !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    min-height: 280mm !important;
+    width: 210mm !important;
+    min-width: 210mm !important;
+    max-width: 210mm !important;
+    height: 297mm !important;
+    min-height: 297mm !important;
+    max-height: 297mm !important;
     box-sizing: border-box !important;
-    margin: 0 0 10mm 0 !important;
+    margin: 0 auto !important;
+    padding: 2.5mm !important;
     background-color: #FFFDF9 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    overflow: hidden !important;
   }
 
   .print-page:last-child {
