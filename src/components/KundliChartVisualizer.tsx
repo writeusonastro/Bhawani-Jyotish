@@ -349,7 +349,7 @@ export const KundliChartVisualizer: React.FC<KundliChartVisualizerProps> = ({
                     {getPlanetsInHouse(1).map(p => (p.planetHi || p.planet.slice(0, 3)) + (p.isRetrograde ? '(R)' : '')).join(' ')}
                   </text>
                   <text x="200" y="118" textAnchor="middle" fill="#FF671F" fontSize="9" fontWeight="semibold">
-                    1. लग्न
+                    {chartType === 'CHANDRA' ? '1. चन्द्र लग्न' : chartType === 'D9' ? '1. नव. लग्न' : '1. लग्न'}
                   </text>
                 </g>
 

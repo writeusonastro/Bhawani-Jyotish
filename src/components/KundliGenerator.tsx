@@ -10,7 +10,7 @@ import {
   MapPin, Search, ChevronDown, Compass, Calendar, Clock,
   Check, Info, Sun, Moon, Flame, ShieldAlert, Award, ChevronRight,
   BookOpen, HeartHandshake, Eye, Globe, Loader2, Home, Navigation, Layers,
-  X, FileText
+  X, FileText, Phone
 } from 'lucide-react';
 import { 
   searchOnlineIndianPlace, 
@@ -1738,6 +1738,111 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                     </ul>
                     <div className="mt-3 pt-2 border-t text-xs font-semibold border-[#FF671F]/20 text-[#CC5218]">
                       अनुकूल रत्न: {result.lifePrediction.luckyGem} | मंत्र: {result.lifePrediction.luckyMantra}
+                    </div>
+                  </div>
+
+                  {/* ========================================================================= */}
+                  {/* भवानी ज्योतिष - आकर्षक शास्त्रोक्त प्रमाण-पत्र एवं परामर्श कार्ड */}
+                  {/* ========================================================================= */}
+                  <div className="p-4 sm:p-5 rounded-2xl border-2 border-amber-400/80 bg-gradient-to-br from-[#FFFDF9] via-[#FFF8EE] to-[#FFF3E0] shadow-md space-y-3 relative overflow-hidden">
+                    {/* Decorative Corner Elements */}
+                    <div className="absolute top-2 left-2.5 text-xs text-[#991b1b] font-bold select-none">卐</div>
+                    <div className="absolute top-2 right-2.5 text-xs text-[#991b1b] font-bold select-none">卐</div>
+
+                    {/* Sacred Header */}
+                    <div className="text-center border-b border-amber-300 pb-2">
+                      <div className="text-[10px] text-[#991b1b] font-bold tracking-widest flex items-center justify-center gap-1.5 sm:gap-2">
+                        <span>卐</span>
+                        <span>॥ श्री गणेशाय नमः ॥</span>
+                        <span>•</span>
+                        <span>॥ ॐ श्री भवान्यै नमः ॥</span>
+                        <span>•</span>
+                        <span>॥ ॐ कुलदेवतायै नमः ॥</span>
+                        <span>卐</span>
+                      </div>
+                      <h4 className="font-yatra text-lg sm:text-xl text-[#991b1b] font-bold tracking-wide mt-1 drop-shadow-xs">
+                        ॥ श्री भवानी ज्योतिष केंद्र ॥ (Bhawani Jyotish)
+                      </h4>
+                      <p className="text-[11px] font-bold text-[#B45309]">
+                        वैदिक जन्म पत्रिका, हस्तरेखा, वास्तु शास्त्र एवं नवग्रह दोष निवारण संस्थान
+                      </p>
+                    </div>
+
+                    {/* Astrologer Info, Experience, Mobile & Address Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                      
+                      {/* 1. Astrologer & Experience */}
+                      <div className="p-3 rounded-xl bg-amber-50/80 border border-amber-300 space-y-1">
+                        <span className="text-[10px] text-stone-500 font-bold block">मुख्य ज्योतिषाचार्य:</span>
+                        <strong className="text-sm text-[#991b1b] font-yatra tracking-wide block">
+                          {ASTROLOGER_INFO.name}
+                        </strong>
+                        <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-200/80 text-amber-950 font-bold text-[11px] mt-1 border border-amber-300">
+                          <span>⭐</span>
+                          <span>अनुभव: {ASTROLOGER_INFO.experience}</span>
+                        </div>
+                        <p className="text-[10px] text-stone-600 mt-1">
+                          ३५+ वर्षों की अनवरत वैदिक साधना एवं १५,०००+ संतुष्ट परिवारों का प्रामाणिक मार्गदर्शन।
+                        </p>
+                      </div>
+
+                      {/* 2. Mobile No. & Timings */}
+                      <div className="p-3 rounded-xl bg-orange-50/80 border border-orange-200 space-y-1">
+                        <span className="text-[10px] text-stone-500 font-bold block">संपर्क सूत्र (Mobile / WhatsApp):</span>
+                        <a 
+                          href={`tel:${ASTROLOGER_INFO.phonePrimary.replace(/[^0-9+]/g, '')}`}
+                          className="text-sm font-bold text-[#CC5218] font-mono flex items-center gap-1.5 hover:underline"
+                        >
+                          <Phone className="w-3.5 h-3.5" />
+                          <span>{ASTROLOGER_INFO.phonePrimary}</span>
+                        </a>
+                        <div className="text-[10px] text-stone-600 mt-1">
+                          समय: प्रातः 8:00 बजे से रात्रि 8:00 बजे तक
+                        </div>
+                        <div className="text-[10px] text-stone-500">
+                          ई-मेल: {ASTROLOGER_INFO.email}
+                        </div>
+                      </div>
+
+                      {/* 3. Address & Seal */}
+                      <div className="p-3 rounded-xl bg-amber-50/80 border border-amber-300 space-y-1">
+                        <span className="text-[10px] text-stone-500 font-bold block">कार्यालय पता (Office Address):</span>
+                        <div className="text-xs text-stone-900 font-bold flex items-start gap-1">
+                          <MapPin className="w-3.5 h-3.5 text-[#CC5218] shrink-0 mt-0.5" />
+                          <span>{ASTROLOGER_INFO.address}</span>
+                        </div>
+                        <div className="text-[10px] text-emerald-800 font-semibold mt-1">
+                          ✓ प्रत्यक्ष व ऑनलाइन दोनों माध्यमों से परामर्श उपलब्ध
+                        </div>
+                      </div>
+
+                    </div>
+
+                    {/* Direct Contact Buttons inside Card */}
+                    <div className="pt-2 border-t border-amber-200 flex flex-wrap items-center justify-between gap-2">
+                      <span className="text-[11px] text-stone-700 italic">
+                        ॥ सर्व मंगल मांगल्ये शिवे सर्वार्थ साधिके । शरण्ये त्र्यम्बके गौरी नारायणि नमोऽस्तु ते ॥
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <a
+                          href={`tel:${ASTROLOGER_INFO.phonePrimary.replace(/[^0-9+]/g, '')}`}
+                          className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#991b1b] hover:bg-[#7f1d1d] text-white shadow-xs"
+                        >
+                          <Phone className="w-3.5 h-3.5" />
+                          <span>कॉल करें</span>
+                        </a>
+                        <a
+                          href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                            `नमस्ते पंडित जी 🙏 मुझे अपनी कुंडली के फलादेश व उपायों पर व्यक्तिगत परामर्श लेना है।\n\n👤 नाम: ${formData.name}\n📅 जन्म तिथि: ${formData.day}/${formData.month}/${formData.year}\n📍 स्थान: ${formData.cityName}`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-xs"
+                        >
+                          <MessageCircle className="w-3.5 h-3.5" />
+                          <span>व्हाट्सएप</span>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>

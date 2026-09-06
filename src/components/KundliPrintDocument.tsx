@@ -129,10 +129,21 @@ export const NorthIndianPrintChart: React.FC<{
   ascendantRashi: string;
   planets: KundliResult['planets'];
   isNavamsha?: boolean;
-}> = ({ title, ascendantRashi, planets, isNavamsha = false }) => {
-  const ascIndex = Math.max(0, RASHI_ORDER.findIndex(r => ascendantRashi.includes(r)));
+  isChandra?: boolean;
+  moonRashi?: string;
+}> = ({ title, ascendantRashi, planets, isNavamsha = false, isChandra = false, moonRashi }) => {
+  const activeAsc = isChandra && moonRashi ? moonRashi : ascendantRashi;
+  const ascIndex = Math.max(0, RASHI_ORDER.findIndex(r => activeAsc.includes(r)));
+  const moonIndex = moonRashi ? Math.max(0, RASHI_ORDER.findIndex(r => moonRashi.includes(r))) : ascIndex;
 
   const getPlanetsInHouse = (houseNum: number) => {
+    if (isChandra) {
+      return planets.filter(p => {
+        const pRashiIdx = RASHI_ORDER.findIndex(r => p.rashi.includes(r));
+        const houseFromMoon = ((pRashiIdx - moonIndex + 12) % 12) + 1;
+        return houseFromMoon === houseNum;
+      });
+    }
     return planets.filter(p => (isNavamsha ? (p.navamshaHouse || p.house) : p.house) === houseNum);
   };
 
@@ -156,7 +167,7 @@ export const NorthIndianPrintChart: React.FC<{
         <span className="text-[11px]">卐</span>
       </div>
 
-      <div className="w-full aspect-square max-w-[270px] sm:max-w-[300px] relative bg-[#FFFDF9] border border-[#991b1b] shadow-2xs">
+      <div className="w-full aspect-square max-w-[220px] sm:max-w-[250px] relative bg-[#FFFDF9] border border-[#991b1b] shadow-2xs">
         <svg viewBox="0 0 400 400" className="w-full h-full select-none">
           {/* Background grid */}
           <rect x="6" y="6" width="388" height="388" fill="#FFFDF9" stroke="#991b1b" strokeWidth="2" />
@@ -177,7 +188,7 @@ export const NorthIndianPrintChart: React.FC<{
               {getPlanetsInHouse(1).map(formatPlanetLabel).join(' ')}
             </text>
             <text x="200" y="105" textAnchor="middle" fill="#B45309" fontSize="9" fontWeight="bold">
-              लग्न (1)
+              {isChandra ? 'चन्द्र (1)' : isNavamsha ? 'नव. लग्न (1)' : 'लग्न (1)'}
             </text>
           </g>
 
@@ -417,18 +428,26 @@ export const KundliPrintDocument: React.FC<KundliPrintDocumentProps> = ({
           </div>
         </div>
 
-        {/* SECTION 2: कुण्डली चक्र (Dual Charts) */}
+        {/* SECTION 2: त्रि-कुण्डली चक्र (Lagna, Chandra & Navamsha Charts) */}
         <div className="mb-2.5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-2 bg-stone-50/70 border border-[#991b1b]/40 rounded-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-2 bg-stone-50/70 border border-[#991b1b]/40 rounded-sm">
             <NorthIndianPrintChart
-              title="जन्म लग्न कुण्डली (D-1 Chart - मूल जीवन चक्र)"
+              title="१. जन्म लग्न कुण्डली (D-1)"
               ascendantRashi={result.ascendantRashi}
               planets={result.planets}
               isNavamsha={false}
             />
 
             <NorthIndianPrintChart
-              title="नवमांश कुण्डली (D-9 Chart - दांपत्य व सूक्ष्म बल)"
+              title="२. चंद्र कुण्डली (Chandra Lagna)"
+              ascendantRashi={result.moonRashi}
+              planets={result.planets}
+              isChandra={true}
+              moonRashi={result.moonRashi}
+            />
+
+            <NorthIndianPrintChart
+              title="३. नवमांश कुण्डली (D-9 Chart)"
               ascendantRashi={result.navamshaPlanets[0]?.navamshaRashi || result.ascendantRashi}
               planets={result.navamshaPlanets}
               isNavamsha={true}
@@ -1180,30 +1199,111 @@ export const KundliPrintDocument: React.FC<KundliPrintDocumentProps> = ({
           </div>
         </div>
 
-        {/* Astrologer Blessing & Seal */}
-        <div className="border-t-2 border-[#991b1b] pt-2 flex flex-wrap items-center justify-between text-xs font-sans">
-          <div className="space-y-1 max-w-lg">
-            <span className="font-bold text-[#991b1b] block text-xs">
-              ॥ सर्व मंगल मांगल्ये शिवे सर्वार्थ साधिके । शरण्ये त्र्यम्बके गौरी नारायणि नमोऽस्तु ते ॥
-            </span>
-            <p className="text-[10px] text-stone-600">
-              यह शास्त्रोक्त जन्म कुण्डली राष्ट्रीय दृक गणित (लाहिड़ी अयनांश 23° 48' 12") तथा कालनिर्णय पंचांग की शुद्ध खगोलीय तालिकाओं द्वारा निर्मित की गई है।
-            </p>
-            <p className="text-[10px] text-stone-500">
-              {ASTROLOGER_INFO.centerName} • {ASTROLOGER_INFO.address} • फोन: {ASTROLOGER_INFO.phonePrimary} • {ASTROLOGER_INFO.email}
+        {/* ========================================================================= */}
+        {/* भवानी ज्योतिष - आकर्षक शास्त्रोक्त प्रमाण-पत्र एवं संपर्क विवरण */}
+        {/* ========================================================================= */}
+        <div className="mt-2 border-2 border-[#991b1b] rounded-lg bg-gradient-to-br from-[#FFFDF9] via-[#FFF8EE] to-[#FFF3E0] p-2.5 shadow-sm relative overflow-hidden">
+          {/* Decorative Corner Swastiks */}
+          <span className="absolute top-1 left-1.5 text-xs text-[#991b1b] font-bold select-none">卐</span>
+          <span className="absolute top-1 right-1.5 text-xs text-[#991b1b] font-bold select-none">卐</span>
+          <span className="absolute bottom-1 left-1.5 text-xs text-[#991b1b] font-bold select-none">卐</span>
+          <span className="absolute bottom-1 right-1.5 text-xs text-[#991b1b] font-bold select-none">卐</span>
+
+          {/* Mangal Invocations */}
+          <div className="text-center border-b border-amber-300 pb-1 mb-2">
+            <div className="text-[10px] text-[#991b1b] font-bold tracking-widest flex items-center justify-center gap-2">
+              <span>卐</span>
+              <span>॥ श्री गणेशाय नमः ॥</span>
+              <span>•</span>
+              <span>॥ ॐ श्री भवान्यै नमः ॥</span>
+              <span>•</span>
+              <span>॥ ॐ कुलदेवतायै नमः ॥</span>
+              <span>卐</span>
+            </div>
+            <h3 className="font-yatra text-base sm:text-lg text-[#991b1b] font-bold tracking-wide mt-0.5 drop-shadow-xs">
+              ॥ श्री भवानी ज्योतिष केंद्र ॥ (Bhawani Jyotish)
+            </h3>
+            <p className="text-[10px] font-bold text-[#B45309]">
+              वैदिक जन्म कुण्डली, हस्तरेखा, वास्तु शास्त्र, नवग्रह शांति एवं संपूर्ण कर्मकांड परामर्श संस्थान
             </p>
           </div>
 
-          <div className="text-center mt-2 sm:mt-0 p-2 border border-amber-400 rounded bg-amber-50/70 min-w-[190px] shadow-xs">
-            <div className="text-base text-[#991b1b] mb-0.5">⚜️</div>
-            <span className="font-yatra text-xs font-bold text-[#991b1b] block">
-              {ASTROLOGER_INFO.name}
+          {/* Details Grid: Astrologer + Experience, Contact & Address + Official Stamp */}
+          <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 text-xs font-sans items-center">
+            
+            {/* Column 1: Astrologer & Experience (5 cols) */}
+            <div className="sm:col-span-5 space-y-1 border-r-0 sm:border-r border-amber-300/80 pr-0 sm:pr-2">
+              <div className="flex items-center gap-1.5">
+                <span className="text-sm">🚩</span>
+                <div>
+                  <span className="text-[10px] text-stone-500 block font-semibold">मुख्य ज्योतिषाचार्य:</span>
+                  <strong className="text-xs text-[#991b1b] font-yatra tracking-wide block">
+                    {ASTROLOGER_INFO.name}
+                  </strong>
+                </div>
+              </div>
+
+              <div className="p-1.5 rounded-md bg-amber-100/70 border border-amber-300 text-[11px] space-y-0.5">
+                <div className="flex items-center gap-1 font-bold text-[#852E10]">
+                  <span>⭐</span>
+                  <span>अनुभव (Experience):</span>
+                  <strong className="text-[#991b1b]">{ASTROLOGER_INFO.experience}</strong>
+                </div>
+                <div className="text-[10px] text-stone-700">
+                  ३५+ वर्षों की अनवरत वैदिक साधना एवं १५,०००+ संतुष्ट परिवारों का विश्वसनीय मार्गदर्शन।
+                </div>
+              </div>
+            </div>
+
+            {/* Column 2: Mobile No. & Address (4 cols) */}
+            <div className="sm:col-span-4 space-y-1 border-r-0 sm:border-r border-amber-300/80 pr-0 sm:pr-2 text-[11px]">
+              <div className="flex items-start gap-1.5">
+                <span className="text-stone-700 mt-0.5">📞</span>
+                <div>
+                  <span className="text-[10px] text-stone-500 block font-semibold">मोबाइल नं. (Mobile / WhatsApp):</span>
+                  <strong className="text-xs text-[#991b1b] font-mono block">
+                    {ASTROLOGER_INFO.phonePrimary}
+                  </strong>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-1.5 pt-0.5">
+                <span className="text-stone-700 mt-0.5">📍</span>
+                <div>
+                  <span className="text-[10px] text-stone-500 block font-semibold">कार्यालय पता (Address):</span>
+                  <strong className="text-stone-900 block leading-tight text-[11px]">
+                    {ASTROLOGER_INFO.address}
+                  </strong>
+                  <span className="text-[10px] text-stone-500 block">ई-मेल: {ASTROLOGER_INFO.email}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 3: Royal Authorized Stamp & Verification (3 cols) */}
+            <div className="sm:col-span-3 flex flex-col items-center justify-center text-center">
+              <div className="w-24 h-24 rounded-full border-2 border-dashed border-[#991b1b] bg-amber-50/90 flex flex-col items-center justify-center p-1 shadow-inner relative">
+                <div className="w-20 h-20 rounded-full border border-amber-400 flex flex-col items-center justify-center p-0.5">
+                  <span className="text-[10px] text-[#991b1b] font-bold">卐 भवानी 卐</span>
+                  <span className="text-[8px] font-bold text-[#852E10] leading-none">ज्योतिष केंद्र</span>
+                  <span className="text-[7px] text-stone-600 leading-tight">३५+ वर्ष अनुभव</span>
+                  <span className="text-[7px] font-mono text-emerald-800 font-bold">मेहसाणा (गुज.)</span>
+                  <span className="text-[8px] text-[#991b1b]">★ अधिकृत ★</span>
+                </div>
+              </div>
+              <span className="text-[8px] font-bold text-[#852E10] mt-1">
+                [ज्योतिषाचार्य प्रामाणिक मुद्रा]
+              </span>
+            </div>
+
+          </div>
+
+          {/* Bottom Blessing Bar */}
+          <div className="mt-2 pt-1 border-t border-amber-300 text-center text-[10px] text-stone-700 font-medium flex flex-wrap items-center justify-between">
+            <span className="text-[#991b1b] font-bold">
+              ॥ सर्व मंगल मांगल्ये शिवे सर्वार्थ साधिके । शरण्ये त्र्यम्बके गौरी नारायणि नमोऽस्तु ते ॥
             </span>
-            <span className="text-[9px] text-stone-600 block">
-              {ASTROLOGER_INFO.experience} • महर्षि पाराशर परिषद
-            </span>
-            <span className="text-[9px] font-bold text-[#B45309] block mt-0.5 border-t border-amber-200 pt-0.5">
-              [अधिकृत ज्योतिषी हस्ताक्षर व मुद्रा]
+            <span className="text-[#B45309] font-bold">
+              ॥ शुभं भवतु • कल्याणमस्तु ॥
             </span>
           </div>
         </div>
