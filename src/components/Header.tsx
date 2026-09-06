@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md shadow-lg border-b bg-[#FFFDF8]/98 border-amber-500/30 text-[#2C2420]">
+    <header className="sticky top-0 z-50 backdrop-blur-md shadow-lg border-b bg-[#FFFDF8]/98 border-amber-500/30 text-[#2C2420] print:hidden">
       {/* Top sacred royal shloka & contact strip */}
       <div className="bg-gradient-to-r from-[#631422] via-[#852E10] to-[#631422] text-amber-100 text-xs sm:text-sm py-1.5 px-4 border-b border-amber-400/30">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">

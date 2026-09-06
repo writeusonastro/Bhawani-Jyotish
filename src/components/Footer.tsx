@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
   };
 
   return (
-    <footer id="contact" className="bg-[#1F1714] text-[#E5DCD6] pt-14 pb-8 border-t-4 border-[#FF671F]">
+    <footer id="contact" className="bg-[#1F1714] text-[#E5DCD6] pt-14 pb-8 border-t-4 border-[#FF671F] print:hidden">
       <div className="max-w-7xl mx-auto px-4">
         {/* Main 4 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">

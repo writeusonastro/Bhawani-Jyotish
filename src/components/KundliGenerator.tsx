@@ -4,11 +4,13 @@ import { calculateVedicKundli } from '../utils/vedicCalculations';
 import { INDIAN_CITIES_DATABASE, INDIAN_STATES } from '../data/indianCities';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
 import { KundliChartVisualizer } from './KundliChartVisualizer';
+import { KundliPrintDocument } from './KundliPrintDocument';
 import { 
   ScrollText, Sparkles, Printer, CheckCircle2, MessageCircle, 
   MapPin, Search, ChevronDown, Compass, Calendar, Clock,
   Check, Info, Sun, Moon, Flame, ShieldAlert, Award, ChevronRight,
-  BookOpen, HeartHandshake, Eye, Globe, Loader2, Home, Navigation, Layers
+  BookOpen, HeartHandshake, Eye, Globe, Loader2, Home, Navigation, Layers,
+  X, FileText
 } from 'lucide-react';
 import { 
   searchOnlineIndianPlace, 
@@ -27,6 +29,7 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState<boolean>(false);
   const [locationMode, setLocationMode] = useState<'cityList' | 'onlineVillage' | 'districtVillage' | 'customCoords'>('cityList');
   const [activeTab, setActiveTab] = useState<'panchang' | 'chart' | 'planets' | 'ashtakavarga' | 'dasha' | 'yogas' | 'predictions'>('panchang');
+  const [showPrintPreview, setShowPrintPreview] = useState<boolean>(false);
 
   // Online village live search states
   const [onlineVillageQuery, setOnlineVillageQuery] = useState<string>('');
@@ -124,8 +127,9 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
   };
 
   return (
-    <div className="py-8 px-4 max-w-7xl mx-auto transition-colors duration-300 text-stone-900">
-      {/* Section Title */}
+    <>
+      <div id="kundli-screen-view" className="py-8 px-4 max-w-7xl mx-auto transition-colors duration-300 text-stone-900 print:hidden">
+        {/* Section Title */}
       <div className="text-center max-w-3xl mx-auto mb-8">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold border mb-2 bg-[#FFF5F0] text-[#CC5218] border-[#FF671F]/30">
           <ScrollText className="w-4 h-4 text-[#FF671F]" />
@@ -783,14 +787,25 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowPrintPreview(true)}
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-bold transition-all bg-amber-50 hover:bg-amber-100 text-[#991b1b] border-amber-300 shadow-xs cursor-pointer"
+                    title="स्वस्तिक बॉर्डर सहित सम्पूर्ण 2-पृष्ठ A4 PDF प्रिंट प्रीव्यू देखें"
+                  >
+                    <Eye className="w-4 h-4 text-[#991b1b]" />
+                    <span>प्रिंट प्रीव्यू (स्वस्तिक बॉर्डर)</span>
+                  </button>
+
                   <button
                     type="button"
                     onClick={handlePrint}
-                    className="p-2.5 rounded-xl border transition-colors bg-[#FFF5F0] hover:bg-[#FFEAE0] text-[#CC5218] border-[#FF671F]/30"
-                    title="प्रिंट या पीडीएफ सेव करें"
+                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-gradient-to-r from-[#991b1b] to-[#CC5218] text-white hover:brightness-110 shadow-sm cursor-pointer"
+                    title="सीधा A4 PDF प्रिंट या सेव करें"
                   >
                     <Printer className="w-4 h-4" />
+                    <span>PDF प्रिंट करें</span>
                   </button>
 
                   <span className={`px-3 py-1 rounded-full text-xs font-bold ${
@@ -1756,5 +1771,68 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
         )}
       </div>
     </div>
-  );
+
+    {/* Dedicated Print Patrika - hidden on screen, printed via window.print() */}
+    {result && (
+      <div className="hidden print:block">
+        <KundliPrintDocument
+          result={result}
+          input={formData}
+          lang={lang}
+        />
+      </div>
+    )}
+
+    {/* Screen Print Preview Modal with full Swastik border & alignment */}
+    {showPrintPreview && result && (
+      <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm flex flex-col items-center justify-start p-2 sm:p-4 print:hidden">
+        <div className="sticky top-2 z-20 w-full max-w-5xl bg-gradient-to-r from-[#631422] via-[#852E10] to-[#631422] text-white p-3 sm:p-4 rounded-2xl shadow-2xl flex flex-wrap items-center justify-between gap-3 border border-amber-400/40 mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-amber-400 text-stone-900 font-bold flex items-center justify-center text-xl shadow-md">
+              卐
+            </div>
+            <div>
+              <h3 className="font-yatra text-base sm:text-lg text-amber-200 leading-tight">
+                वैदिक जन्म कुण्डली - PDF प्रिंट प्रीव्यू (चारों तरफ स्वस्तिक बॉर्डर)
+              </h3>
+              <p className="text-[11px] text-amber-100/80">
+                A4 पृष्ठ १ व २ • शास्त्रोक्त संरेखण (Proper Aligned View) • {formData.name}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                window.print();
+              }}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-400 to-amber-300 text-amber-950 hover:brightness-110 shadow-lg cursor-pointer transition-all active:scale-95"
+            >
+              <Printer className="w-4 h-4 text-amber-950" />
+              <span>प्रिंट / PDF सेव करें</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowPrintPreview(false)}
+              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+              title="बंद करें"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Document Container with A4 styling */}
+        <div className="w-full max-w-5xl bg-stone-200/90 p-2 sm:p-6 rounded-2xl shadow-inner overflow-x-auto flex flex-col items-center">
+          <KundliPrintDocument
+            result={result}
+            input={formData}
+            lang={lang}
+          />
+        </div>
+      </div>
+    )}
+  </>
+);
 };
