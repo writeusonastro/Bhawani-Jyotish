@@ -16,17 +16,24 @@ import { DailyWisdomVastu } from './components/DailyWisdomVastu';
 import { DigitalJapaMala } from './components/DigitalJapaMala';
 import { GemstoneRudrakshaFinder } from './components/GemstoneRudrakshaFinder';
 import { ContactSection } from './components/ContactSection';
+import { InternationalConsultation } from './components/InternationalConsultation';
 import { VerifiedBadge } from './components/VerifiedBadge';
 import { PaymentModal } from './components/PaymentModal';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from './data/astrologyData';
 import { Language } from './types/astrology';
+import { detectInitialLanguage, saveLanguagePreference } from './utils/languageDetector';
 import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, CheckCircle2, Mail, Navigation } from 'lucide-react';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
-  const [lang, setLang] = useState<Language>('hi');
+  const [lang, setLangState] = useState<Language>(() => detectInitialLanguage());
   const [askAiQuery, setAskAiQuery] = useState<string | undefined>(undefined);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
+
+  const setLang = (newLang: Language) => {
+    setLangState(newLang);
+    saveLanguagePreference(newLang);
+  };
 
   useEffect(() => {
     localStorage.removeItem('astro_dark_theme');
@@ -183,6 +190,9 @@ export function App() {
               </div>
             </div>
 
+            {/* Dedicated International & NRI Consultation Section */}
+            <InternationalConsultation lang={lang} />
+
             {/* Contact & Address Section directly on Home page */}
             <ContactSection
               lang={lang}
@@ -190,6 +200,12 @@ export function App() {
 
             {/* Testimonials */}
             <Testimonials lang={lang} />
+          </div>
+        )}
+
+        {activeTab === 'international' && (
+          <div className="py-4">
+            <InternationalConsultation lang={lang} />
           </div>
         )}
 
