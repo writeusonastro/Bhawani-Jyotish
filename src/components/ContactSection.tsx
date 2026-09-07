@@ -1,8 +1,9 @@
 import React from 'react';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
-import { MapPin, Phone, MessageCircle, Clock, Mail, Navigation, Facebook, Instagram, Share2, ShieldCheck } from 'lucide-react';
+import { MapPin, Phone, MessageCircle, Clock, Mail, Navigation, Facebook, Instagram, Share2, ShieldCheck, QrCode, Sparkles, CheckCircle2, Wallet, ArrowRight } from 'lucide-react';
 import { VerifiedBadge } from './VerifiedBadge';
 import { RajputSymbol } from './RajputSymbol';
+import { PhonePeQRCodeCard } from './PhonePeQRCodeCard';
 import { Language } from '../types/astrology';
 
 interface ContactSectionProps {
@@ -262,6 +263,42 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   : 'દૂરના અને NRI જાતકો ઓનલાઇન કુંડળી વિશ્લેષણ માટે સંપર્ક કરી શકે છે.'}
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Official Vedic Consultation & Dakshina Payment Card (PhonePe / UPI QR Code Only) */}
+        <div id="payment-qr-section" className={`p-6 sm:p-8 rounded-3xl border-2 shadow-xl text-center ${
+          isDark 
+            ? 'bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 border-purple-500/40 text-stone-100' 
+            : 'bg-gradient-to-br from-amber-50/70 via-purple-50/40 to-orange-50/70 border-purple-400/40 text-stone-900'
+        }`}>
+          <div className="max-w-xl mx-auto space-y-2 mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-300 text-xs font-bold border border-purple-300/40">
+              <QrCode className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+              <span>PhonePe • Google Pay • Paytm • BHIM UPI</span>
+              <VerifiedBadge size="xs" tooltipText="सत्यापित QR कोड" />
+            </div>
+
+            <h3 className="font-yatra text-2xl sm:text-3xl text-[#5f259f] dark:text-purple-300 font-bold">
+              {lang === 'en'
+                ? 'Consultation Fee & Dakshina QR Code'
+                : lang === 'hi'
+                ? 'परामर्श शुल्क एवं दक्षिणा QR कोड'
+                : 'પરામર્શ ફી અને દક્ષિણા QR કોડ'}
+            </h3>
+
+            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300">
+              {lang === 'en'
+                ? 'Scan this QR code using PhonePe or any UPI app to pay'
+                : lang === 'hi'
+                ? 'PhonePe अथवा किसी भी UPI ऐप से यह QR कोड स्कैन करके भुगतान करें'
+                : 'PhonePe અથવા કોઈપણ UPI એપથી આ QR કોડ સ્કેન કરીને ચૂકવણી કરો'}
+            </p>
+          </div>
+
+          {/* Centered QR Code Card */}
+          <div className="flex justify-center">
+            <PhonePeQRCodeCard lang={lang} />
           </div>
         </div>
 

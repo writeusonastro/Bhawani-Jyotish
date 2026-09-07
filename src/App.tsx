@@ -17,6 +17,7 @@ import { DigitalJapaMala } from './components/DigitalJapaMala';
 import { GemstoneRudrakshaFinder } from './components/GemstoneRudrakshaFinder';
 import { ContactSection } from './components/ContactSection';
 import { VerifiedBadge } from './components/VerifiedBadge';
+import { PaymentModal } from './components/PaymentModal';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from './data/astrologyData';
 import { Language } from './types/astrology';
 import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, CheckCircle2, Mail, Navigation } from 'lucide-react';
@@ -25,10 +26,16 @@ export function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
   const [lang, setLang] = useState<Language>('hi');
   const [askAiQuery, setAskAiQuery] = useState<string | undefined>(undefined);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     localStorage.removeItem('astro_dark_theme');
+    localStorage.removeItem('theme');
+    localStorage.removeItem('color-theme');
     document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+    document.documentElement.style.colorScheme = 'light';
+    document.body.style.colorScheme = 'light';
   }, []);
 
   const handleAskAI = (contextQuery: string) => {
@@ -38,17 +45,18 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-mukta selection:bg-[#FF671F] selection:text-white bg-[#FFFDF9] text-stone-950">
+    <div className="min-h-screen flex flex-col font-mukta selection:bg-[#FF671F] selection:text-white bg-[#FFFDF9] text-stone-950 overflow-x-hidden w-full max-w-full">
       {/* Top Header */}
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         lang={lang}
         setLang={setLang}
+        onOpenPaymentQR={() => setIsPaymentModalOpen(true)}
       />
 
       {/* Main Content Area */}
-      <main className="flex-1">
+      <main className="flex-1 w-full max-w-full overflow-x-hidden">
         {activeTab === 'home' && (
           <div>
             {/* Hero Section */}
@@ -186,7 +194,11 @@ export function App() {
         )}
 
         {activeTab === 'kundli' && (
-          <KundliGenerator lang={lang} onAskAI={handleAskAI} />
+          <KundliGenerator 
+            lang={lang} 
+            onAskAI={handleAskAI} 
+            onOpenPaymentQR={() => setIsPaymentModalOpen(true)} 
+          />
         )}
 
         {activeTab === 'gun-milan' && (
@@ -243,13 +255,21 @@ export function App() {
         )}
       </main>
 
-      {/* Floating Call & WhatsApp Buttons */}
+      {/* Floating Call, WhatsApp & PhonePe QR Buttons */}
       <FloatingActions
         lang={lang}
         onOpenAskAI={() => {
           setActiveTab('ask-astrologer');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
+        onOpenPaymentQR={() => setIsPaymentModalOpen(true)}
+      />
+
+      {/* Vedic Consultation & Dakshina Payment Modal */}
+      <PaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        lang={lang}
       />
 
       {/* Footer */}

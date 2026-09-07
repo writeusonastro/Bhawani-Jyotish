@@ -40,6 +40,16 @@ export const ASTROLOGER_INFO = {
     whatsapp: "https://wa.me/919909087902?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20%E0%A4%AA%E0%A4%82%E0%A4%A1%E0%A4%BF%E0%A4%A4%20%E0%A4%9C%E0%A5%80%20%F0%9F%99%8F%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%A4%E0%A4%BF%E0%A4%B7%20%E0%A4%AA%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%B0%E0%A5%8D%E0%A4% incompatibility%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F",
     facebook: "https://www.facebook.com/bhawanijyotishgujarat/",
     instagram: "https://www.instagram.com/writeusonastro/"
+  },
+  paymentInfo: {
+    accountName: "Bhavani Jyotish Kendra",
+    accountNameHindi: "भवानी ज्योतिष केंद्र",
+    phonePeNumber: "+91 99090 87902",
+    upiId: "9909087902@ybl",
+    secondaryUpiId: "9723563650@ybl",
+    upiUrl: "upi://pay?pa=9909087902@ybl&pn=Bhavani%20Jyotish&cu=INR&tn=Bhavani%20Jyotish%20Consultation",
+    qrLabel: "PhonePe / GPay / Paytm / BHIM UPI",
+    appSupported: ["PhonePe", "Google Pay", "Paytm", "BHIM UPI", "Cred", "Amazon Pay"]
   }
 };
 

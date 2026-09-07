@@ -23,8 +23,8 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
   };
 
   return (
-    <footer id="contact" className="bg-[#1F1714] text-[#E5DCD6] pt-14 pb-8 border-t-4 border-[#FF671F] print:hidden">
-      <div className="max-w-7xl mx-auto px-4">
+    <footer id="contact" className="bg-[#1F1714] text-[#E5DCD6] pt-10 sm:pt-14 pb-8 border-t-4 border-[#FF671F] w-full max-w-full overflow-x-hidden print:hidden">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4">
         {/* Main 4 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand & Astrologer Details */}
@@ -116,6 +116,26 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
                 >
                   <span className="text-[#FF671F]">▸</span>
                   <span>{lang === 'en' ? 'Daily Panchang & Choghadiya' : 'दैनिक पंचांग व चौघड़िया'}</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById('payment-qr-section');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      setActiveTab('contact');
+                      setTimeout(() => {
+                        document.getElementById('payment-qr-section')?.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }
+                  }}
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 text-purple-300 font-bold"
+                >
+                  <span className="text-purple-400">▸</span>
+                  <span>{lang === 'en' ? 'PhonePe / UPI Dakshina QR' : 'PhonePe / UPI दक्षिणा QR कोड'}</span>
                 </button>
               </li>
             </ul>

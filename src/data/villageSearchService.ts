@@ -1,4 +1,16 @@
-import { IndianCity } from './indianCities';
+import { IndianCity, INDIAN_CITIES_DATABASE } from './indianCities';
+
+export interface MapPlaceResult {
+  id: string;
+  name: string;
+  displayName: string;
+  subTitle: string;
+  type?: string;
+  state: string;
+  lat: number;
+  lon: number;
+  source?: 'google' | 'photon' | 'nominatim' | 'database';
+}
 
 export interface NominatimPlace {
   place_id: number;
@@ -19,58 +31,183 @@ export interface NominatimPlace {
   };
 }
 
-// Online Village and Town search across all India via OpenStreetMap Nominatim
-export async function searchOnlineIndianPlace(query: string): Promise<IndianCity[]> {
+// Google Maps / Photon / Nominatim live Autocomplete search
+export async function searchPlacesLikeGoogleMaps(query: string): Promise<MapPlaceResult[]> {
   const trimmed = query.trim();
   if (!trimmed || trimmed.length < 2) return [];
 
-  // Query formatting: ensure search is scoped to India
-  const searchUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(trimmed + ', India')}&format=json&countrycodes=in&limit=8&addressdetails=1`;
+  const results: MapPlaceResult[] = [];
+  const seen = new Set<string>();
 
+  // 1. Instant local database search (0ms)
+  const qLower = trimmed.toLowerCase();
+  const localMatches = INDIAN_CITIES_DATABASE.filter(c => 
+    c.name.toLowerCase().includes(qLower) ||
+    c.nameEn.toLowerCase().includes(qLower) ||
+    c.nameHi.toLowerCase().includes(qLower) ||
+    (c.nameGu && c.nameGu.toLowerCase().includes(qLower)) ||
+    c.state.toLowerCase().includes(qLower)
+  ).slice(0, 5);
+
+  for (const c of localMatches) {
+    const key = `${Math.round(c.lat * 100)},${Math.round(c.lon * 100)}`;
+    seen.add(key);
+    results.push({
+      id: `db_${c.nameEn}`,
+      name: c.nameHi || c.name,
+      displayName: `${c.nameHi || c.nameEn}, ${c.stateHi || c.state}`,
+      subTitle: `${c.stateHi || c.state}, भारत (India)`,
+      type: 'city',
+      state: c.state,
+      lat: c.lat,
+      lon: c.lon,
+      source: 'database'
+    });
+  }
+
+  // 2. Query backend proxy (/api/places/search)
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 6000);
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
 
-    const res = await fetch(searchUrl, {
+    const res = await fetch(`/api/places/search?q=${encodeURIComponent(trimmed)}`, {
       signal: controller.signal,
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'BhavaniJyotishKendra-KundliApp/1.0'
-      }
+      headers: { 'Accept': 'application/json' }
     });
     clearTimeout(timeoutId);
 
-    if (!res.ok) return [];
-    const data: NominatimPlace[] = await res.json();
-
-    return data.map((item) => {
-      const addr = item.address || {};
-      const placeName = addr.village || addr.town || addr.city || addr.suburb || item.name || trimmed;
-      const district = addr.county || addr.state_district || '';
-      const stateName = addr.state || 'India';
-      const lat = parseFloat(item.lat);
-      const lon = parseFloat(item.lon);
-
-      const displayName = district 
-        ? `${placeName} (${district})`
-        : placeName;
-
-      return {
-        name: `${displayName}, ${stateName}`,
-        nameHi: placeName,
-        nameGu: placeName,
-        nameEn: placeName,
-        state: stateName,
-        stateHi: stateName,
-        stateGu: stateName,
-        lat: isNaN(lat) ? 23.5880 : lat,
-        lon: isNaN(lon) ? 72.3693 : lon,
-        popular: false
-      };
-    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data?.results && Array.isArray(data.results)) {
+        for (const item of data.results) {
+          const key = `${Math.round(item.lat * 100)},${Math.round(item.lon * 100)}`;
+          if (!seen.has(key)) {
+            seen.add(key);
+            results.push({
+              id: item.id || `res_${key}`,
+              name: item.name,
+              displayName: item.displayName,
+              subTitle: item.subTitle || item.displayName,
+              type: item.type,
+              state: item.state || 'India',
+              lat: item.lat,
+              lon: item.lon,
+              source: item.source || 'photon'
+            });
+          }
+        }
+      }
+    }
   } catch {
-    return [];
+    // If backend proxy fails or times out, fallback to direct client-side Photon
+    try {
+      const pUrl = `https://photon.komoot.io/api/?q=${encodeURIComponent(trimmed)}&limit=6`;
+      const pRes = await fetch(pUrl, { headers: { 'Accept': 'application/json' } });
+      if (pRes.ok) {
+        const pData = await pRes.json();
+        if (pData?.features && Array.isArray(pData.features)) {
+          for (const feat of pData.features) {
+            const props = feat.properties || {};
+            const coords = feat.geometry?.coordinates || [];
+            const lon = coords[0];
+            const lat = coords[1];
+            if (!lat || !lon) continue;
+
+            const key = `${Math.round(lat * 100)},${Math.round(lon * 100)}`;
+            if (seen.has(key)) continue;
+            seen.add(key);
+
+            const placeName = props.name || props.city || props.town || props.village || trimmed;
+            const parts = [props.district, props.county, props.state, props.country || 'India'].filter(Boolean);
+
+            results.push({
+              id: `p_${feat.properties?.osm_id || key}`,
+              name: placeName,
+              displayName: `${placeName}, ${parts.join(', ')}`,
+              subTitle: parts.join(', '),
+              type: props.osm_value || props.type || 'place',
+              state: props.state || 'India',
+              lat,
+              lon,
+              source: 'photon'
+            });
+          }
+        }
+      }
+    } catch {
+      // ignore
+    }
   }
+
+  return results.slice(0, 10);
+}
+
+// Reverse Geocoding (GPS Coords to Place Name)
+export async function reverseGeocodeGPS(lat: number, lon: number): Promise<{
+  name: string;
+  displayName: string;
+  state: string;
+  lat: number;
+  lon: number;
+} | null> {
+  try {
+    const res = await fetch(`/api/places/reverse?lat=${lat}&lon=${lon}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.name) {
+        return data;
+      }
+    }
+  } catch {
+    // fallback directly to Photon reverse
+    try {
+      const pRes = await fetch(`https://photon.komoot.io/reverse?lat=${lat}&lon=${lon}`);
+      if (pRes.ok) {
+        const pData = await pRes.json();
+        const feat = pData?.features?.[0];
+        if (feat) {
+          const props = feat.properties || {};
+          const name = props.name || props.city || props.town || props.village || 'वर्तमान स्थान';
+          const state = props.state || 'गुजरात';
+          const parts = [props.city || props.town || props.village, props.district, props.state].filter(Boolean);
+          return {
+            name,
+            displayName: `${name} (${parts.join(', ')})`,
+            state,
+            lat,
+            lon
+          };
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  return {
+    name: `स्थान (${lat.toFixed(3)}°, ${lon.toFixed(3)}°)`,
+    displayName: `GPS स्थिति: ${lat.toFixed(4)}° N, ${lon.toFixed(4)}° E`,
+    state: 'गुजरात (Gujarat)',
+    lat,
+    lon
+  };
+}
+
+// Backward-compatible searchOnlineIndianPlace
+export async function searchOnlineIndianPlace(query: string): Promise<IndianCity[]> {
+  const mapResults = await searchPlacesLikeGoogleMaps(query);
+  return mapResults.map(item => ({
+    name: item.displayName,
+    nameHi: item.name,
+    nameGu: item.name,
+    nameEn: item.name,
+    state: item.state,
+    stateHi: item.state,
+    stateGu: item.state,
+    lat: item.lat,
+    lon: item.lon,
+    popular: false
+  }));
 }
 
 // Major Districts with geographic center coordinates for all States of India

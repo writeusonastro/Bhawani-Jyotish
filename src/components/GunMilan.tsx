@@ -209,7 +209,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
   };
 
   return (
-    <div className={`py-8 px-4 max-w-7xl mx-auto transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
+    <div className={`py-6 sm:py-8 px-3 sm:px-4 max-w-7xl mx-auto w-full max-w-full overflow-x-hidden transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
       
       {/* SECTION HEADER */}
       <div className="text-center max-w-3xl mx-auto mb-8">

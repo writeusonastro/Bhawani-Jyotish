@@ -1,47 +1,30 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { KundliInput, KundliResult, Language } from '../types/astrology';
 import { calculateVedicKundli } from '../utils/vedicCalculations';
-import { INDIAN_CITIES_DATABASE, INDIAN_STATES } from '../data/indianCities';
+import { INDIAN_CITIES_DATABASE } from '../data/indianCities';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
 import { KundliChartVisualizer } from './KundliChartVisualizer';
 import { KundliPrintDocument } from './KundliPrintDocument';
 import { VerifiedBadge } from './VerifiedBadge';
 import { 
   ScrollText, Sparkles, Printer, CheckCircle2, MessageCircle, 
-  MapPin, Search, ChevronDown, Compass, Calendar, Clock,
+  MapPin, Calendar, Clock, Compass, Layers,
   Check, Info, Sun, Moon, Flame, ShieldAlert, Award, ChevronRight,
-  BookOpen, HeartHandshake, Eye, Globe, Loader2, Home, Navigation, Layers,
-  X, FileText, Phone
+  BookOpen, HeartHandshake, Eye,
+  X, FileText, Phone, QrCode
 } from 'lucide-react';
-import { 
-  searchOnlineIndianPlace, 
-  ALL_INDIAN_STATES_AND_DISTRICTS 
-} from '../data/villageSearchService';
+import { GoogleMapsLocationPicker } from './GoogleMapsLocationPicker';
 
 interface KundliGeneratorProps {
   lang: Language;
   onAskAI: (context: string) => void;
   isDark?: boolean;
+  onOpenPaymentQR?: () => void;
 }
 
-export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI, isDark = false }) => {
-  const [selectedState, setSelectedState] = useState<string>('सभी राज्य (All India)');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isCityDropdownOpen, setIsCityDropdownOpen] = useState<boolean>(false);
-  const [locationMode, setLocationMode] = useState<'cityList' | 'onlineVillage' | 'districtVillage' | 'customCoords'>('cityList');
+export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI, isDark = false, onOpenPaymentQR }) => {
   const [activeTab, setActiveTab] = useState<'panchang' | 'chart' | 'planets' | 'ashtakavarga' | 'dasha' | 'yogas' | 'predictions'>('panchang');
   const [showPrintPreview, setShowPrintPreview] = useState<boolean>(false);
-
-  // Online village live search states
-  const [onlineVillageQuery, setOnlineVillageQuery] = useState<string>('');
-  const [onlineResults, setOnlineResults] = useState<typeof INDIAN_CITIES_DATABASE[0][]>([]);
-  const [isSearchingOnline, setIsSearchingOnline] = useState<boolean>(false);
-  const [onlineSearchedOnce, setOnlineSearchedOnce] = useState<boolean>(false);
-
-  // District & Village Selector state
-  const [pickerStateIndex, setPickerStateIndex] = useState<number>(0); // Default Gujarat
-  const [pickerDistrictIndex, setPickerDistrictIndex] = useState<number>(1); // Default Mehsana
-  const [customVillageName, setCustomVillageName] = useState<string>('');
 
   const defaultCity = INDIAN_CITIES_DATABASE[0]; // Mehsana
 
@@ -60,62 +43,6 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
   });
 
   const [result, setResult] = useState<KundliResult | null>(() => calculateVedicKundli(formData));
-
-  // Filter cities based on selected state and search query
-  const filteredCities = useMemo(() => {
-    return INDIAN_CITIES_DATABASE.filter((city) => {
-      const matchState = selectedState === 'सभी राज्य (All India)' || city.state === selectedState;
-      const q = searchQuery.toLowerCase().trim();
-      const matchQuery = !q || 
-        city.name.toLowerCase().includes(q) || 
-        city.nameEn.toLowerCase().includes(q) || 
-        city.nameHi.toLowerCase().includes(q) ||
-        city.state.toLowerCase().includes(q);
-      return matchState && matchQuery;
-    });
-  }, [selectedState, searchQuery]);
-
-  const handleCitySelect = (city: typeof INDIAN_CITIES_DATABASE[0]) => {
-    setFormData((prev) => ({
-      ...prev,
-      cityName: city.name,
-      state: city.state,
-      latitude: city.lat,
-      longitude: city.lon
-    }));
-    setIsCityDropdownOpen(false);
-  };
-
-  const handleOnlineVillageSearch = async (queryText?: string) => {
-    const q = (queryText !== undefined ? queryText : onlineVillageQuery).trim();
-    if (!q || q.length < 2) return;
-    setIsSearchingOnline(true);
-    setOnlineSearchedOnce(true);
-    try {
-      const places = await searchOnlineIndianPlace(q);
-      setOnlineResults(places);
-    } catch {
-      setOnlineResults([]);
-    } finally {
-      setIsSearchingOnline(false);
-    }
-  };
-
-  const handleSelectDistrictVillage = () => {
-    const stateObj = ALL_INDIAN_STATES_AND_DISTRICTS[pickerStateIndex] || ALL_INDIAN_STATES_AND_DISTRICTS[0];
-    const distObj = stateObj.districts[pickerDistrictIndex] || stateObj.districts[0];
-    const vName = customVillageName.trim() || distObj.nameHi;
-    const fullCityName = `${vName} (${distObj.nameHi})`;
-
-    setFormData(prev => ({
-      ...prev,
-      cityName: fullCityName,
-      state: stateObj.state,
-      latitude: distObj.lat,
-      longitude: distObj.lon
-    }));
-    setLocationMode('cityList');
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -285,477 +212,24 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                 </div>
               </div>
 
-              {/* Birth Place / City & Village Selection (Pan India 600,000+ Villages) */}
+              {/* Google Maps Style Location Search & Selection */}
               <div className="space-y-3">
-                <div className="flex flex-wrap items-center justify-between gap-1">
-                  <label className="block text-xs sm:text-sm font-bold text-amber-950">
-                    {lang === 'hi' ? 'जन्म स्थान (भारत के सभी शहर व गाँव)' : 'જન્મ સ્થળ (ભારતના તમામ શહેરો અને ગામો)'}
-                  </label>
-                  <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    ✓ अखिल भारतीय डेटाबेस + लाइव गाँव सर्च
-                  </span>
-                </div>
-
-                {/* Mode Selector Tabs */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-1 bg-amber-100/60 rounded-xl border border-amber-200/80 text-[11px]">
-                  <button
-                    type="button"
-                    onClick={() => setLocationMode('cityList')}
-                    className={`py-1.5 px-2 rounded-lg font-medium transition-all text-center flex items-center justify-center gap-1 ${
-                      locationMode === 'cityList'
-                        ? 'bg-white text-[#CC5218] font-bold shadow-sm border border-amber-300'
-                        : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
-                    }`}
-                  >
-                    <MapPin className="w-3 h-3 text-[#FF671F]" />
-                    <span>प्रमुख शहर (400+)</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setLocationMode('onlineVillage')}
-                    className={`py-1.5 px-2 rounded-lg font-medium transition-all text-center flex items-center justify-center gap-1 ${
-                      locationMode === 'onlineVillage'
-                        ? 'bg-white text-[#CC5218] font-bold shadow-sm border border-amber-300'
-                        : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
-                    }`}
-                  >
-                    <Globe className="w-3 h-3 text-blue-600" />
-                    <span>गाँव लाइव सर्च</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setLocationMode('districtVillage')}
-                    className={`py-1.5 px-2 rounded-lg font-medium transition-all text-center flex items-center justify-center gap-1 ${
-                      locationMode === 'districtVillage'
-                        ? 'bg-white text-[#CC5218] font-bold shadow-sm border border-amber-300'
-                        : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
-                    }`}
-                  >
-                    <Home className="w-3 h-3 text-emerald-600" />
-                    <span>जिला व गाँव</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setLocationMode('customCoords')}
-                    className={`py-1.5 px-2 rounded-lg font-medium transition-all text-center flex items-center justify-center gap-1 ${
-                      locationMode === 'customCoords'
-                        ? 'bg-white text-[#CC5218] font-bold shadow-sm border border-amber-300'
-                        : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
-                    }`}
-                  >
-                    <Compass className="w-3 h-3 text-amber-600" />
-                    <span>अक्षांश/देशांतर</span>
-                  </button>
-                </div>
-
-                {/* MODE 1: Static Cities & Towns (400+ entries) */}
-                {locationMode === 'cityList' && (
-                  <div className="space-y-2">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      <div>
-                        <span className="text-[11px] block mb-0.5 text-stone-600">
-                          राज्य फिल्टर (State):
-                        </span>
-                        <select
-                          value={selectedState}
-                          onChange={(e) => {
-                            setSelectedState(e.target.value);
-                            setSearchQuery('');
-                          }}
-                          className="w-full px-2.5 py-2 rounded-xl text-xs border focus:outline-none focus:ring-2 transition-all bg-[#FFFDF9] border-[#FF671F]/30 text-stone-900 focus:ring-[#FF671F]"
-                        >
-                          <option value="सभी राज्य (All India)">सभी राज्य (All India)</option>
-                          {INDIAN_STATES.map((st) => (
-                            <option key={st} value={st}>{st}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <span className="text-[11px] block mb-0.5 text-stone-600">
-                          शहर या कस्बा खोजें:
-                        </span>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            placeholder="उदा. Mehsana, Ahmedabad, Vadnagar, Kheralu..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            onFocus={() => setIsCityDropdownOpen(true)}
-                            className="w-full pl-7 pr-2.5 py-2 rounded-xl text-xs border focus:outline-none focus:ring-2 transition-all bg-[#FFFDF9] border-[#FF671F]/30 text-stone-900 focus:ring-[#FF671F]"
-                          />
-                          <Search className="w-3.5 h-3.5 absolute left-2 top-2.5 text-stone-400" />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Quick Live Search Prompt if typed */}
-                    {searchQuery.trim().length >= 2 && (
-                      <div className="p-2 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300/80 flex items-center justify-between text-xs">
-                        <span className="text-amber-900 font-medium">
-                          क्या आप <strong>'{searchQuery}'</strong> गाँव पूरे भारत में खोजना चाहते हैं?
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setOnlineVillageQuery(searchQuery);
-                            setLocationMode('onlineVillage');
-                            handleOnlineVillageSearch(searchQuery);
-                          }}
-                          className="px-2.5 py-1 rounded-lg text-white font-semibold text-[11px] bg-[#FF671F] hover:bg-[#CC5218] transition-colors shrink-0 shadow-sm"
-                        >
-                          गाँव लाइव खोजें →
-                        </button>
-                      </div>
-                    )}
-
-                    {/* Dropdown Display Button */}
-                    <div className="relative">
-                      <button
-                        type="button"
-                        onClick={() => setIsCityDropdownOpen(!isCityDropdownOpen)}
-                        className="w-full px-3.5 py-2.5 rounded-xl border text-left flex items-center justify-between transition-all bg-[#FFFDF9] border-[#FF671F]/30 text-stone-900 hover:border-[#FF671F]"
-                      >
-                        <div className="flex items-center gap-2 overflow-hidden">
-                          <MapPin className="w-4 h-4 shrink-0 text-[#FF671F]" />
-                          <div className="truncate">
-                            <span className="font-semibold text-xs sm:text-sm">{formData.cityName}</span>
-                            <span className="text-[11px] ml-1.5 text-stone-500">
-                              ({formData.state})
-                            </span>
-                          </div>
-                        </div>
-                        <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${isCityDropdownOpen ? 'rotate-180' : ''}`} />
-                      </button>
-
-                      {/* Dropdown Menu */}
-                      {isCityDropdownOpen && (
-                        <div className="absolute z-30 w-full mt-1.5 max-h-56 overflow-y-auto rounded-2xl border shadow-2xl p-1.5 space-y-1 bg-white border-[#FF671F]/30">
-                          <div className="px-2 py-1 text-[11px] font-semibold border-b flex justify-between text-[#CC5218] border-stone-100">
-                            <span>{filteredCities.length} शहर व कस्बे उपलब्ध</span>
-                            <span className="text-stone-400">अक्षांश/देशांतर सहित</span>
-                          </div>
-
-                          {filteredCities.length === 0 ? (
-                            <div className="p-3 text-center text-xs space-y-2 text-stone-600">
-                              <p>डेटाबेस में '{searchQuery}' नहीं मिला।</p>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setOnlineVillageQuery(searchQuery);
-                                  setLocationMode('onlineVillage');
-                                  handleOnlineVillageSearch(searchQuery);
-                                }}
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-[#FF671F] hover:bg-[#CC5218]"
-                              >
-                                <Globe className="w-3.5 h-3.5" />
-                                <span>गाँव लाइव सर्च से तुरंत खोजें</span>
-                              </button>
-                            </div>
-                          ) : (
-                            filteredCities.map((c) => {
-                              const isSelected = formData.cityName === c.name;
-                              return (
-                                <button
-                                  key={`${c.name}-${c.state}-${c.lat}`}
-                                  type="button"
-                                  onClick={() => handleCitySelect(c)}
-                                  className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
-                                    isSelected 
-                                      ? 'bg-[#FFF5F0] text-[#CC5218] font-bold'
-                                      : 'hover:bg-[#FFFDF9] text-stone-800'
-                                  }`}
-                                >
-                                  <div>
-                                    <div className="font-medium">{c.name}</div>
-                                    <div className="text-[10px] text-stone-500">
-                                      {c.state} • {c.lat.toFixed(2)}°N, {c.lon.toFixed(2)}°E
-                                    </div>
-                                  </div>
-                                  {isSelected && (
-                                    <Check className="w-3.5 h-3.5 text-[#FF671F]" />
-                                  )}
-                                </button>
-                              );
-                            })
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* MODE 2: Online Village Live Search (OpenStreetMap Geocoding for ANY village) */}
-                {locationMode === 'onlineVillage' && (
-                  <div className="p-3.5 rounded-2xl border space-y-3 bg-gradient-to-b from-blue-50/50 to-amber-50/30 border-blue-200">
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <div className="font-bold text-xs text-blue-950 flex items-center gap-1.5">
-                          <Globe className="w-3.5 h-3.5 text-blue-600" />
-                          <span>भारत के किसी भी गाँव को लाइव खोजें (Live Village Search)</span>
-                        </div>
-                        <p className="text-[11px] text-stone-600 mt-0.5">
-                          भारत के 6 लाख से अधिक गाँवों, तहसीलों व मजरों के सटीक भौगोलिक निर्देशांक खोजें।
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Search Bar */}
-                    <div className="flex gap-2">
-                      <div className="relative flex-1">
-                        <input
-                          type="text"
-                          placeholder="गाँव का नाम दर्ज करें (उदा. Balol, Gozaria, Kherva, Salasar...)"
-                          value={onlineVillageQuery}
-                          onChange={(e) => setOnlineVillageQuery(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                              e.preventDefault();
-                              handleOnlineVillageSearch();
-                            }
-                          }}
-                          className="w-full pl-8 pr-3 py-2 rounded-xl text-xs border focus:outline-none focus:ring-2 bg-white border-blue-300 text-stone-900 focus:ring-blue-500"
-                        />
-                        <Search className="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-blue-500" />
-                      </div>
-                      <button
-                        type="button"
-                        disabled={isSearchingOnline || onlineVillageQuery.trim().length < 2}
-                        onClick={() => handleOnlineVillageSearch()}
-                        className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 transition-colors flex items-center gap-1.5 shrink-0 shadow-sm"
-                      >
-                        {isSearchingOnline ? (
-                          <>
-                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                            <span>खोज रहे हैं...</span>
-                          </>
-                        ) : (
-                          <>
-                            <Search className="w-3.5 h-3.5" />
-                            <span>खोजें</span>
-                          </>
-                        )}
-                      </button>
-                    </div>
-
-                    {/* Quick Suggestions Chips */}
-                    <div className="flex flex-wrap items-center gap-1 text-[10px]">
-                      <span className="text-stone-500 font-medium">त्वरित उदाहरण:</span>
-                      {['Balol (बालोल)', 'Kherva (खेरवा)', 'Gojariya (गोझारिया)', 'Vadnagar', 'Dhamnod', 'Khatu', 'Salasar'].map((s) => {
-                        const clean = s.split(' ')[0];
-                        return (
-                          <button
-                            key={s}
-                            type="button"
-                            onClick={() => {
-                              setOnlineVillageQuery(clean);
-                              handleOnlineVillageSearch(clean);
-                            }}
-                            className="px-2 py-0.5 rounded-md bg-white border border-blue-200 text-blue-800 hover:bg-blue-100 transition-colors"
-                          >
-                            {s}
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Online Results Display */}
-                    {onlineSearchedOnce && (
-                      <div className="space-y-1.5 pt-1">
-                        <div className="text-[11px] font-semibold text-stone-700 flex items-center justify-between">
-                          <span>मिले परिणाम ({onlineResults.length}):</span>
-                          {onlineResults.length > 0 && <span className="text-emerald-700 font-normal">क्लिक करके चुनें</span>}
-                        </div>
-
-                        {onlineResults.length === 0 && !isSearchingOnline ? (
-                          <div className="p-3 text-center text-xs bg-white/80 rounded-xl border border-stone-200 text-stone-600">
-                            '{onlineVillageQuery}' नाम से कोई गाँव नहीं मिला। कृपया स्पेलिंग जांचें या 'जिला व गाँव' विकल्प से जिला चुनें।
-                          </div>
-                        ) : (
-                          <div className="max-h-48 overflow-y-auto space-y-1 pr-1">
-                            {onlineResults.map((place, idx) => (
-                              <button
-                                key={`${place.name}-${idx}`}
-                                type="button"
-                                onClick={() => {
-                                  handleCitySelect(place);
-                                  setLocationMode('cityList');
-                                }}
-                                className="w-full text-left p-2.5 rounded-xl border bg-white hover:bg-blue-50 hover:border-blue-300 transition-all text-xs flex items-center justify-between group"
-                              >
-                                <div>
-                                  <div className="font-bold text-stone-900 group-hover:text-blue-700 flex items-center gap-1.5">
-                                    <Home className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                                    <span>{place.name}</span>
-                                  </div>
-                                  <div className="text-[10px] text-stone-500 mt-0.5">
-                                    {place.state} • {place.lat.toFixed(4)}°N, {place.lon.toFixed(4)}°E
-                                  </div>
-                                </div>
-                                <span className="text-[11px] text-blue-600 font-semibold group-hover:translate-x-0.5 transition-transform">
-                                  चुनें →
-                                </span>
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* MODE 3: District & Village Selection (Select State, District, and type any Village) */}
-                {locationMode === 'districtVillage' && (
-                  <div className="p-3.5 rounded-2xl border space-y-2.5 bg-gradient-to-b from-emerald-50/50 to-amber-50/30 border-emerald-200">
-                    <div className="font-bold text-xs text-emerald-950 flex items-center gap-1.5">
-                      <Home className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>जिला व गाँव चयन (Select by State & District)</span>
-                    </div>
-                    <p className="text-[11px] text-stone-600">
-                      अपना राज्य और जिला चुनें, फिर अपने गाँव का नाम दर्ज करें।
-                    </p>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {/* State Selector */}
-                      <div>
-                        <label className="block text-[11px] font-semibold text-stone-700 mb-0.5">
-                          राज्य (State):
-                        </label>
-                        <select
-                          value={pickerStateIndex}
-                          onChange={(e) => {
-                            setPickerStateIndex(parseInt(e.target.value) || 0);
-                            setPickerDistrictIndex(0);
-                          }}
-                          className="w-full px-2.5 py-1.5 rounded-xl text-xs border bg-white border-emerald-300 text-stone-900 focus:ring-1 focus:ring-emerald-500"
-                        >
-                          {ALL_INDIAN_STATES_AND_DISTRICTS.map((st, idx) => (
-                            <option key={st.state} value={idx}>{st.state}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* District Selector */}
-                      <div>
-                        <label className="block text-[11px] font-semibold text-stone-700 mb-0.5">
-                          जिला (District):
-                        </label>
-                        <select
-                          value={pickerDistrictIndex}
-                          onChange={(e) => setPickerDistrictIndex(parseInt(e.target.value) || 0)}
-                          className="w-full px-2.5 py-1.5 rounded-xl text-xs border bg-white border-emerald-300 text-stone-900 focus:ring-1 focus:ring-emerald-500"
-                        >
-                          {(ALL_INDIAN_STATES_AND_DISTRICTS[pickerStateIndex]?.districts || []).map((dist, idx) => (
-                            <option key={dist.name} value={idx}>{dist.nameHi} ({dist.name})</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Village Name input */}
-                    <div>
-                      <label className="block text-[11px] font-semibold text-stone-700 mb-0.5">
-                        गाँव / कस्बे का नाम दर्ज करें (Village Name):
-                      </label>
-                      <div className="flex gap-2">
-                        <input
-                          type="text"
-                          placeholder="उदा. बालोल, गोझारिया, खेरवा, रामपुर, देलवाड़ा..."
-                          value={customVillageName}
-                          onChange={(e) => setCustomVillageName(e.target.value)}
-                          className="flex-1 px-3 py-1.5 rounded-xl text-xs border bg-white border-emerald-300 text-stone-900 focus:ring-1 focus:ring-emerald-500"
-                        />
-                        <button
-                          type="button"
-                          onClick={handleSelectDistrictVillage}
-                          className="px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-emerald-700 hover:bg-emerald-800 transition-colors shrink-0 shadow-sm"
-                        >
-                          ✓ यह गाँव सेट करें
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* MODE 4: Custom Coordinates */}
-                {locationMode === 'customCoords' && (
-                  <div className="p-3 rounded-2xl border space-y-2.5 bg-amber-50/50 border-amber-200">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      <div>
-                        <label className="block text-[11px] font-semibold mb-0.5 text-stone-700">
-                          स्थान का नाम (Place Name)
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.cityName}
-                          onChange={(e) => setFormData({ ...formData, cityName: e.target.value })}
-                          placeholder="उदा. राधनपुर, खेरालू"
-                          className="w-full px-2.5 py-1.5 rounded-lg text-xs border focus:outline-none focus:ring-1 bg-white border-amber-300 text-stone-900"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[11px] font-semibold mb-0.5 text-stone-700">
-                          राज्य (State)
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.state || ''}
-                          onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                          placeholder="उदा. गुजरात"
-                          className="w-full px-2.5 py-1.5 rounded-lg text-xs border focus:outline-none focus:ring-1 bg-white border-amber-300 text-stone-900"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <label className="block text-[11px] font-semibold mb-0.5 text-stone-700">
-                          अक्षांश (Latitude °N)
-                        </label>
-                        <input
-                          type="number"
-                          step="0.0001"
-                          min="6.0"
-                          max="38.0"
-                          value={formData.latitude || 23.5880}
-                          onChange={(e) => setFormData({ ...formData, latitude: parseFloat(e.target.value) || 23.5880 })}
-                          className="w-full px-2.5 py-1.5 rounded-lg text-xs border focus:outline-none focus:ring-1 bg-white border-amber-300 text-stone-900"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[11px] font-semibold mb-0.5 text-stone-700">
-                          देशांतर (Longitude °E)
-                        </label>
-                        <input
-                          type="number"
-                          step="0.0001"
-                          min="68.0"
-                          max="98.0"
-                          value={formData.longitude || 72.3693}
-                          onChange={(e) => setFormData({ ...formData, longitude: parseFloat(e.target.value) || 72.3693 })}
-                          className="w-full px-2.5 py-1.5 rounded-lg text-xs border focus:outline-none focus:ring-1 bg-white border-amber-300 text-stone-900"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Location verification badge */}
-                <div className="px-3 py-2 rounded-xl text-xs flex flex-wrap items-center justify-between gap-1.5 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border border-amber-300/80 text-amber-950">
-                  <span className="flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4 text-[#FF671F] shrink-0" />
-                    <span className="font-semibold">चुना गया स्थान:</span>
-                    <span className="font-bold text-[#CC5218]">{formData.cityName}</span>
-                    <span className="text-stone-500">({formData.state})</span>
-                  </span>
-                  <span className="text-[11px] text-stone-600 font-mono">
-                    {formData.latitude?.toFixed(4)}°N, {formData.longitude?.toFixed(4)}°E (IST +5:30)
-                  </span>
-                </div>
+                <GoogleMapsLocationPicker
+                  cityName={formData.cityName}
+                  state={formData.state || ''}
+                  latitude={formData.latitude || 23.5880}
+                  longitude={formData.longitude || 72.3693}
+                  lang={lang}
+                  onChange={({ cityName, state, latitude, longitude }) => {
+                    setFormData(prev => ({
+                      ...prev,
+                      cityName,
+                      state,
+                      latitude,
+                      longitude
+                    }));
+                  }}
+                />
               </div>
 
               <button
@@ -809,6 +283,18 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                     <span>PDF प्रिंट (6 पृष्ठ)</span>
                   </button>
 
+                  {onOpenPaymentQR && (
+                    <button
+                      type="button"
+                      onClick={onOpenPaymentQR}
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all bg-gradient-to-r from-purple-700 to-indigo-700 text-white hover:brightness-110 shadow-xs cursor-pointer border border-purple-300/40"
+                      title="पंडित जी को स्वेच्छानुसार वैदिक दक्षिणा / PhonePe QR द्वारा अर्पण करें"
+                    >
+                      <QrCode className="w-4 h-4 text-amber-200" />
+                      <span>दक्षिणा / QR</span>
+                    </button>
+                  )}
+
                   <span className={`px-3 py-1 rounded-full text-xs font-bold ${
                     result.manglikStatus.includes('Non') || result.manglikStatus.includes('गैर')
                       ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
@@ -861,7 +347,7 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
               </div>
 
               {/* Navigation Tabs */}
-              <div className="flex overflow-x-auto gap-1.5 pb-2 mb-4 border-b border-[#FF671F]/20 no-scrollbar">
+              <div className="flex overflow-x-auto w-full max-w-full gap-1.5 pb-2 mb-4 border-b border-[#FF671F]/20 no-scrollbar overscroll-x-contain">
                 {[
                   {
                     id: 'panchang',

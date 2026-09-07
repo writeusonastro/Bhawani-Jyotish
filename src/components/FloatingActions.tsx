@@ -1,16 +1,46 @@
 import React from 'react';
-import { PhoneCall, MessageCircle } from 'lucide-react';
+import { PhoneCall, MessageCircle, QrCode } from 'lucide-react';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
 import { VerifiedBadge } from './VerifiedBadge';
 
 interface FloatingActionsProps {
   onOpenAskAI?: () => void;
+  onOpenPaymentQR?: () => void;
   lang?: 'hi' | 'gu' | 'en';
 }
 
-export const FloatingActions: React.FC<FloatingActionsProps> = ({ lang = 'hi' }) => {
+export const FloatingActions: React.FC<FloatingActionsProps> = ({ 
+  lang = 'hi',
+  onOpenPaymentQR,
+}) => {
   return (
     <div className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-50 pointer-events-auto select-none print:hidden flex flex-col items-end gap-2.5">
+      {/* Floating PhonePe Payment QR Button */}
+      {onOpenPaymentQR && (
+        <div className="relative group">
+          <span className="absolute -inset-1 rounded-full bg-purple-600 opacity-60 blur-md group-hover:opacity-100 transition-opacity duration-300 animate-pulse pointer-events-none" />
+          
+          <button
+            type="button"
+            onClick={onOpenPaymentQR}
+            className="relative flex items-center gap-2 bg-gradient-to-r from-[#5f259f] via-[#7b2cbf] to-[#4a154b] text-white py-2 px-3.5 sm:px-4 rounded-full shadow-[0_8px_25px_rgba(95,37,159,0.45)] border-2 border-purple-300 transition-all duration-300 hover:scale-105 active:scale-95 group-hover:shadow-[0_12px_30px_rgba(95,37,159,0.65)] cursor-pointer"
+            title="PhonePe / UPI QR कोड से दक्षिणा या परामर्श शुल्क दें"
+            aria-label="PhonePe QR कोड खोलें"
+          >
+            <span className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-[#5f259f] shadow-sm shrink-0 font-bold text-sm">
+              पे
+            </span>
+
+            <div className="flex items-center gap-1.5 leading-tight">
+              <span className="font-yatra text-xs sm:text-sm font-bold text-amber-200 tracking-wide drop-shadow-xs">
+                {lang === 'en' ? 'Pay / QR' : lang === 'hi' ? 'दक्षिणा / QR' : 'દક્ષિણા / QR'}
+              </span>
+              <VerifiedBadge size="xs" tooltipText="सत्यापित PhonePe QR" />
+            </div>
+          </button>
+        </div>
+      )}
+
       {/* Floating WhatsApp Chat Button with Verified Blue Tick */}
       <div className="relative group">
         {/* Glow behind WhatsApp */}
