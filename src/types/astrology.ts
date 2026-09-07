@@ -282,8 +282,13 @@ export interface Testimonial {
   id: string;
   name: string;
   city: string;
+  country?: string;
+  flag?: string;
   service: string;
   comment: string;
+  commentEn?: string;
+  commentGu?: string;
   rating: number;
   date: string;
+  isAbroad?: boolean;
 }

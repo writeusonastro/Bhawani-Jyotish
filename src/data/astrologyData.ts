@@ -440,47 +440,142 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "1",
     name: "पटेल जयेशभाई",
-    city: "मेहसाणा (Mehsana, Gujarat)",
+    city: "मेहसाणा (Mehsana)",
+    country: "भारत (India)",
+    flag: "🇮🇳",
     service: "विवाह गुण मिलान एवं मांगलिक निवारण",
     comment: "पंडित जी ने हमारे बेटे और बहू की कुंडली का बहुत सटीक मिलान किया। नाड़ी दोष का जो सरल उपाय बताया, आज दोनों सुखी दांपत्य जीवन जी रहे हैं। भवानी ज्योतिष पर हमारा पूर्ण विश्वास है।",
+    commentEn: "Pandit Ji did very accurate horoscope matching for our son and daughter-in-law. Both are living a blissful married life. Full trust in Bhavani Jyotish!",
+    commentGu: "પંડિતજીએ અમારા દીકરા અને વહુની કુંડળીનું અત્યંત સચોટ મિલન કર્યું. નાડી દોષના સરળ ઉપાયથી આજે બંને સુખી દાંપત્ય જીવન જીવી રહ્યા છે.",
     rating: 5,
-    date: "12 अगस्त 2025"
+    date: "12 अगस्त 2025",
+    isAbroad: false
+  },
+  {
+    id: "abroad-1",
+    name: "किरीटभाई एवं दर्शनाबेन पटेल",
+    city: "Edison, New Jersey",
+    country: "USA (अमेरिका)",
+    flag: "🇺🇸",
+    service: "NRI 36 Gun Milan & Muhurat",
+    comment: "हमने न्यू जर्सी से WhatsApp वीडियो कॉल पर अपने बेटे के विवाह के लिए 36 गुण मिलान कराया। अमेरिका के टाइम डिफरेंस के बावजूद पंडित जी ने पूरी कुंडली समझाई। आज दोनों का वैवाहिक जीवन बहुत सुखमय है।",
+    commentEn: "Consulted Pandit Ji from Edison, NJ via WhatsApp video call for our son's 36 Gun Milan. Despite the time difference, he explained everything patiently. Blessed guidance for NRI families!",
+    commentGu: "અમે ન્યૂ જર્સી (USA) થી WhatsApp વિડીયો કોલ પર દીકરાના લગ્ન માટે ગુણ મિલાન કરાવ્યું. સમયના તફાવત છતાં પંડિતજીએ ખૂબ ધીરજપૂર્વક માર્ગદર્શન આપ્યું.",
+    rating: 5,
+    date: "24 जनवरी 2026",
+    isAbroad: true
   },
   {
     id: "2",
     name: "दिनेश प्रजापति",
     city: "विसनगर (Visnagar)",
+    country: "भारत (India)",
+    flag: "🇮🇳",
     service: "व्यापार में रुकावट व कर्ज मुक्ति",
     comment: "मेरी दुकान में 2 साल से भारी घाटा हो रहा था। पंडित जी के बताए गए व्यापार वृद्धि यंत्र और बुध ग्रह के उपाय के बाद 3 महीने में व्यापार दोगुना हो गया। आभार पंडित जी!",
+    commentEn: "My business was facing severe losses. Following Pandit Ji's guidance for planet Mercury and Vyapar Vriddhi Yantra, business doubled in 3 months. Heartfelt gratitude!",
+    commentGu: "મારી દુકાનમાં 2 વર્ષથી નુકસાન હતું. પંડિતજીના બતાવેલા વેપાર વૃદ્ધિ ઉપાય પછી 3 મહિનામાં વેપાર બમણો થઈ ગયો. ખૂબ ખૂબ આભાર પંડિતજી!",
     rating: 5,
-    date: "28 जुलाई 2025"
+    date: "28 जुलाई 2025",
+    isAbroad: false
+  },
+  {
+    id: "abroad-2",
+    name: "Rajesh & Bhavna Lakhani",
+    city: "Wembley, London",
+    country: "United Kingdom (UK)",
+    flag: "🇬🇧",
+    service: "Foreign Birth Kundli & Home Vastu",
+    comment: "लंदन में जन्मी हमारी बेटी की कुंडली में डेलाइट सेविंग (DST) का समय लेकर पंडित जी ने बहुत सूक्ष्म फलादेश दिया। नए घर के वास्तु के लिए उन्होंने जो सलाह दी उससे सकारात्मक ऊर्जा का संचार हुआ।",
+    commentEn: "Consulting Pandit Ji from London was seamless. His precise birth chart reading with UK Daylight Saving Time (DST) correction for our daughter and remote Vastu advice for our Wembley home was outstanding.",
+    commentGu: "લંડનમાં જન્મેલી દીકરીની કુંડળીમાં DST ના સુધારા સાથે પંડિતજીએ અદભુત ફળાદેશ આપ્યો. વેમ્બલી સ્થિત નવા ઘરના વાસ્તુ માટે તેમનું માર્ગદર્શન ઉત્તમ રહ્યું.",
+    rating: 5,
+    date: "15 दिसंबर 2025",
+    isAbroad: true
   },
   {
     id: "3",
     name: "अमित शाह",
     city: "अहमदाबाद (Ahmedabad)",
+    country: "भारत (India)",
+    flag: "🇮🇳",
     service: "जन्म कुंडली एवं करियर फलादेश",
     comment: "कनाडा वीजा और जॉब को लेकर मैं बहुत परेशान था। पंडित जी ने कुंडली देखकर जिस महीने में योग बताया था, ठीक उसी महीने मेरा वीजा अप्रूव हुआ। अत्यंत सटीक गणना!",
+    commentEn: "I was struggling with Canada PR visa. Pandit Ji predicted the exact month when obstacles would clear, and my visa arrived precisely in that timeframe!",
+    commentGu: "કેનેડા વિઝા અંગે હું ચિંતિત હતો. પંડિતજીએ કુંડળી જોઈને જે મહિનામાં યોગ કહ્યો હતો, એ જ મહિને વિઝા મંજૂર થયો. અતિ સચોટ ગણતરી!",
     rating: 5,
-    date: "04 जून 2025"
+    date: "04 जून 2025",
+    isAbroad: false
+  },
+  {
+    id: "abroad-3",
+    name: "संजय मेहरा (Sanjay Mehra)",
+    city: "Deira, Dubai",
+    country: "UAE (दुबई)",
+    flag: "🇦🇪",
+    service: "Business Muhurat & Trade Astrology",
+    comment: "दुबई में नई आयात-निर्यात फर्म शुरू करने से पूर्व पंडित जी से नामकरण व शुभ मुहूर्त का विचार कराया था। खाड़ी देशों में व्यापार की सफलता के लिए उनके ग्रह उपाय अत्यंत प्रभावशाली सिद्ध हुए।",
+    commentEn: "Consulted Pandit Ji for auspicious Muhurat and business naming before launching our trading firm in Dubai. His astrological remedies brought exceptional growth and peace of mind.",
+    commentGu: "દુબઈમાં નવી કંપની શરૂ કરતાં પહેલાં પંડિતજી પાસેથી શુભ મુહૂર્ત કઢાવ્યું હતું. તેમના ઉપાયોથી વેપારમાં અસાધારણ પ્રગતિ થઈ છે.",
+    rating: 5,
+    date: "18 नवंबर 2025",
+    isAbroad: true
+  },
+  {
+    id: "abroad-4",
+    name: "हर्षल एवं नेहा जोशी",
+    city: "Brampton, Ontario",
+    country: "Canada (कनाडा)",
+    flag: "🇨🇦",
+    service: "Canada Settlement & Kundli Matching",
+    comment: "कनाडा में रहते हुए हमें अपने विवाह के लिए प्रामाणिक गुजराती ब्राह्मण ज्योतिषी की तलाश थी। पंडित जी ने टोरंटो के टाइम अनुसार दोनों का गुण मिलान और मांगलिक विचार स्पष्टता से कराया।",
+    commentEn: "Living in Canada, we wanted authentic Gujarati Vedic horoscope matching. Pandit Ji handled our Brampton-Toronto timezone effortlessly and guided us through our marriage journey.",
+    commentGu: "કેનેડામાં વસવાટ દરમિયાન અમને લગ્ન માટે અધિકૃત જ્યોતિષાચાર્યની શોધ હતી. પંડિતજીએ અમારા સમય અનુસાર ઉત્તમ ગુણ મિલાન કરી આપ્યું.",
+    rating: 5,
+    date: "09 अक्टूबर 2025",
+    isAbroad: true
+  },
+  {
+    id: "abroad-5",
+    name: "Pravin & Shanti Naidoo",
+    city: "Durban, KwaZulu-Natal",
+    country: "South Africa (साउथ अफ्रीका)",
+    flag: "🇿🇦",
+    service: "Family Horoscope & Shanti Puja",
+    comment: "Our Hindu community in Durban deeply respects Pandit Ji's 35+ years of Vedic heritage. His remote horoscope guidance and Navagraha remedies brought immense peace and harmony to our family.",
+    commentEn: "Our Hindu community in Durban deeply respects Pandit Ji's 35+ years of Vedic heritage. His remote horoscope guidance and Navagraha remedies brought immense peace and harmony to our family.",
+    commentGu: "ડર્બન (દક્ષિણ આફ્રિકા) ના હિન્દુ સમાજમાં પંડિતજી પ્રત્યે ઊંડી આસ્થા છે. તેમના ગ્રહ શાંતિ માર્ગદર્શનથી અમારા ઘરમાં સુખ અને શાંતિ આવી.",
+    rating: 5,
+    date: "05 सितंबर 2025",
+    isAbroad: true
   },
   {
     id: "4",
     name: "श्रीमती हेतलबेन चौधरी",
     city: "कडी (Kadi, Mehsana)",
+    country: "भारत (India)",
+    flag: "🇮🇳",
     service: "वास्तु शास्त्र एवं गृह शांति",
     comment: "नए मकान में जाने के बाद घर में कलह और बीमारी रहती थी। पंडित जी ने बिना किसी तोड़-फोड़ के वास्तु संशोधन कराया, अब घर में सुख-शांति और आनंद है।",
+    commentEn: "After moving into our new house, we had frequent illnesses. Pandit Ji recommended non-destructive Vastu remedies. Now our home is full of health and peace.",
+    commentGu: "નવા મકાનમાં પ્રવેશ પછી ઘરમાં અશાંતિ રહેતી હતી. પંડિતજીએ તોડફોડ વગર વાસ્તુ ઉપાય કરાવ્યા, હવે ઘરમાં શાંતિ છે.",
     rating: 5,
-    date: "19 मई 2025"
+    date: "19 मई 2025",
+    isAbroad: false
   },
   {
     id: "5",
     name: "राजेशभाई ठाकोर",
     city: "ऊंझा (Unjha)",
+    country: "भारत (India)",
+    flag: "🇮🇳",
     service: "कालसर्प दोष पूजा",
     comment: "सालों से सरकारी नौकरी में 1-2 नंबर से रह जाता था। कालसर्प दोष की शांति पूजा कराने के बाद इस साल मेरा चयन हो गया। माँ भवानी और पंडित जी की कृपा सदा बनी रहे।",
+    commentEn: "I was missing government exam cutoffs by 1-2 marks for years. After getting Kaal Sarp Dosh Shanti Puja guided by Pandit Ji, I got successfully selected this year!",
+    commentGu: "વર્ષોથી સરકારી નોકરીની પરીક્ષામાં રહી જતો હતો. કાલસર્પ દોષ પૂજા કરાવ્યા પછી આ વર્ષે પસંદગી થઈ ગઈ. માં ભવાનીની કૃપા!",
     rating: 5,
-    date: "02 अप्रैल 2025"
+    date: "02 अप्रैल 2025",
+    isAbroad: false
   }
 ];
 
