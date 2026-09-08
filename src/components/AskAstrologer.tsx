@@ -321,22 +321,22 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <a
             href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-            className="bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5"
+            className="bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5 whitespace-nowrap text-xs sm:text-sm"
           >
-            <Phone className="w-3.5 h-3.5" />
-            <span>{lang === 'en' ? 'Call Now' : 'कॉल करें'}</span>
+            <Phone className="w-3.5 h-3.5 shrink-0" />
+            <span className="whitespace-nowrap">{lang === 'en' ? 'Call Now' : 'कॉल करें'}</span>
           </a>
           <a
             href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(getWhatsAppConsultationMessage(lang))}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5"
+            className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5 whitespace-nowrap text-xs sm:text-sm"
           >
-            <MessageCircle className="w-3.5 h-3.5" />
-            <span>{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
+            <MessageCircle className="w-3.5 h-3.5 shrink-0" />
+            <span className="whitespace-nowrap">{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
             <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
           </a>
         </div>

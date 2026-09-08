@@ -1,20 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { DailyRashifal } from './components/DailyRashifal';
-import { KundliGenerator } from './components/KundliGenerator';
-import { GunMilan } from './components/GunMilan';
-import { AskAstrologer } from './components/AskAstrologer';
 import { ServicesSection } from './components/ServicesSection';
 import { PanchangMuhurat } from './components/PanchangMuhurat';
-import { DoshNivaranGuide } from './components/DoshNivaranGuide';
 import { Testimonials } from './components/Testimonials';
 import { AudioChants } from './components/AudioChants';
 import { FloatingActions } from './components/FloatingActions';
 import { Footer } from './components/Footer';
 import { DailyWisdomVastu } from './components/DailyWisdomVastu';
-import { DigitalJapaMala } from './components/DigitalJapaMala';
-import { GemstoneRudrakshaFinder } from './components/GemstoneRudrakshaFinder';
 import { ContactSection } from './components/ContactSection';
 import { InternationalConsultation } from './components/InternationalConsultation';
 import { VerifiedBadge } from './components/VerifiedBadge';
@@ -23,6 +17,48 @@ import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from './data/astrolog
 import { Language } from './types/astrology';
 import { detectInitialLanguage, saveLanguagePreference } from './utils/languageDetector';
 import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, CheckCircle2, Mail, Navigation } from 'lucide-react';
+
+// Dynamic lazy-loaded modules to make initial page load blazing fast
+const KundliGenerator = lazy(() => 
+  import('./components/KundliGenerator').then(m => ({ default: m.KundliGenerator }))
+);
+const GunMilan = lazy(() => 
+  import('./components/GunMilan').then(m => ({ default: m.GunMilan }))
+);
+const GemstoneRudrakshaFinder = lazy(() => 
+  import('./components/GemstoneRudrakshaFinder').then(m => ({ default: m.GemstoneRudrakshaFinder }))
+);
+const DigitalJapaMala = lazy(() => 
+  import('./components/DigitalJapaMala').then(m => ({ default: m.DigitalJapaMala }))
+);
+const DoshNivaranGuide = lazy(() => 
+  import('./components/DoshNivaranGuide').then(m => ({ default: m.DoshNivaranGuide }))
+);
+const AskAstrologer = lazy(() => 
+  import('./components/AskAstrologer').then(m => ({ default: m.AskAstrologer }))
+);
+
+// Tab prefetcher on hover/touch for instant 0ms transitions
+const prefetchTab = (tab: string) => {
+  if (tab === 'kundli') import('./components/KundliGenerator');
+  else if (tab === 'gun-milan') import('./components/GunMilan');
+  else if (tab === 'gemstones') import('./components/GemstoneRudrakshaFinder');
+  else if (tab === 'japa-mala') import('./components/DigitalJapaMala');
+  else if (tab === 'dosh-guide') import('./components/DoshNivaranGuide');
+  else if (tab === 'ask-astrologer') import('./components/AskAstrologer');
+};
+
+const VedicLoadingFallback: React.FC<{ text?: string }> = ({ text = 'वैदिक गणना लोड हो रही है...' }) => (
+  <div className="py-24 px-4 flex flex-col items-center justify-center text-center">
+    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#FF671F] to-[#CC5218] p-1 shadow-md animate-pulse mb-3">
+      <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-2xl">
+        🔱
+      </div>
+    </div>
+    <span className="font-yatra text-base sm:text-lg text-stone-900">{text}</span>
+    <span className="text-xs text-stone-700 mt-0.5">Shri Bhavani Jyotish • Instant Computation</span>
+  </div>
+);
 
 export function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
@@ -43,6 +79,14 @@ export function App() {
     document.documentElement.classList.add('light');
     document.documentElement.style.colorScheme = 'light';
     document.body.style.colorScheme = 'light';
+
+    // Idle-time background prefetching of high-demand tabs after initial render
+    const timer = setTimeout(() => {
+      import('./components/KundliGenerator');
+      import('./components/GunMilan');
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleAskAI = (contextQuery: string) => {
@@ -60,6 +104,7 @@ export function App() {
         lang={lang}
         setLang={setLang}
         onOpenPaymentQR={() => setIsPaymentModalOpen(true)}
+        onPrefetchTab={prefetchTab}
       />
 
       {/* Main Content Area */}
@@ -210,23 +255,31 @@ export function App() {
         )}
 
         {activeTab === 'kundli' && (
-          <KundliGenerator 
-            lang={lang} 
-            onAskAI={handleAskAI} 
-            onOpenPaymentQR={() => setIsPaymentModalOpen(true)} 
-          />
+          <Suspense fallback={<VedicLoadingFallback text="प्रामाणिक वैदिक जन्म कुंडली चक्र निर्मित हो रहा है..." />}>
+            <KundliGenerator 
+              lang={lang} 
+              onAskAI={handleAskAI} 
+              onOpenPaymentQR={() => setIsPaymentModalOpen(true)} 
+            />
+          </Suspense>
         )}
 
         {activeTab === 'gun-milan' && (
-          <GunMilan lang={lang} />
+          <Suspense fallback={<VedicLoadingFallback text="अष्टकूट 36 गुण मिलान गणना लोड हो रही है..." />}>
+            <GunMilan lang={lang} />
+          </Suspense>
         )}
 
         {activeTab === 'gemstones' && (
-          <GemstoneRudrakshaFinder lang={lang} />
+          <Suspense fallback={<VedicLoadingFallback text="रत्न एवं रुद्राक्ष मार्गदर्शिका लोड हो रही है..." />}>
+            <GemstoneRudrakshaFinder lang={lang} />
+          </Suspense>
         )}
 
         {activeTab === 'japa-mala' && (
-          <DigitalJapaMala lang={lang} />
+          <Suspense fallback={<VedicLoadingFallback text="पवित्र डिजिटल जप माला लोड हो रही है..." />}>
+            <DigitalJapaMala lang={lang} />
+          </Suspense>
         )}
 
         {activeTab === 'daily-wisdom' && (
@@ -243,7 +296,9 @@ export function App() {
         )}
 
         {activeTab === 'dosh-guide' && (
-          <DoshNivaranGuide lang={lang} />
+          <Suspense fallback={<VedicLoadingFallback text="शास्त्रीय दोष व वैदिक रक्षा मार्गदर्शिका लोड हो रही है..." />}>
+            <DoshNivaranGuide lang={lang} />
+          </Suspense>
         )}
 
         {activeTab === 'panchang' && (
@@ -253,15 +308,21 @@ export function App() {
         {activeTab === 'services' && (
           <ServicesSection
             lang={lang}
-            onSelectService={() => {}}
+            onSelectService={(id) => {
+              if (id === 'kundli') setActiveTab('kundli');
+              else if (id === 'matchmaking') setActiveTab('gun-milan');
+              else if (id === 'dosh') setActiveTab('dosh-guide');
+            }}
           />
         )}
 
         {activeTab === 'ask-astrologer' && (
-          <AskAstrologer
-            lang={lang}
-            initialQuery={askAiQuery}
-          />
+          <Suspense fallback={<VedicLoadingFallback text="AI वैदिक ज्योतिषी परामर्श कक्ष लोड हो रहा है..." />}>
+            <AskAstrologer
+              lang={lang}
+              initialQuery={askAiQuery}
+            />
+          </Suspense>
         )}
 
         {activeTab === 'contact' && (

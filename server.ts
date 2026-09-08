@@ -32,6 +32,12 @@ app.get("/api/health", (_req: Request, res: Response) => {
   res.json({ status: "ok", service: "Bhavani Jyotish Backend", city: "Mehsana, Gujarat" });
 });
 
+// Google Search Console Verification
+app.get("/googlef76376acedff709c.html", (_req: Request, res: Response) => {
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.send("google-site-verification: googlef76376acedff709c.html\n");
+});
+
 // Places search endpoint (Google Maps / Photon / Nominatim proxy)
 app.get("/api/places/search", async (req: Request, res: Response) => {
   try {
@@ -304,8 +310,20 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
+    app.use(
+      express.static(distPath, {
+        maxAge: "1d",
+        setHeaders: (res, filePath) => {
+          if (filePath.includes("/assets/")) {
+            res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+          } else {
+            res.setHeader("Cache-Control", "public, max-age=3600");
+          }
+        },
+      })
+    );
     app.get("*", (_req: Request, res: Response) => {
+      res.setHeader("Cache-Control", "no-cache");
       res.sendFile(path.join(distPath, "index.html"));
     });
   }

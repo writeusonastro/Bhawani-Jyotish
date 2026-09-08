@@ -12,6 +12,7 @@ interface HeaderProps {
   lang: Language;
   setLang: (l: Language) => void;
   onOpenPaymentQR?: () => void;
+  onPrefetchTab?: (id: string) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -20,6 +21,7 @@ export const Header: React.FC<HeaderProps> = ({
   lang,
   setLang,
   onOpenPaymentQR,
+  onPrefetchTab,
 }) => {
   const navItems = [
     { id: 'rashifal', labelHi: 'दैनिक राशिफल', labelGu: 'દૈનિક રાશિફળ', labelEn: 'Horoscope' },
@@ -40,25 +42,25 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-50 backdrop-blur-md shadow-lg border-b bg-[#FFFDF8]/98 border-amber-500/30 text-[#2C2420] print:hidden">
       {/* Top sacred royal shloka & contact strip */}
       <div className="bg-gradient-to-r from-[#631422] via-[#852E10] to-[#631422] text-amber-100 text-xs sm:text-sm py-1.5 px-3 sm:px-4 border-b border-amber-400/30">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-1.5 sm:gap-2">
-          <div className="flex items-center gap-1.5 sm:gap-2 font-medium min-w-0">
-            <span className="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 text-amber-950 px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black shadow-xs flex items-center gap-1 border border-amber-500 shrink-0">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 font-medium shrink-0">
+            <span className="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 text-amber-950 px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black shadow-xs flex items-center gap-1 border border-amber-500 shrink-0 whitespace-nowrap">
               <RajputSymbol size="xs" />
-              <span className="truncate">राजकीय ज्योतिष पीठ</span>
+              <span>राजकीय ज्योतिष पीठ</span>
             </span>
-            <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] bg-black/30 text-amber-200 border border-amber-400/40 px-2 sm:px-2.5 py-0.5 rounded-full font-bold shadow-xs shrink-0">
-              <span className="text-amber-300 hidden xs:inline sm:inline">पंजी:</span>
+            <span className="hidden sm:inline-flex items-center gap-1 text-[10px] sm:text-[11px] bg-black/30 text-amber-200 border border-amber-400/40 px-2 sm:px-2.5 py-0.5 rounded-full font-bold shadow-xs shrink-0 whitespace-nowrap">
+              <span className="text-amber-300">पंजी:</span>
               <span className="font-mono text-amber-100 font-black tracking-wide">{ASTROLOGER_INFO.registrationNo}</span>
               <VerifiedBadge size="xs" tooltipText="शासकीय पंजीकृत वैदिक संस्थान" />
             </span>
-            <span className="hidden xl:inline font-yatra tracking-wider text-amber-200 text-xs">
+            <span className="hidden xl:inline font-yatra tracking-wider text-amber-200 text-xs whitespace-nowrap">
               🪔 ॥ ॐ श्री भवान्यै नमः ॥ 🪔
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-3 text-xs sm:text-sm shrink-0">
-            <div className="hidden md:flex items-center gap-1.5 text-amber-200 font-medium">
-              <Clock className="w-3.5 h-3.5 text-amber-300" />
+          <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm shrink-0">
+            <div className="hidden md:flex items-center gap-1.5 text-amber-200 font-medium whitespace-nowrap">
+              <Clock className="w-3.5 h-3.5 text-amber-300 shrink-0" />
               <span>
                 {lang === 'en'
                   ? '8:00 AM - 8:00 PM'
@@ -69,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
             
             {/* Social Media Links */}
-            <div className="hidden lg:flex items-center gap-1.5 border-r border-amber-400/30 pr-2">
+            <div className="hidden lg:flex items-center gap-1.5 border-r border-amber-400/30 pr-2 shrink-0">
               <a
                 href={ASTROLOGER_INFO.socialLinks.instagram}
                 target="_blank"
@@ -101,15 +103,15 @@ export const Header: React.FC<HeaderProps> = ({
 
             <a 
               href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-              className="flex items-center gap-1 font-bold text-amber-100 hover:text-white transition-colors bg-amber-950/60 border border-amber-400/40 px-2 py-0.5 rounded-md shadow-xs text-[11px] sm:text-xs"
+              className="hidden sm:flex items-center gap-1 font-bold text-amber-100 hover:text-white transition-colors bg-amber-950/60 border border-amber-400/40 px-2.5 py-0.5 rounded-md shadow-xs text-[11px] sm:text-xs whitespace-nowrap shrink-0"
+              title={`पंडित जी को सीधे कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}
             >
-              <Phone className="w-3 h-3 text-amber-300 animate-pulse" />
-              <span className="hidden sm:inline">{ASTROLOGER_INFO.phonePrimary}</span>
-              <span className="sm:hidden">कॉल</span>
+              <Phone className="w-3 h-3 text-amber-300 animate-pulse shrink-0" />
+              <span className="font-mono">{ASTROLOGER_INFO.phonePrimary}</span>
             </a>
 
             {/* Language toggle */}
-            <div className="flex items-center bg-black/40 rounded-lg p-0.5 text-[11px] sm:text-xs font-semibold border border-amber-400/30">
+            <div className="flex items-center bg-black/40 rounded-lg p-0.5 text-[11px] sm:text-xs font-semibold border border-amber-400/30 shrink-0 whitespace-nowrap">
               <button
                 type="button"
                 onClick={() => setLang('hi')}
@@ -153,6 +155,10 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 rounded-full font-bold border bg-gradient-to-r from-amber-100 to-orange-50 border-amber-400 text-[#852E10] shadow-xs flex items-center gap-1">
                 <RajputSymbol size="xs" />
                 <span>{lang === 'en' ? 'Mehsana' : 'नागलपुर, मेहसाणा'}</span>
+              </span>
+              <span className="inline-flex sm:hidden items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-bold border bg-amber-50/90 border-amber-300 text-[#852E10] shadow-xs whitespace-nowrap">
+                <span>पंजी: {ASTROLOGER_INFO.registrationNo}</span>
+                <VerifiedBadge size="xs" tooltipText="शासकीय पंजीकृत वैदिक संस्थान" />
               </span>
             </div>
             <p className="text-[11px] sm:text-sm text-stone-900 font-bold tracking-wide truncate">
@@ -221,6 +227,8 @@ export const Header: React.FC<HeaderProps> = ({
               key={item.id}
               type="button"
               onClick={() => setActiveTab(item.id)}
+              onMouseEnter={() => onPrefetchTab?.(item.id)}
+              onTouchStart={() => onPrefetchTab?.(item.id)}
               className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all ${
                 activeTab === item.id
                   ? 'bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-white shadow-md shadow-amber-600/30 border border-amber-300/70'

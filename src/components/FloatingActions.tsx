@@ -83,10 +83,10 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
           </span>
 
           <div className="flex flex-col items-start leading-tight text-left">
-            <span className="font-yatra text-xs sm:text-sm font-bold text-white tracking-wide">
+            <span className="font-yatra text-xs sm:text-sm font-bold text-white tracking-wide whitespace-nowrap">
               {lang === 'en' ? 'Direct Call' : 'सीधा कॉल'}
             </span>
-            <span className="text-[10px] font-bold font-mono text-amber-100">
+            <span className="text-[10px] font-bold font-mono text-amber-100 whitespace-nowrap">
               {ASTROLOGER_INFO.phonePrimary}
             </span>
           </div>

@@ -588,7 +588,3 @@ export const NAKSHATRAS = [
   "उत्तराषाढ़ा (Uttara Ashadha)", "श्रवण (Shravana)", "धनिष्ठा (Dhanishta)", "शतभिषा (Shatabhisha)", 
   "पूर्वाभाद्रपद (Purva Bhadrapada)", "उत्तराभाद्रपद (Uttara Bhadrapada)", "रेवती (Revati)"
 ];
-
-import { INDIAN_CITIES_DATABASE } from './indianCities';
-export { INDIAN_CITIES_DATABASE };
-export const INDIAN_CITIES = INDIAN_CITIES_DATABASE;
