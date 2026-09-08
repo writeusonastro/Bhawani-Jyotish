@@ -77,14 +77,38 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false }
               : 'લગ્નમાં વિલંબ, નોકરી-વેપારમાં ખોટ, ગૃહ કંકાસ, માંગલિક, કાલસર્પ દોષ અથવા સંતાન સમસ્યાઓનું શાસ્ત્રોક્ત અને સચોટ વૈદિક સમાધાન. ૩૫+ વર્ષનો અનુભવ.'}
           </p>
 
-          {/* Main Action Buttons - Stacked nicely on mobile, row on desktop */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 mb-8 sm:mb-11 w-full max-w-lg mx-auto">
+          {/* Live Call Availability Alert */}
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/15 via-orange-500/20 to-amber-500/15 border border-amber-500/40 px-3.5 py-1.5 rounded-full mb-5 shadow-xs">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+            <span className="text-xs sm:text-sm font-bold text-[#852E10] dark:text-amber-200">
+              {lang === 'en'
+                ? 'Pandit Ji is Online & Available on Call Now'
+                : lang === 'hi'
+                ? '🟢 पंडित जी अभी प्रत्यक्ष कॉल पर उपलब्ध हैं | तुरंत फोन करें'
+                : '🟢 પંડિતજી હમણાં સીધા કોલ પર ઉપલબ્ધ છે | તુરંત ફોન કરો'}
+            </span>
+          </div>
+
+          {/* Main Action Buttons - High Conversion Direct Call */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-3 w-full max-w-xl mx-auto">
             <a
-              href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 hover:from-amber-700 hover:to-orange-700 text-white font-yatra text-base sm:text-xl px-6 sm:px-9 py-3.5 sm:py-4 rounded-2xl sm:rounded-full shadow-xl shadow-amber-700/30 transition-all hover:scale-105 active:scale-95 border-2 border-amber-300 ring-2 ring-amber-400/40 text-center"
+              href={`tel:${ASTROLOGER_INFO.phoneRaw || '+919909087902'}`}
+              className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#FF671F] via-[#E05312] to-[#B83E07] hover:from-[#E05312] hover:to-[#993D12] text-white font-yatra text-base sm:text-xl px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl shadow-xl shadow-orange-700/30 transition-all hover:scale-105 active:scale-95 border-2 border-amber-300 ring-4 ring-amber-400/30 text-center group"
             >
-              <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-amber-200 animate-bounce shrink-0" />
-              <span>{lang === 'en' ? 'Direct Royal Consultation' : lang === 'hi' ? 'सीधे पंडित जी से बात करें' : 'પંડિતજી સાથે સીધી વાત'}</span>
+              <div className="w-8 h-8 rounded-full bg-white text-[#FF671F] flex items-center justify-center shadow-xs shrink-0 group-hover:rotate-12 transition-transform">
+                <Phone className="w-4 h-4 fill-current animate-bounce" />
+              </div>
+              <div className="flex flex-col items-start text-left leading-tight">
+                <span className="text-xs text-amber-200 font-sans font-bold">
+                  {lang === 'en' ? 'Direct Phone Consultation' : 'सीधे फोन पर बात करें'}
+                </span>
+                <span className="font-mono text-base sm:text-lg font-black text-white tracking-wider">
+                  {ASTROLOGER_INFO.phonePrimary}
+                </span>
+              </div>
             </a>
 
             <a
@@ -93,12 +117,28 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false }
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold text-sm sm:text-lg px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl sm:rounded-full shadow-xl shadow-emerald-600/30 transition-all hover:scale-105 active:scale-95 border-2 border-emerald-300 text-center"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold text-sm sm:text-base px-6 py-3.5 sm:py-4 rounded-2xl shadow-xl shadow-emerald-600/30 transition-all hover:scale-105 active:scale-95 border-2 border-emerald-300 text-center"
             >
-              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-              <span>{lang === 'en' ? 'WhatsApp Consultation' : 'व्हाट्सएप पर परामर्श लें'}</span>
+              <MessageCircle className="w-5 h-5 shrink-0" />
+              <span>{lang === 'en' ? 'WhatsApp Chat' : 'व्हाट्सएप चैट'}</span>
               <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
             </a>
+          </div>
+
+          {/* Micro Trust Points to remove hesitation */}
+          <div className="flex items-center justify-center gap-3 sm:gap-5 text-[11px] sm:text-xs font-semibold text-stone-600 dark:text-stone-300 mb-8 sm:mb-11 flex-wrap">
+            <span className="flex items-center gap-1">
+              <span className="text-emerald-500 font-black">✓</span>
+              {lang === 'en' ? 'Direct conversation with Pandit Ji' : 'सीधे पंडित जी से संवाद'}
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="text-emerald-500 font-black">✓</span>
+              {lang === 'en' ? 'Zero waiting time' : 'कोई वेटिंग नहीं'}
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="text-emerald-500 font-black">✓</span>
+              {lang === 'en' ? '100% Confidential' : '१००% पूर्णतः गोपनीय'}
+            </span>
           </div>
 
           {/* Quick interactive utility tool cards */}

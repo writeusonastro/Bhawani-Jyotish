@@ -11,7 +11,7 @@ import {
   MapPin, Calendar, Clock, Compass, Layers,
   Check, Info, Sun, Moon, Flame, ShieldAlert, Award, ChevronRight,
   BookOpen, HeartHandshake, Eye,
-  X, FileText, Phone, QrCode
+  X, FileText, Phone, PhoneCall, QrCode
 } from 'lucide-react';
 import { GoogleMapsLocationPicker } from './GoogleMapsLocationPicker';
 
@@ -344,6 +344,35 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                     '{result.avakahadaChakra.naamAkshar}' अक्षर
                   </span>
                 </div>
+              </div>
+
+              {/* Direct Phone Consultation Callout for Maximum Conversions */}
+              <div className="my-3 p-3.5 rounded-2xl bg-gradient-to-r from-orange-500/10 via-amber-500/15 to-orange-500/10 border-2 border-[#FF671F]/40 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
+                <div className="flex items-center gap-3 text-left w-full sm:w-auto">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF671F] to-[#CC5218] text-white flex items-center justify-center shrink-0 shadow-md">
+                    <PhoneCall className="w-5 h-5 animate-bounce" />
+                  </div>
+                  <div>
+                    <h5 className="font-yatra text-sm text-[#852E10] font-bold leading-tight">
+                      {lang === 'hi'
+                        ? 'इस कुंडली का संपूर्ण फलादेश सीधे पंडित जी से समझें'
+                        : lang === 'gu'
+                        ? 'આ કુંડળીનું સંપૂર્ણ ફળાદેશ સીધા પંડિતજી પાસેથી સમજો'
+                        : 'Understand Your Full Kundli Predictions Directly on Call'}
+                    </h5>
+                    <p className="text-[11px] text-stone-700 font-medium">
+                      दोष निवारण, महादशा, विवाह, नौकरी-व्यापार पर फोन पर तुरंत मार्गदर्शन
+                    </p>
+                  </div>
+                </div>
+
+                <a
+                  href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF671F] to-[#CC5218] hover:from-[#E05312] hover:to-[#993D12] text-white font-yatra font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition-all hover:scale-105 active:scale-95 whitespace-nowrap text-center"
+                >
+                  <Phone className="w-4 h-4 fill-current" />
+                  <span>सीधे फोन करें: {ASTROLOGER_INFO.phonePrimary}</span>
+                </a>
               </div>
 
               {/* Navigation Tabs */}

@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import path from "path";
+import compression from "compression";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
@@ -8,6 +9,12 @@ dotenv.config();
 
 const app = express();
 const PORT = 3000;
+
+// Enable ultra-fast gzip/deflate compression for all requests
+app.use(compression({
+  level: 6,
+  threshold: 1024, // compress anything above 1kb
+}));
 
 app.use(express.json());
 

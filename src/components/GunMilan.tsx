@@ -957,6 +957,35 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                 </div>
               )}
 
+              {/* Direct Phone Consultation Callout for Gun Milan */}
+              <div className="my-3 p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/15 to-amber-500/10 border-2 border-[#FF671F]/40 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
+                <div className="flex items-center gap-3 text-left w-full sm:w-auto">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF671F] to-[#CC5218] text-white flex items-center justify-center shrink-0 shadow-md">
+                    <Phone className="w-5 h-5 animate-bounce" />
+                  </div>
+                  <div>
+                    <h5 className="font-yatra text-sm text-[#852E10] dark:text-amber-300 font-bold leading-tight">
+                      {lang === 'hi'
+                        ? 'गुण मिलान अथवा नाड़ी/भकूट दोष पर संशय है? सीधे फोन करें'
+                        : lang === 'gu'
+                        ? 'ગુણ મિલન કે નાડી/ભકૂટ દોષ પર શંકા છે? સીધા ફોન કરો'
+                        : 'Have doubts on Gun Milan or Nadi/Bhakoot Dosha? Call Pandit Ji'}
+                    </h5>
+                    <p className="text-[11px] text-stone-700 dark:text-stone-300 font-medium">
+                      दोष परिहार, ग्रह मैत्री एवं सुखी वैवाहिक जीवन हेतु सीधे ज्योतिषाचार्य से परामर्श लें
+                    </p>
+                  </div>
+                </div>
+
+                <a
+                  href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF671F] to-[#CC5218] hover:from-[#E05312] hover:to-[#993D12] text-white font-yatra font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition-all hover:scale-105 active:scale-95 whitespace-nowrap text-center"
+                >
+                  <Phone className="w-4 h-4 fill-current" />
+                  <span>सीधे फोन करें: {ASTROLOGER_INFO.phonePrimary}</span>
+                </a>
+              </div>
+
               {/* ----------------------------------------------------------------- */}
               {/* COMPARATIVE VEDIC ANALYSIS MATRIX */}
               {/* ----------------------------------------------------------------- */}

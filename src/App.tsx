@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import { DailyWisdomVastu } from './components/DailyWisdomVastu';
 import { ContactSection } from './components/ContactSection';
 import { InternationalConsultation } from './components/InternationalConsultation';
+import { CityLocalSeoSection } from './components/CityLocalSeoSection';
 import { VerifiedBadge } from './components/VerifiedBadge';
 import { PaymentModal } from './components/PaymentModal';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from './data/astrologyData';
@@ -108,7 +109,7 @@ export function App() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full max-w-full overflow-x-hidden">
+      <main className="flex-1 w-full max-w-full overflow-x-hidden pb-24 md:pb-0">
         {activeTab === 'home' && (
           <div>
             {/* Hero Section */}
@@ -238,6 +239,9 @@ export function App() {
             {/* Dedicated International & NRI Consultation Section */}
             <InternationalConsultation lang={lang} />
 
+            {/* City-Wise Local SEO Centers Section (Mehsana, Ahmedabad, Gandhinagar, Mumbai, USA/UK) */}
+            <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
+
             {/* Contact & Address Section directly on Home page */}
             <ContactSection
               lang={lang}
@@ -245,6 +249,12 @@ export function App() {
 
             {/* Testimonials */}
             <Testimonials lang={lang} />
+          </div>
+        )}
+
+        {activeTab === 'city-centers' && (
+          <div className="py-4">
+            <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
           </div>
         )}
 

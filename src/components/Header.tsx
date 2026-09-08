@@ -33,6 +33,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'panchang', labelHi: 'पंचांग व मुहूर्त', labelGu: 'પંચાંગ અને મુહૂર્ત', labelEn: 'Panchang' },
     { id: 'dosh-guide', labelHi: 'दोष निवारण', labelGu: 'દોષ નિવારણ', labelEn: 'Dosha Guide' },
     { id: 'services', labelHi: 'विशेष सेवाएं', labelGu: 'વિશેષ સેવાઓ', labelEn: 'Services' },
+    { id: 'city-centers', labelHi: '📍 शहरवार केंद्र', labelGu: '📍 શહેરવાર કેન્દ્રો', labelEn: '📍 City Centers' },
     { id: 'international', labelHi: '🌐 NRI व विदेश सेवा', labelGu: '🌐 NRI સેવાઓ', labelEn: '🌐 Global & NRI' },
     { id: 'ask-astrologer', labelHi: 'ज्योतिषी से पूछें (AI)', labelGu: 'જ્યોતિષીને પૂછો', labelEn: 'Ask AI Astrologer' },
     { id: 'contact', labelHi: 'संपर्क व पता', labelGu: 'સંપર્ક અને સરનામું', labelEn: 'Contact' }

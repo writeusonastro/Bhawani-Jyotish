@@ -260,6 +260,90 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
           </div>
         </div>
 
+        {/* City-Wise Local & NRI Consultation Hubs Strip */}
+        <div className="my-8 pt-6 border-t border-white/10">
+          <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+            <div className="flex items-center gap-2 mb-3">
+              <MapPin className="w-4 h-4 text-[#FF671F]" />
+              <h5 className="font-yatra text-sm text-amber-300">
+                {lang === 'en'
+                  ? 'City-Wise Astrological Services & Centers'
+                  : lang === 'hi'
+                  ? 'शहरवार वैदिक ज्योतिष सेवा एवं परामर्श केंद्र'
+                  : 'શહેરવાર વૈદિક જ્યોતિષ સેવા અને કેન્દ્રો'}
+              </h5>
+            </div>
+            
+            <div className="flex flex-wrap gap-2 text-xs">
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('city-centers');
+                  document.getElementById('city-local-seo')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-[#FF671F]/30 border border-white/10 hover:border-amber-400 text-stone-200 transition-all cursor-pointer text-left"
+              >
+                📍 <strong className="text-amber-300">मेहसाणा (Mehsana):</strong> नागलपुर मुख्य पीठ, विसनगर, उंझा, कडी, पाटन
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('city-centers');
+                  document.getElementById('city-local-seo')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-[#FF671F]/30 border border-white/10 hover:border-amber-400 text-stone-200 transition-all cursor-pointer text-left"
+              >
+                🏙️ <strong className="text-amber-300">अहमदाबाद (Ahmedabad):</strong> वस्त्रपुर, सेटेलाइट, SG हाइवे, मणिनगर, प्रह्लादनगर
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('city-centers');
+                  document.getElementById('city-local-seo')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-[#FF671F]/30 border border-white/10 hover:border-amber-400 text-stone-200 transition-all cursor-pointer text-left"
+              >
+                🏛️ <strong className="text-amber-300">गांधीनगर (Gandhinagar):</strong> GIFT City, इन्फोसिटी, सेक्टर 1-30, कुदासन
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('city-centers');
+                  document.getElementById('city-local-seo')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-[#FF671F]/30 border border-white/10 hover:border-amber-400 text-stone-200 transition-all cursor-pointer text-left"
+              >
+                🏢 <strong className="text-amber-300">मुंबई (Mumbai):</strong> कांदिवली, घाटकोपर, बोरीवली, विले पार्ले, ठाणे
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('city-centers');
+                  document.getElementById('city-local-seo')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-[#FF671F]/30 border border-white/10 hover:border-amber-400 text-stone-200 transition-all cursor-pointer text-left"
+              >
+                🇺🇸 <strong className="text-amber-300">NRI USA:</strong> New Jersey (Edison), Texas (Dallas), California (Bay Area)
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('city-centers');
+                  document.getElementById('city-local-seo')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-[#FF671F]/30 border border-white/10 hover:border-amber-400 text-stone-200 transition-all cursor-pointer text-left"
+              >
+                🇬🇧 <strong className="text-amber-300">NRI UK:</strong> London (Wembley, Harrow), Leicester (Belgrave Rd), Birmingham
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/* Bottom copyright and blessings */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-300">
           <div>
