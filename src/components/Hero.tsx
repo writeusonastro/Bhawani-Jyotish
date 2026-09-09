@@ -4,6 +4,7 @@ import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrolo
 import { AnimatedLogo } from './AnimatedLogo';
 import { VerifiedBadge } from './VerifiedBadge';
 import { RajputSymbol } from './RajputSymbol';
+import { QuickCallBackWidget } from './QuickCallBackWidget';
 import { Language } from '../types/astrology';
 
 interface HeroProps {
@@ -231,6 +232,9 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false }
               </p>
             </div>
           </div>
+
+          {/* Quick Call Back Request & Problem Direct Consultation Widget */}
+          <QuickCallBackWidget lang={lang} isDark={isDark} />
 
           {/* Royal Trust Medallions */}
           <div className={`grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 pt-6 sm:pt-8 border-t text-center ${

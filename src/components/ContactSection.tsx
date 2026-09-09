@@ -4,6 +4,7 @@ import { MapPin, Phone, MessageCircle, Clock, Mail, Navigation, Facebook, Instag
 import { VerifiedBadge } from './VerifiedBadge';
 import { RajputSymbol } from './RajputSymbol';
 import { PhonePeQRCodeCard } from './PhonePeQRCodeCard';
+import { QuickCallBackWidget } from './QuickCallBackWidget';
 import { Language } from '../types/astrology';
 
 interface ContactSectionProps {
@@ -265,6 +266,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             </div>
           </div>
         </div>
+
+        {/* High-Conversion Free Call Back Request Widget */}
+        <QuickCallBackWidget lang={lang} isDark={isDark} />
 
         {/* Official Vedic Consultation & Dakshina Payment Card (PhonePe / UPI QR Code Only) */}
         <div id="payment-qr-section" className={`p-6 sm:p-8 rounded-3xl border-2 shadow-xl text-center ${
