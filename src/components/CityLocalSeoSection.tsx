@@ -340,6 +340,100 @@ const TARGET_CITIES: CityInfo[] = [
     ctaPhoneTextHi: 'यूके परामर्श हेतु व्हाट्सएप करें',
     ctaPhoneTextGu: 'યુકે પરામર્શ માટે વોટ્સએપ કરો',
     waCityMessage: 'Hello Pandit Ji, I am contacting from UK (London/Leicester). I need Vedic astrology / marriage matchmaking consultation.'
+  },
+  {
+    id: 'canada',
+    badge: 'कनाडा एनआरआई सेवा (EST / PST)',
+    badgeColor: 'from-red-700 to-rose-900 text-white',
+    icon: '🇨🇦',
+    nameEn: 'Canada (Toronto, Brampton, Vancouver)',
+    nameHi: 'कनाडा (टोरंटो, ब्रैम्पटन, वैंकूवर) वैदिक ज्योतिष सेवा',
+    nameGu: 'કેનેડા (ટોરોન્ટો, બ્રેમ્પટન, વાનકુવર) વૈદિક જ્યોતિષ સેવા',
+    headlineEn: 'Best Indian Astrologer in Canada (Toronto, Brampton, Mississauga & Vancouver)',
+    headlineHi: 'कनाडा के टोरंटो, ब्रैम्पटन व वैंकूवर के प्रवासी भारतीयों हेतु विश्वसनीय वैदिक ज्योतिष एवं 36 गुण मिलान',
+    headlineGu: 'કેનેડાના ટોરોન્ટો, બ્રેમ્પટન અને વાનકુવરના ગુજરાતી-ભારતીય પરિવારો માટે અધિકૃત વૈદિક જ્યોતિષ',
+    taglineEn: 'Vedic Kundli, PR Settlement, Work Permit & Matrimonial Horoscope in Greater Toronto Area (GTA) & BC',
+    taglineHi: 'ग्रेटर टोरंटो एरिया (GTA), ब्रैम्पटन एवं ब्रिटिश कोलंबिया के परिवारों का पसंदीदा ज्योतिष परामर्श',
+    taglineGu: 'ટોરોન્ટો, બ્રેમ્પટન અને વાનકુવરમાં વસતા પરિવારોનું વિશ્વસનીય જ્યોતિષ સંસ્થાન',
+    areasCoveredEn: ['Toronto (Downtown, Scarborough)', 'Brampton & Mississauga', 'Vancouver & Surrey (BC)', 'Calgary & Edmonton (Alberta)', 'Ottawa & Montreal'],
+    areasCoveredHi: ['टोरंटो (स्कार्ब्रो)', 'ब्रैम्पटन व मिसिसागा', 'वैंकूवर व सरी', 'कैलगरी व एडमोंटन', 'ओटावा व मॉन्ट्रियल'],
+    areasCoveredGu: ['ટોરોન્ટો', 'બ્રેમ્પટન અને મિસિસાગા', 'વાનકુવર અને સરે', 'કેલગરી', 'ઓટાવા'],
+    descriptionEn: 'Serving Canadian Indian diaspora across Ontario, Alberta, and British Columbia. Accurate calculation of Daylight Saving Time (DST) for Canadian born children, Canada PR settlement planetary timings, and authentic 36 Gun Milan for matrimonial decisions.',
+    descriptionHi: 'कनाडा (ओंटारियो, अलबर्टा एवं बीसी) में रहने वाले भारतीय परिवारों हेतु प्रामाणिक वैदिक मार्गदर्शन। कनाडा में जन्मे बच्चों की शुद्ध DST युक्त जन्म कुंडली, कनाडा पीआर व वर्क परमिट ग्रह दशा विचार, और 36 गुण विवाह मिलान।',
+    descriptionGu: 'કેનેડામાં વસતા ગુજરાતી અને ભારતીય પરિવારો માટે પીઆર સેટલમેન્ટ, વર્ક પરમિટ અને 36 ગુણ લગ્ન મિલનનું સચોટ વૈદિક માર્ગદર્શન.',
+    keyServicesEn: [
+      'Canada NRI 36 Gun Milan with Nadi & Manglik Dosha remedies',
+      'Canada PR, Work Permit & Job Stability Astrological Timing',
+      'Canadian Born Baby Janam Kundli with Precise DST Correction',
+      'Commercial & Residential Vastu for Canadian Homes & Businesses'
+    ],
+    keyServicesHi: [
+      'कनाडा एनआरआई 36 गुण मिलान एवं मांगलिक दोष निवारण',
+      'कनाडा पीआर, वर्क परमिट एवं नौकरी स्थायित्व का ग्रह दशा विचार',
+      'कनाडा में जन्मे शिशुओं की सटीक DST संशोधित जन्म पत्रिका',
+      'कनाडा में घर व स्टोर हेतु वैदिक वास्तु परामर्श'
+    ],
+    keyServicesGu: [
+      'કેનેડા એનઆરઆઈ 36 ગુણ લગ્ન મિલન અને માંગલિક ઉપાય',
+      'કેનેડા પીઆર અને કરિયર સ્થિરતા માટે ગ્રહ દશા માર્ગદર્શન',
+      'કેનેડામાં જન્મેલા બાળકો માટે DST શુદ્ધ કુંડળી નિર્માણ',
+      'કેનેડિયન ઘરો માટે વૈદિક વાસ્તુ પરીક્ષણ'
+    ],
+    consultationModesEn: 'WhatsApp Call & Chat (+91 99090 87902) | Zoom Video Call | Canadian Evening Timeslots',
+    consultationModesHi: 'व्हाट्सएप कॉल व चैट (+91 99090 87902) | ज़ूम वीडियो कॉल | कनाडा समयानुसार स्लॉट',
+    consultationModesGu: 'વોટ્સએપ કોલ અને ચેટ (+91 99090 87902) | ઝૂમ વિડિયો | કેનેડા સમય મુજબ',
+    popularSearchTerms: ['Indian Astrologer in Canada', 'Brampton Gujarati Astrologer', 'Best Vedic Astrologer Toronto', 'Kundli Matching Vancouver', 'Canada PR Astrology Consultation'],
+    ctaPhoneTextEn: 'WhatsApp for Canada Consultation',
+    ctaPhoneTextHi: 'कनाडा परामर्श हेतु व्हाट्सएप करें',
+    ctaPhoneTextGu: 'કેનેડા પરામર્શ માટે વોટ્સએપ કરો',
+    waCityMessage: 'Hello Pandit Ji, I am contacting from Canada (Toronto/Brampton/Vancouver). I need Vedic astrology / PR / marriage consultation.'
+  },
+  {
+    id: 'australia-dubai',
+    badge: 'ऑस्ट्रेलिया एवं दुबई एनआरआई सेवा',
+    badgeColor: 'from-emerald-700 to-teal-900 text-white',
+    icon: '🇦🇺',
+    nameEn: 'Australia & UAE (Sydney, Melbourne, Dubai)',
+    nameHi: 'ऑस्ट्रेलिया एवं यूएई (सिडनी, मेलबर्न, दुबई) वैदिक ज्योतिष सेवा',
+    nameGu: 'ઓસ્ટ્રેલિયા અને દુબઈ (સિડની, મેલબોર્ન, દુબઈ) વૈદિક જ્યોતિષ સેવા',
+    headlineEn: 'Trusted Vedic Astrologer for Australia (Sydney, Melbourne) & UAE (Dubai, Abu Dhabi)',
+    headlineHi: 'ऑस्ट्रेलिया (सिडनी, मेलबर्न) एवं खाड़ी देशों (दुबई, अबू धाबी) के प्रवासी भारतीयों हेतु वैदिक ज्योतिष',
+    headlineGu: 'ઓસ્ટ્રેલિયા (સિડની, મેલબોર્ન) અને યુએઈ (દુબઈ) ના ભારતીય પરિવારો માટે વિશ્વસનીય વૈદિક જ્યોતિષ',
+    taglineEn: 'Dedicated to NRI Families in Sydney, Melbourne, Brisbane, Perth, Dubai & Sharjah',
+    taglineHi: 'सिडनी, मेलबर्न, ब्रिस्बेन, पर्थ, दुबई एवं शारजाह में व्यापारिक व पारिवारिक ज्योतिष परामर्श',
+    taglineGu: 'સિડની, મેલબોર્ન અને દુબઈના પરિવારો માટે સમર્પિત વ્યાપાર અને કુંડળી સેવા',
+    areasCoveredEn: ['Sydney (Parramatta, Blacktown)', 'Melbourne (Tarneit, Point Cook)', 'Brisbane & Perth', 'Dubai (Bur Dubai, Karama, Deira)', 'Abu Dhabi & Sharjah'],
+    areasCoveredHi: ['सिडनी (पैरामाटा, ब्लैकटाउन)', 'मेलबर्न (टारनीट, पॉइंट कुक)', 'ब्रिस्बेन व पर्थ', 'दुबई (बर दुबई, करामा)', 'अबू धाबी व शारजाह'],
+    areasCoveredGu: ['સિડની', 'મેલબોર્ન', 'બ્રિસ્બેન', 'દુબઈ', 'અબુ ધાબી'],
+    descriptionEn: 'Providing confidential Vedic consultations across Australian Eastern Time (AEST) and Gulf Standard Time (GST). Comprehensive analysis for Australia PR visas, gold/commercial trade in Dubai, and accurate 36 Gun Milan for matrimonial alliances.',
+    descriptionHi: 'ऑस्ट्रेलिया (AEST) एवं दुबई (GST) टाइमज़ोन के अनुसार सुलभ अपॉइंटमेंट्स। ऑस्ट्रेलिया पीआर वीज़ा, दुबई में व्यापार व निवेश का ग्रह चक्र विचार, एवं पारिवारिक शांति हेतु शास्त्रोक्त वैदिक मार्गदर्शन।',
+    descriptionGu: 'ઓસ્ટ્રેલિયા પીઆર, દુબઈમાં વેપાર-ધંધો અને લગ્ન કુંડળી મિલન માટે પંડિતજીનું ઓનલાઇન પરામર્શ.',
+    keyServicesEn: [
+      'Australia PR Settlement & Citizenship Astrological Forecast',
+      'Dubai & UAE Commercial Business, Trade & Investment Muhurat',
+      'Cross-Continent 36 Gun Milan with Dosha Nivaran',
+      'Southern Hemisphere Chart Adjustments & Daylight Saving Corrections'
+    ],
+    keyServicesHi: [
+      'ऑस्ट्रेलिया पीआर सेटलमेंट एवं करियर वृद्धि का समय विचार',
+      'दुबई व खाड़ी देशों में नया व्यापार, निवेश व दुकान का शुभ मुहूर्त',
+      'विशुद्ध 36 गुण मिलान एवं मांगलिक/नाड़ी दोष परिहार',
+      'दक्षिणी गोलार्ध व ऑस्ट्रेलिया टाइमज़ोन अनुसार शुद्ध लग्न चक्र'
+    ],
+    keyServicesGu: [
+      'ઓસ્ટ્રેલિયા પીઆર અને કરિયર પ્રગતિ માટે ગ્રહ ઉપાય',
+      'દુબઈમાં નવા વેપાર અને મુહૂર્ત માટે માર્ગદર્શન',
+      '36 ગુણ લગ્ન મિલન અને દોષ નિવારણ',
+      'ઓસ્ટ્રેલિયા ટાઈમઝોન મુજબ સચોટ કુંડળી'
+    ],
+    consultationModesEn: 'Direct WhatsApp Call & Voice Consultation (+91 99090 87902) | Convenient Time Slots',
+    consultationModesHi: 'व्हाट्सएप कॉल व वॉइस परामर्श (+91 99090 87902) | सुविधाजनक समय स्लॉट',
+    consultationModesGu: 'વોટ્સએપ કોલ અને વોઇસ પરામર્શ (+91 99090 87902) | અનુકૂળ સમય',
+    popularSearchTerms: ['Indian Astrologer in Australia Sydney', 'Melbourne Vedic Jyotish', 'Indian Astrologer in Dubai UAE', 'Australia PR Astrologer', 'NRI Kundli Matching Dubai'],
+    ctaPhoneTextEn: 'WhatsApp for Australia/Dubai',
+    ctaPhoneTextHi: 'ऑस्ट्रेलिया/दुबई परामर्श हेतु व्हाट्सएप करें',
+    ctaPhoneTextGu: 'ઓસ્ટ્રેલિયા/દુબઈ પરામર્શ માટે વોટ્સએપ કરો',
+    waCityMessage: 'Hello Pandit Ji, I am contacting from Australia / Dubai. I need Vedic horoscope consultation.'
   }
 ];
 
