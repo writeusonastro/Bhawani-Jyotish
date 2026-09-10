@@ -552,8 +552,8 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onSelectRash
                   {lang === 'en' ? 'Lucky Numbers Today' : lang === 'hi' ? 'आज का शुभ अंक (Lucky Numbers)' : 'શુભ અંક'}
                 </span>
                 <div className="flex gap-2 mt-1">
-                  {selectedForecast.luckyNumber.map((num) => (
-                    <span key={num} className="w-8 h-8 rounded-lg bg-[#FF671F] text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                  {selectedForecast.luckyNumber.map((num, nIdx) => (
+                    <span key={`lucky-num-${nIdx}-${num}`} className="w-8 h-8 rounded-lg bg-[#FF671F] text-white flex items-center justify-center font-bold text-sm shadow-sm">
                       {num}
                     </span>
                   ))}

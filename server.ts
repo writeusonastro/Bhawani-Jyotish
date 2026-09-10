@@ -254,6 +254,62 @@ app.get("/api/places/reverse", async (req: Request, res: Response) => {
   }
 });
 
+// Auto-detect location via IP (smooth fallback when GPS is blocked/unavailable)
+app.get("/api/places/ip-location", async (req: Request, res: Response) => {
+  try {
+    const forwarded = req.headers["x-forwarded-for"];
+    const ip = typeof forwarded === "string" ? forwarded.split(",")[0].trim() : req.socket.remoteAddress;
+
+    // Default fallback (Mehsana, Gujarat)
+    const fallbackLocation = {
+      name: "मेहसाणा (Mehsana)",
+      displayName: "मेहसाणा, गुजरात (Mehsana, Gujarat)",
+      state: "गुजरात",
+      lat: 23.5880,
+      lon: 72.3693,
+      isFallback: true
+    };
+
+    if (!ip || ip === "127.0.0.1" || ip === "::1" || ip.startsWith("10.") || ip.startsWith("192.168.")) {
+      return res.json(fallbackLocation);
+    }
+
+    try {
+      const geoRes = await fetch(`https://ipapi.co/${ip}/json/`, {
+        signal: AbortSignal.timeout(3000),
+        headers: { "User-Agent": "BhavaniJyotish-Kundli/1.0" }
+      });
+      if (geoRes.ok) {
+        const data = await geoRes.json();
+        if (data && data.latitude && data.longitude && !data.error) {
+          const cityName = data.city || data.region || "वर्तमान स्थान";
+          return res.json({
+            name: `${cityName}`,
+            displayName: `${cityName}, ${data.region || "गुजरात"}, ${data.country_name || "India"}`,
+            state: data.region || "गुजरात",
+            lat: parseFloat(data.latitude.toFixed(4)),
+            lon: parseFloat(data.longitude.toFixed(4)),
+            isFallback: false
+          });
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    res.json(fallbackLocation);
+  } catch (err) {
+    res.json({
+      name: "मेहसाणा (Mehsana)",
+      displayName: "मेहसाणा, गुजरात (Mehsana, Gujarat)",
+      state: "गुजरात",
+      lat: 23.5880,
+      lon: 72.3693,
+      isFallback: true
+    });
+  }
+});
+
 // AI Vedic Astrologer Consultation endpoint
 app.post("/api/astrology/consult", async (req: Request, res: Response) => {
   try {

@@ -15,7 +15,7 @@ export default defineConfig(() => {
     build: {
       target: 'es2020',
       cssCodeSplit: true,
-      chunkSizeWarningLimit: 700,
+      chunkSizeWarningLimit: 600,
       rollupOptions: {
         output: {
           manualChunks(id) {
@@ -23,12 +23,21 @@ export default defineConfig(() => {
               if (id.includes('lucide-react')) {
                 return 'vendor-icons';
               }
+              if (id.includes('motion')) {
+                return 'vendor-motion';
+              }
+              if (id.includes('qrcode.react') || id.includes('canvas-confetti')) {
+                return 'vendor-qr';
+              }
               return 'vendor-core';
             }
             if (id.includes('indianCities') || id.includes('expandedCitiesData') || id.includes('villageSearchService')) {
               return 'data-cities';
             }
-            if (id.includes('vedicCalculations')) {
+            if (id.includes('kalnirnayEngine')) {
+              return 'engine-panchang';
+            }
+            if (id.includes('vedicCalculations') || id.includes('vedicAstrologyEngine')) {
               return 'engine-vedic';
             }
           },

@@ -1,25 +1,20 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { DailyRashifal } from './components/DailyRashifal';
 import { ServicesSection } from './components/ServicesSection';
-import { PanchangMuhurat } from './components/PanchangMuhurat';
 import { Testimonials } from './components/Testimonials';
 import { AudioChants } from './components/AudioChants';
 import { FloatingActions } from './components/FloatingActions';
 import { Footer } from './components/Footer';
 import { DailyWisdomVastu } from './components/DailyWisdomVastu';
 import { ContactSection } from './components/ContactSection';
-import { InternationalConsultation } from './components/InternationalConsultation';
-import { CityLocalSeoSection } from './components/CityLocalSeoSection';
 import { VerifiedBadge } from './components/VerifiedBadge';
-import { PaymentModal } from './components/PaymentModal';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from './data/astrologyData';
 import { Language } from './types/astrology';
 import { detectInitialLanguage, saveLanguagePreference } from './utils/languageDetector';
 import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, CheckCircle2, Mail, Navigation } from 'lucide-react';
 
-// Dynamic lazy-loaded modules to make initial page load blazing fast
+// Dynamic lazy-loaded modules for high performance & minimal initial bundle
 const KundliGenerator = lazy(() => 
   import('./components/KundliGenerator').then(m => ({ default: m.KundliGenerator }))
 );
@@ -38,6 +33,21 @@ const DoshNivaranGuide = lazy(() =>
 const AskAstrologer = lazy(() => 
   import('./components/AskAstrologer').then(m => ({ default: m.AskAstrologer }))
 );
+const PanchangMuhurat = lazy(() => 
+  import('./components/PanchangMuhurat').then(m => ({ default: m.PanchangMuhurat }))
+);
+const CityLocalSeoSection = lazy(() => 
+  import('./components/CityLocalSeoSection').then(m => ({ default: m.CityLocalSeoSection }))
+);
+const InternationalConsultation = lazy(() => 
+  import('./components/InternationalConsultation').then(m => ({ default: m.InternationalConsultation }))
+);
+const DailyRashifal = lazy(() => 
+  import('./components/DailyRashifal').then(m => ({ default: m.DailyRashifal }))
+);
+const PaymentModal = lazy(() => 
+  import('./components/PaymentModal').then(m => ({ default: m.PaymentModal }))
+);
 
 // Tab prefetcher on hover/touch for instant 0ms transitions
 const prefetchTab = (tab: string) => {
@@ -47,6 +57,10 @@ const prefetchTab = (tab: string) => {
   else if (tab === 'japa-mala') import('./components/DigitalJapaMala');
   else if (tab === 'dosh-guide') import('./components/DoshNivaranGuide');
   else if (tab === 'ask-astrologer') import('./components/AskAstrologer');
+  else if (tab === 'panchang') import('./components/PanchangMuhurat');
+  else if (tab === 'city-centers') import('./components/CityLocalSeoSection');
+  else if (tab === 'international') import('./components/InternationalConsultation');
+  else if (tab === 'rashifal') import('./components/DailyRashifal');
 };
 
 const VedicLoadingFallback: React.FC<{ text?: string }> = ({ text = 'वैदिक गणना लोड हो रही है...' }) => (
@@ -58,6 +72,15 @@ const VedicLoadingFallback: React.FC<{ text?: string }> = ({ text = 'वैद�
     </div>
     <span className="font-yatra text-base sm:text-lg text-stone-900">{text}</span>
     <span className="text-xs text-stone-700 mt-0.5">Shri Bhavani Jyotish • Instant Computation</span>
+  </div>
+);
+
+const SectionPlaceholder: React.FC<{ minHeight?: string }> = ({ minHeight = '140px' }) => (
+  <div style={{ minHeight }} className="flex items-center justify-center py-6">
+    <div className="flex items-center gap-2 text-stone-400 text-xs animate-pulse">
+      <span className="text-amber-500 text-sm">🪔</span>
+      <span>वैदिक गणना तैयार हो रही है...</span>
+    </div>
   </div>
 );
 
@@ -125,10 +148,12 @@ export function App() {
             <AudioChants />
 
             {/* Daily Rashifal Overview */}
-            <DailyRashifal
-              lang={lang}
-              onSelectRashi={() => {}}
-            />
+            <Suspense fallback={<SectionPlaceholder minHeight="180px" />}>
+              <DailyRashifal
+                lang={lang}
+                onSelectRashi={() => {}}
+              />
+            </Suspense>
 
             {/* Core Services Section */}
             <ServicesSection
@@ -141,7 +166,9 @@ export function App() {
             />
 
             {/* Panchang & Muhurat Highlight */}
-            <PanchangMuhurat lang={lang} />
+            <Suspense fallback={<SectionPlaceholder minHeight="240px" />}>
+              <PanchangMuhurat lang={lang} />
+            </Suspense>
 
             {/* Astrologer Biography & Authenticity */}
             <div className="py-12 px-4 max-w-7xl mx-auto">
@@ -237,10 +264,14 @@ export function App() {
             </div>
 
             {/* Dedicated International & NRI Consultation Section */}
-            <InternationalConsultation lang={lang} />
+            <Suspense fallback={<SectionPlaceholder minHeight="160px" />}>
+              <InternationalConsultation lang={lang} />
+            </Suspense>
 
             {/* City-Wise Local SEO Centers Section (Mehsana, Ahmedabad, Gandhinagar, Mumbai, USA/UK) */}
-            <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
+            <Suspense fallback={<SectionPlaceholder minHeight="200px" />}>
+              <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
+            </Suspense>
 
             {/* Contact & Address Section directly on Home page */}
             <ContactSection
@@ -254,13 +285,17 @@ export function App() {
 
         {activeTab === 'city-centers' && (
           <div className="py-4">
-            <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
+            <Suspense fallback={<VedicLoadingFallback text="प्रमुख ज्योतिष केंद्र लोड हो रहे हैं..." />}>
+              <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
+            </Suspense>
           </div>
         )}
 
         {activeTab === 'international' && (
           <div className="py-4">
-            <InternationalConsultation lang={lang} />
+            <Suspense fallback={<VedicLoadingFallback text="International & NRI Astrology Portal..." />}>
+              <InternationalConsultation lang={lang} />
+            </Suspense>
           </div>
         )}
 
@@ -299,10 +334,12 @@ export function App() {
         )}
 
         {activeTab === 'rashifal' && (
-          <DailyRashifal
-            lang={lang}
-            onSelectRashi={() => {}}
-          />
+          <Suspense fallback={<VedicLoadingFallback text="दैनिक राशिफल लोड हो रहा है..." />}>
+            <DailyRashifal
+              lang={lang}
+              onSelectRashi={() => {}}
+            />
+          </Suspense>
         )}
 
         {activeTab === 'dosh-guide' && (
@@ -312,7 +349,9 @@ export function App() {
         )}
 
         {activeTab === 'panchang' && (
-          <PanchangMuhurat lang={lang} />
+          <Suspense fallback={<VedicLoadingFallback text="दैनिक वैदिक पंचांग एवं शुभ मुहूर्त लोड हो रहा है..." />}>
+            <PanchangMuhurat lang={lang} />
+          </Suspense>
         )}
 
         {activeTab === 'services' && (
@@ -353,11 +392,15 @@ export function App() {
       />
 
       {/* Vedic Consultation & Dakshina Payment Modal */}
-      <PaymentModal
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-        lang={lang}
-      />
+      {isPaymentModalOpen && (
+        <Suspense fallback={null}>
+          <PaymentModal
+            isOpen={isPaymentModalOpen}
+            onClose={() => setIsPaymentModalOpen(false)}
+            lang={lang}
+          />
+        </Suspense>
+      )}
 
       {/* Footer */}
       <Footer

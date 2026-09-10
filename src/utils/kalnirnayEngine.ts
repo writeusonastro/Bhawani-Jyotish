@@ -538,9 +538,12 @@ export function getDailyRashifalForDate(date: Date = new Date(), lang: Language 
     const timeWindow = TIME_WINDOWS[(dateSeed + idx) % TIME_WINDOWS.length];
     const favDir = DIRECTIONS[idx];
 
-    // Dynamic lucky numbers
+    // Dynamic lucky numbers (ensure distinct numbers)
     const num1 = ((baseRashi.luckyNumber[0] + dayOfWeek + idx) % 9) + 1;
-    const num2 = ((num1 * 2 + 3) % 9) + 1;
+    let num2 = ((num1 * 2 + 3) % 9) + 1;
+    if (num2 === num1) {
+      num2 = (num1 % 9) + 1;
+    }
     const dynamicLuckyNumbers = [num1, num2];
 
     // Day-specific dynamic outlook text blending transit Moon & date

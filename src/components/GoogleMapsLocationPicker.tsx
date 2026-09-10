@@ -28,7 +28,10 @@ const POPULAR_QUICK_CITIES = [
   { name: 'पाटन', en: 'Patan', state: 'गुजरात', lat: 23.8493, lon: 72.1266 },
   { name: 'विसनगर', en: 'Visnagar', state: 'गुजरात', lat: 23.6961, lon: 72.5511 },
   { name: 'ऊंझा', en: 'Unjha', state: 'गुजरात', lat: 23.8041, lon: 72.3941 },
+  { name: 'कडी', en: 'Kadi', state: 'गुजरात', lat: 23.2982, lon: 72.3323 },
   { name: 'सूरत', en: 'Surat', state: 'गुजरात', lat: 21.1702, lon: 72.8311 },
+  { name: 'राजकोट', en: 'Rajkot', state: 'गुजरात', lat: 22.3039, lon: 70.8022 },
+  { name: 'वडोदरा', en: 'Vadodara', state: 'गुजरात', lat: 22.3072, lon: 73.1812 },
   { name: 'मुंबई', en: 'Mumbai', state: 'महाराष्ट्र', lat: 19.0760, lon: 72.8777 },
   { name: 'दिल्ली', en: 'Delhi', state: 'दिल्ली', lat: 28.6139, lon: 77.2090 },
 ];
@@ -46,7 +49,10 @@ export const GoogleMapsLocationPicker: React.FC<GoogleMapsLocationPickerProps> =
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [isLocatingGPS, setIsLocatingGPS] = useState<boolean>(false);
-  const [gpsError, setGpsError] = useState<string | null>(null);
+  const [locationNotice, setLocationNotice] = useState<{
+    type: 'success' | 'info';
+    text: string;
+  } | null>(null);
   const [showMapEmbed, setShowMapEmbed] = useState<boolean>(false);
   const [showDistrictBrowser, setShowDistrictBrowser] = useState<boolean>(false);
 
@@ -72,7 +78,7 @@ export const GoogleMapsLocationPicker: React.FC<GoogleMapsLocationPickerProps> =
   // Debounced search like Google Places Autocomplete
   const handleQueryChange = (val: string) => {
     setQuery(val);
-    setGpsError(null);
+    setLocationNotice(null);
 
     if (debounceTimerRef.current) {
       clearTimeout(debounceTimerRef.current);
@@ -112,7 +118,10 @@ export const GoogleMapsLocationPicker: React.FC<GoogleMapsLocationPickerProps> =
     setQuery('');
     setPredictions([]);
     setIsDropdownOpen(false);
-    setGpsError(null);
+    setLocationNotice({
+      type: 'success',
+      text: `✓ स्थान '${place.name}' सफलतापूर्वक चुना गया!`
+    });
   };
 
   // Quick select preset city
@@ -125,17 +134,106 @@ export const GoogleMapsLocationPicker: React.FC<GoogleMapsLocationPickerProps> =
     });
     setQuery('');
     setIsDropdownOpen(false);
+    setLocationNotice({
+      type: 'success',
+      text: `✓ स्थान '${city.name}' चुना गया!`
+    });
   };
 
-  // GPS Current Location detection
-  const handleDetectGPS = () => {
-    if (!navigator.geolocation) {
-      setGpsError(lang === 'hi' ? 'आपके डिवाइस में GPS उपलब्ध नहीं है' : 'GPS not available on this device');
+  // Apply custom typed name or top prediction on Enter / click
+  const handleApplyTypedLocation = () => {
+    if (predictions.length > 0) {
+      handleSelectPlace(predictions[0]);
       return;
     }
 
+    const trimmed = query.trim();
+    if (!trimmed) return;
+
+    // Check local database
+    const match = INDIAN_CITIES_DATABASE.find(c => 
+      c.name.toLowerCase().includes(trimmed.toLowerCase()) ||
+      c.nameHi.includes(trimmed) ||
+      c.nameEn.toLowerCase().includes(trimmed.toLowerCase()) ||
+      (c.nameGu && c.nameGu.includes(trimmed))
+    );
+
+    if (match) {
+      onChange({
+        cityName: `${match.nameHi || match.name} (${match.nameEn})`,
+        state: match.state,
+        latitude: match.lat,
+        longitude: match.lon
+      });
+      setLocationNotice({
+        type: 'success',
+        text: `✓ स्थान '${match.nameHi || match.nameEn}' चुना गया!`
+      });
+    } else {
+      onChange({
+        cityName: `${trimmed} (गुजरात/भारत)`,
+        state: state || 'गुजरात',
+        latitude: latitude || 23.5880,
+        longitude: longitude || 72.3693
+      });
+      setLocationNotice({
+        type: 'success',
+        text: `✓ स्थान '${trimmed}' लागू कर दिया गया!`
+      });
+    }
+
+    setQuery('');
+    setIsDropdownOpen(false);
+  };
+
+  // Fallback to IP Network or Default City seamlessly
+  const fallbackToIPOrCity = async () => {
+    try {
+      const res = await fetch('/api/places/ip-location', {
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.lat && data.lon) {
+          onChange({
+            cityName: data.displayName || data.name,
+            state: data.state || 'गुजरात',
+            latitude: data.lat,
+            longitude: data.lon
+          });
+          setLocationNotice({
+            type: 'info',
+            text: `✓ नेटवर्क अनुसार स्थान (${data.name}) चुना गया। आप इसे ऊपर सर्च से बदल भी सकते हैं।`
+          });
+          return;
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    // Default to Mehsana
+    onChange({
+      cityName: 'मेहसाणा (Mehsana)',
+      state: 'गुजरात',
+      latitude: 23.5880,
+      longitude: 72.3693
+    });
+    setLocationNotice({
+      type: 'info',
+      text: 'स्थान: मेहसाणा, गुजरात चुना गया। आप ऊपर सर्च बार में कोई भी गाँव या शहर खोज सकते हैं।'
+    });
+  };
+
+  // GPS Current Location detection with 100% graceful fallback
+  const handleDetectGPS = () => {
     setIsLocatingGPS(true);
-    setGpsError(null);
+    setLocationNotice(null);
+
+    if (!navigator.geolocation) {
+      fallbackToIPOrCity().finally(() => setIsLocatingGPS(false));
+      return;
+    }
 
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
@@ -151,12 +249,20 @@ export const GoogleMapsLocationPicker: React.FC<GoogleMapsLocationPickerProps> =
               latitude: lat,
               longitude: lon
             });
+            setLocationNotice({
+              type: 'success',
+              text: `✓ वर्तमान GPS लोकेशन (${resolved.name}) सेट हो गई!`
+            });
           } else {
             onChange({
-              cityName: `वर्तमान GPS स्थिति (${lat}°, ${lon}°)`,
+              cityName: `वर्तमान GPS स्थान (${lat}°, ${lon}°)`,
               state: 'गुजरात',
               latitude: lat,
               longitude: lon
+            });
+            setLocationNotice({
+              type: 'success',
+              text: `✓ GPS स्थिति (${lat}°, ${lon}°) सेट हो गई!`
             });
           }
         } catch {
@@ -166,21 +272,23 @@ export const GoogleMapsLocationPicker: React.FC<GoogleMapsLocationPickerProps> =
             latitude: lat,
             longitude: lon
           });
+          setLocationNotice({
+            type: 'success',
+            text: `✓ GPS स्थिति (${lat}°, ${lon}°) सेट हो गई!`
+          });
         } finally {
           setIsLocatingGPS(false);
           setIsDropdownOpen(false);
         }
       },
-      (err) => {
+      async (err) => {
+        // When browser GPS fails or permission denied, smoothly use IP/Default without red error
+        console.warn("Browser GPS unavailable or blocked, using network fallback:", err);
+        await fallbackToIPOrCity();
         setIsLocatingGPS(false);
-        console.warn("Geolocation error:", err);
-        let msg = 'लोकेशन प्राप्त नहीं हो सकी। कृपया लोकेशन अनुमति (Permission) दें या ऊपर सर्च करें।';
-        if (err.code === 1) {
-          msg = 'लोकेशन अनुमति अस्वीकृत है। कृपया ब्राउज़र सेटिंग्स में लोकेशन ऑन करें।';
-        }
-        setGpsError(msg);
+        setIsDropdownOpen(false);
       },
-      { timeout: 10000, enableHighAccuracy: true }
+      { timeout: 4000, enableHighAccuracy: false, maximumAge: 300000 }
     );
   };
 
@@ -253,30 +361,46 @@ export const GoogleMapsLocationPicker: React.FC<GoogleMapsLocationPickerProps> =
             type="text"
             value={query}
             onChange={(e) => handleQueryChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleApplyTypedLocation();
+              }
+            }}
             onFocus={() => {
               if (predictions.length > 0) setIsDropdownOpen(true);
             }}
             placeholder={lang === 'hi' 
               ? "गाँव, कस्बा, तहसील, शहर खोजें (उदा. खेरालू, विसनगर, Mehsana)..." 
               : "ગામ, કસબો, તાલુકો, શહેર શોધો (દા.ત. ખેરાલુ, વિસનગર, Mehsana)..."}
-            className="w-full py-2.5 pr-20 text-xs sm:text-sm bg-transparent border-none text-stone-900 placeholder:text-stone-400 focus:outline-none"
+            className="w-full py-2.5 pr-28 text-xs sm:text-sm bg-transparent border-none text-stone-900 placeholder:text-stone-400 focus:outline-none"
           />
 
           {/* Action buttons inside input */}
-          <div className="absolute right-2 flex items-center gap-1">
+          <div className="absolute right-1.5 flex items-center gap-1">
             {query && (
-              <button
-                type="button"
-                onClick={() => {
-                  setQuery('');
-                  setPredictions([]);
-                  setIsDropdownOpen(false);
-                }}
-                className="p-1 text-stone-400 hover:text-stone-600 rounded-full hover:bg-stone-100 transition-colors"
-                title="हटाएं"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={handleApplyTypedLocation}
+                  className="px-2 py-1 rounded-lg text-[11px] font-bold bg-[#FF671F] text-white hover:bg-[#CC5218] transition-colors shadow-2xs shrink-0"
+                  title="यह स्थान चुनें"
+                >
+                  लागू करें
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuery('');
+                    setPredictions([]);
+                    setIsDropdownOpen(false);
+                  }}
+                  className="p-1 text-stone-400 hover:text-stone-600 rounded-full hover:bg-stone-100 transition-colors"
+                  title="हटाएं"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </>
             )}
 
             {/* GPS Current Location Button */}
@@ -285,7 +409,7 @@ export const GoogleMapsLocationPicker: React.FC<GoogleMapsLocationPickerProps> =
               onClick={handleDetectGPS}
               disabled={isLocatingGPS}
               className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-colors disabled:opacity-50 shrink-0"
-              title="मेरी वर्तमान GPS लोकेशन चुनें"
+              title="मेरी वर्तमान लोकेशन स्वतः पहचानें (GPS / नेटवर्क)"
             >
               {isLocatingGPS ? (
                 <Loader2 className="w-3 h-3 animate-spin text-blue-600" />
@@ -297,11 +421,24 @@ export const GoogleMapsLocationPicker: React.FC<GoogleMapsLocationPickerProps> =
           </div>
         </div>
 
-        {/* GPS Error Alert */}
-        {gpsError && (
-          <div className="mt-1.5 p-2 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-[11px] flex items-center justify-between">
-            <span>{gpsError}</span>
-            <button type="button" onClick={() => setGpsError(null)} className="text-rose-500 font-bold ml-2">×</button>
+        {/* Location Notice (Gentle Feedback, Never a blocking red error) */}
+        {locationNotice && (
+          <div className={`mt-1.5 p-2 rounded-lg text-[11px] flex items-center justify-between border transition-all ${
+            locationNotice.type === 'success'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+              : 'bg-amber-50 border-amber-200 text-amber-900'
+          }`}>
+            <span className="flex items-center gap-1.5 font-medium">
+              <Sparkles className="w-3.5 h-3.5 text-[#FF671F] shrink-0" />
+              <span>{locationNotice.text}</span>
+            </span>
+            <button
+              type="button"
+              onClick={() => setLocationNotice(null)}
+              className="text-stone-400 hover:text-stone-700 font-bold ml-2 text-sm leading-none"
+            >
+              ×
+            </button>
           </div>
         )}
 

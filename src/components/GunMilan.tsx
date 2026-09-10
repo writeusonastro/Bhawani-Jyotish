@@ -358,7 +358,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                         }`}
                       >
                         {Array.from({ length: 31 }, (_, i) => i + 1).map(d => (
-                          <option key={d} value={d}>{d} तारीख</option>
+                          <option key={`boy-d-${d}`} value={d}>{d} तारीख</option>
                         ))}
                       </select>
 
@@ -370,7 +370,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                         }`}
                       >
                         {['जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर'].map((m, i) => (
-                          <option key={i + 1} value={i + 1}>{m}</option>
+                          <option key={`boy-m-${i + 1}`} value={i + 1}>{m}</option>
                         ))}
                       </select>
 
@@ -402,7 +402,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                         }`}
                       >
                         {Array.from({ length: 12 }, (_, i) => i + 1).map(h => (
-                          <option key={h} value={h}>{h} बजे</option>
+                          <option key={`boy-h-${h}`} value={h}>{h} बजे</option>
                         ))}
                       </select>
 
@@ -414,7 +414,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                         }`}
                       >
                         {Array.from({ length: 60 }, (_, i) => i).map(m => (
-                          <option key={m} value={m}>{m.toString().padStart(2, '0')} मि.</option>
+                          <option key={`boy-min-${m}`} value={m}>{m.toString().padStart(2, '0')} मि.</option>
                         ))}
                       </select>
 
@@ -539,7 +539,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                       }`}
                     >
                       {[1, 2, 3, 4].map(p => (
-                        <option key={p} value={p}>{p} चरण (Pada {p})</option>
+                        <option key={`boy-charan-${p}`} value={p}>{p} चरण (Pada {p})</option>
                       ))}
                     </select>
                   </div>
@@ -618,7 +618,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                         }`}
                       >
                         {Array.from({ length: 31 }, (_, i) => i + 1).map(d => (
-                          <option key={d} value={d}>{d} तारीख</option>
+                          <option key={`girl-d-${d}`} value={d}>{d} तारीख</option>
                         ))}
                       </select>
 
@@ -630,7 +630,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                         }`}
                       >
                         {['जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर'].map((m, i) => (
-                          <option key={i + 1} value={i + 1}>{m}</option>
+                          <option key={`girl-m-${i + 1}`} value={i + 1}>{m}</option>
                         ))}
                       </select>
 
@@ -662,7 +662,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                         }`}
                       >
                         {Array.from({ length: 12 }, (_, i) => i + 1).map(h => (
-                          <option key={h} value={h}>{h} बजे</option>
+                          <option key={`girl-h-${h}`} value={h}>{h} बजे</option>
                         ))}
                       </select>
 
@@ -674,7 +674,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                         }`}
                       >
                         {Array.from({ length: 60 }, (_, i) => i).map(m => (
-                          <option key={m} value={m}>{m.toString().padStart(2, '0')} मि.</option>
+                          <option key={`girl-min-${m}`} value={m}>{m.toString().padStart(2, '0')} मि.</option>
                         ))}
                       </select>
 
@@ -799,7 +799,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                       }`}
                     >
                       {[1, 2, 3, 4].map(p => (
-                        <option key={p} value={p}>{p} चरण (Pada {p})</option>
+                        <option key={`girl-charan-${p}`} value={p}>{p} चरण (Pada {p})</option>
                       ))}
                     </select>
                   </div>
