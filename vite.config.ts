@@ -7,6 +7,9 @@ export default defineConfig(() => {
   return {
     base: './',
     plugins: [react(), tailwindcss()],
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'lucide-react', 'motion/react'],
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
@@ -39,6 +42,9 @@ export default defineConfig(() => {
             }
             if (id.includes('vedicCalculations') || id.includes('vedicAstrologyEngine')) {
               return 'engine-vedic';
+            }
+            if (id.includes('astrologyData')) {
+              return 'data-astrology';
             }
           },
         },

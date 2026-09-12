@@ -1,20 +1,34 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { ServicesSection } from './components/ServicesSection';
-import { Testimonials } from './components/Testimonials';
-import { AudioChants } from './components/AudioChants';
 import { FloatingActions } from './components/FloatingActions';
-import { Footer } from './components/Footer';
-import { DailyWisdomVastu } from './components/DailyWisdomVastu';
-import { ContactSection } from './components/ContactSection';
 import { VerifiedBadge } from './components/VerifiedBadge';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from './data/astrologyData';
 import { Language } from './types/astrology';
 import { detectInitialLanguage, saveLanguagePreference } from './utils/languageDetector';
 import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, CheckCircle2, Mail, Navigation } from 'lucide-react';
+import { LazyViewportSection } from './components/LazyViewportSection';
 
-// Dynamic lazy-loaded modules for high performance & minimal initial bundle
+// Dynamic lazy-loaded modules for ultra-fast initial mobile load
+const ServicesSection = lazy(() => 
+  import('./components/ServicesSection').then(m => ({ default: m.ServicesSection }))
+);
+const Testimonials = lazy(() => 
+  import('./components/Testimonials').then(m => ({ default: m.Testimonials }))
+);
+const AudioChants = lazy(() => 
+  import('./components/AudioChants').then(m => ({ default: m.AudioChants }))
+);
+const DailyWisdomVastu = lazy(() => 
+  import('./components/DailyWisdomVastu').then(m => ({ default: m.DailyWisdomVastu }))
+);
+const ContactSection = lazy(() => 
+  import('./components/ContactSection').then(m => ({ default: m.ContactSection }))
+);
+const Footer = lazy(() => 
+  import('./components/Footer').then(m => ({ default: m.Footer }))
+);
+
 const KundliGenerator = lazy(() => 
   import('./components/KundliGenerator').then(m => ({ default: m.KundliGenerator }))
 );
@@ -85,8 +99,48 @@ const SectionPlaceholder: React.FC<{ minHeight?: string }> = ({ minHeight = '140
 );
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<string>('home');
-  const [lang, setLangState] = useState<Language>(() => detectInitialLanguage());
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const requestedTab = params.get('tab') || params.get('target');
+      if (requestedTab) return requestedTab;
+      
+      const source = params.get('source');
+      const country = params.get('country');
+      const nri = params.get('nri');
+      const campaign = params.get('utm_campaign') || '';
+      
+      if (
+        source === 'abroad' || 
+        Boolean(country) || 
+        Boolean(nri) || 
+        campaign.includes('abroad') || 
+        campaign.includes('nri') || 
+        campaign.includes('usa') ||
+        campaign.includes('uk') ||
+        campaign.includes('canada')
+      ) {
+        return 'international';
+      }
+    }
+    return 'home';
+  });
+
+  const [lang, setLangState] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlLang = params.get('lang');
+      if (urlLang === 'en' || urlLang === 'hi' || urlLang === 'gu') {
+        return urlLang;
+      }
+      // If landing from abroad campaign and no saved preference, default to English for abroad audience
+      const isAbroad = params.get('source') === 'abroad' || Boolean(params.get('country')) || Boolean(params.get('nri'));
+      if (isAbroad && !localStorage.getItem('astro_language_preference')) {
+        return 'en';
+      }
+    }
+    return detectInitialLanguage();
+  });
   const [askAiQuery, setAskAiQuery] = useState<string | undefined>(undefined);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
 
@@ -94,6 +148,91 @@ export function App() {
     setLangState(newLang);
     saveLanguagePreference(newLang);
   };
+
+  // Dynamic SEO Title & Meta Description synchronizer for active tab & landing URLs
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const country = params.get('country')?.toLowerCase();
+
+    let title = 'भवानी ज्योतिष | Best Vedic Astrologer for USA, UK, Canada, Australia, UAE, Ahmedabad & Mehsana';
+    let desc = 'भवानी ज्योतिष केंद्र (पं. विरेंद्र कुमार जोशी) - 35+ वर्ष प्रतिष्ठित वैदिक ज्योतिष संस्थान। प्रामाणिक जन्म कुंडली, 36 गुण विवाह मिलान, वास्तु शास्त्र एवं विदेश परामर्श।';
+
+    if (country === 'usa' || (activeTab === 'international' && country === 'usa')) {
+      title = lang === 'en' 
+        ? 'Top Indian Vedic Astrologer in USA (EST, CST, PST) | Bhavani Jyotish' 
+        : 'USA में सर्वश्रेष्ठ भारतीय ज्योतिषाचार्य | भवानी ज्योतिष केंद्र (पंडित विरेंद्र कुमार जोशी)';
+      desc = 'Authentic Vedic astrology consultation for Indian & Gujarati diaspora across USA (California, New Jersey, Texas, New York, Chicago). Kundli matching, career & marriage guidance.';
+    } else if (country === 'uk' || (activeTab === 'international' && country === 'uk')) {
+      title = lang === 'en'
+        ? 'Best Gujarati Vedic Astrologer in UK (London, Leicester, Wembley) | Bhavani Jyotish'
+        : 'UK व लंदन में सर्वश्रेष्ठ गुजराती ज्योतिषाचार्य | भवानी ज्योतिष केंद्र';
+      desc = 'Trusted Gujarati Astrologer in UK for London, Leicester, Wembley, Birmingham. Family Kundli matching, Manglik Dosh Nivaran & Business Muhurat.';
+    } else if (country === 'canada' || (activeTab === 'international' && country === 'canada')) {
+      title = lang === 'en'
+        ? 'Indian Vedic Astrologer in Canada (Toronto, Brampton, Vancouver) | Bhavani Jyotish'
+        : 'कनाडा (Toronto, Brampton) में सर्वश्रेष्ठ भारतीय ज्योतिषाचार्य | भवानी ज्योतिष';
+      desc = 'Vedic horoscope reading, marriage matchmaking, and overseas career guidance for Canadian Indians in Toronto, Brampton, and Vancouver.';
+    } else if (country === 'australia' || (activeTab === 'international' && country === 'australia')) {
+      title = lang === 'en'
+        ? 'Indian Astrologer in Australia (Sydney, Melbourne, Brisbane) | Bhavani Jyotish'
+        : 'ऑस्ट्रेलिया में शीर्ष भारतीय ज्योतिषाचार्य (Sydney, Melbourne) | भवानी ज्योतिष';
+      desc = 'Online Vedic astrology, 36 Gun Milan & PR settlement horoscope analysis for Indian families in Australia and New Zealand.';
+    } else if (country === 'uae' || (activeTab === 'international' && country === 'uae')) {
+      title = lang === 'en'
+        ? 'Best Vedic Astrologer in Dubai & UAE (Abu Dhabi, Sharjah) | Bhavani Jyotish'
+        : 'दुबई व UAE में सर्वश्रेष्ठ भारतीय ज्योतिषाचार्य | भवानी ज्योतिष केंद्र';
+      desc = 'Commercial Muhurat, business partnership horoscope reading, and job promotions for NRIs in Dubai, Abu Dhabi, and Gulf.';
+    } else if (activeTab === 'international') {
+      title = lang === 'en'
+        ? 'NRI Vedic Astrology & 36 Gun Milan Portal (USA, UK, Canada, Australia, UAE) | Bhavani Jyotish'
+        : 'अंतरराष्ट्रीय प्रवासी भारतीय (NRI) वैदिक ज्योतिष पोर्टल | भवानी ज्योतिष केंद्र';
+      desc = 'Worldwide Vedic consultations across all timezones (EST, CST, PST, GMT). Foreign birth Kundli with Daylight Saving Time (DST) correction and WhatsApp appointments.';
+    } else if (activeTab === 'gun-milan') {
+      title = lang === 'en'
+        ? '36 Gun Milan & Kundli Matching for Marriage | Vedic Compatibility Calculator'
+        : 'विवाह हेतु 36 गुण मिलान एवं कुंडली मिलान | भवानी ज्योतिष केंद्र';
+      desc = 'विवाह हेतु प्रामाणिक अष्टकूट 36 गुण मिलान, नाड़ी दोष, भकूट दोष, गण दोष परिहार एवं दांपत्य सुख का संपूर्ण वैदिक विश्लेषण।';
+    } else if (activeTab === 'kundli') {
+      title = lang === 'en'
+        ? 'Free Online Vedic Janam Kundli Generator with Dasha & Remedies | Bhavani Jyotish'
+        : 'सटीक वैदिक जन्म कुंडली चक्र, महादशा एवं ग्रह स्थिति | भवानी ज्योतिष केंद्र';
+      desc = 'सटीक लग्न व नवमांश कुंडली चक्र, विंशोत्तरी महादशा, अष्टकवर्ग, राजयोग व ग्रह फलादेश। 100% शास्त्रोक्त गणना।';
+    } else if (activeTab === 'panchang') {
+      title = lang === 'en'
+        ? 'Aaj Ka Panchang, Shubh Muhurat & Choghadiya Today | Bhavani Jyotish'
+        : 'आज का पंचांग, चौघड़िया एवं शुभ मुहूर्त | भवानी ज्योतिष केंद्र';
+      desc = 'तिथि, वार, नक्षत्र, योग, करण, राहुकाल, अभिजीत मुहूर्त एवं अमृत-शुभ चौघड़िया की सटीक दैनिक गणना।';
+    } else if (activeTab === 'dosh-guide') {
+      title = lang === 'en'
+        ? 'Kaal Sarp, Manglik, Pitra & Sade Sati Dosh Nivaran Guide | Bhavani Jyotish'
+        : 'कालसर्प, मांगलिक, पितृ दोष व साढ़ेसाती संपूर्ण निवारण मार्गदर्शिका | भवानी ज्योतिष';
+      desc = 'कुंडली के मुख्य दोषों के लक्षण, प्रभाव एवं प्रामाणिक वैदिक सात्विक उपाय व अनुष्ठान विधि।';
+    } else if (activeTab === 'gemstones') {
+      title = lang === 'en'
+        ? 'Lucky Gemstone & Vedic Rudraksha Recommendation by Rashi | Bhavani Jyotish'
+        : 'राशि अनुसार भाग्यशाली रत्न एवं रुद्राक्ष चयन परामर्श | भवानी ज्योतिष केंद्र';
+      desc = 'अपनी जन्म राशि व लग्न के अनुसार धारण करें शुद्ध अभिमंत्रित रत्न व रुद्राक्ष। जीवन में समृद्धि, आरोग्य व सफलता के लिए।';
+    } else if (activeTab === 'rashifal') {
+      title = lang === 'en'
+        ? 'Daily Rashifal & Horoscope Predictions for 12 Zodiacs | Bhavani Jyotish'
+        : 'दैनिक राशिफल (12 राशियां) एवं आज का भविष्यफल | भवानी ज्योतिष केंद्र';
+      desc = 'मेष से मीन राशि का दैनिक राशिफल, लकी नंबर, शुभ रंग एवं ज्योतिषीय उपाय।';
+    } else if (activeTab === 'contact') {
+      title = lang === 'en'
+        ? 'Contact Pandit Shri Virendra Kumar Joshi | Direct Consultation Mehsana & Global'
+        : 'संपर्क एवं परामर्श - पंडित श्री विरेंद्र कुमार जोशी | भवानी ज्योतिष केंद्र मेहसाणा';
+      desc = 'सीधे संपर्क करें: फोन/WhatsApp +91 99090 87902। नागलपुर, मेहसाणा (गुजरात) मुख्य कार्यालय एवं विश्वभर में ऑनलाइन परामर्श।';
+    }
+
+    document.title = title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', desc);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', desc);
+  }, [activeTab, lang]);
 
   useEffect(() => {
     localStorage.removeItem('astro_dark_theme');
@@ -104,13 +243,22 @@ export function App() {
     document.documentElement.style.colorScheme = 'light';
     document.body.style.colorScheme = 'light';
 
-    // Idle-time background prefetching of high-demand tabs after initial render
-    const timer = setTimeout(() => {
-      import('./components/KundliGenerator');
-      import('./components/GunMilan');
-    }, 2000);
+    // Idle-time background prefetching of high-demand tabs after complete initial render
+    const idleId = typeof window !== 'undefined' && 'requestIdleCallback' in window
+      ? (window as any).requestIdleCallback(() => {
+          import('./components/KundliGenerator');
+        }, { timeout: 10000 })
+      : setTimeout(() => {
+          import('./components/KundliGenerator');
+        }, 6000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      if (typeof window !== 'undefined' && 'cancelIdleCallback' in window) {
+        (window as any).cancelIdleCallback(idleId);
+      } else {
+        clearTimeout(idleId);
+      }
+    };
   }, []);
 
   const handleAskAI = (contextQuery: string) => {
@@ -142,33 +290,49 @@ export function App() {
             />
 
             {/* Sacred Daily Vedic Wisdom & Vastu */}
-            <DailyWisdomVastu lang={lang} />
+            <LazyViewportSection minHeight="140px" rootMargin="350px">
+              <Suspense fallback={<SectionPlaceholder minHeight="140px" />}>
+                <DailyWisdomVastu lang={lang} />
+              </Suspense>
+            </LazyViewportSection>
 
             {/* Sacred Mantra Drone Audio Player */}
-            <AudioChants />
+            <LazyViewportSection minHeight="120px" rootMargin="350px">
+              <Suspense fallback={<SectionPlaceholder minHeight="120px" />}>
+                <AudioChants />
+              </Suspense>
+            </LazyViewportSection>
 
-            {/* Daily Rashifal Overview */}
-            <Suspense fallback={<SectionPlaceholder minHeight="180px" />}>
-              <DailyRashifal
-                lang={lang}
-                onSelectRashi={() => {}}
-              />
-            </Suspense>
+            {/* Daily Rashifal Overview - Viewport Loaded */}
+            <LazyViewportSection minHeight="180px" rootMargin="350px">
+              <Suspense fallback={<SectionPlaceholder minHeight="180px" />}>
+                <DailyRashifal
+                  lang={lang}
+                  onSelectRashi={() => {}}
+                />
+              </Suspense>
+            </LazyViewportSection>
 
             {/* Core Services Section */}
-            <ServicesSection
-              lang={lang}
-              onSelectService={(id) => {
-                if (id === 'kundli') setActiveTab('kundli');
-                else if (id === 'matchmaking') setActiveTab('gun-milan');
-                else if (id === 'dosh') setActiveTab('dosh-guide');
-              }}
-            />
+            <LazyViewportSection minHeight="280px" rootMargin="350px">
+              <Suspense fallback={<SectionPlaceholder minHeight="280px" />}>
+                <ServicesSection
+                  lang={lang}
+                  onSelectService={(id) => {
+                    if (id === 'kundli') setActiveTab('kundli');
+                    else if (id === 'matchmaking') setActiveTab('gun-milan');
+                    else if (id === 'dosh') setActiveTab('dosh-guide');
+                  }}
+                />
+              </Suspense>
+            </LazyViewportSection>
 
-            {/* Panchang & Muhurat Highlight */}
-            <Suspense fallback={<SectionPlaceholder minHeight="240px" />}>
-              <PanchangMuhurat lang={lang} />
-            </Suspense>
+            {/* Panchang & Muhurat Highlight - Viewport Loaded */}
+            <LazyViewportSection minHeight="240px" rootMargin="350px">
+              <Suspense fallback={<SectionPlaceholder minHeight="240px" />}>
+                <PanchangMuhurat lang={lang} />
+              </Suspense>
+            </LazyViewportSection>
 
             {/* Astrologer Biography & Authenticity */}
             <div className="py-12 px-4 max-w-7xl mx-auto">
@@ -263,23 +427,33 @@ export function App() {
               </div>
             </div>
 
-            {/* Dedicated International & NRI Consultation Section */}
-            <Suspense fallback={<SectionPlaceholder minHeight="160px" />}>
-              <InternationalConsultation lang={lang} />
-            </Suspense>
+            {/* Dedicated International & NRI Consultation Section - Viewport Loaded */}
+            <LazyViewportSection minHeight="160px" rootMargin="350px">
+              <Suspense fallback={<SectionPlaceholder minHeight="160px" />}>
+                <InternationalConsultation lang={lang} />
+              </Suspense>
+            </LazyViewportSection>
 
-            {/* City-Wise Local SEO Centers Section (Mehsana, Ahmedabad, Gandhinagar, Mumbai, USA/UK) */}
-            <Suspense fallback={<SectionPlaceholder minHeight="200px" />}>
-              <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
-            </Suspense>
+            {/* City-Wise Local SEO Centers Section (Mehsana, Ahmedabad, Gandhinagar, Mumbai, USA/UK) - Viewport Loaded */}
+            <LazyViewportSection minHeight="200px" rootMargin="350px">
+              <Suspense fallback={<SectionPlaceholder minHeight="200px" />}>
+                <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
+              </Suspense>
+            </LazyViewportSection>
 
             {/* Contact & Address Section directly on Home page */}
-            <ContactSection
-              lang={lang}
-            />
+            <LazyViewportSection minHeight="250px" rootMargin="350px">
+              <Suspense fallback={<SectionPlaceholder minHeight="250px" />}>
+                <ContactSection lang={lang} />
+              </Suspense>
+            </LazyViewportSection>
 
             {/* Testimonials */}
-            <Testimonials lang={lang} />
+            <LazyViewportSection minHeight="250px" rootMargin="350px">
+              <Suspense fallback={<SectionPlaceholder minHeight="250px" />}>
+                <Testimonials lang={lang} />
+              </Suspense>
+            </LazyViewportSection>
           </div>
         )}
 
@@ -329,7 +503,9 @@ export function App() {
 
         {activeTab === 'daily-wisdom' && (
           <div className="py-8">
-            <DailyWisdomVastu lang={lang} />
+            <Suspense fallback={<VedicLoadingFallback text="दैनिक सुविचार एवं वास्तु लोड हो रहा है..." />}>
+              <DailyWisdomVastu lang={lang} />
+            </Suspense>
           </div>
         )}
 
@@ -355,14 +531,16 @@ export function App() {
         )}
 
         {activeTab === 'services' && (
-          <ServicesSection
-            lang={lang}
-            onSelectService={(id) => {
-              if (id === 'kundli') setActiveTab('kundli');
-              else if (id === 'matchmaking') setActiveTab('gun-milan');
-              else if (id === 'dosh') setActiveTab('dosh-guide');
-            }}
-          />
+          <Suspense fallback={<VedicLoadingFallback text="वैदिक ज्योतिष सेवाएं लोड हो रही हैं..." />}>
+            <ServicesSection
+              lang={lang}
+              onSelectService={(id) => {
+                if (id === 'kundli') setActiveTab('kundli');
+                else if (id === 'matchmaking') setActiveTab('gun-milan');
+                else if (id === 'dosh') setActiveTab('dosh-guide');
+              }}
+            />
+          </Suspense>
         )}
 
         {activeTab === 'ask-astrologer' && (
@@ -375,9 +553,11 @@ export function App() {
         )}
 
         {activeTab === 'contact' && (
-          <ContactSection
-            lang={lang}
-          />
+          <Suspense fallback={<VedicLoadingFallback text="संपर्क विवरण लोड हो रहा है..." />}>
+            <ContactSection
+              lang={lang}
+            />
+          </Suspense>
         )}
       </main>
 
@@ -402,11 +582,15 @@ export function App() {
         </Suspense>
       )}
 
-      {/* Footer */}
-      <Footer
-        setActiveTab={setActiveTab}
-        lang={lang}
-      />
+      {/* Lazy Loaded Footer */}
+      <LazyViewportSection minHeight="220px" rootMargin="400px">
+        <Suspense fallback={<SectionPlaceholder minHeight="220px" />}>
+          <Footer
+            setActiveTab={setActiveTab}
+            lang={lang}
+          />
+        </Suspense>
+      </LazyViewportSection>
     </div>
   );
 }

@@ -127,7 +127,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false }
           </div>
 
           {/* Micro Trust Points to remove hesitation */}
-          <div className="flex items-center justify-center gap-3 sm:gap-5 text-[11px] sm:text-xs font-semibold text-stone-600 dark:text-stone-300 mb-8 sm:mb-11 flex-wrap">
+          <div className="flex items-center justify-center gap-3 sm:gap-5 text-[11px] sm:text-xs font-semibold text-stone-600 dark:text-stone-300 mb-5 sm:mb-6 flex-wrap">
             <span className="flex items-center gap-1">
               <span className="text-emerald-500 font-black">✓</span>
               {lang === 'en' ? 'Direct conversation with Pandit Ji' : 'सीधे पंडित जी से संवाद'}
@@ -140,6 +140,55 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false }
               <span className="text-emerald-500 font-black">✓</span>
               {lang === 'en' ? '100% Confidential' : '१००% पूर्णतः गोपनीय'}
             </span>
+          </div>
+
+          {/* High-Converting Overseas & NRI Consultation Bar (US, UK, Canada, Australia, UAE) */}
+          <div className="w-full max-w-2xl mx-auto mb-8 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/15 to-amber-500/10 border-2 border-amber-400/60 shadow-md text-stone-950 flex flex-col sm:flex-row items-center justify-between gap-3 text-left">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#FFF5F0] border border-[#FF671F]/30 flex items-center justify-center text-xl shrink-0 shadow-xs">
+                🌐
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="font-bold text-xs sm:text-sm text-[#852E10] dark:text-amber-300">
+                    {lang === 'en' ? 'Calling from Abroad (USA, UK, Canada, Australia, UAE)?' : 'विदेश (USA, UK, Canada, Australia, UAE) से संपर्क?'}
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[11px] bg-white/80 dark:bg-stone-900 px-2 py-0.5 rounded-md font-bold text-stone-700 dark:text-stone-200 border border-amber-300/40">
+                    🇺🇸 🇨🇦 🇬🇧 🇦🇺 🇦🇪
+                  </span>
+                </div>
+                <p className="text-[11px] sm:text-xs text-stone-700 dark:text-stone-300 font-medium mt-0.5">
+                  {lang === 'en'
+                    ? 'Free WhatsApp Audio/Video Consultation across EST, CST, PST & GMT Timezones'
+                    : 'मुफ्त WhatsApp ऑडियो/वीडियो कॉल • सभी टाइमज़ोन (EST/PST/GMT) में सुलभ'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end">
+              <a
+                href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                  `🙏 नमस्ते पंडित जी! मैं विदेश (USA/UK/Canada/NRI) से संपर्क कर रहा/रही हूँ। मुझे ऑनलाइन वैदिक जन्म कुंडली / विवाह गुण मिलान हेतु समय (Appointment) चाहिए। (EST/PST/GMT Timezone)`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all active:scale-95"
+              >
+                <MessageCircle className="w-4 h-4 fill-current" />
+                <span>WhatsApp Call</span>
+              </a>
+
+              {setActiveTab && (
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('international')}
+                  className="inline-flex items-center justify-center gap-1 text-xs font-bold text-[#852E10] dark:text-amber-300 hover:text-[#FF671F] bg-white dark:bg-stone-900 border border-amber-400 px-3.5 py-2.5 rounded-xl shadow-xs transition-all hover:bg-amber-50 dark:hover:bg-stone-800"
+                >
+                  <span>NRI Portal</span>
+                  <span>→</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Quick interactive utility tool cards */}

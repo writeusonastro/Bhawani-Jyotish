@@ -340,6 +340,42 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
               >
                 🇬🇧 <strong className="text-amber-300">NRI UK:</strong> London (Wembley, Harrow), Leicester (Belgrave Rd), Birmingham
               </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('international');
+                }}
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-[#FF671F]/30 border border-white/10 hover:border-amber-400 text-stone-200 transition-all cursor-pointer text-left"
+              >
+                🇨🇦 <strong className="text-amber-300">NRI Canada:</strong> Toronto, Brampton, Mississauga, Vancouver, Calgary
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('international');
+                }}
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-[#FF671F]/30 border border-white/10 hover:border-amber-400 text-stone-200 transition-all cursor-pointer text-left"
+              >
+                🇦🇺 <strong className="text-amber-300">NRI Australia:</strong> Sydney (Parramatta), Melbourne (Tarneit), Brisbane, Perth
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('international');
+                }}
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-[#FF671F]/30 border border-white/10 hover:border-amber-400 text-stone-200 transition-all cursor-pointer text-left"
+              >
+                🇦🇪 <strong className="text-amber-300">NRI UAE & Gulf:</strong> Dubai (Bur Dubai, Karama), Abu Dhabi, Sharjah, Doha
+              </button>
+            </div>
+
+            {/* Organic Search Terms & Authority Indexing Strip */}
+            <div className="mt-4 pt-3 border-t border-white/5 text-[11px] text-stone-400 leading-relaxed">
+              <span className="text-amber-300 font-semibold">प्रामाणिक वैदिक ज्योतिष सेवाएं: </span>
+              सटीक वैदिक जन्म कुंडली चक्र निर्माण (Lagna &amp; Navamsha Chart), अष्टकूट 36 गुण विवाह मिलान (Gun Milan for Marriage), नाड़ी दोष व भकूट दोष परिहार, मांगलिक दोष निवारण, कालसर्प दोष शांति पूजा, पितृ दोष व साढ़ेसाती उपाय, आवासीय व व्यापारिक वास्तु शास्त्र, राशि अनुसार भाग्यशाली रत्न व रुद्राक्ष परामर्श। Worldwide Online Consultation for Indian Diaspora in USA (EST/CST/PST), UK (GMT), Canada (EST/PST), Australia (AEST), Singapore &amp; Gulf with Daylight Saving Time (DST) mathematical precision.
             </div>
           </div>
         </div>
