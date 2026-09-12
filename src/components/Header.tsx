@@ -23,6 +23,17 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenPaymentQR,
   onPrefetchTab,
 }) => {
+  const [isScrolled, setIsScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY || document.documentElement.scrollTop || 0;
+      setIsScrolled(scrollPos > 15);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navItems = [
     { id: 'rashifal', labelHi: 'दैनिक राशिफल', labelGu: 'દૈનિક રાશિફળ', labelEn: 'Horoscope' },
     { id: 'kundli', labelHi: 'जन्म कुंडली', labelGu: 'જન્મ કુંડળી', labelEn: 'Janam Kundli' },
@@ -40,9 +51,13 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md shadow-lg border-b bg-[#FFFDF8]/98 border-amber-500/30 text-[#2C2420] print:hidden">
+    <header 
+      id="main-fixed-header"
+      style={{ position: 'sticky', top: 0, zIndex: 50 }}
+      className="sticky top-0 z-50 backdrop-blur-md shadow-lg border-b bg-[#FFFDF8]/98 border-amber-500/30 text-[#2C2420] print:hidden w-full transition-all duration-200"
+    >
       {/* Top sacred royal shloka & contact strip */}
-      <div className="bg-gradient-to-r from-[#631422] via-[#852E10] to-[#631422] text-amber-100 text-xs sm:text-sm py-1.5 px-3 sm:px-4 border-b border-amber-400/30">
+      <div className={`bg-gradient-to-r from-[#631422] via-[#852E10] to-[#631422] text-amber-100 text-xs sm:text-sm ${isScrolled ? 'py-1' : 'py-1.5'} px-3 sm:px-4 border-b border-amber-400/30 transition-all`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 font-medium shrink-0">
             <span className="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 text-amber-950 px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black shadow-xs flex items-center gap-1 border border-amber-500 shrink-0 whitespace-nowrap">
@@ -139,24 +154,20 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Main Brand & Navigation bar */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 sm:py-4 flex flex-col md:flex-row justify-between items-center gap-3">
+      {/* Main Brand & Action Buttons bar */}
+      <div className={`max-w-7xl mx-auto px-3 sm:px-4 ${isScrolled ? 'py-1.5 sm:py-2.5' : 'py-2 sm:py-3.5'} flex flex-col md:flex-row justify-between items-center gap-2 sm:gap-3 transition-all duration-200`}>
         {/* Brand identity */}
         <div 
           onClick={() => setActiveTab('home')}
           className="cursor-pointer flex items-center gap-2.5 sm:gap-3 group w-full md:w-auto"
         >
-          <AnimatedLogo size="md" lang={lang} />
+          <AnimatedLogo size={isScrolled ? "sm" : "md"} lang={lang} />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
               <h1 className="font-yatra text-xl sm:text-3xl text-[#852E10] tracking-wide flex items-center gap-1.5">
                 <span>{lang === 'en' ? 'Bhavani Jyotish' : 'भवानी ज्योतिष'}</span>
                 <VerifiedBadge size="sm" tooltipText="भवानी ज्योतिष - अधिकृत एवं सत्यापित वैदिक संस्थान" />
               </h1>
-              <span className="text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 rounded-full font-bold border bg-gradient-to-r from-amber-100 to-orange-50 border-amber-400 text-[#852E10] shadow-xs flex items-center gap-1">
-                <RajputSymbol size="xs" />
-                <span>{lang === 'en' ? 'Mehsana' : 'नागलपुर, मेहसाणा'}</span>
-              </span>
               <span className="inline-flex sm:hidden items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-bold border bg-amber-50/90 border-amber-300 text-[#852E10] shadow-xs whitespace-nowrap">
                 <span>पंजी: {ASTROLOGER_INFO.registrationNo}</span>
                 <VerifiedBadge size="xs" tooltipText="शासकीय पंजीकृत वैदिक संस्थान" />
@@ -178,7 +189,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               type="button"
               onClick={onOpenPaymentQR}
-              className="flex items-center justify-center gap-1 sm:gap-1.5 bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-800 hover:from-purple-800 hover:to-indigo-800 text-white font-bold px-2 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-purple-900/30 border border-purple-300/50 hover:scale-105 active:scale-95 cursor-pointer text-center"
+              className={`flex items-center justify-center gap-1 sm:gap-1.5 bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-800 hover:from-purple-800 hover:to-indigo-800 text-white font-bold px-2 sm:px-3.5 ${isScrolled ? 'py-1.5' : 'py-2'} rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-purple-900/30 border border-purple-300/50 hover:scale-105 active:scale-95 cursor-pointer text-center`}
               title="PhonePe / UPI QR कोड द्वारा दक्षिणा / परामर्श शुल्क"
             >
               <QrCode className="w-3.5 h-3.5 text-amber-200 shrink-0" />
@@ -192,7 +203,7 @@ export const Header: React.FC<HeaderProps> = ({
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1 sm:gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold px-2 sm:px-4 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-600/20 border border-emerald-400/40 hover:scale-105 active:scale-95 text-center"
+            className={`flex items-center justify-center gap-1 sm:gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold px-2 sm:px-4 ${isScrolled ? 'py-1.5' : 'py-2'} rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-600/20 border border-emerald-400/40 hover:scale-105 active:scale-95 text-center`}
           >
             <MessageCircle className="w-3.5 h-3.5 shrink-0" />
             <span className="truncate">{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
@@ -200,7 +211,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           <a
             href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-            className="flex items-center justify-center gap-1 sm:gap-1.5 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 hover:from-amber-700 hover:to-orange-700 text-white font-yatra tracking-wide px-2 sm:px-5 py-2 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-amber-600/30 border-2 border-amber-300 hover:scale-105 active:scale-95 text-center"
+            className={`flex items-center justify-center gap-1 sm:gap-1.5 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 hover:from-amber-700 hover:to-orange-700 text-white font-yatra tracking-wide px-2 sm:px-5 ${isScrolled ? 'py-1.5' : 'py-2'} rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-amber-600/30 border-2 border-amber-300 hover:scale-105 active:scale-95 text-center`}
           >
             <Phone className="w-3.5 h-3.5 text-amber-200 shrink-0" />
             <span className="truncate">{lang === 'en' ? 'Call' : lang === 'hi' ? 'कॉल करें' : 'કોલ કરો'}</span>

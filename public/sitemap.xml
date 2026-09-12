@@ -75,6 +75,103 @@
     <xhtml:link rel="alternate" hreflang="en-AE" href="https://bhawanijyotish.online/?country=uae" />
   </url>
 
+  <!-- Singapore & Southeast Asia Vedic Astrology -->
+  <url>
+    <loc>https://bhawanijyotish.online/?country=singapore</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://bhawanijyotish.online/?country=singapore" />
+  </url>
+
+  <!-- Germany & Europe Vedic Astrology -->
+  <url>
+    <loc>https://bhawanijyotish.online/?country=germany</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-DE" href="https://bhawanijyotish.online/?country=germany" />
+  </url>
+
+  <!-- South Africa & Africa Vedic Astrology -->
+  <url>
+    <loc>https://bhawanijyotish.online/?country=south-africa</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-ZA" href="https://bhawanijyotish.online/?country=south-africa" />
+  </url>
+
+  <!-- USA Regional Deep Links: California, New Jersey, Texas -->
+  <url>
+    <loc>https://bhawanijyotish.online/?country=usa&amp;state=california</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://bhawanijyotish.online/?country=usa&amp;state=new-jersey</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://bhawanijyotish.online/?country=usa&amp;state=texas</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- UK Regional Deep Links: London, Leicester -->
+  <url>
+    <loc>https://bhawanijyotish.online/?country=uk&amp;city=london</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://bhawanijyotish.online/?country=uk&amp;city=leicester</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Canada Regional Deep Links: Brampton / Toronto, Vancouver -->
+  <url>
+    <loc>https://bhawanijyotish.online/?country=canada&amp;city=brampton</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://bhawanijyotish.online/?country=canada&amp;city=vancouver</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Australia Regional Deep Links: Sydney, Melbourne -->
+  <url>
+    <loc>https://bhawanijyotish.online/?country=australia&amp;city=sydney</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://bhawanijyotish.online/?country=australia&amp;city=melbourne</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+
+  <!-- UAE Dubai Regional Deep Link -->
+  <url>
+    <loc>https://bhawanijyotish.online/?country=uae&amp;city=dubai</loc>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+
   <!-- 36 Gun Milan & Kundli Matching for Marriage -->
   <url>
     <loc>https://bhawanijyotish.online/?tab=gun-milan</loc>
