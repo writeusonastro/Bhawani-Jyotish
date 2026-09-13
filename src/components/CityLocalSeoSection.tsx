@@ -248,6 +248,100 @@ const TARGET_CITIES: CityInfo[] = [
     waCityMessage: 'नमस्ते पंडित जी, मैं मुंबई (महाराष्ट्र) से संपर्क कर रहा हूँ। मुझे विवाह मिलान / व्यापारिक ज्योतिष हेतु परामर्श चाहिए।'
   },
   {
+    id: 'surat',
+    badge: 'डायमंड व टेक्सटाइल सिटी (Surat)',
+    badgeColor: 'from-amber-600 to-rose-700 text-white',
+    icon: '💎',
+    nameEn: 'Surat & South Gujarat (सूरत)',
+    nameHi: 'सूरत एवं दक्षिण गुजरात वैदिक ज्योतिष केंद्र',
+    nameGu: 'સુરત અને દક્ષિણ ગુજરાત વૈદિક જ્યોતિષ કેન્દ્ર',
+    headlineEn: 'Leading Vedic Astrologer for Surat Diamond & Textile Families',
+    headlineHi: 'सूरत के हीरा (Diamond), कपड़ा (Textile) व्यापारियों एवं परिवारों का विश्वसनीय वैदिक ज्योतिष संस्थान',
+    headlineGu: 'સુરતના હીરા અને કાપડ વેપારીઓ તેમજ પરિવારો માટે વિશ્વસનીય વૈદિક જ્યોતિષ',
+    taglineEn: 'Specialized Business Horoscope, 36 Gun Milan, Factory Vastu & Mahalakshmi Muhurat in Varachha, Ring Road, Adajan, Vesu',
+    taglineHi: 'वराछा, रिंग रोड, अडाजण, वेसू, कतारगाम एवं पिपलोद के परिवारों का 35 वर्षों से अटूट विश्वास',
+    taglineGu: 'વરાછા, રિંગ રોડ, અડાજણ, વેસુ, કતારગામ અને પીપલોદના પરિવારોનો 35 વર્ષથી અતૂટ વિશ્વાસ',
+    areasCoveredEn: ['Varachha (Mini Bazar)', 'Katargam', 'Ring Road (Textile Market)', 'Vesu & VIP Road', 'Adajan', 'Piplod', 'Pal', 'Rander', 'Navsari', 'Bardoli'],
+    areasCoveredHi: ['वराछा (मिनी बाज़ार)', 'कतारगाम', 'रिंग रोड (टेक्सटाइल मार्केट)', 'वेसू व VIP रोड', 'अडाजण', 'पिपलोद', 'पाल', 'रांदेर', 'नवसारी', 'बारडोली'],
+    areasCoveredGu: ['વરાછા (મીની બજાર)', 'કતારગામ', 'રિંગ રોડ (કાપડ માર્કેટ)', 'વેસુ અને VIP રોડ', 'અડાજણ', 'પીપલોદ', 'પાલ', 'રાંદેર', 'નવસારી', 'બારડોલી'],
+    descriptionEn: 'Surat is Gujarat’s industrial powerhouse of diamonds, jewelry, and synthetic textiles. Business leaders and prominent families from Varachha, Katargam, Vesu, and Adajan consult Pt. Virendra Kumar Joshi for partnership compatibility, factory/showroom Vastu without demolition, export-import prosperity timings, and auspicious 36 Gun Milan for matrimonial matches.',
+    descriptionHi: 'सूरत के प्रतिष्ठित पाटीदार एवं व्यापारिक परिवारों द्वारा वराछा, कतारगाम, वेसू और रिंग रोड से नियमित रूप से कुंडली विचार, डायमंड व कपड़ा व्यापार में तेजी-मंदी चक्र, नई मिल/शोरूम का वास्तु परीक्षण तथा विवाह हेतु 36 गुण मिलान कराया जाता है।',
+    descriptionGu: 'સુરતના પ્રતિષ્ઠિત પાટીદાર અને વ્યાપારી પરિવારો વરાછા, કતારગામ, વેસુ અને રિંગ રોડથી હીરા-કાપડ વેપાર વૃદ્ધિ, ફેક્ટરી વાસ્તુ અને 36 ગુણ લગ્ન મિલન માટે નિયમિત પરામર્શ મેળવે છે.',
+    keyServicesEn: [
+      'Diamond & Textile Business Partnership & Prosperity Horoscope',
+      'Surat Industrial Factory, Loom, Mill & Showroom Vastu',
+      'Authentic 36 Gun Milan with Manglik & Nadi Dosha Remedies',
+      'Import-Export & Currency Planetary Timing Forecasts'
+    ],
+    keyServicesHi: [
+      'हीरा एवं कपड़ा व्यापार में साझेदारी व धन आगमन का ग्रह दशा विचार',
+      'सूरत की टेक्सटाइल मिल, लूम कारखाना व शोरूम का शास्त्रीय वास्तु',
+      'विशुद्ध 36 गुण विवाह मिलान एवं मांगलिक/नाड़ी दोष का वैदिक परिहार',
+      'व्यापारिक कर्ज मुक्ति, रुका हुआ धन प्राप्ति व महालक्ष्मी अनुष्ठान'
+    ],
+    keyServicesGu: [
+      'હીરા અને કાપડ વેપારમાં ભાગીદારી અને લક્ષ્મી પ્રાપ્તિ ગ્રહ દશા વિચાર',
+      'ટેક્સટાઇલ મિલ, કારખાના અને શોરૂમનું શાસ્ત્રોક્ત વૈદિક વાસ્તુ',
+      'વિશુદ્ધ 36 ગુણ લગ્ન કુંડળી મિલન અને માંગલિક દોષ નિવારણ',
+      'અટકેલા નાણાં પરત મેળવવા અને વેપાર ઉન્નતિના સાત્વિક ઉપાય'
+    ],
+    consultationModesEn: 'Direct WhatsApp Call & Voice Guidance (+91 99090 87902) | Fast Kundli PDF Delivery | Zoom Video',
+    consultationModesHi: 'त्वरित व्हाट्सएप कॉल व ऑडियो परामर्श (+91 99090 87902) | डिजिटल जन्म पत्रिका | वीडियो कॉल',
+    consultationModesGu: 'ત્વરિત વોટ્સએપ કોલ અને ઓડિયો પરામર્શ (+91 99090 87902) | ડિજિટલ કુંડળી | વિડિયો કોલ',
+    popularSearchTerms: ['Best Astrologer in Surat', 'Varachha Katargam Jyotish', 'Famous Astrologer Surat Vesu', 'Diamond Business Astrologer Surat', 'Kundli Matching Surat'],
+    ctaPhoneTextEn: 'Consult from Surat',
+    ctaPhoneTextHi: 'सूरत से परामर्श हेतु कॉल करें',
+    ctaPhoneTextGu: 'સુરતથી પરામર્શ માટે કોલ કરો',
+    waCityMessage: 'नमस्ते पंडित जी, मैं सूरत (गुजरात) से संपर्क कर रहा हूँ। मुझे व्यापार/कुंडली मिलान हेतु परामर्श प्राप्त करना है।'
+  },
+  {
+    id: 'rajkot',
+    badge: 'रंगीलो राजकोट व सौराष्ट्र केंद्र',
+    badgeColor: 'from-red-600 to-amber-700 text-white',
+    icon: '🦁',
+    nameEn: 'Rajkot & Saurashtra (राजकोट)',
+    nameHi: 'राजकोट एवं सौराष्ट्र वैदिक ज्योतिष सेवा',
+    nameGu: 'રાજકોટ અને સૌરાષ્ટ્ર વૈદિક જ્યોતિષ સેવા',
+    headlineEn: 'Trusted Vedic Astrologer for Rajkot, Jamnagar & Saurashtra',
+    headlineHi: 'राजकोट, जामनगर, जूनागढ़ एवं संपूर्ण सौराष्ट्र के परिवारों हेतु प्रतिष्ठित वैदिक ज्योतिष',
+    headlineGu: 'રાજકોટ, જામનગર, જૂનાગઢ અને સમગ્ર સૌરાષ્ટ્ર માટે પ્રતિષ્ઠિત વૈદિક જ્યોતિષ',
+    taglineEn: 'Serving Industrialists, Gold/Silver Jewelers & Families in Kalawad Road, 150 Feet Ring Road, Yagnik Road',
+    taglineHi: 'कालावाद रोड, 150 फीट रिंग रोड, याज्ञिक रोड, मोरबी (सिरेमिक हब) एवं जामनगर के जातकों का विश्वास',
+    taglineGu: 'કાલાવાડ રોડ, 150 ફૂટ રિંગ રોડ, યાજ્ઞિક રોડ, મોરબી (સિરામિક હબ) અને જામનગરના જાતકોનો વિશ્વાસ',
+    areasCoveredEn: ['Kalawad Road', '150 Feet Ring Road', 'Yagnik Road', 'Kothariya', 'Morbi (Ceramics Zone)', 'Jamnagar', 'Junagadh', 'Gondal', 'Porbandar'],
+    areasCoveredHi: ['कालावाद रोड', '150 फीट रिंग रोड', 'याज्ञिक रोड', 'कोठारिया इंडस्ट्रियल', 'मोरबी (सिरेमिक जोन)', 'जामनगर', 'जूनागढ़', 'गोंडल', 'पोरबंदर'],
+    areasCoveredGu: ['કાલાવાડ રોડ', '150 ફૂટ રિંગ રોડ', 'યાજ્ઞિક રોડ', 'કોઠારિયા', 'મોરબી (સિરામિક હબ)', 'જામનગર', 'જૂનાગઢ', 'ગોંડલ', 'પોરબંદર'],
+    descriptionEn: 'Saurashtra and Rajkot are renowned for gold ornaments, engineering casting, and ceramics. Pt. Virendra Kumar Joshi guides prominent families from Rajkot and Morbi on business expansion, auspicious factory foundation Muhurat, jewelry trade fortune timings, and trusted 36 Gun Milan for traditional marriages.',
+    descriptionHi: 'राजकोट, मोरबी, जामनगर और गोंडल के औद्योगिक व सर्राफा परिवारों द्वारा पंडित श्री विरेंद्र कुमार जोशी से विवाह मिलान, पितृ दोष व कालसर्प शांति, सिरेमिक एवं इंजीनियरिंग व्यापार में प्रगति और नए प्रतिष्ठान का मुहूर्त नियमित रूप से निकाला जाता है।',
+    descriptionGu: 'રાજકોટ, મોરબી, જામનગર અને ગોંડલના ઔદ્યોગિક તેમજ સોની પરિવારો લગ્ન મિલન, પિતૃ દોષ, કાલસર્પ શાંતિ અને સિરામિક વેપાર વૃદ્ધિ માટે નિયમિત પરામર્શ મેળવે છે.',
+    keyServicesEn: [
+      'Ceramics, Casting & Gold Jewelry Business Planetary Timings',
+      'Traditional 36 Gun Milan with Nadi, Bhakoot & Manglik Solutions',
+      'Pitru Dosha & Kaal Sarp Dosh Vedic Shanti Pujas in Gujarat',
+      'Industrial Shed & Agricultural Land Vastu Consultation'
+    ],
+    keyServicesHi: [
+      'सिरेमिक, कास्टिंग एवं सर्राफा (सोना-चांदी) व्यापार हेतु ग्रह विचार',
+      'पारंपरिक 36 गुण विवाह मिलान, नाड़ी व भकूट दोष का अचूक परिहार',
+      'गुजरात के पवित्र तीर्थों हेतु कालसर्प एवं पितृ दोष शांति अनुष्ठान',
+      'फैक्ट्री, गोडाउन एवं कृषि भूमि का शास्त्रीय भूमि पूजन मुहूर्त'
+    ],
+    keyServicesGu: [
+      'સિરામિક, કાસ્ટિંગ અને સોના-ચાંદી વેપાર માટે ગ્રહ ફલાદેશ',
+      'પરંપરાગત 36 ગુણ લગ્ન મિલન અને નાડી-ભકૂટ દોષ નિવારણ',
+      'કાલસર્પ દોષ અને પિતૃ દોષ શાંતિ માટે શાસ્ત્રોક્ત વિધાન',
+      'ફેક્ટરી, પ્લોટ અને વાડી માટે પંચાંગ શુદ્ધ વાસ્તુ મુહૂર્ત'
+    ],
+    consultationModesEn: 'Direct Phone & WhatsApp Consultation (+91 99090 87902) | Online Kundli PDF | Zoom Video',
+    consultationModesHi: 'फोन कॉल व व्हाट्सएप परामर्श (+91 99090 87902) | ऑनलाइन जन्म पत्रिका | वीडियो कॉल',
+    consultationModesGu: 'ફોન કોલ અને વોટ્સએપ પરામર્શ (+91 99090 87902) | ઓનલાઇન કુંડળી | વિડિયો કોલ',
+    popularSearchTerms: ['Best Astrologer in Rajkot', 'Famous Jyotish Kalawad Road Rajkot', 'Morbi Astrologer Kundli', 'Rajkot Kundli Matching', 'Saurashtra Jyotish Karyalay'],
+    ctaPhoneTextEn: 'Consult from Rajkot',
+    ctaPhoneTextHi: 'राजकोट से परामर्श हेतु कॉल करें',
+    ctaPhoneTextGu: 'રાજકોટથી પરામર્શ માટે કોલ કરો',
+    waCityMessage: 'नमस्ते पंडित जी, मैं राजकोट / सौराष्ट्र से हूँ। मुझे व्यापार / कुंडली मिलान हेतु मार्गदर्शन चाहिए।'
+  },
+  {
     id: 'usa',
     badge: 'अंतरराष्ट्रीय NRI सेवा (EST / CST / MST / PST)',
     badgeColor: 'from-blue-700 to-indigo-800 text-white',
@@ -503,10 +597,10 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
 
         <p className="text-xs sm:text-sm text-stone-900 font-medium leading-relaxed">
           {lang === 'en'
-            ? 'Serving authentic traditional Vedic astrology to families across Mehsana, Ahmedabad, Gandhinagar, Mumbai, and NRI diaspora in USA & UK.'
+            ? 'Serving authentic traditional Vedic astrology to families across Mehsana, Ahmedabad, Gandhinagar, Surat, Rajkot, Mumbai, and NRI diaspora in USA, UK, Canada & UAE.'
             : lang === 'hi'
-            ? 'मेहसाणा, अहमदाबाद, गांधीनगर, मुंबई एवं अमेरिका-यूके के प्रवासी भारतीय परिवारों हेतु समर्पित, शास्त्रोक्त एवं प्रामाणिक वैदिक ज्योतिष सेवा।'
-            : 'મહેસાણા, અમદાવાદ, ગાંધીનગર, મુંબઈ તેમજ અમેરિકા-યુકેના પ્રવાસી પરિવારો માટે સમર્પિત શાસ્ત્રોક્ત વૈદિક જ્યોતિષ સેવા.'}
+            ? 'मेहसाणा, अहमदाबाद, गांधीनगर, सूरत, राजकोट, मुंबई एवं अमेरिका-यूके-कनाडा-दुबई के प्रवासी भारतीय परिवारों हेतु समर्पित, शास्त्रोक्त एवं प्रामाणिक वैदिक ज्योतिष सेवा।'
+            : 'મહેસાણા, અમદાવાદ, ગાંધીનગર, સુરત, રાજકોટ, મુંબઈ તેમજ અમેરિકા-યુકે-કેનેડા-દુબઈના પ્રવાસી પરિવારો માટે સમર્પિત શાસ્ત્રોક્ત વૈદિક જ્યોતિષ સેવા.'}
         </p>
       </div>
 
