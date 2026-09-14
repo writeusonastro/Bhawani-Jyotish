@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   Globe2, 
   Clock, 
@@ -15,7 +15,8 @@ import {
   Compass, 
   HeartHandshake, 
   Calendar,
-  Award
+  Award,
+  Search
 } from 'lucide-react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
 import { Language } from '../types/astrology';
@@ -89,7 +90,14 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'High-tech career astrology, H1B to Green Card transitions, Startup funding Muhurat & Child birth charts with PST DST correction.',
         specialtyHi: 'आईटी करियर ज्योतिष, H1B से ग्रीन कार्ड समयावधि, स्टार्टअप व व्यवसाय मुहूर्त, कैलिफोर्निया समयानुसार बालक जन्म कुंडली।',
         specialtyGu: 'ટેક કરિયર, H1B થી ગ્રીન કાર્ડ સમયાવધિ, સ્ટાર્ટઅપ મુહૂર્ત અને DST જન્મ કુંડળી.',
-        topQueries: ['Indian Astrologer San Jose CA', 'Gujarati Astrologer Fremont CA', 'H1B Visa Astrology USA', 'Bay Area Kundli Matchmaking']
+        topQueries: [
+          'Indian Astrologer San Jose CA', 
+          'Gujarati Astrologer Fremont CA', 
+          'H1B Visa Astrology USA', 
+          'Bay Area Kundli Matchmaking',
+          'Silicon Valley Tech Career Astrology',
+          'Love Problem Solution California'
+        ]
       },
       {
         id: 'new-jersey',
@@ -102,7 +110,14 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Traditional Gujarati family matchmaking (36 Gun Milan), Griha Pravesh Muhurat for NJ homes & Kaal Sarp / Manglik Dosh remedies.',
         specialtyHi: 'पारंपरिक गुजराती 36 गुण विवाह मिलान, गृह प्रवेश व व्यावसायिक वास्तु, मांगलिक व कालसर्प दोष निवारण।',
         specialtyGu: 'ગુજરાતી ૩૬ ગુણ લગ્ન મિલન, ગૃહ પ્રવેશ મુહૂર્ત અને માંગલિક દોષ નિવારણ.',
-        topQueries: ['Best Indian Astrologer in Edison NJ', 'Gujarati Astrologer Oak Tree Rd Iselin', '36 Gun Milan New Jersey', 'Griha Pravesh Muhurat USA']
+        topQueries: [
+          'Best Indian Astrologer in Edison NJ', 
+          'Gujarati Astrologer Oak Tree Rd Iselin', 
+          '36 Gun Milan New Jersey', 
+          'Griha Pravesh Muhurat USA',
+          'Indian Astrologer Queens Long Island NY',
+          'Love Marriage Specialist New Jersey'
+        ]
       },
       {
         id: 'texas',
@@ -115,7 +130,14 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Commercial business investment timing, residential Vastu for Texas ranches & family peace consultations.',
         specialtyHi: 'व्यापारिक निवेश मुहूर्त, आवासीय विला व कार्यालय वास्तु, पारिवारिक सुख-शांति एवं संतान जन्म पत्रिका।',
         specialtyGu: 'વ્યાપારિક રોકાણ મુહૂર્ત, ટેક્સાસ મકાન વાસ્તુ અને પરિવાર સુખ-શાંતિ.',
-        topQueries: ['Indian Astrologer Dallas TX', 'Vedic Astrologer Houston Sugar Land', 'Astrologer in Plano Irving TX', 'USA Business Vastu']
+        topQueries: [
+          'Indian Astrologer Dallas TX', 
+          'Vedic Astrologer Houston Sugar Land', 
+          'Astrologer in Plano Irving TX', 
+          'USA Business Vastu',
+          'Indian Astrologer Austin TX',
+          'Green Card Delay Astrology USA'
+        ]
       },
       {
         id: 'midwest',
@@ -128,7 +150,14 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Career elevation, higher education decisions for overseas students & ancestral Pitru Dosh shanti.',
         specialtyHi: 'करियर पदोन्नति, उच्च शिक्षा मार्गदर्शन, साढ़ेसाती उपाय एवं पितृ दोष शांति अनुष्ठान।',
         specialtyGu: 'ઉચ્ચ અભ્યાસ, વિદેશ કરિયર અને સાડાસાતી શનિ ઉપાય.',
-        topQueries: ['Indian Astrologer Chicago IL', 'Astrologer in Atlanta GA', 'Vedic Jyotish Seattle WA', 'USA Kundli Consultation']
+        topQueries: [
+          'Indian Astrologer Chicago IL', 
+          'Astrologer in Atlanta GA', 
+          'Vedic Jyotish Seattle WA', 
+          'USA Kundli Consultation',
+          'Naperville Astrologer',
+          'North Carolina Indian Astrologer'
+        ]
       }
     ]
   },
@@ -163,7 +192,14 @@ const COUNTRIES: CountryInfo[] = [
         specialty: '35+ years serving British Gujarati families; fluent Gujarati consultation, wedding compatibility & UK home Vastu.',
         specialtyHi: '35+ वर्षों से ब्रिटिश गुजराती परिवारों का विश्वास; शुद्ध गुजराती परामर्श, 36 गुण विवाह मिलान व वास्तु।',
         specialtyGu: 'બ્રિટિશ ગુજરાતી પરિવારો માટે ૩૬ ગુણ વિવાહ મિલન અને લંડન પ્રોપર્ટી વાસ્તુ.',
-        topQueries: ['Gujarati Astrologer in Wembley London', 'Indian Astrologer Harrow UK', '36 Gun Milan UK London', 'Best Hindu Astrologer London']
+        topQueries: [
+          'Gujarati Astrologer in Wembley London', 
+          'Indian Astrologer Harrow UK', 
+          '36 Gun Milan UK London', 
+          'Best Hindu Astrologer London',
+          'Love Problem Solution UK London',
+          'British Summer Time BST Horoscope'
+        ]
       },
       {
         id: 'leicester-midlands',
@@ -176,7 +212,13 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Traditional Patidar & Gujarati matrimonial horoscope matching, retail business Muhurat & gemstone recommendation.',
         specialtyHi: 'पारंपरिक विवाह कुंडली मिलान, नाड़ी व भकूट दोष परिहार, व्यापारिक मुहूर्त व भाग्यशाली रत्न।',
         specialtyGu: 'પરંપરાગત વિવાહ મિલન, નાડી દોષ પરિહાર અને રત્ન ધારણ માર્ગદર્શન.',
-        topQueries: ['Gujarati Astrologer Leicester Belgrave', 'Indian Astrologer Birmingham UK', 'Kundli Matchmaking Midlands UK', 'Leicester Hindu Jyotish']
+        topQueries: [
+          'Gujarati Astrologer Leicester Belgrave', 
+          'Indian Astrologer Birmingham UK', 
+          'Kundli Matchmaking Midlands UK', 
+          'Leicester Hindu Jyotish',
+          'Melton Road Patidar Astrologer'
+        ]
       },
       {
         id: 'manchester-north',
@@ -189,7 +231,12 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Career guidance, commercial warehouse & restaurant Vastu, British Summer Time (BST) accurate birth charts.',
         specialtyHi: 'करियर विकास, रेस्तरां व व्यापारिक वास्तु, BST समय अनुसार सटीक जन्म कुंडली।',
         specialtyGu: 'કરિયર ગાઈડન્સ, કોમર્શિયલ વાસ્તુ અને BST સચોટ કુંડળી.',
-        topQueries: ['Indian Astrologer Manchester', 'Vedic Astrologer Leeds UK', 'Astrologer Bolton Lancashire']
+        topQueries: [
+          'Indian Astrologer Manchester', 
+          'Vedic Astrologer Leeds UK', 
+          'Astrologer Bolton Lancashire',
+          'Indian Astrologer Bradford Yorkshire'
+        ]
       }
     ]
   },
@@ -224,7 +271,14 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Permanent Residency (PR) astrological timing, 36 Gun Milan for cross-continental weddings, foreign child Janam Kundli with DST.',
         specialtyHi: 'कनाडा पीआर (PR) योग समयावधि, वर-वधू 36 गुण मिलान, कनाडा में जन्मे बच्चों की शुद्ध कुंडली।',
         specialtyGu: 'કેનેડા PR સમયાવધિ, ૩૬ ગુણ કુંડળી મિલન અને કેનેડા જન્મેલા બાળકોની કુંડળી.',
-        topQueries: ['Indian Astrologer Brampton Ontario', 'Gujarati Astrologer Mississauga', 'Best Astrologer in Toronto GTA', 'Canada PR Astrology Timing']
+        topQueries: [
+          'Indian Astrologer Brampton Ontario', 
+          'Gujarati Astrologer Mississauga', 
+          'Best Astrologer in Toronto GTA', 
+          'Canada PR Express Entry Astrology Timing',
+          'Love Problem Solution Canada Brampton',
+          'Canada Child DST Birth Chart'
+        ]
       },
       {
         id: 'vancouver-bc',
@@ -237,7 +291,12 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'PST timezone convenient appointments, family compatibility, overseas business growth & peaceful home Vastu.',
         specialtyHi: 'सरे व वैंकूवर के परिवारों हेतु शाम के अनुकूल समय पर परामर्श, व्यापार वृद्धि व घर का वास्तु।',
         specialtyGu: 'સરે અને વાનકુવર પરિવારો માટે અનુકૂળ પરામર્શ, વ્યાપાર વૃદ્ધિ અને વાસ્તુ.',
-        topQueries: ['Indian Astrologer Surrey BC', 'Vedic Astrologer Vancouver', 'Kundli Matchmaking British Columbia']
+        topQueries: [
+          'Indian Astrologer Surrey BC', 
+          'Vedic Astrologer Vancouver', 
+          'Kundli Matchmaking British Columbia',
+          'Love Marriage Specialist Surrey BC'
+        ]
       },
       {
         id: 'alberta',
@@ -250,7 +309,12 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Job stability in energy & engineering sectors, matrimonial kundli & Sade Sati remedies.',
         specialtyHi: 'करियर स्थिरता, विवाह कुंडली मिलान, साढ़ेसाती शनि शांति एवं रुद्राक्ष मार्गदर्शन।',
         specialtyGu: 'કરિયર સ્થિરતા, લગ્ન કુંડળી અને શનિ ઉપાય.',
-        topQueries: ['Indian Astrologer Calgary Alberta', 'Vedic Jyotish Edmonton', 'Canada Kundli Matching']
+        topQueries: [
+          'Indian Astrologer Calgary Alberta', 
+          'Vedic Jyotish Edmonton', 
+          'Canada Kundli Matching',
+          'Alberta Express Entry Astrology'
+        ]
       }
     ]
   },
@@ -285,7 +349,13 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Southern Hemisphere planetary calculation, PR Visa grant astrological timing & 36 Gun Milan.',
         specialtyHi: 'दक्षिणी गोलार्ध (Southern Hemisphere) सटीक लग्न चक्र, PR वीजा स्वीकृति योग एवं 36 गुण मिलान।',
         specialtyGu: 'દક્ષિણ ગોળાર્ધ સચોટ લગ્ન ગણતરી, PR વિઝા સમય અને લગ્ન મિલન.',
-        topQueries: ['Indian Astrologer Sydney Parramatta', 'Best Astrologer Harris Park Sydney', '36 Gun Milan Australia', 'Vedic Astrologer NSW']
+        topQueries: [
+          'Indian Astrologer Sydney Parramatta', 
+          'Best Astrologer Harris Park Sydney', 
+          '36 Gun Milan Australia', 
+          'Southern Hemisphere Vedic Lagna Australia',
+          'Love Problem Solution Sydney NSW'
+        ]
       },
       {
         id: 'melbourne-vic',
@@ -298,7 +368,13 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'New home purchase Griha Pravesh Vastu, marital harmony, children education horoscope & Navagraha Upay.',
         specialtyHi: 'मेलबर्न में नए घर का गृह प्रवेश वास्तु, पारिवारिक सुख, संतान विद्या योग एवं नवग्रह उपाय।',
         specialtyGu: 'મેલબોર્ન નવા ઘરનું ગૃહ પ્રવેશ વાસ્તુ, પારિવારિક સુખ અને નવગ્રહ ઉપાય.',
-        topQueries: ['Indian Astrologer Melbourne Tarneit', 'Vedic Astrologer Point Cook', 'Best Indian Astrologer Melbourne', 'Australia Griha Pravesh Vastu']
+        topQueries: [
+          'Indian Astrologer Melbourne Tarneit', 
+          'Vedic Astrologer Point Cook', 
+          'Best Indian Astrologer Melbourne', 
+          'Australia Griha Pravesh Vastu',
+          'Australia PR 189 190 Visa Astrology'
+        ]
       },
       {
         id: 'brisbane-perth-nz',
@@ -311,7 +387,12 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Mining & IT career predictions, business partnerships & overseas family prosperity.',
         specialtyHi: 'करियर मार्गदर्शन, साझेदारी व्यापार मुहूर्त एवं विदेशी धरती पर पारिवारिक समृद्धि।',
         specialtyGu: 'કરિયર માર્ગદર્શન, બિઝનેસ પાર્ટનરશિપ અને સમૃદ્ધિ.',
-        topQueries: ['Indian Astrologer Brisbane', 'Indian Astrologer Perth WA', 'Best Astrologer Auckland New Zealand']
+        topQueries: [
+          'Indian Astrologer Brisbane', 
+          'Indian Astrologer Perth WA', 
+          'Best Astrologer Auckland New Zealand',
+          'Adelaide Indian Astrologer'
+        ]
       }
     ]
   },
@@ -346,7 +427,13 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'LLC business partnership compatibility, Gold Souk & trade Muhurat, commercial showroom Vastu.',
         specialtyHi: 'पार्टनरशिप व्यापार कुंडली मिलान, गोल्ड व कमर्शियल ट्रेड मुहूर्त, शोरूम व कार्यालय वास्तु।',
         specialtyGu: 'પાર્ટનરશિપ બિઝનેસ કુંડળી, ટ્રેડિંગ મુહૂર્ત અને દુબઈ ઓફિસ વાસ્તુ.',
-        topQueries: ['Best Indian Astrologer in Dubai', 'Gujarati Astrologer Bur Dubai Karama', 'Business Astrologer Dubai UAE', 'Vastu Consultant Dubai']
+        topQueries: [
+          'Best Indian Astrologer in Dubai', 
+          'Gujarati Astrologer Bur Dubai Karama', 
+          'Business Astrologer Dubai UAE', 
+          'Vastu Consultant Dubai',
+          'Love Problem Solution Dubai UAE'
+        ]
       },
       {
         id: 'abu-dhabi-sharjah',
@@ -359,7 +446,12 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Job security, promotional timing, family stability & remote Vedic puja sankalp.',
         specialtyHi: 'नौकरी में स्थिरता व पदोन्नति, पारिवारिक सुख एवं भारत के तीर्थों पर संकल्प पूजा।',
         specialtyGu: 'નોકરીમાં સ્થિરતા, પ્રમોશન અને તીર્થ સંકલ્પ પૂજા.',
-        topQueries: ['Indian Astrologer Abu Dhabi', 'Best Astrologer in Sharjah', 'Vedic Astrology UAE']
+        topQueries: [
+          'Indian Astrologer Abu Dhabi', 
+          'Best Astrologer in Sharjah', 
+          'Vedic Astrology UAE',
+          'Ajman Indian Jyotish'
+        ]
       },
       {
         id: 'gulf-cooperation',
@@ -372,7 +464,12 @@ const COUNTRIES: CountryInfo[] = [
         specialty: 'Overseas savings accumulation, family protection remedies & marriage matching.',
         specialtyHi: 'विदेशी धन संचय, पारिवारिक सुरक्षा हेतु ग्रह शांति एवं वर-वधू कुंडली मिलान।',
         specialtyGu: 'ધન સંચય, ગ્રહ શાંતિ અને વિવાહ કુંડળી મિલન.',
-        topQueries: ['Indian Astrologer in Qatar', 'Vedic Astrologer Oman Muscat', 'Astrologer in Kuwait']
+        topQueries: [
+          'Indian Astrologer in Qatar', 
+          'Vedic Astrologer Oman Muscat', 
+          'Astrologer in Kuwait',
+          'Indian Jyotish Bahrain Saudi'
+        ]
       }
     ]
   },
@@ -542,6 +639,74 @@ const INTERNATIONAL_FAQS = [
   }
 ];
 
+export interface AbroadSearchQueryItem {
+  id: string;
+  query: string;
+  category: 'all' | 'usa' | 'uk' | 'canada' | 'australia' | 'uae' | 'immigration' | 'marriage' | 'love';
+  categoryLabel: string;
+  countryCode: string;
+  flag: string;
+  intentBadge: string;
+}
+
+export const ABROAD_KEYWORD_DIRECTORY: AbroadSearchQueryItem[] = [
+  // USA Queries
+  { id: 'us-1', query: 'Best Indian Astrologer in USA', category: 'usa', categoryLabel: 'United States', countryCode: 'US', flag: '🇺🇸', intentBadge: 'Top Ranked' },
+  { id: 'us-2', query: 'Gujarati Astrologer in New Jersey Edison', category: 'usa', categoryLabel: 'New Jersey', countryCode: 'US', flag: '🇺🇸', intentBadge: 'Local Hub' },
+  { id: 'us-3', query: 'Indian Astrologer San Jose Bay Area California', category: 'usa', categoryLabel: 'California', countryCode: 'US', flag: '🇺🇸', intentBadge: 'Tech Hub' },
+  { id: 'us-4', query: 'Indian Astrologer Dallas & Houston Texas', category: 'usa', categoryLabel: 'Texas', countryCode: 'US', flag: '🇺🇸', intentBadge: 'High Intent' },
+  { id: 'us-5', query: 'USA H1B Visa Delay Astrological Remedies', category: 'immigration', categoryLabel: 'H1B Visa', countryCode: 'US', flag: '🇺🇸', intentBadge: 'Career' },
+  { id: 'us-6', query: 'US Green Card Priority Date Astrology', category: 'immigration', categoryLabel: 'Immigration', countryCode: 'US', flag: '🇺🇸', intentBadge: 'Settlement' },
+  { id: 'us-7', query: 'Daylight Saving Time DST Horoscope USA', category: 'usa', categoryLabel: 'DST Lagna', countryCode: 'US', flag: '🇺🇸', intentBadge: 'Vedic Math' },
+  { id: 'us-8', query: 'Love Problem Solution for NRIs in USA', category: 'love', categoryLabel: 'Relationships', countryCode: 'US', flag: '🇺🇸', intentBadge: 'Love Solution' },
+  
+  // UK Queries
+  { id: 'uk-1', query: 'Best Indian Astrologer in UK London', category: 'uk', categoryLabel: 'London UK', countryCode: 'GB', flag: '🇬🇧', intentBadge: 'Top Ranked' },
+  { id: 'uk-2', query: 'Gujarati Astrologer Leicester Belgrave Road', category: 'uk', categoryLabel: 'Leicester', countryCode: 'GB', flag: '🇬🇧', intentBadge: 'Patidar Trust' },
+  { id: 'uk-3', query: 'Indian Astrologer Harrow & Wembley Brent', category: 'uk', categoryLabel: 'Wembley', countryCode: 'GB', flag: '🇬🇧', intentBadge: 'Gujarati Hub' },
+  { id: 'uk-4', query: 'Indian Astrologer Birmingham & West Midlands', category: 'uk', categoryLabel: 'Midlands', countryCode: 'GB', flag: '🇬🇧', intentBadge: 'High Demand' },
+  { id: 'uk-5', query: '36 Gun Milan UK London Indian Matchmaking', category: 'marriage', categoryLabel: 'Marriage Milan', countryCode: 'GB', flag: '🇬🇧', intentBadge: 'Gun Milan' },
+  { id: 'uk-6', query: 'British Summer Time BST Kundli UK', category: 'uk', categoryLabel: 'BST Correction', countryCode: 'GB', flag: '🇬🇧', intentBadge: 'Precision' },
+
+  // Canada Queries
+  { id: 'ca-1', query: 'Best Indian Astrologer Brampton Ontario', category: 'canada', categoryLabel: 'Brampton GTA', countryCode: 'CA', flag: '🇨🇦', intentBadge: 'Top Ranked' },
+  { id: 'ca-2', query: 'Gujarati Astrologer Mississauga Toronto', category: 'canada', categoryLabel: 'Mississauga', countryCode: 'CA', flag: '🇨🇦', intentBadge: 'GTA Hub' },
+  { id: 'ca-3', query: 'Indian Astrologer Surrey & Vancouver BC', category: 'canada', categoryLabel: 'British Columbia', countryCode: 'CA', flag: '🇨🇦', intentBadge: 'Pacific Time' },
+  { id: 'ca-4', query: 'Canada PR Express Entry Astrological Timing', category: 'immigration', categoryLabel: 'Canada PR', countryCode: 'CA', flag: '🇨🇦', intentBadge: 'PR Visa' },
+  { id: 'ca-5', query: 'Indian Astrologer Calgary & Edmonton Alberta', category: 'canada', categoryLabel: 'Alberta', countryCode: 'CA', flag: '🇨🇦', intentBadge: 'Career' },
+  { id: 'ca-6', query: 'Canada Born Child DST Janam Kundli', category: 'canada', categoryLabel: 'Child Birth', countryCode: 'CA', flag: '🇨🇦', intentBadge: 'Horoscope' },
+
+  // Australia & NZ Queries
+  { id: 'au-1', query: 'Best Indian Astrologer Sydney Parramatta', category: 'australia', categoryLabel: 'Sydney NSW', countryCode: 'AU', flag: '🇦🇺', intentBadge: 'Harris Park' },
+  { id: 'au-2', query: 'Indian Astrologer Melbourne Tarneit Point Cook', category: 'australia', categoryLabel: 'Melbourne VIC', countryCode: 'AU', flag: '🇦🇺', intentBadge: 'Top Search' },
+  { id: 'au-3', query: 'Australia PR 189 & 190 Visa Astrology', category: 'immigration', categoryLabel: 'Australia PR', countryCode: 'AU', flag: '🇦🇺', intentBadge: 'Immigration' },
+  { id: 'au-4', query: 'Southern Hemisphere Vedic Astrology Calculation', category: 'australia', categoryLabel: 'Southern Hem.', countryCode: 'AU', flag: '🇦🇺', intentBadge: 'Calculation' },
+  { id: 'au-5', query: '36 Gun Milan Australia Melbourne Sydney', category: 'marriage', categoryLabel: 'NRI Matchmaking', countryCode: 'AU', flag: '🇦🇺', intentBadge: 'Gun Milan' },
+
+  // UAE & Gulf Queries
+  { id: 'ae-1', query: 'Best Indian Astrologer in Dubai UAE', category: 'uae', categoryLabel: 'Dubai UAE', countryCode: 'AE', flag: '🇦🇪', intentBadge: 'Top Ranked' },
+  { id: 'ae-2', query: 'Gujarati Astrologer Bur Dubai & Karama', category: 'uae', categoryLabel: 'Bur Dubai', countryCode: 'AE', flag: '🇦🇪', intentBadge: 'High Intent' },
+  { id: 'ae-3', query: 'Business & Trade Muhurat Dubai Astrologer', category: 'uae', categoryLabel: 'Trade Muhurat', countryCode: 'AE', flag: '🇦🇪', intentBadge: 'Commercial' },
+  { id: 'ae-4', query: 'Indian Astrologer Abu Dhabi & Sharjah', category: 'uae', categoryLabel: 'Abu Dhabi', countryCode: 'AE', flag: '🇦🇪', intentBadge: 'Emirates' },
+
+  // Global Specialized Remedies & Relationships
+  { id: 'gl-1', query: 'Love Marriage & Intercaste Problem Solution Abroad', category: 'love', categoryLabel: 'Love Solution', countryCode: 'US', flag: '💖', intentBadge: 'Confidential' },
+  { id: 'gl-2', query: 'Remote Kaal Sarp & Pitru Dosh Shanti at Tirthas', category: 'all', categoryLabel: 'Tirtha Puja', countryCode: 'IN', flag: '🪔', intentBadge: 'Video Sankalp' },
+  { id: 'gl-3', query: 'Indian Astrologer Frankfurt Germany Europe', category: 'all', categoryLabel: 'Germany EU', countryCode: 'DE', flag: '🇩🇪', intentBadge: 'EU Blue Card' }
+];
+
+export const ABROAD_SEARCH_CATEGORIES = [
+  { id: 'all', label: '🌐 All Abroad Queries' },
+  { id: 'usa', label: '🇺🇸 USA (NJ, CA, TX)' },
+  { id: 'uk', label: '🇬🇧 UK (London, Leicester)' },
+  { id: 'canada', label: '🇨🇦 Canada (Toronto, Brampton)' },
+  { id: 'australia', label: '🇦🇺 Australia (Sydney, Melb)' },
+  { id: 'uae', label: '🇦🇪 UAE & Gulf (Dubai)' },
+  { id: 'immigration', label: '🛂 Visa & PR Timing' },
+  { id: 'marriage', label: '💍 36 Gun Milan Abroad' },
+  { id: 'love', label: '💖 NRI Love & Marriage' }
+];
+
 export const InternationalConsultation: React.FC<InternationalConsultationProps> = ({ 
   lang,
   initialCountry,
@@ -573,8 +738,27 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
   });
 
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [abroadSearchTerm, setAbroadSearchTerm] = useState<string>('');
+  const [abroadFilterCategory, setAbroadFilterCategory] = useState<string>('all');
+
+  const filteredAbroadQueries = useMemo(() => {
+    return ABROAD_KEYWORD_DIRECTORY.filter((item) => {
+      const matchesCategory = abroadFilterCategory === 'all' || item.category === abroadFilterCategory;
+      const matchesSearch = !abroadSearchTerm.trim() || 
+        item.query.toLowerCase().includes(abroadSearchTerm.toLowerCase()) ||
+        item.categoryLabel.toLowerCase().includes(abroadSearchTerm.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [abroadSearchTerm, abroadFilterCategory]);
 
   const activeInfo = COUNTRIES.find((c) => c.code === selectedCountry) || COUNTRIES[0];
+
+  const getWhatsAppQueryLink = (queryText: string, countryLabel: string) => {
+    const text = encodeURIComponent(
+      `🙏 प्रणाम पंडित जी! मैं bhawanijyotish.online से "${queryText}" (${countryLabel}) के संदर्भ में व्यक्तिगत ऑनलाइन वैदिक परामर्श हेतु संपर्क कर रहा/रही हूँ। कृपया परामर्श का समय एवं दक्षिणा विवरण प्रदान करें।`
+    );
+    return `https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${text}`;
+  };
 
   const getWhatsAppInternationalLink = (countryName: string, subRegion?: string) => {
     const locationStr = subRegion ? `${subRegion}, ${countryName}` : countryName;
@@ -973,6 +1157,114 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Worldwide High-Ranking NRI Search & Keyword Directory */}
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FF671F]/25 shadow-lg mb-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-[#CC5218] text-xs font-bold mb-2">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                <span>{lang === 'en' ? 'Global High-Intent Search Queries & NRI Directory' : 'विदेशों में सर्वाधिक खोजे जाने वाले ज्योतिष विषय एवं शहर'}</span>
+              </div>
+              <h3 className="font-yatra text-xl sm:text-2xl text-stone-950">
+                {lang === 'en'
+                  ? 'Trending NRI Astrology Searches & Popular Abroad Keywords'
+                  : lang === 'hi'
+                  ? 'NRI जातकों द्वारा सर्वाधिक सर्च किए जाने वाले ज्योतिष विषय'
+                  : 'NRI જાતકો દ્વારા સૌથી વધુ સર્ચ થતાં જ્યોતિષ વિષયો'}
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-600 mt-1">
+                {lang === 'en'
+                  ? 'Click any keyword or query to connect directly on WhatsApp with Acharya Ji for specialized consultation.'
+                  : 'किसी भी विषय पर क्लिक कर सीधे WhatsApp पर आचार्य जी से तुरंत शास्त्रोक्त समाधान प्राप्त करें।'}
+              </p>
+            </div>
+
+            {/* Quick search input */}
+            <div className="relative min-w-[240px] sm:min-w-[280px]">
+              <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={abroadSearchTerm}
+                onChange={(e) => setAbroadSearchTerm(e.target.value)}
+                placeholder={lang === 'en' ? 'Search query or city (e.g. Dallas, PR, Love)...' : 'खोजें (उदा. Dallas, PR, लव, वेम्बली)...'}
+                className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-2xl border border-stone-200 focus:outline-none focus:border-[#133E7C] focus:ring-1 focus:ring-[#133E7C] bg-[#FFFDF9] text-stone-950 font-medium"
+              />
+            </div>
+          </div>
+
+          {/* Category Filter Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-5 no-scrollbar scroll-smooth">
+            {ABROAD_SEARCH_CATEGORIES.map((cat) => {
+              const isActive = abroadFilterCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setAbroadFilterCategory(cat.id)}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border shadow-xs ${
+                    isActive
+                      ? 'bg-[#133E7C] text-white border-[#0E2E5C] shadow-sm scale-102'
+                      : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100 hover:border-stone-300'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Keyword Query Grid */}
+          {filteredAbroadQueries.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {filteredAbroadQueries.map((item) => {
+                const waLink = getWhatsAppQueryLink(item.query, item.categoryLabel);
+                return (
+                  <div
+                    key={item.id}
+                    className="p-3.5 rounded-2xl border border-stone-200 bg-[#FFFDF9] hover:border-[#133E7C]/40 hover:shadow-md transition-all flex flex-col justify-between group"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <span className="text-base">{item.flag}</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                            {item.categoryLabel}
+                          </span>
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-stone-100 text-stone-600">
+                            {item.intentBadge}
+                          </span>
+                        </div>
+                      </div>
+                      <h4 className="text-xs sm:text-sm font-bold text-stone-950 group-hover:text-[#133E7C] transition-colors leading-snug">
+                        {item.query}
+                      </h4>
+                    </div>
+
+                    <a
+                      href={waLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3.5 inline-flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-xl bg-[#133E7C] hover:bg-[#0E2E5C] text-white text-xs font-bold transition-all shadow-xs border border-amber-300/30"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 text-amber-300" />
+                      <span>{lang === 'en' ? 'Consult on WhatsApp' : 'WhatsApp परामर्श लें'}</span>
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-stone-500 text-xs">
+              <p>{lang === 'en' ? 'No queries match your search. Try another keyword like "USA", "London", "PR", or "Milan".' : 'कोई परिणाम नहीं मिला। कृपया दूसरा शब्द खोजें।'}</p>
+              <button
+                onClick={() => { setAbroadSearchTerm(''); setAbroadFilterCategory('all'); }}
+                className="mt-3 text-xs font-bold text-[#133E7C] underline"
+              >
+                {lang === 'en' ? 'Reset Search Filters' : 'फ़िल्टर रीसेट करें'}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Overseas Client FAQ Accordion for On-Page SEO */}

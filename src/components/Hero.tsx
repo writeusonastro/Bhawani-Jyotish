@@ -93,20 +93,20 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false }
             </span>
           </div>
 
-          {/* Main Action Buttons - High Conversion Direct Call */}
+          {/* Main Action Buttons - High Conversion Direct Call (Royal Navy Blue & Gold) */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-3 w-full max-w-xl mx-auto">
             <a
               href={`tel:${ASTROLOGER_INFO.phoneRaw || '+919909087902'}`}
-              className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#FF671F] via-[#E05312] to-[#B83E07] hover:from-[#E05312] hover:to-[#993D12] text-white font-yatra text-base sm:text-xl px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl shadow-xl shadow-orange-700/30 transition-all hover:scale-105 active:scale-95 border-2 border-amber-300 ring-4 ring-amber-400/30 text-center group"
+              className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-3.5 bg-gradient-to-r from-[#0B2545] via-[#133E7C] to-[#081B33] hover:from-[#133E7C] hover:to-[#0B2545] text-white px-5 sm:px-7 py-3 rounded-2xl shadow-xl shadow-slate-950/50 transition-all hover:scale-105 active:scale-95 border-2 border-amber-300 ring-4 ring-amber-400/30 text-center group"
             >
-              <div className="w-8 h-8 rounded-full bg-white text-[#FF671F] flex items-center justify-center shadow-xs shrink-0 group-hover:rotate-12 transition-transform">
-                <Phone className="w-4 h-4 fill-current animate-bounce" />
+              <div className="w-10 h-10 rounded-full bg-white text-[#0B2545] flex items-center justify-center shadow-md shrink-0 group-hover:rotate-12 transition-transform">
+                <Phone className="w-5 h-5 fill-current animate-bounce" />
               </div>
               <div className="flex flex-col items-start text-left leading-tight">
-                <span className="text-xs text-amber-200 font-sans font-bold">
+                <span className="text-xs sm:text-sm text-amber-300 font-mukta font-extrabold uppercase tracking-wider">
                   {lang === 'en' ? 'Direct Phone Consultation' : 'सीधे फोन पर बात करें'}
                 </span>
-                <span className="font-mono text-base sm:text-lg font-black text-white tracking-wider">
+                <span className="font-outfit text-xl sm:text-2xl font-extrabold text-white tracking-wider drop-shadow-xs">
                   {ASTROLOGER_INFO.phonePrimary}
                 </span>
               </div>

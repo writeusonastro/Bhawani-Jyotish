@@ -102,17 +102,17 @@ const SEO_TOPIC_GROUPS: SeoTopicGroup[] = [
   {
     id: 'nri-global-seo',
     categoryName: {
-      hi: 'प्रवासी भारतीय (NRI) यूएसए, यूके, कनाडा',
-      gu: 'પ્રવાસી ભારતીય (NRI) યુએસએ, યુકે, કેનેડા',
-      en: 'NRI Astrology USA, UK, Canada & UAE'
+      hi: 'प्रवासी भारतीय (Abroad & NRI High Ranking Queries)',
+      gu: 'પ્રવાસી ભારતીય (Abroad & NRI High Ranking Queries)',
+      en: 'NRI Astrology USA, UK, Canada, Australia & UAE'
     },
     icon: '🌐',
     targetTab: 'international',
     badge: 'Worldwide High Authority',
     quickSummary: {
-      hi: 'अमेरिका (एडिसन NJ, सैन जोस CA, डलास TX), यूके (लंदन, लीसेस्टर), कनाडा (टोरंटो, ब्रैम्पटन), ऑस्ट्रेलिया (सिडनी) व दुबई (UAE)। DST गणना सहित।',
-      gu: 'યુએસએ, યુકે, કેનેડા, ઓસ્ટ્રેલિયા અને દુબઈમાં વસતા એનઆરઆઈ પરિવારો માટે ડે-લાઇટ સેવિંગ ટાઇમ (DST) આધારિત કુંડળી.',
-      en: 'Precision Daylight Saving Time (DST) calculations, foreign birth charts, H1B/Green Card & Canada PR timing for international diaspora.'
+      hi: 'अमेरिका (एडिसन NJ, सैन जोस CA, डलास TX), यूके (लंदन, लीसेस्टर), कनाडा (टोरंटो, ब्रैम्पटन), ऑस्ट्रेलिया (सिडनी, मेलबर्न) व दुबई (UAE)। DST जन्म पत्रिका, H1B/ग्रीन कार्ड, PR समयावधि एवं NRI लव प्रॉब्लम सॉल्यूशन।',
+      gu: 'યુએસએ, યુકે, કેનેડા, ઓસ્ટ્રેલિયા અને દુબઈમાં વસતા એનઆરઆઈ પરિવારો માટે ડે-લાઇટ સેવિંગ ટાઇમ (DST) આધારિત કુંડળી, વિઝા અને વિવાહ પરામર્શ.',
+      en: 'Precision Daylight Saving Time (DST) calculations, foreign birth charts, H1B visa, Green Card priority date, Canada PR timing & NRI relationship guidance for international diaspora.'
     },
     keywords: [
       { phrase: 'Best Indian Astrologer in USA', targetTab: 'international', tagHi: 'बेस्ट इंडियन ज्योतिषी USA', tagGu: 'યુએસએ શ્રેષ્ઠ ભારતીય જ્યોતિષી', tagEn: 'Indian Astrologer USA' },
@@ -123,7 +123,13 @@ const SEO_TOPIC_GROUPS: SeoTopicGroup[] = [
       { phrase: 'Best Indian Astrologer in Canada Toronto Brampton', targetTab: 'international', tagHi: 'कनाडा टोरंटो ब्रैम्पटन ज्योतिष', tagGu: 'કેનેડા ટોરોન્ટો જ્યોતિષ', tagEn: 'Canada Astrologer' },
       { phrase: 'Indian Astrologer in Dubai UAE', targetTab: 'international', tagHi: 'दुबई यूएई भारतीय ज्योतिषी', tagGu: 'દુબઈ યુએઈ જ્યોતિષી', tagEn: 'Dubai Astrologer' },
       { phrase: 'Foreign Birth DST Kundli Calculation', targetTab: 'international', tagHi: 'विदेश जन्म DST कुंडली', tagGu: 'વિદેશ જન્મ DST કુંડળી', tagEn: 'Foreign Birth DST' },
-      { phrase: 'H1B Visa & Canada PR Astrological Timing', targetTab: 'international', tagHi: 'वीजा व पीआर ज्योतिष विचार', tagGu: 'વિઝા અને પીઆર ગ્રહ વિચાર', tagEn: 'Visa Timing Astrology' }
+      { phrase: 'H1B Visa & Canada PR Astrological Timing', targetTab: 'international', tagHi: 'वीजा व पीआर ज्योतिष विचार', tagGu: 'વિઝા અને પીઆર ગ્રહ વિચાર', tagEn: 'Visa Timing Astrology' },
+      { phrase: 'Green Card Priority Date Astrology USA', targetTab: 'international', tagHi: 'ग्रीन कार्ड प्राप्ति ज्योतिष', tagGu: 'ગ્રીન કાર્ડ પ્રાપ્તિ જ્યોતિષ', tagEn: 'Green Card Astrology' },
+      { phrase: 'Love Problem Solution for NRIs Abroad', targetTab: 'international', tagHi: 'NRI लव प्रॉब्लम सॉल्यूशन', tagGu: 'NRI લવ પ્રોબ્લેમ સોલ્યુશન', tagEn: 'NRI Love Solution' },
+      { phrase: '36 Gun Milan Australia Sydney Melbourne', targetTab: 'international', tagHi: 'ऑस्ट्रेलिया 36 गुण मिलान', tagGu: 'ઓસ્ટ્રેલિયા ૩૬ ગુણ મિલન', tagEn: 'Australia 36 Gun Milan' },
+      { phrase: 'Remote Vedic Puja & Live Video Sankalp', targetTab: 'international', tagHi: 'विदेश से लाइव वीडियो संकल्प पूजा', tagGu: 'વિદેશથી લાઇવ વિડિયો સંકલ્પ પૂજા', tagEn: 'Remote Puja Sankalp' },
+      { phrase: 'Indian Astrologer Dallas Houston Texas', targetTab: 'international', tagHi: 'डलास ह्यूस्टन टेक्सास ज्योतिषी', tagGu: 'ડલાસ હ્યુસ્ટન ટેક્સાસ જ્યોતિષી', tagEn: 'Texas Astrologer' },
+      { phrase: 'Indian Astrologer Frankfurt Germany EU', targetTab: 'international', tagHi: 'जर्मनी फ्रैंकफर्ट ज्योतिषी', tagGu: 'જર્મની ફ્રેન્કફર્ટ જ્યોતિષી', tagEn: 'Germany EU Astrologer' }
     ]
   },
   {
