@@ -10,6 +10,7 @@ import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, Chec
 
 import { ServicesSection } from './components/ServicesSection';
 import { Testimonials } from './components/Testimonials';
+import { WhatsAppTestimonials } from './components/WhatsAppTestimonials';
 import { AudioChants } from './components/AudioChants';
 import { DailyWisdomVastu } from './components/DailyWisdomVastu';
 import { ContactSection } from './components/ContactSection';
@@ -22,6 +23,7 @@ import { DoshNivaranGuide } from './components/DoshNivaranGuide';
 import { AskAstrologer } from './components/AskAstrologer';
 import { PanchangMuhurat } from './components/PanchangMuhurat';
 import { CityLocalSeoSection } from './components/CityLocalSeoSection';
+import { SeoKeywordHub } from './components/SeoKeywordHub';
 import { InternationalConsultation } from './components/InternationalConsultation';
 import { DailyRashifal } from './components/DailyRashifal';
 import { PaymentModal } from './components/PaymentModal';
@@ -330,14 +332,21 @@ export function App() {
             {/* Contact & Address Section directly on Home page */}
             <ContactSection lang={lang} />
 
+            {/* Verified WhatsApp Client Chat Screenshots & Feedback */}
+            <WhatsAppTestimonials lang={lang} />
+
             {/* Testimonials */}
             <Testimonials lang={lang} />
+
+            {/* High-Ranking Search & Topic Explorer Hub */}
+            <SeoKeywordHub lang={lang} setActiveTab={setActiveTab} />
           </div>
         )}
 
         {activeTab === 'city-centers' && (
           <div className="py-4">
             <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
+            <SeoKeywordHub lang={lang} setActiveTab={setActiveTab} />
           </div>
         )}
 

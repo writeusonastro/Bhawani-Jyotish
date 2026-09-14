@@ -172,6 +172,30 @@ const WHATSAPP_REVIEWS: WhatsAppReview[] = [
       en: 'All grace belongs to Kuldevi Maa Bhavani. Keep observing Satyanarayan Puja or Gayatri Japa on full moon days. 🌺🙏'
     },
     highlightKey: 'Family Health & Peace'
+  },
+  {
+    id: 'wa-7',
+    senderName: 'रोहन व सिमरन (Rohan & Simran)',
+    senderPhoneMasked: '+91 9974X XXXXX',
+    location: 'सूरत व अहमदाबाद (Gujarat)',
+    country: 'भारत (India)',
+    flag: '🇮🇳',
+    timestamp: '09:18 PM',
+    date: '05 मार्च 2026',
+    serviceCategory: 'लव प्रॉब्लम सॉल्यूशन व प्रेम विवाह',
+    consultationType: 'WhatsApp Chat',
+    rating: 5,
+    clientMessage: {
+      hi: 'प्रणाम पंडित जी 🙏 हमारे प्रेम विवाह में दोनों परिवारों की सहमति नहीं बन पा रही थी और बहुत तनाव था। आपने कुंडली के पंचम और सप्तम भाव को देखकर जो सात्विक वैदिक उपाय व गौरी-शंकर रुद्राक्ष धारण करने को कहा था, उससे 2 महीने में दोनों परिवार खुशी-खुशी मान गए। अगले महीने हमारा विवाह तय हुआ है। आपके उपकार के लिए सदैव ऋणी रहेंगे!',
+      gu: 'પ્રણામ પંડિતજી 🙏 અમારા પ્રેમ લગ્નમાં બંને પરિવારોની સહમતિ નહોતી મળતી. તમે કુંડળી જોઈને જે સાત્વિક વૈદિક ઉપાય અને ગૌરી-શંકર રુદ્રાક્ષ ધારણ કરવા કહ્યું હતું, તેનાથી બંને પરિવારો રાજી થઈ ગયા. આવતા મહિને અમારા લગ્ન છે. ખૂબ ખૂબ આભાર!',
+      en: 'Pranam Pandit Ji 🙏 Our intercaste love marriage was facing severe objections from both families. Following your scriptural Vedic remedies for the 5th and 7th houses, both families happily gave their blessing within 2 months! Our wedding is fixed for next month. Immensely grateful!'
+    },
+    panditReply: {
+      hi: 'माँ जगदम्बा और भगवान शिव-पार्वती की कृपा से दोनों का प्रेम पवित्र परिणय सूत्र में बंधेगा। गृहस्थ जीवन में एक-दूसरे का सम्मान ही सबसे बड़ा धर्म है। सदा सुखी रहें! 🚩💍',
+      gu: 'માં જગદંબા અને શિવ-પાર્વતીની કૃપાથી બંનેનું ગૃહસ્થ જીવન ખૂબ સુખી રહે. સદા સુખી રહો! 🚩💍',
+      en: 'By the divine grace of Shiva-Parvati, may your union be blessed with lifelong harmony and understanding. Stay blessed always! 🚩💍'
+    },
+    highlightKey: 'Love Marriage & Family Approval'
   }
 ];
 
