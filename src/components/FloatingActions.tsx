@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { PhoneCall, MessageCircle, QrCode, Phone, ShieldCheck, Clock } from 'lucide-react';
+import React from 'react';
+import { PhoneCall, MessageCircle, QrCode, Phone, ShieldCheck, Globe } from 'lucide-react';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
 import { VerifiedBadge } from './VerifiedBadge';
 
@@ -13,36 +13,11 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
   lang = 'hi',
   onOpenPaymentQR,
 }) => {
-  const [isAvailable, setIsAvailable] = useState<boolean>(true);
-
-  // Check if current time is between 8:00 AM and 8:30 PM IST
-  useEffect(() => {
-    const checkAvailability = () => {
-      try {
-        const now = new Date();
-        // Indian Standard Time offset is UTC + 5:30
-        const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-        const istDate = new Date(utc + (3600000 * 5.5));
-        const hour = istDate.getHours();
-        setIsAvailable(hour >= 8 && hour < 21);
-      } catch (e) {
-        setIsAvailable(true);
-      }
-    };
-    checkAvailability();
-    const interval = setInterval(checkAvailability, 60000);
-    return () => clearInterval(interval);
-  }, []);
-
   const callHeadline = lang === 'en' 
     ? 'Direct Phone Consultation' 
     : lang === 'hi' 
     ? 'पंडित जी से सीधे फोन पर बात करें' 
     : 'પંડિતજી સાથે સીધી વાત કરો';
-
-  const availabilityText = isAvailable
-    ? (lang === 'en' ? 'Available on Call Now' : lang === 'hi' ? 'अभी कॉल पर उपलब्ध हैं' : 'હમણાં કોલ પર ઉપલબ્ધ છે')
-    : (lang === 'en' ? 'Daily 8:00 AM - 8:30 PM' : lang === 'hi' ? 'प्रातः 8:00 से रात्रि 8:30' : 'સવારે 8:00 થી રાત્રે 8:30');
 
   return (
     <>
@@ -55,24 +30,28 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
         className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#1F1714]/98 backdrop-blur-lg border-t-2 border-[#FF671F] shadow-[0_-6px_25px_rgba(0,0,0,0.4)] px-2.5 pt-2 pb-3 select-none print:hidden"
         style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
       >
-        {/* Top Mini Urgency Indicator Strip */}
-        <div className="flex items-center justify-between gap-2 px-1 mb-1.5 text-[11px] text-amber-200">
-          <div className="flex items-center gap-1.5 truncate">
-            <span className="relative flex h-2 w-2">
+        {/* Single Balanced Top Strip: Left [बिना प्रतीक्षा सीधा संवाद] | Center [USA, UK, Canada, Australia, UAE] | Right [35+ वर्ष अनुभव] */}
+        <div className="flex items-center justify-between gap-1 sm:gap-2 px-0.5 mb-1.5 text-[9px] min-[370px]:text-[10px] sm:text-[11px] text-amber-200">
+          {/* Left: Instant Direct Consultation */}
+          <div className="flex items-center gap-1 shrink-0 font-bold text-stone-200">
+            <span className="relative flex h-1.5 w-1.5 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
             </span>
-            <span className="font-bold text-white truncate">
-              {availabilityText}
-            </span>
-            <span className="text-amber-400/80">•</span>
-            <span className="text-stone-300 font-medium truncate">
-              {lang === 'en' ? 'Zero Waiting' : 'बिना प्रतीक्षा सीधा संवाद'}
+            <span className="whitespace-nowrap">
+              {lang === 'en' ? 'Direct Consultation' : lang === 'hi' ? 'बिना प्रतीक्षा सीधा संवाद' : 'સીધો સંવાદ'}
             </span>
           </div>
 
-          <div className="flex items-center gap-1 text-[10px] text-amber-300 shrink-0 font-semibold bg-amber-950/80 px-2 py-0.5 rounded-full border border-amber-600/40">
-            <ShieldCheck className="w-3 h-3 text-emerald-400" />
+          {/* Center: In Between - Global NRI Countries */}
+          <div className="flex items-center justify-center gap-1 font-bold text-amber-300 bg-black/40 px-1.5 py-0.5 rounded-full border border-amber-500/30 whitespace-nowrap text-[8.5px] min-[370px]:text-[9.5px] tracking-tight">
+            <Globe className="w-2.5 h-2.5 text-amber-400 shrink-0" />
+            <span>USA, UK, Canada, Australia, UAE</span>
+          </div>
+
+          {/* Right: 35+ Years Experience */}
+          <div className="flex items-center gap-1 text-[9px] min-[370px]:text-[10px] text-amber-300 shrink-0 font-semibold bg-amber-950/80 px-1.5 py-0.5 rounded-full border border-amber-600/40 whitespace-nowrap">
+            <ShieldCheck className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
             <span>35+ वर्ष अनुभव</span>
           </div>
         </div>
@@ -129,12 +108,6 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
           High-end royal glowing buttons for laptop & desktop users
           ========================================================================= */}
       <div className="hidden md:flex fixed bottom-6 right-6 z-50 pointer-events-auto select-none print:hidden flex-col items-end gap-3">
-        {/* Availability Badge */}
-        <div className="bg-[#1F1714]/90 backdrop-blur-md text-amber-200 px-3 py-1 rounded-full text-xs font-bold border border-amber-500/50 shadow-md flex items-center gap-1.5 animate-pulse">
-          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span>{availabilityText}</span>
-        </div>
-
         {/* Desktop PhonePe Payment QR Button */}
         {onOpenPaymentQR && (
           <div className="relative group">

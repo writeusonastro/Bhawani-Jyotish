@@ -1,10 +1,9 @@
 import React from 'react';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
-import { MapPin, Phone, MessageCircle, Clock, Mail, Navigation, Facebook, Instagram, Share2, ShieldCheck, QrCode, Sparkles, CheckCircle2, Wallet, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, MessageCircle, Mail, Navigation, Facebook, Instagram, Share2, ShieldCheck, QrCode, Sparkles, CheckCircle2, Wallet, ArrowRight } from 'lucide-react';
 import { VerifiedBadge } from './VerifiedBadge';
 import { RajputSymbol } from './RajputSymbol';
 import { PhonePeQRCodeCard } from './PhonePeQRCodeCard';
-import { QuickCallBackWidget } from './QuickCallBackWidget';
 import { Language } from '../types/astrology';
 
 interface ContactSectionProps {
@@ -20,11 +19,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     if (lang === 'en') return ASTROLOGER_INFO.addressEn;
     if (lang === 'hi') return ASTROLOGER_INFO.address;
     return ASTROLOGER_INFO.addressGu;
-  };
-
-  const getTimings = () => {
-    if (lang === 'en') return ASTROLOGER_INFO.timingsEn;
-    return ASTROLOGER_INFO.timings;
   };
 
   return (
@@ -102,96 +96,104 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           ? 'bg-slate-900 border-amber-500/40 text-stone-100' 
           : 'bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFF9F2] border-amber-400/40 shadow-xl shadow-amber-900/5 text-stone-950'
       }`}>
-        {/* Top 4 Key Contact Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Top 3 Key Contact Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
           
           {/* 1. Address Card */}
-          <div className={`p-6 rounded-2xl border-2 space-y-4 shadow-sm ${
+          <div className={`p-5 sm:p-6 rounded-2xl border-2 shadow-sm flex flex-col justify-between gap-5 ${
             isDark ? 'bg-slate-950 border-amber-500/30 text-stone-100' : 'bg-[#FFF8F4] border-[#FF671F]/30 text-black'
           }`}>
-            <div className="flex items-center gap-2.5 font-black text-lg">
-              <div className="p-2.5 rounded-xl bg-[#FF671F] text-white shadow-xs">
-                <MapPin className="w-5 h-5" />
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 min-h-[50px]">
+                <div className="p-2.5 rounded-xl bg-[#FF671F] text-white shadow-xs shrink-0 flex items-center justify-center mt-0.5">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <h3 className="text-black dark:text-amber-400 text-base sm:text-lg font-black leading-snug">
+                  {lang === 'en' ? 'Complete Office Address' : lang === 'hi' ? 'कार्यालय का पूरा पता' : 'ઓફિસનું પૂરું સરનામું'}
+                </h3>
               </div>
-              <span className="text-black dark:text-amber-400 text-lg font-black">
-                {lang === 'en' ? 'Complete Office Address' : lang === 'hi' ? 'कार्यालय का पूरा पता (Address)' : 'ઓફિસનું પૂરું સરનામું'}
-              </span>
+
+              <div className="space-y-2">
+                <p className="text-lg sm:text-xl text-black font-black dark:text-stone-100 leading-snug">
+                  {getAddress()}
+                </p>
+                <p className="text-sm sm:text-base text-stone-800 font-bold dark:text-stone-300 leading-relaxed">
+                  {lang === 'en'
+                    ? 'Landmark: Nagalpur Main Road, Mehsana - 384002 (North Gujarat)'
+                    : lang === 'hi'
+                    ? 'लैंडमार्क: नागलपुर मुख्य मार्ग, मेहसाणा - 384002 (उत्तर गुजरात)'
+                    : 'લેન્ડમાર્ક: નાગલપુર મુખ્ય માર્ગ, મહેસાણા - 384002 (ગુજરાત)'}
+                </p>
+
+                {/* Registration Information - Fixed Alignment: Number + VerifiedBadge grouped so badge never breaks alone */}
+                <div className="pt-3 border-t border-amber-500/20 flex items-center justify-between gap-2 flex-wrap">
+                  <span className="font-bold text-stone-700 dark:text-stone-300 inline-flex items-center gap-1.5 text-xs sm:text-sm shrink-0">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span>{lang === 'en' ? 'Registration No:' : 'संस्थान पंजीकरण संख्या:'}</span>
+                  </span>
+                  <div className="inline-flex items-center gap-1.5 shrink-0 bg-amber-100/90 dark:bg-amber-950/80 px-2.5 py-1 rounded-lg border border-amber-400/50 shadow-2xs">
+                    <span className="font-mono font-black text-[#852E10] dark:text-amber-300 text-xs sm:text-sm tracking-wide">
+                      {ASTROLOGER_INFO.registrationNo}
+                    </span>
+                    <VerifiedBadge size="xs" tooltipText="शासकीय अधिकृत संस्थान" />
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="space-y-2 pl-1">
-              <p className="text-lg sm:text-xl text-black font-black dark:text-stone-100 leading-snug">
-                {getAddress()}
-              </p>
-              <p className="text-sm sm:text-base text-black font-bold dark:text-stone-300">
-                {lang === 'en'
-                  ? 'Landmark: Nagalpur Main Road, Mehsana - 384002 (North Gujarat)'
-                  : lang === 'hi'
-                  ? 'लैंडमार्क: नागलपुर मुख्य मार्ग, मेहसाणा - 384002 (उत्तर गुजरात)'
-                  : 'લેન્ડમાર્ક: નાગલપુર મુખ્ય માર્ગ, મહેસાણા - 384002 (ગુજરાત)'}
-              </p>
-
-              {/* Registration Information */}
-              <div className="flex items-center gap-2 pt-2 border-t border-amber-500/20 flex-wrap text-xs sm:text-sm">
-                <span className="font-bold text-stone-700 dark:text-stone-300 flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>{lang === 'en' ? 'Registration No:' : 'संस्थान पंजीकरण संख्या:'}</span>
+            <div className="pt-1">
+              <a
+                href="https://maps.google.com/?q=Nagalpur+Mehsana+Gujarat+384002"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#CC5218] hover:bg-[#A33E0E] text-white text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition-all text-center active:scale-95"
+              >
+                <Navigation className="w-4 h-4 shrink-0" />
+                <span>
+                  {lang === 'en'
+                    ? 'Get Directions on Google Maps'
+                    : lang === 'hi'
+                    ? 'गूगल मैप्स पर रास्ता देखें (Navigate)'
+                    : 'ગૂગલ મેપ્સ પર રસ્તો જુઓ'}
                 </span>
-                <span className="font-mono font-black text-[#852E10] dark:text-amber-300 bg-amber-100/80 dark:bg-amber-950/80 px-2 py-0.5 rounded border border-amber-400/50">
-                  {ASTROLOGER_INFO.registrationNo}
-                </span>
-                <VerifiedBadge size="xs" tooltipText="शासकीय अधिकृत संस्थान" />
-              </div>
+              </a>
             </div>
-
-            <a
-              href="https://maps.google.com/?q=Nagalpur+Mehsana+Gujarat+384002"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#CC5218] hover:bg-[#A33E0E] text-white text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition-all"
-            >
-              <Navigation className="w-4 h-4" />
-              <span>
-                {lang === 'en'
-                  ? 'Get Directions on Google Maps'
-                  : lang === 'hi'
-                  ? 'गूगल मैप्स पर रास्ता देखें (Navigate)'
-                  : 'ગૂગલ મેપ્સ પર રસ્તો જુઓ'}
-              </span>
-            </a>
           </div>
 
           {/* 2. Direct Phone & WhatsApp Card */}
-          <div className={`p-6 rounded-2xl border-2 space-y-4 shadow-sm ${
+          <div className={`p-5 sm:p-6 rounded-2xl border-2 shadow-sm flex flex-col justify-between gap-5 ${
             isDark ? 'bg-slate-950 border-amber-500/30 text-stone-100' : 'bg-[#FFF8F4] border-[#FF671F]/30 text-black'
           }`}>
-            <div className="flex items-center gap-2.5 font-black text-lg">
-              <div className="p-2.5 rounded-xl bg-[#FF671F] text-white shadow-xs">
-                <Phone className="w-5 h-5" />
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 min-h-[50px]">
+                <div className="p-2.5 rounded-xl bg-[#FF671F] text-white shadow-xs shrink-0 flex items-center justify-center mt-0.5">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <h3 className="text-black dark:text-amber-400 text-base sm:text-lg font-black leading-snug">
+                  {lang === 'en' ? 'Direct Phone & WhatsApp' : lang === 'hi' ? 'सीधा फोन व व्हाट्सएप' : 'સીધો ફોન અને વોટ્સએપ'}
+                </h3>
               </div>
-              <span className="text-black dark:text-amber-400 text-lg font-black">
-                {lang === 'en' ? 'Direct Phone & WhatsApp Contact' : lang === 'hi' ? 'सीधा फोन व व्हाट्सएप संपर्क' : 'સીધો ફોન અને વોટ્સએપ'}
-              </span>
+
+              <div className="space-y-2">
+                <a
+                  href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+                  className="block text-xl sm:text-2xl font-black text-black hover:text-[#CC5218] dark:text-amber-300 transition-colors whitespace-nowrap tracking-tight"
+                >
+                  {ASTROLOGER_INFO.phonePrimary}
+                </a>
+                <p className="text-sm sm:text-base text-stone-800 font-bold dark:text-stone-300 flex items-center gap-1.5 flex-wrap">
+                  <span className="whitespace-nowrap">{lang === 'en' ? 'Pandit Virendra Kumar Joshi' : lang === 'hi' ? 'पंडित श्री विरेंद्र कुमार जोशी' : 'પંડિત શ્રી વિરેન્દ્ર કુમાર જોશી'}</span>
+                  <VerifiedBadge size="sm" tooltipText="सत्यापित मुख्य ज्योतिषी" />
+                </p>
+              </div>
             </div>
 
-            <div className="space-y-1 pl-1">
+            <div className="flex items-center gap-2 pt-1">
               <a
                 href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                className="block text-2xl sm:text-3xl text-black hover:text-[#CC5218] font-black dark:text-amber-300 transition-colors"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#FF671F] hover:bg-[#CC5218] text-white text-sm font-bold px-3 py-2.5 rounded-xl shadow-xs transition-all active:scale-95 text-center whitespace-nowrap"
               >
-                {ASTROLOGER_INFO.phonePrimary}
-              </a>
-              <p className="text-sm sm:text-base text-black font-bold dark:text-stone-300 flex items-center gap-1.5 flex-wrap">
-                <span>{lang === 'en' ? 'Pandit Virendra Kumar Joshi' : lang === 'hi' ? 'पंडित श्री विरेंद्र कुमार जोशी' : 'પંડિત શ્રી વિરેન્દ્ર કુમાર જોશી'}</span>
-                <VerifiedBadge size="sm" tooltipText="सत्यापित मुख्य ज्योतिषी" />
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-2.5 pt-1">
-              <a
-                href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                className="inline-flex items-center gap-1.5 bg-[#FF671F] hover:bg-[#CC5218] text-white text-sm font-bold px-4 py-2.5 rounded-xl shadow-xs transition-all"
-              >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 shrink-0" />
                 <span>{lang === 'en' ? 'Call Now' : lang === 'hi' ? 'कॉल करें' : 'કોલ કરો'}</span>
               </a>
 
@@ -201,74 +203,58 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white text-sm font-bold px-4 py-2.5 rounded-xl shadow-xs transition-all"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white text-sm font-bold px-3 py-2.5 rounded-xl shadow-xs transition-all active:scale-95 text-center whitespace-nowrap"
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>{lang === 'en' ? 'WhatsApp Chat' : lang === 'hi' ? 'व्हाट्सएप चैट' : 'વોટ્સએપ'}</span>
+                <MessageCircle className="w-4 h-4 shrink-0" />
+                <span>{lang === 'en' ? 'WhatsApp' : lang === 'hi' ? 'व्हाट्सएप' : 'વોટ્સએપ'}</span>
                 <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
               </a>
             </div>
           </div>
 
-          {/* 3. Timings Card */}
-          <div className={`p-6 rounded-2xl border-2 space-y-4 shadow-sm ${
+          {/* 3. Email & Digital Consultation Card */}
+          <div className={`p-5 sm:p-6 rounded-2xl border-2 shadow-sm flex flex-col justify-between gap-5 ${
             isDark ? 'bg-slate-950 border-amber-500/30 text-stone-100' : 'bg-[#FFF8F4] border-[#FF671F]/30 text-black'
           }`}>
-            <div className="flex items-center gap-2.5 font-black text-lg">
-              <div className="p-2.5 rounded-xl bg-[#FF671F] text-white shadow-xs">
-                <Clock className="w-5 h-5" />
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 min-h-[50px]">
+                <div className="p-2.5 rounded-xl bg-[#FF671F] text-white shadow-xs shrink-0 flex items-center justify-center mt-0.5">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <h3 className="text-black dark:text-amber-400 text-base sm:text-lg font-black leading-snug">
+                  {lang === 'en' ? 'Email & Consultation' : lang === 'hi' ? 'ईमेल एवं ऑनलाइन परामर्श' : 'ઈમેલ અને ઓનલાઇન પરામર્શ'}
+                </h3>
               </div>
-              <span className="text-black dark:text-amber-400 text-lg font-black">
-                {lang === 'en' ? 'Consultation Hours' : lang === 'hi' ? 'परामर्श समय (Consultation Hours)' : 'મુલાકાત સમય'}
-              </span>
+
+              <div className="space-y-2">
+                <a
+                  href={`mailto:${ASTROLOGER_INFO.email}`}
+                  className="block text-base sm:text-lg font-black text-black hover:text-[#CC5218] dark:text-stone-100 transition-colors underline decoration-black/30 whitespace-nowrap overflow-hidden text-ellipsis"
+                  title={ASTROLOGER_INFO.email}
+                >
+                  {ASTROLOGER_INFO.email}
+                </a>
+                <p className="text-xs sm:text-sm text-stone-700 font-medium dark:text-stone-300 leading-relaxed">
+                  {lang === 'en'
+                    ? 'NRI & distant clients can request online Janampatri analysis & remedies via email/WhatsApp.'
+                    : lang === 'hi'
+                    ? 'दूरस्थ एवं NRI जातक ऑनलाइन जन्मपत्री व उपाय हेतु संपर्क कर सकते हैं।'
+                    : 'દૂરના અને NRI જાતકો ઓનલાઇન કુંડળી વિશ્લેષણ માટે સંપર્ક કરી શકે છે.'}
+                </p>
+              </div>
             </div>
 
-            <div className="space-y-2 pl-1">
-              <p className="text-lg sm:text-xl text-black font-black dark:text-stone-100">
-                {getTimings()}
-              </p>
-              <div className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-emerald-950 font-black bg-emerald-100 dark:bg-emerald-950 dark:text-emerald-300 px-3.5 py-1.5 rounded-lg border border-emerald-300 dark:border-emerald-700">
-                <span>✅</span>
-                <span>
-                  {lang === 'en' ? 'Open 7 Days a Week (Including Sunday)' : lang === 'hi' ? 'सातों दिन खुला (रविवार सहित)' : 'સાતેય દિવસ ખુલ્લું'}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* 4. Email & Digital Consultation Card */}
-          <div className={`p-6 rounded-2xl border-2 space-y-4 shadow-sm ${
-            isDark ? 'bg-slate-950 border-amber-500/30 text-stone-100' : 'bg-[#FFF8F4] border-[#FF671F]/30 text-black'
-          }`}>
-            <div className="flex items-center gap-2.5 font-black text-lg">
-              <div className="p-2.5 rounded-xl bg-[#FF671F] text-white shadow-xs">
-                <Mail className="w-5 h-5" />
-              </div>
-              <span className="text-black dark:text-amber-400 text-lg font-black">
-                {lang === 'en' ? 'Email & Online Consultation' : lang === 'hi' ? 'ईमेल एवं ऑनलाइन परामर्श (Email)' : 'ઈમેલ અને ઓનલાઇન પરામર્શ'}
-              </span>
-            </div>
-
-            <div className="space-y-2 pl-1">
+            <div className="pt-1">
               <a
                 href={`mailto:${ASTROLOGER_INFO.email}`}
-                className="block text-base sm:text-lg text-black hover:text-[#CC5218] font-black dark:text-stone-100 break-all transition-colors underline decoration-black/40"
+                className="w-full inline-flex items-center justify-center gap-2 bg-amber-100 hover:bg-amber-200 text-[#852E10] dark:bg-amber-950 dark:hover:bg-amber-900 dark:text-amber-200 border border-amber-400/40 text-sm font-bold px-4 py-2.5 rounded-xl shadow-xs transition-all text-center active:scale-95"
               >
-                {ASTROLOGER_INFO.email}
+                <Mail className="w-4 h-4 shrink-0" />
+                <span>{lang === 'en' ? 'Send Email' : lang === 'hi' ? 'ईमेल भेजें' : 'ઈમેલ મોકલો'}</span>
               </a>
-              <p className="text-xs sm:text-sm text-black font-bold dark:text-stone-300">
-                {lang === 'en'
-                  ? 'NRI & distant clients can request online Janampatri analysis & remedies via email/WhatsApp.'
-                  : lang === 'hi'
-                  ? 'दूरस्थ एवं NRI जातक ऑनलाइन जन्मपत्री व उपाय हेतु संपर्क कर सकते हैं।'
-                  : 'દૂરના અને NRI જાતકો ઓનલાઇન કુંડળી વિશ્લેષણ માટે સંપર્ક કરી શકે છે.'}
-              </p>
             </div>
           </div>
         </div>
-
-        {/* High-Conversion Free Call Back Request Widget */}
-        <QuickCallBackWidget lang={lang} isDark={isDark} />
 
         {/* Official Vedic Consultation & Dakshina Payment Card (PhonePe / UPI QR Code Only) */}
         <div id="payment-qr-section" className={`p-6 sm:p-8 rounded-3xl border-2 shadow-xl text-center ${
@@ -354,94 +340,121 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
         </div>
 
-        {/* Social Media & Online Channels */}
-        <div className={`p-6 rounded-2xl border-2 space-y-4 ${
-          isDark ? 'bg-slate-950/90 border-amber-500/30' : 'bg-[#FFFDF9] border-amber-300 shadow-sm'
-        }`}>
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 pb-3 border-b border-amber-500/20">
-            <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-xl bg-[#FF671F] text-white shrink-0">
+        {/* Social Media & Online Channels - Dark Golden Royal Theme */}
+        <div className="relative p-6 sm:p-7 rounded-3xl border-2 border-amber-500/60 bg-gradient-to-br from-[#160E07] via-[#1F130A] to-[#120B04] shadow-2xl shadow-amber-950/40 overflow-hidden space-y-5">
+          {/* Top Royal Gold Accent Bar */}
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-600 via-yellow-400 to-amber-600" />
+          
+          {/* Ambient Royal Gold Glow */}
+          <div className="absolute -top-16 -right-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 pb-3 border-b border-amber-500/30">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#FF671F] via-amber-500 to-yellow-500 text-stone-950 font-bold shrink-0 shadow-md border border-amber-300/40">
                 <Share2 className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="font-yatra text-lg text-black dark:text-amber-400 font-bold leading-tight">
+                <h4 className="font-yatra text-xl sm:text-2xl text-amber-100 font-bold leading-tight">
                   {lang === 'en' ? 'Follow Bhavani Jyotish on Social Media' : lang === 'hi' ? 'भवानी ज्योतिष के सोशल मीडिया हैंडल्स' : 'ભવાની જ્યોતિષ સોશિયલ મીડિયા'}
                 </h4>
-                <p className="text-xs text-stone-600 dark:text-stone-300 mt-0.5">
+                <p className="text-xs text-amber-200/80 mt-0.5">
                   {lang === 'en' ? 'Get daily panchang, rashifal, festival muhurats and live astrological remedies' : 'दैनिक पंचांग, राशिफल, विशेष पर्व मुहूर्त एवं प्रमाणित ज्योतिषीय उपाय'}
                 </p>
               </div>
             </div>
-            <span className="text-xs px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950 text-[#CC5218] dark:text-amber-300 font-bold border border-amber-300/40 shrink-0 self-start sm:self-center">
-              {lang === 'en' ? 'Official Links' : 'आधिकारिक लिंक्स'}
+            <span className="text-xs px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-400/40 shadow-xs shrink-0 self-start sm:self-center flex items-center gap-1.5">
+              <span>✦</span>
+              <span>{lang === 'en' ? 'Official Links' : 'आधिकारिक लिंक्स'}</span>
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+          <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
+            {/* Instagram - Royal Dark Gold */}
             <a
               href={ASTROLOGER_INFO.socialLinks?.instagram || "https://www.instagram.com/writeusonastro/"}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center p-4 rounded-xl bg-pink-50 hover:bg-pink-100 dark:bg-pink-950/40 dark:hover:bg-pink-900/60 border border-pink-200 dark:border-pink-800 transition-all hover:scale-105 text-center group shadow-xs"
+              className="relative flex flex-col items-center justify-center p-5 rounded-2xl bg-gradient-to-b from-[#24170D] to-[#170E07] hover:from-[#2C1C10] hover:to-[#1E1209] border-2 border-amber-500/40 hover:border-yellow-400/80 shadow-lg shadow-black/50 hover:shadow-amber-500/20 transition-all duration-300 hover:-translate-y-1 text-center group overflow-hidden"
             >
-              <Instagram className="w-7 h-7 text-pink-600 dark:text-pink-400 mb-1.5 transition-transform group-hover:scale-110" />
-              <span className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center justify-center gap-1">
+              <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
+              <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[#E1306C]/25 via-amber-500/15 to-[#833AB4]/20 border border-amber-400/50 flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:border-yellow-300 transition-all shadow-md">
+                <Instagram className="w-7 h-7 text-pink-400 group-hover:text-pink-300 transition-colors" />
+              </div>
+              <span className="text-sm sm:text-base font-bold text-amber-100 group-hover:text-yellow-300 transition-colors flex items-center justify-center gap-1.5">
                 <span>Instagram</span>
                 <VerifiedBadge size="xs" tooltipText="आधिकारिक सत्यापित Instagram" />
               </span>
-              <span className="text-xs text-stone-500 dark:text-stone-400">@writeusonastro</span>
+              <span className="text-xs text-amber-200/80 font-mono tracking-wide mt-0.5">@writeusonastro</span>
+              <span className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300/90 bg-amber-500/15 group-hover:bg-amber-500/25 px-3 py-0.5 rounded-lg border border-amber-400/30 group-hover:border-amber-300/60 transition-all">
+                <span>{lang === 'en' ? 'Follow' : 'फॉलो करें'}</span>
+                <span>➔</span>
+              </span>
             </a>
 
+            {/* Facebook - Royal Dark Gold */}
             <a
               href={ASTROLOGER_INFO.socialLinks?.facebook || "https://www.facebook.com/bhawanijyotishgujarat/"}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center p-4 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/40 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800 transition-all hover:scale-105 text-center group shadow-xs"
+              className="relative flex flex-col items-center justify-center p-5 rounded-2xl bg-gradient-to-b from-[#24170D] to-[#170E07] hover:from-[#2C1C10] hover:to-[#1E1209] border-2 border-amber-500/40 hover:border-yellow-400/80 shadow-lg shadow-black/50 hover:shadow-amber-500/20 transition-all duration-300 hover:-translate-y-1 text-center group overflow-hidden"
             >
-              <Facebook className="w-7 h-7 text-[#1877F2] mb-1.5 transition-transform group-hover:scale-110" />
-              <span className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center justify-center gap-1">
+              <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
+              <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[#1877F2]/25 via-amber-500/15 to-[#0C52A8]/20 border border-amber-400/50 flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:border-yellow-300 transition-all shadow-md">
+                <Facebook className="w-7 h-7 text-blue-400 group-hover:text-blue-300 transition-colors" />
+              </div>
+              <span className="text-sm sm:text-base font-bold text-amber-100 group-hover:text-yellow-300 transition-colors flex items-center justify-center gap-1.5">
                 <span>Facebook</span>
                 <VerifiedBadge size="xs" tooltipText="आधिकारिक सत्यापित Facebook" />
               </span>
-              <span className="text-xs text-stone-500 dark:text-stone-400">@bhawanijyotishgujarat</span>
+              <span className="text-xs text-amber-200/80 font-mono tracking-wide mt-0.5">@bhawanijyotishgujarat</span>
+              <span className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300/90 bg-amber-500/15 group-hover:bg-amber-500/25 px-3 py-0.5 rounded-lg border border-amber-400/30 group-hover:border-amber-300/60 transition-all">
+                <span>{lang === 'en' ? 'Connect' : 'जुड़ें'}</span>
+                <span>➔</span>
+              </span>
             </a>
 
+            {/* WhatsApp - Royal Dark Gold */}
             <a
               href={ASTROLOGER_INFO.socialLinks?.whatsapp || `https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center p-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/60 border border-emerald-200 dark:border-emerald-800 transition-all hover:scale-105 text-center group shadow-xs"
+              className="relative flex flex-col items-center justify-center p-5 rounded-2xl bg-gradient-to-b from-[#24170D] to-[#170E07] hover:from-[#2C1C10] hover:to-[#1E1209] border-2 border-amber-500/40 hover:border-yellow-400/80 shadow-lg shadow-black/50 hover:shadow-amber-500/20 transition-all duration-300 hover:-translate-y-1 text-center group overflow-hidden"
             >
-              <MessageCircle className="w-7 h-7 text-[#25D366] mb-1.5 transition-transform group-hover:scale-110" />
-              <span className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center justify-center gap-1">
+              <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
+              <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[#25D366]/25 via-amber-500/15 to-[#128C7E]/20 border border-amber-400/50 flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:border-yellow-300 transition-all shadow-md">
+                <MessageCircle className="w-7 h-7 text-emerald-400 group-hover:text-emerald-300 transition-colors" />
+              </div>
+              <span className="text-sm sm:text-base font-bold text-amber-100 group-hover:text-yellow-300 transition-colors flex items-center justify-center gap-1.5">
                 <span>WhatsApp</span>
                 <VerifiedBadge size="xs" tooltipText="आधिकारिक सत्यापित WhatsApp" />
               </span>
-              <span className="text-xs text-stone-500 dark:text-stone-400">{ASTROLOGER_INFO.phonePrimary}</span>
+              <span className="text-xs text-amber-200/80 font-mono tracking-wide mt-0.5">{ASTROLOGER_INFO.phonePrimary}</span>
+              <span className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300/90 bg-amber-500/15 group-hover:bg-amber-500/25 px-3 py-0.5 rounded-lg border border-amber-400/30 group-hover:border-amber-300/60 transition-all">
+                <span>{lang === 'en' ? 'Chat' : 'संदेश भेजें'}</span>
+                <span>➔</span>
+              </span>
             </a>
           </div>
         </div>
 
         {/* Bottom Action CTA - Centered & Mobile-Optimized directly below Social Media */}
         <div className="pt-3 pb-2 flex flex-col items-center">
-          <div className="w-full max-w-2xl flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 sm:gap-4">
+          <div className="w-full max-w-3xl flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 sm:gap-4">
             <a
               id="contact-quick-call-btn"
               href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-              className="w-full sm:flex-1 flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#D9531E] via-[#FF671F] to-[#CC5218] hover:from-[#B84214] hover:to-[#D9531E] text-white font-['Marcellus'] font-serif text-base sm:text-lg py-3.5 px-5 rounded-2xl shadow-xl shadow-amber-900/20 hover:shadow-amber-900/30 transition-all text-center border border-amber-300/40 min-h-[54px] group"
+              className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 sm:gap-2.5 bg-gradient-to-r from-[#D9531E] via-[#FF671F] to-[#CC5218] hover:from-[#B84214] hover:to-[#D9531E] text-white py-3.5 px-4 sm:px-6 rounded-2xl shadow-xl shadow-amber-900/20 hover:shadow-amber-900/30 transition-all text-center border border-amber-300/40 min-h-[54px] group whitespace-nowrap"
             >
-              <Phone className="w-5 h-5 text-amber-200 shrink-0 group-hover:scale-110 transition-transform" />
-              <span className="flex items-center justify-center gap-1.5 flex-wrap">
-                <span className="font-bold whitespace-nowrap">
-                  {lang === 'en'
-                    ? 'Call Now:'
-                    : lang === 'hi'
-                    ? 'तुरंत कॉल करें:'
-                    : 'તરત કોલ કરો:'}
-                </span>
-                <span className="font-mono font-bold text-amber-100 tracking-wide text-sm sm:text-base whitespace-nowrap">
-                  {ASTROLOGER_INFO.phonePrimary}
-                </span>
+              <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-amber-200 shrink-0 group-hover:scale-110 transition-transform" />
+              <span className="font-mukta font-extrabold text-sm sm:text-base tracking-normal whitespace-nowrap">
+                {lang === 'en'
+                  ? 'Call Now:'
+                  : lang === 'hi'
+                  ? 'तुरंत कॉल करें:'
+                  : 'તરત કોલ કરો:'}
+              </span>
+              <span className="font-outfit font-black text-amber-100 tracking-wider text-sm sm:text-base whitespace-nowrap drop-shadow-xs">
+                {ASTROLOGER_INFO.phonePrimary}
               </span>
             </a>
 
@@ -452,13 +465,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:flex-1 flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-['Marcellus'] font-serif text-base sm:text-lg py-3.5 px-5 rounded-2xl shadow-xl shadow-emerald-600/30 hover:shadow-emerald-600/40 transition-all text-center border border-emerald-300/30 min-h-[54px] group"
+              className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 sm:gap-2.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-mukta py-3.5 px-4 sm:px-6 rounded-2xl shadow-xl shadow-emerald-600/30 hover:shadow-emerald-600/40 transition-all text-center border border-emerald-300/30 min-h-[54px] group whitespace-nowrap"
             >
-              <MessageCircle className="w-5 h-5 shrink-0 group-hover:scale-110 transition-transform" />
-              <span className="flex items-center justify-center gap-1.5 whitespace-nowrap font-bold">
-                <span>{lang === 'en' ? 'Book via WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर परामर्श' : 'વોટ્સએપ પર વાત કરો'}</span>
-                <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 group-hover:scale-110 transition-transform" />
+              <span className="font-mukta font-extrabold text-sm sm:text-base tracking-normal whitespace-nowrap">
+                {lang === 'en' ? 'Book via WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर परामर्श' : 'વોટ્સએપ પર વાત કરો'}
               </span>
+              <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
             </a>
           </div>
         </div>

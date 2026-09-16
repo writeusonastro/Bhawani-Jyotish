@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldAlert, AlertTriangle, CheckCircle, Phone, MessageCircle } from 'lucide-react';
+import { ShieldAlert, AlertTriangle, Phone, MessageCircle } from 'lucide-react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
 import { VerifiedBadge } from './VerifiedBadge';
 import { Language } from '../types/astrology';
@@ -277,10 +277,6 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, isDark = fals
     return lang === 'en' ? dosh.symptomsEn : dosh.symptoms;
   };
 
-  const getRemedies = (dosh: typeof DOSHAS[0]) => {
-    return lang === 'en' ? dosh.remediesEn : dosh.remedies;
-  };
-
   const getTypes = (dosh: typeof DOSHAS[0]) => {
     return lang === 'en' ? dosh.typesEn : dosh.types;
   };
@@ -373,54 +369,28 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, isDark = fals
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Symptoms */}
-          <div className={`p-5 rounded-2xl border space-y-3 ${
-            isDark ? 'bg-rose-950/30 border-rose-500/30' : 'bg-rose-50/60 border-rose-200/70'
-          }`}>
-            <h4 className={`font-bold text-sm flex items-center gap-2 ${isDark ? 'text-rose-300' : 'text-rose-900'}`}>
-              <AlertTriangle className="w-4 h-4 text-rose-500" />
-              <span>
-                {lang === 'en'
-                  ? 'Key Symptoms & Life Impact'
-                  : lang === 'hi'
-                  ? 'दोष के प्रमुख लक्षण एवं दुष्प्रभाव'
-                  : 'દોષના મુખ્ય લક્ષણો'}
-              </span>
-            </h4>
-            <ul className={`space-y-2 text-xs sm:text-sm font-medium ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
-              {getSymptoms(activeDosh).map((sym, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="text-rose-400 font-bold mt-0.5">•</span>
-                  <span>{sym}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Remedies */}
-          <div className={`p-5 rounded-2xl border space-y-3 ${
-            isDark ? 'bg-emerald-950/30 border-emerald-500/30' : 'bg-emerald-50/60 border-emerald-200/70'
-          }`}>
-            <h4 className={`font-bold text-sm flex items-center gap-2 ${isDark ? 'text-emerald-300' : 'text-emerald-900'}`}>
-              <CheckCircle className="w-4 h-4 text-emerald-500" />
-              <span>
-                {lang === 'en'
-                  ? 'Authentic Scriptural Vedic Remedies'
-                  : lang === 'hi'
-                  ? 'अचूक शास्त्रोक्त वैदिक निवारण'
-                  : 'શાસ્ત્રોક્ત વૈદિક નિવારણ'}
-              </span>
-            </h4>
-            <ul className={`space-y-2 text-xs sm:text-sm font-medium ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
-              {getRemedies(activeDosh).map((rem, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="text-emerald-400 font-bold mt-0.5">🚩</span>
-                  <span>{rem}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Symptoms */}
+        <div className={`p-5 rounded-2xl border space-y-3 ${
+          isDark ? 'bg-rose-950/30 border-rose-500/30' : 'bg-rose-50/60 border-rose-200/70'
+        }`}>
+          <h4 className={`font-bold text-sm flex items-center gap-2 ${isDark ? 'text-rose-300' : 'text-rose-900'}`}>
+            <AlertTriangle className="w-4 h-4 text-rose-500" />
+            <span>
+              {lang === 'en'
+                ? 'Key Symptoms & Life Impact'
+                : lang === 'hi'
+                ? 'दोष के प्रमुख लक्षण एवं दुष्प्रभाव'
+                : 'દોષના મુખ્ય લક્ષણો'}
+            </span>
+          </h4>
+          <ul className={`grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm font-medium ${isDark ? 'text-stone-200' : 'text-stone-950'}`}>
+            {getSymptoms(activeDosh).map((sym, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-rose-400 font-bold mt-0.5">•</span>
+                <span>{sym}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Types / Categories */}

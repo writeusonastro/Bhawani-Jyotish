@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { Language } from '../types/astrology';
 
 interface AnimatedLogoProps {
@@ -7,6 +6,7 @@ interface AnimatedLogoProps {
   showText?: boolean;
   isDark?: boolean;
   lang?: Language;
+  onOpenStudio?: () => void;
 }
 
 export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
@@ -14,176 +14,148 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
   showText = false,
   isDark = false,
   lang = 'hi',
+  onOpenStudio,
 }) => {
-  const sizeClasses = {
+  const sizeConfig = {
     sm: {
-      box: 'w-10 h-10',
-      text: 'text-xl',
-      ring: 'w-12 h-12',
-      badge: 'text-[10px]',
+      width: 44,
+      height: 44,
+      fontSize: 42,
+      rayStroke: 1.5,
+      sparkleSize: 'text-[10px]',
     },
     md: {
-      box: 'w-12 h-12 sm:w-14 sm:h-14',
-      text: 'text-2xl sm:text-3xl',
-      ring: 'w-14 h-14 sm:w-16 sm:h-16',
-      badge: 'text-xs',
+      width: 58,
+      height: 58,
+      fontSize: 54,
+      rayStroke: 1.8,
+      sparkleSize: 'text-xs',
     },
     lg: {
-      box: 'w-20 h-20 sm:w-24 sm:h-24',
-      text: 'text-4xl sm:text-5xl',
-      ring: 'w-24 h-24 sm:w-28 sm:h-28',
-      badge: 'text-sm',
+      width: 96,
+      height: 96,
+      fontSize: 88,
+      rayStroke: 2.4,
+      sparkleSize: 'text-sm',
     },
   }[size];
 
+  const { width, height, fontSize, rayStroke } = sizeConfig;
+
   return (
-    <div className="flex items-center gap-3 select-none">
-      {/* Animated Emblem Container */}
-      <div className="relative flex items-center justify-center">
-        {/* 1. Pulsing Divine Cosmic Glow Aura */}
-        <motion.div
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.35, 0.7, 0.35],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500 via-[#FF671F] to-[#CC5218] blur-md pointer-events-none"
-        />
+    <div className="flex items-center gap-2.5 select-none">
+      {/* 
+        PURE HIGH-PERFORMANCE 3D "OM" CUTOUT:
+        - Completely CSS hardware accelerated, zero JS main-thread loops or repaints.
+      */}
+      <div
+        onClick={onOpenStudio}
+        className="relative flex items-center justify-center cursor-pointer group hover:scale-105 active:scale-95 transition-transform duration-200"
+      >
+        {/* Ambient Golden Soft Back-Glow (Pure CSS, 0 overhead) */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-amber-600/20 via-yellow-400/20 to-orange-500/20 blur-md pointer-events-none" />
 
-        {/* 2. Rotating Astrological Chakra / Surya Mandala Outer Ring */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className={`absolute ${sizeClasses.ring} pointer-events-none flex items-center justify-center`}
+        {/* Core 3D "OM" SVG CUTOUT */}
+        <svg
+          width={width}
+          height={height}
+          viewBox="0 0 100 100"
+          className="overflow-visible filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)] group-hover:drop-shadow-[0_8px_16px_rgba(245,158,11,0.5)] transition-all duration-200"
         >
-          <svg viewBox="0 0 100 100" className="w-full h-full opacity-60">
-            {/* 12-spoke Solar Rays representing 12 Rashis / Bhavas */}
-            {[...Array(12)].map((_, i) => (
-              <line
-                key={i}
-                x1="50"
-                y1="4"
-                x2="50"
-                y2="10"
-                stroke="#FFB300"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                transform={`rotate(${i * 30} 50 50)`}
-              />
-            ))}
-            {/* Dotted Sacred Orbit */}
-            <circle
-              cx="50"
-              cy="50"
-              r="43"
-              fill="none"
-              stroke="#FFA000"
-              strokeWidth="1.2"
-              strokeDasharray="2.5 3.5"
-            />
-          </svg>
-        </motion.div>
+          <defs>
+            {/* 3D Dark Metallic Antique Gold Gradient for ॐ */}
+            <linearGradient id="pureOmDarkGold3D" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
+              <stop offset="14%" stopColor="#FFF4B8" />
+              <stop offset="38%" stopColor="#F59E0B" />
+              <stop offset="68%" stopColor="#D97706" />
+              <stop offset="88%" stopColor="#92400E" />
+              <stop offset="100%" stopColor="#451A03" />
+            </linearGradient>
 
-        {/* 3. Orbiting Sparkle Star */}
-        <motion.div
-          animate={{
-            rotate: -360,
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className={`absolute ${sizeClasses.ring} pointer-events-none`}
-        >
-          <motion.span
-            animate={{
-              scale: [0.8, 1.3, 0.8],
-              opacity: [0.7, 1, 0.7],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="absolute -top-1 left-1/2 -translate-x-1/2 text-amber-300 text-xs sm:text-sm drop-shadow-[0_0_6px_rgba(255,215,0,0.9)]"
-          >
-            ✦
-          </motion.span>
-        </motion.div>
+            {/* Ambient Shadow & Gold Rim Lighting Filter */}
+            <filter id="pureOmShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="3" stdDeviation="2" floodColor="#1F0800" floodOpacity="0.7" />
+              <feDropShadow dx="0" dy="1" stdDeviation="0.6" floodColor="#000000" floodOpacity="0.8" />
+              <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#F59E0B" floodOpacity="0.3" />
+            </filter>
+          </defs>
 
-        {/* 4. Core Saffron & Golden Sacred Shield with Animated Om */}
-        <motion.div
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-          className={`relative ${sizeClasses.box} rounded-2xl bg-gradient-to-br from-[#FF8C38] via-[#FF671F] to-[#CC5218] flex items-center justify-center text-white shadow-lg shadow-[#FF671F]/40 border-2 border-amber-300 overflow-hidden cursor-pointer`}
-        >
-          {/* Animated Light Sweep Shimmer Effect across the logo */}
-          <motion.div
-            animate={{
-              x: ['-150%', '200%'],
-            }}
-            transition={{
-              duration: 3.5,
-              repeat: Infinity,
-              repeatDelay: 1.5,
-              ease: 'easeInOut',
-            }}
-            className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/35 to-transparent -skew-x-25 pointer-events-none"
-          />
-
-          {/* Central Sacred Om Symbol with divine heartbeat breathing animation */}
-          <motion.span
-            animate={{
-              scale: [1, 1.07, 1],
-            }}
-            transition={{
-              duration: 2.2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className={`${sizeClasses.text} font-bold font-yatra drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] text-amber-100`}
+          {/* 3D Under-extrusion / Cast Shadow Layer */}
+          <text
+            x="50"
+            y="58"
+            textAnchor="middle"
+            dominantBaseline="central"
+            fill="#1E0700"
+            fontSize={fontSize}
+            fontWeight="900"
+            fontFamily="'Mukta', 'Yatra One', serif"
+            opacity="0.85"
+            className="select-none"
           >
             ॐ
-          </motion.span>
+          </text>
 
-          {/* Small corner decorative gold corner accent */}
-          <span className="absolute top-0.5 right-0.5 text-[8px] text-amber-200/90 leading-none">
-            🚩
-          </span>
-        </motion.div>
+          {/* Core 3D Dark Metallic Gold Om Cutout */}
+          <text
+            x="50"
+            y="54"
+            textAnchor="middle"
+            dominantBaseline="central"
+            fill="url(#pureOmDarkGold3D)"
+            fontSize={fontSize}
+            fontWeight="900"
+            fontFamily="'Mukta', 'Yatra One', serif"
+            filter="url(#pureOmShadow)"
+            className="select-none"
+          >
+            ॐ
+          </text>
+
+          {/* Specular Crisp Rim Line */}
+          <text
+            x="50"
+            y="54"
+            textAnchor="middle"
+            dominantBaseline="central"
+            fill="none"
+            stroke="#FFF6D1"
+            strokeWidth={rayStroke}
+            strokeOpacity="0.4"
+            fontSize={fontSize}
+            fontWeight="900"
+            fontFamily="'Mukta', 'Yatra One', serif"
+            className="select-none pointer-events-none"
+          >
+            ॐ
+          </text>
+        </svg>
+
+        {/* Sparkle Star */}
+        <span
+          className={`absolute -top-1 -right-1 text-amber-300 ${sizeConfig.sparkleSize} pointer-events-none drop-shadow-[0_0_5px_rgba(245,158,11,0.8)]`}
+        >
+          ✦
+        </span>
       </div>
 
-      {/* Optional Animated Text Display */}
+      {/* Optional Brand Typography */}
       {showText && (
         <div>
           <div className="flex items-center gap-2">
-            <motion.h2
-              className="font-yatra text-2xl sm:text-3xl text-[#CC5218] dark:text-amber-400 tracking-wide flex items-center gap-1.5"
-            >
+            <h2 className="font-yatra text-2xl sm:text-3xl text-[#852E10] dark:text-amber-400 tracking-wide flex items-center gap-1.5">
               भवानी ज्योतिष
-              <motion.span
-                animate={{ rotate: [0, 15, -15, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="inline-block text-amber-500 text-sm"
-              >
+              <span className="inline-block text-amber-500 text-sm">
                 🔱
-              </motion.span>
-            </motion.h2>
+              </span>
+            </h2>
 
             <span
               className={`text-xs px-2 py-0.5 rounded-full font-semibold border transition-colors ${
                 isDark
                   ? 'bg-amber-950/80 border-amber-500/40 text-amber-300'
-                  : 'bg-[#FFF5F0] border-[#FF671F]/30 text-[#CC5218]'
+                  : 'bg-[#FFF5F0] border-[#FF671F]/30 text-[#852E10]'
               }`}
             >
               {lang === 'en' ? 'Mehsana (Gujarat)' : 'मेहसाणा (गुजरात)'}

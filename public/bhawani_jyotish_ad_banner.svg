@@ -1,0 +1,103 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#790909" />
+      <stop offset="50%" stop-color="#8B0000" />
+      <stop offset="100%" stop-color="#4A0000" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF6B7" />
+      <stop offset="50%" stop-color="#F6C90E" />
+      <stop offset="100%" stop-color="#EAA000" />
+    </linearGradient>
+    <linearGradient id="saffron" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6F00" />
+      <stop offset="100%" stop-color="#FF9100" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1080" height="1080" fill="url(#bg)" />
+
+  <!-- Ornate Golden Border -->
+  <rect x="30" y="30" width="1020" height="1020" fill="none" stroke="url(#gold)" stroke-width="6" rx="16" />
+  <rect x="46" y="46" width="988" height="988" fill="none" stroke="#F6C90E" stroke-width="2" stroke-dasharray="8,8" rx="12" />
+
+  <!-- Corner Ornaments -->
+  <circle cx="46" cy="46" r="10" fill="#F6C90E" />
+  <circle cx="1034" cy="46" r="10" fill="#F6C90E" />
+  <circle cx="46" cy="1034" r="10" fill="#F6C90E" />
+  <circle cx="1034" cy="1034" r="10" fill="#F6C90E" />
+
+  <!-- Kundli Chakra Mandala in Background -->
+  <g opacity="0.15" stroke="#F6C90E" stroke-width="3" fill="none">
+    <circle cx="540" cy="540" r="380" />
+    <circle cx="540" cy="540" r="340" />
+    <circle cx="540" cy="540" r="260" />
+    <circle cx="540" cy="540" r="180" />
+    <line x1="160" y1="540" x2="920" y2="540" />
+    <line x1="540" y1="160" x2="540" y2="920" />
+    <line x1="271" y1="271" x2="808" y2="808" />
+    <line x1="271" y1="808" x2="808" y2="271" />
+  </g>
+
+  <!-- Header Badge -->
+  <rect x="290" y="70" width="500" height="56" rx="28" fill="url(#saffron)" />
+  <text x="540" y="108" font-family="sans-serif" font-weight="bold" font-size="24" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">॥ શ્રી ગણેશાય નમઃ ॥ ॐ ભવાની માતાય નમઃ ॥</text>
+
+  <!-- Main Title -->
+  <text x="540" y="200" font-family="sans-serif" font-weight="900" font-size="64" fill="url(#gold)" text-anchor="middle">શ્રી ભવાની જ્યોતિષ કેન્દ્ર</text>
+  <text x="540" y="246" font-family="sans-serif" font-size="24" fill="#FFE082" text-anchor="middle" font-weight="600">વિશ્વ પ્રસિદ્ધ વૈદિક જ્યોતિષ સંસ્થાન (૩૫+ વર્ષનો અનુભવ)</text>
+
+  <!-- Astrologer Profile Box -->
+  <rect x="110" y="285" width="860" height="125" rx="20" fill="#5A0000" stroke="url(#gold)" stroke-width="2" />
+  
+  <text x="540" y="335" font-family="sans-serif" font-weight="bold" font-size="32" fill="#FFFFFF" text-anchor="middle">જ્યોતિષાચાર્ય પં. વિરેન્દ્ર કુમાર જોશી</text>
+  <text x="540" y="375" font-family="sans-serif" font-size="22" fill="#FFD54F" text-anchor="middle">ગોલ્ડ મેડાલિસ્ટ • વૈદિક કુંડળી વિશેષજ્ઞ • મહેસાણા (ગુજરાત)</text>
+
+  <!-- Services Grid Container -->
+  <rect x="110" y="435" width="860" height="350" rx="24" fill="#2B0000" stroke="#FFB300" stroke-width="2" />
+  
+  <!-- Services Header -->
+  <rect x="360" y="420" width="360" height="38" rx="19" fill="url(#gold)" />
+  <text x="540" y="446" font-family="sans-serif" font-weight="bold" font-size="20" fill="#790909" text-anchor="middle">અમારા મુખ્ય સેવાઓ / પરામર્શ</text>
+
+  <!-- Service Pills / Points -->
+  <!-- Row 1 -->
+  <rect x="150" y="480" width="370" height="55" rx="14" fill="#3D0000" stroke="#F6C90E" stroke-width="1.5" />
+  <text x="175" y="515" font-family="sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF">✔ સંપૂર્ણ જન્મ કુંડળી વિશ્લેષણ</text>
+
+  <rect x="560" y="480" width="370" height="55" rx="14" fill="#3D0000" stroke="#F6C90E" stroke-width="1.5" />
+  <text x="585" y="515" font-family="sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF">✔ ૩૬ ગુણ વિવાહ મિલન</text>
+
+  <!-- Row 2 -->
+  <rect x="150" y="550" width="370" height="55" rx="14" fill="#3D0000" stroke="#F6C90E" stroke-width="1.5" />
+  <text x="175" y="585" font-family="sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF">✔ લવ મેરેજ &amp; પ્રેમ સંબંધ</text>
+
+  <rect x="560" y="550" width="370" height="55" rx="14" fill="#3D0000" stroke="#F6C90E" stroke-width="1.5" />
+  <text x="585" y="585" font-family="sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF">✔ નોકરી &amp; વેપારમાં પ્રગતિ</text>
+
+  <!-- Row 3 -->
+  <rect x="150" y="620" width="370" height="55" rx="14" fill="#3D0000" stroke="#F6C90E" stroke-width="1.5" />
+  <text x="175" y="655" font-family="sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF">✔ માંગલિક &amp; કાલસર્પ દોષ</text>
+
+  <rect x="560" y="620" width="370" height="55" rx="14" fill="#3D0000" stroke="#F6C90E" stroke-width="1.5" />
+  <text x="585" y="655" font-family="sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF">✔ વાસ્તુ દોષ નિવારણ</text>
+
+  <!-- Trust Line -->
+  <text x="540" y="745" font-family="sans-serif" font-weight="bold" font-size="23" fill="#81C784" text-anchor="middle">★ ૧૦૦% શાસ્ત્રોક્ત વૈદિક સમાધાન • દેશ-વિદેશમાં વિશ્વાસપાત્ર ★</text>
+
+  <!-- Call to Action Banner (Big Green / Golden) -->
+  <g>
+    <!-- Shadow -->
+    <rect x="130" y="815" width="820" height="140" rx="28" fill="#1B5E20" />
+    <rect x="126" y="810" width="828" height="140" rx="28" fill="#2E7D32" stroke="#FFD54F" stroke-width="4" />
+    
+    <!-- Phone Icon & Text -->
+    <text x="540" y="860" font-family="sans-serif" font-weight="bold" font-size="26" fill="#FFF9C4" text-anchor="middle">સીધો કોલ અથવા વ્હોટ્સએપ કરો:</text>
+    <text x="540" y="920" font-family="sans-serif" font-weight="900" font-size="48" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">📞 +91 99090 87902</text>
+  </g>
+
+  <!-- Footer Location -->
+  <text x="540" y="995" font-family="sans-serif" font-size="20" fill="#FFECB3" text-anchor="middle">મુખ્ય કાર્યાલય: નાગલપુર હાઇવે, મહેસાણા | શાખા: અમદાવાદ, સુરત, મુંબઈ</text>
+</svg>

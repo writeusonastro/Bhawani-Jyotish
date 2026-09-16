@@ -1,10 +1,25 @@
 import React from 'react';
-import { Phone, MessageCircle, Clock, Instagram, Facebook, QrCode } from 'lucide-react';
-import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
+import { 
+  Phone, MessageCircle, Instagram, Facebook, QrCode, 
+  Sparkles, ScrollText, HeartHandshake, ShieldAlert, 
+  Briefcase, Users, Compass, Gem, Flame, Star 
+} from 'lucide-react';
+import { ASTROLOGER_INFO, ASTRO_SERVICES, getWhatsAppConsultationMessage } from '../data/astrologyData';
 import { AnimatedLogo } from './AnimatedLogo';
 import { VerifiedBadge } from './VerifiedBadge';
 import { RajputSymbol } from './RajputSymbol';
 import { Language } from '../types/astrology';
+
+const SERVICE_ICONS: Record<string, React.ElementType> = {
+  'kundli-analysis': ScrollText,
+  'gun-milan': HeartHandshake,
+  'dosh-nivaran': ShieldAlert,
+  'career-business': Briefcase,
+  'love-marriage': Users,
+  'vastu-shastra': Compass,
+  'gemstone-rudraksha': Gem,
+  'navgraha-puja': Flame,
+};
 
 interface HeaderProps {
   activeTab: string;
@@ -13,6 +28,7 @@ interface HeaderProps {
   setLang: (l: Language) => void;
   onOpenPaymentQR?: () => void;
   onPrefetchTab?: (id: string) => void;
+  onOpenLogoStudio?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -22,6 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
   setLang,
   onOpenPaymentQR,
   onPrefetchTab,
+  onOpenLogoStudio,
 }) => {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -39,8 +56,6 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'kundli', labelHi: 'जन्म कुंडली', labelGu: 'જન્મ કુંડળી', labelEn: 'Janam Kundli' },
     { id: 'gun-milan', labelHi: 'विवाह गुण मिलान', labelGu: 'લગ્ન ગુણ મિલાન', labelEn: 'Gun Milan' },
     { id: 'gemstones', labelHi: '💎 लकी रत्न व रुद्राक्ष', labelGu: '💎 રત્ન અને રુદ્રાક્ષ', labelEn: '💎 Gemstones' },
-    { id: 'japa-mala', labelHi: '📿 डिजिटल जप माला', labelGu: '📿 ડિજિટલ માળા', labelEn: '📿 Japa Mala' },
-    { id: 'daily-wisdom', labelHi: '📜 सुविचार व वास्तु', labelGu: '📜 સુવિચાર અને વાસ્તુ', labelEn: '📜 Vastu Wisdom' },
     { id: 'panchang', labelHi: 'पंचांग व मुहूर्त', labelGu: 'પંચાંગ અને મુહૂર્ત', labelEn: 'Panchang' },
     { id: 'dosh-guide', labelHi: 'दोष निवारण', labelGu: 'દોષ નિવારણ', labelEn: 'Dosha Guide' },
     { id: 'services', labelHi: 'विशेष सेवाएं', labelGu: 'વિશેષ સેવાઓ', labelEn: 'Services' },
@@ -50,6 +65,34 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'contact', labelHi: 'संपर्क व पता', labelGu: 'સંપર્ક અને સરનામું', labelEn: 'Contact' }
   ];
 
+  const tickerServicesList = React.useMemo(() => [...ASTRO_SERVICES, ...ASTRO_SERVICES], []);
+
+  const handleServiceClick = (serviceId: string) => {
+    if (serviceId === 'kundli-analysis') {
+      setActiveTab('kundli');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (serviceId === 'gun-milan') {
+      setActiveTab('gun-milan');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (serviceId === 'dosh-nivaran') {
+      setActiveTab('dosh-guide');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (serviceId === 'gemstone-rudraksha') {
+      setActiveTab('gemstones');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      if (activeTab !== 'home') {
+        setActiveTab('home');
+      }
+      setTimeout(() => {
+        const el = document.getElementById('services-section');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 120);
+    }
+  };
+
   return (
     <header 
       id="main-fixed-header"
@@ -57,37 +100,34 @@ export const Header: React.FC<HeaderProps> = ({
       className="sticky top-0 z-50 backdrop-blur-md shadow-lg border-b bg-[#FFFDF8]/98 border-amber-500/30 text-[#2C2420] print:hidden w-full transition-all duration-200"
     >
       {/* Top sacred royal shloka & contact strip */}
-      <div className={`bg-gradient-to-r from-[#631422] via-[#852E10] to-[#631422] text-amber-100 text-xs sm:text-sm ${isScrolled ? 'py-1' : 'py-1.5'} px-3 sm:px-4 border-b border-amber-400/30 transition-all`}>
+      <div className={`bg-gradient-to-r from-[#091528] via-[#14284B] to-[#091528] text-amber-100 text-xs sm:text-sm ${isScrolled ? 'py-1' : 'py-1.5'} px-3 sm:px-4 border-b border-cyan-500/30 transition-all`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 font-medium shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 font-medium shrink-0">
             <span className="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 text-amber-950 px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black shadow-xs flex items-center gap-1 border border-amber-500 shrink-0 whitespace-nowrap">
-              <RajputSymbol size="xs" />
-              <span>राजकीय ज्योतिष पीठ</span>
+              <Star className="w-3 h-3 text-amber-950 fill-amber-950 shrink-0" />
+              <span>Celebrity Astro</span>
             </span>
-            <span className="hidden sm:inline-flex items-center gap-1 text-[10px] sm:text-[11px] bg-black/30 text-amber-200 border border-amber-400/40 px-2 sm:px-2.5 py-0.5 rounded-full font-bold shadow-xs shrink-0 whitespace-nowrap">
+            <span className="hidden md:inline-flex items-center gap-1 text-[10px] sm:text-[11px] bg-[#060D1A]/80 text-cyan-200 border border-cyan-400/40 px-2 sm:px-2.5 py-0.5 rounded-full font-bold shadow-xs shrink-0 whitespace-nowrap">
               <span className="text-amber-300">पंजी:</span>
-              <span className="font-mono text-amber-100 font-black tracking-wide">{ASTROLOGER_INFO.registrationNo}</span>
+              <span className="font-mono text-cyan-100 font-black tracking-wide">{ASTROLOGER_INFO.registrationNo}</span>
               <VerifiedBadge size="xs" tooltipText="शासकीय पंजीकृत वैदिक संस्थान" />
-            </span>
-            <span className="hidden xl:inline font-yatra tracking-wider text-amber-200 text-xs whitespace-nowrap">
-              🪔 ॥ ॐ श्री भवान्यै नमः ॥ 🪔
             </span>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm shrink-0">
-            <div className="hidden md:flex items-center gap-1.5 text-amber-200 font-medium whitespace-nowrap">
-              <Clock className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-              <span>
-                {lang === 'en'
-                  ? '8:00 AM - 8:00 PM'
-                  : lang === 'hi'
-                  ? 'प्रातः 8:00 - रात्रि 8:00'
-                  : 'સવારે 8:00 - રાત્રે 8:00'}
+          {/* Centered "Maa Majisa Kripa" */}
+          <div className="flex-1 flex items-center justify-center text-center px-1 sm:px-3 overflow-hidden min-w-0">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 text-amber-200 text-xs sm:text-sm font-semibold truncate tracking-wider">
+              <span className="text-amber-400 text-xs shrink-0">✦</span>
+              <span className="text-amber-100 font-bold tracking-wide truncate drop-shadow-xs">
+                Maa Majisa Kripa
               </span>
+              <span className="text-amber-400 text-xs shrink-0">✦</span>
             </div>
-            
+          </div>
+
+          <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm shrink-0">
             {/* Social Media Links */}
-            <div className="hidden lg:flex items-center gap-1.5 border-r border-amber-400/30 pr-2 shrink-0">
+            <div className="hidden lg:flex items-center gap-1.5 border-r border-cyan-400/30 pr-2 shrink-0">
               <a
                 href={ASTROLOGER_INFO.socialLinks.instagram}
                 target="_blank"
@@ -119,7 +159,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             <a 
               href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-              className="hidden sm:flex items-center gap-1 font-bold text-amber-100 hover:text-white transition-colors bg-amber-950/60 border border-amber-400/40 px-2.5 py-0.5 rounded-md shadow-xs text-[11px] sm:text-xs whitespace-nowrap shrink-0"
+              className="hidden sm:flex items-center gap-1 font-bold text-amber-200 hover:text-white transition-colors bg-[#0D2040]/80 border border-cyan-400/40 px-2.5 py-0.5 rounded-md shadow-xs text-[11px] sm:text-xs whitespace-nowrap shrink-0"
               title={`पंडित जी को सीधे कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}
             >
               <Phone className="w-3 h-3 text-amber-300 animate-pulse shrink-0" />
@@ -127,28 +167,77 @@ export const Header: React.FC<HeaderProps> = ({
             </a>
 
             {/* Language toggle */}
-            <div className="flex items-center bg-black/40 rounded-lg p-0.5 text-[11px] sm:text-xs font-semibold border border-amber-400/30 shrink-0 whitespace-nowrap">
+            <div className="flex items-center bg-black/50 rounded-lg p-0.5 text-[11px] sm:text-xs font-semibold border border-cyan-400/30 shrink-0 whitespace-nowrap">
               <button
                 type="button"
                 onClick={() => setLang('hi')}
-                className={`px-1.5 sm:px-2 py-0.5 rounded transition-all ${lang === 'hi' ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-amber-950 font-black shadow-xs' : 'text-amber-200/80 hover:text-white'}`}
+                className={`px-1.5 sm:px-2 py-0.5 rounded transition-all ${lang === 'hi' ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-amber-950 font-black shadow-xs' : 'text-cyan-200/80 hover:text-white'}`}
               >
                 हिं
               </button>
               <button
                 type="button"
                 onClick={() => setLang('gu')}
-                className={`px-1.5 sm:px-2 py-0.5 rounded transition-all ${lang === 'gu' ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-amber-950 font-black shadow-xs' : 'text-amber-200/80 hover:text-white'}`}
+                className={`px-1.5 sm:px-2 py-0.5 rounded transition-all ${lang === 'gu' ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-amber-950 font-black shadow-xs' : 'text-cyan-200/80 hover:text-white'}`}
               >
                 ગુજ
               </button>
               <button
                 type="button"
                 onClick={() => setLang('en')}
-                className={`px-1.5 sm:px-2 py-0.5 rounded transition-all ${lang === 'en' ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-amber-950 font-black shadow-xs' : 'text-amber-200/80 hover:text-white'}`}
+                className={`px-1.5 sm:px-2 py-0.5 rounded transition-all ${lang === 'en' ? 'bg-gradient-to-r from-amber-400 to-amber-300 text-amber-950 font-black shadow-xs' : 'text-cyan-200/80 hover:text-white'}`}
               >
                 EN
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Elegant Cream / White Scrolling Services Ticker Box (Just beneath the top sacred strip) */}
+      <div 
+        id="royal-services-ticker-bar"
+        className={`bg-gradient-to-r from-[#FCF9F2] via-[#F6EFE2] to-[#FCF9F2] text-stone-800 text-xs ${isScrolled ? 'py-1' : 'py-1.5'} px-2 sm:px-4 border-b border-amber-300/60 shadow-xs overflow-hidden relative transition-all`}
+      >
+        <div className="max-w-7xl mx-auto flex items-center gap-2 sm:gap-3">
+          {/* Pinned Left Pill Badges matching user's screenshot */}
+          <div className="flex items-center gap-1.5 shrink-0 z-10">
+            <span className="bg-gradient-to-r from-[#731E05] via-[#8B1E2D] to-[#731E05] text-amber-100 px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black shadow-xs flex items-center gap-1 border border-amber-700/60 shrink-0 whitespace-nowrap">
+              <Sparkles className="w-3 h-3 text-amber-300 shrink-0" />
+              <span>
+                {lang === 'en' ? 'Vedic Services' : lang === 'hi' ? 'समस्त सेवाएं' : 'તમામ સેવાઓ'}
+              </span>
+            </span>
+            <span className="hidden sm:inline-flex items-center gap-1 text-[10px] sm:text-[11px] bg-white text-[#731E05] border border-amber-300 px-2 sm:px-2.5 py-0.5 rounded-full font-bold shadow-2xs shrink-0 whitespace-nowrap">
+              <span>{lang === 'en' ? '8 Sacred Solutions' : lang === 'hi' ? '८ शास्त्रीय समाधान' : '૮ શાસ્ત્રોક્ત ઉપાય'}</span>
+            </span>
+          </div>
+
+          {/* Warm Golden Divider */}
+          <div className="h-4 w-px bg-amber-300/70 shrink-0 hidden sm:block" />
+
+          {/* Smooth Continuous Scrolling Ticker with Left & Right Gradient Mask */}
+          <div className="relative flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_14px,black_calc(100%-14px),transparent)]">
+            <div className="services-ticker-track flex items-center gap-2 sm:gap-2.5 py-0.5">
+              {tickerServicesList.map((srv, idx) => {
+                const Icon = SERVICE_ICONS[srv.id] || Sparkles;
+                const serviceTitle = lang === 'en' ? srv.titleEn : lang === 'hi' ? srv.titleHi : srv.titleGu;
+                return (
+                  <button
+                    key={`${srv.id}-${idx}`}
+                    type="button"
+                    onClick={() => handleServiceClick(srv.id)}
+                    className="group/item inline-flex items-center gap-1.5 bg-white hover:bg-amber-50/90 border border-amber-200/90 hover:border-amber-500 text-stone-800 hover:text-[#731E05] px-2.5 sm:px-3 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all shadow-2xs hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+                    title={`${serviceTitle} - क्लिक करें`}
+                  >
+                    <span className="w-4 h-4 rounded-full bg-amber-100 text-[#731E05] flex items-center justify-center shrink-0 group-hover/item:bg-amber-200">
+                      <Icon className="w-2.5 h-2.5" />
+                    </span>
+                    <span>{serviceTitle}</span>
+                    <span className="text-amber-500/70 font-bold ml-0.5">✦</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -161,7 +250,7 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={() => setActiveTab('home')}
           className="cursor-pointer flex items-center gap-2.5 sm:gap-3 group w-full md:w-auto"
         >
-          <AnimatedLogo size={isScrolled ? "sm" : "md"} lang={lang} />
+          <AnimatedLogo size={isScrolled ? "sm" : "md"} lang={lang} onOpenStudio={onOpenLogoStudio} />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
               <h1 className="font-yatra text-xl sm:text-3xl text-[#852E10] tracking-wide flex items-center gap-1.5">

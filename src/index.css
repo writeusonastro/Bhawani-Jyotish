@@ -99,19 +99,21 @@
 .royal-jali-pattern {
   background-color: #FFFDF8;
   background-image: 
-    radial-gradient(#D97706 0.85px, transparent 0.85px),
-    radial-gradient(#B45309 0.85px, #FFFDF8 0.85px);
-  background-size: 32px 32px;
-  background-position: 0 0, 16px 16px;
+    linear-gradient(45deg, rgba(217, 119, 6, 0.04) 25%, transparent 25%), 
+    linear-gradient(-45deg, rgba(217, 119, 6, 0.04) 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, rgba(217, 119, 6, 0.04) 75%), 
+    linear-gradient(-45deg, transparent 75%, rgba(217, 119, 6, 0.04) 75%);
+  background-size: 36px 36px;
+  background-position: 0 0, 0 18px, 18px -18px, -18px 0px;
 }
 
 /* Sacred Vedic glowing & patterned backgrounds */
 .bg-sacred-pattern {
   background-color: #FFFDF9;
-  background-image: radial-gradient(#FF671F 0.75px, transparent 0.75px), radial-gradient(#D4AF37 0.75px, #FFFDF9 0.75px);
-  background-size: 30px 30px;
-  background-position: 0 0, 15px 15px;
-  background-opacity: 0.05;
+  background-image: 
+    linear-gradient(to right, rgba(245, 158, 11, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 158, 11, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 .sacred-border {
@@ -135,6 +137,33 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #CC5218;
+}
+
+/* Sacred Services Infinite Marquee Ticker */
+@keyframes sacredServicesTicker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.services-ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: sacredServicesTicker 38s linear infinite;
+}
+
+.services-ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-ticker-track {
+    animation-duration: 90s;
+  }
 }
 
 /* ========================================================================= */
@@ -258,5 +287,39 @@
     shape-rendering: geometricPrecision !important;
     text-rendering: geometricPrecision !important;
   }
+}
+
+@keyframes spinClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinCounter {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.animate-spin-clockwise-90s {
+  animation: spinClockwise 90s linear infinite;
+  will-change: transform;
+  transform-origin: center;
+}
+
+.animate-spin-counter-120s {
+  animation: spinCounter 120s linear infinite;
+  will-change: transform;
+  transform-origin: center;
+}
+
+.animate-spin-clockwise-75s {
+  animation: spinClockwise 75s linear infinite;
+  will-change: transform;
+  transform-origin: center;
+}
+
+.animate-spin-counter-60s {
+  animation: spinCounter 60s linear infinite;
+  will-change: transform;
+  transform-origin: center;
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
-import { Phone, MessageCircle, Mail, MapPin, Clock, Facebook, Instagram, Share2, ShieldCheck } from 'lucide-react';
+import { Phone, MessageCircle, Mail, MapPin, Facebook, Instagram, Share2, ShieldCheck } from 'lucide-react';
 import { AnimatedLogo } from './AnimatedLogo';
 import { VerifiedBadge } from './VerifiedBadge';
 import { Language } from '../types/astrology';
@@ -8,18 +8,14 @@ import { Language } from '../types/astrology';
 interface FooterProps {
   setActiveTab: (tab: string) => void;
   lang: Language;
+  onOpenLogoStudio?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
+export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoStudio }) => {
   const getAddress = () => {
     if (lang === 'en') return ASTROLOGER_INFO.addressEn;
     if (lang === 'hi') return ASTROLOGER_INFO.address;
     return ASTROLOGER_INFO.addressGu;
-  };
-
-  const getTimings = () => {
-    if (lang === 'en') return ASTROLOGER_INFO.timingsEn;
-    return ASTROLOGER_INFO.timings;
   };
 
   return (
@@ -30,7 +26,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
           {/* Brand & Astrologer Details */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <AnimatedLogo size="sm" isDark={true} lang={lang} />
+              <AnimatedLogo size="sm" isDark={true} lang={lang} onOpenStudio={onOpenLogoStudio} />
               <div>
                 <h3 className="font-yatra text-2xl text-amber-400">
                   {lang === 'en' ? 'Bhavani Jyotish' : 'भवानी ज्योतिष'}
@@ -164,11 +160,6 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang }) => {
                 <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <span>WhatsApp: {ASTROLOGER_INFO.phonePrimary}</span>
               </a>
-
-              <div className="flex items-start gap-2 text-stone-100 font-medium">
-                <Clock className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />
-                <span>{getTimings()}</span>
-              </div>
 
               <div className="flex items-start gap-2 text-stone-100 font-medium">
                 <Mail className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />

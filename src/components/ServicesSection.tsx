@@ -29,7 +29,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   const [selectedService, setSelectedService] = useState<string>(ASTRO_SERVICES[0].id);
 
   return (
-    <div className={`py-10 px-4 max-w-7xl mx-auto transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
+    <div id="services-section" className={`py-10 px-4 max-w-7xl mx-auto transition-colors duration-300 ${isDark ? 'text-stone-100' : 'text-stone-900'}`}>
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
         <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold border mb-3 shadow-xs ${
@@ -46,7 +46,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               : 'શાસ્ત્રોક્ત રાજકીય વૈદિક જ્યોતિષ સેવાઓ'}
           </span>
         </div>
-        <h2 className={`font-yatra text-3xl sm:text-5xl mb-3 tracking-wide ${isDark ? 'text-amber-300' : 'text-[#852E10]'}`}>
+        <h2 className={`font-yatra text-[20px] min-[360px]:text-[22px] min-[400px]:text-2xl sm:text-4xl md:text-5xl mb-3 tracking-normal sm:tracking-wide whitespace-nowrap overflow-x-visible ${isDark ? 'text-amber-300' : 'text-[#852E10]'}`}>
           {lang === 'en'
             ? 'Services Offered by Bhavani Jyotish'
             : lang === 'hi'
@@ -82,7 +82,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               )}
 
               <div>
-                <div className={`w-13 h-13 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-105 transition-all shadow-sm ${
+                <div className={`w-13 h-13 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-105 transition-all shadow-sm shrink-0 ${
                   isDark 
                     ? 'bg-amber-950/70 text-amber-300 border border-amber-500/30' 
                     : 'bg-gradient-to-br from-amber-100 to-orange-100 text-[#852E10] border border-amber-300/60'

@@ -631,45 +631,51 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
       {/* Main Selected City Showcase Card */}
       <div className="bg-white rounded-3xl border border-amber-300/60 shadow-xl overflow-hidden mb-10 transition-all">
         {/* Card Header Strip */}
-        <div className="bg-gradient-to-r from-[#FFFDF8] via-[#FAF5EC] to-[#FFFDF8] p-5 sm:p-7 border-b border-amber-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2 flex-wrap mb-2">
-              <span className={`text-[11px] font-black px-2.5 py-0.5 rounded-full bg-gradient-to-r ${selectedCity.badgeColor} shadow-xs`}>
-                {selectedCity.badge}
-              </span>
-              <span className="text-xs text-stone-700 font-bold bg-amber-100/70 border border-amber-300/60 px-2 py-0.5 rounded-full flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>35+ वर्ष शास्त्रीय अनुभव</span>
-              </span>
-            </div>
-
-            <h3 className="font-yatra text-xl sm:text-2xl text-[#852E10]">
-              {lang === 'en' ? selectedCity.headlineEn : lang === 'hi' ? selectedCity.headlineHi : selectedCity.headlineGu}
-            </h3>
-            <p className="text-xs sm:text-sm text-stone-700 font-semibold mt-1">
-              {lang === 'en' ? selectedCity.taglineEn : lang === 'hi' ? selectedCity.taglineHi : selectedCity.taglineGu}
-            </p>
+        <div className="bg-gradient-to-r from-[#FFFDF8] via-[#FAF5EC] to-[#FFFDF8] p-5 sm:p-6 lg:p-7 border-b border-amber-200">
+          {/* Top Badges Row */}
+          <div className="flex items-center gap-2 flex-wrap mb-2.5">
+            <span className={`text-[11px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r ${selectedCity.badgeColor} shadow-xs inline-flex items-center leading-none`}>
+              {selectedCity.badge}
+            </span>
+            <span className="text-xs text-stone-700 font-bold bg-amber-100/70 border border-amber-300/60 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5 leading-none">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <span>35+ वर्ष शास्त्रीय अनुभव</span>
+            </span>
           </div>
 
-          {/* Direct CTA Buttons in Header */}
-          <div className="flex items-center gap-2 w-full md:w-auto shrink-0">
-            <a
-              href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#FF671F] to-[#CC5218] hover:from-[#CC5218] hover:to-[#993D12] text-white font-bold px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition-all active:scale-95 text-center"
-            >
-              <Phone className="w-4 h-4 text-amber-200" />
-              <span>{lang === 'en' ? selectedCity.ctaPhoneTextEn : lang === 'hi' ? selectedCity.ctaPhoneTextHi : selectedCity.ctaPhoneTextGu}</span>
-            </a>
+          {/* Heading + Subtitle + Action Buttons Row */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="flex-1 min-w-0 pr-0 lg:pr-4">
+              <h3 className="font-yatra text-xl sm:text-2xl text-[#852E10] leading-snug">
+                {lang === 'en' ? selectedCity.headlineEn : lang === 'hi' ? selectedCity.headlineHi : selectedCity.headlineGu}
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-700 font-semibold mt-1.5 leading-relaxed">
+                {lang === 'en' ? selectedCity.taglineEn : lang === 'hi' ? selectedCity.taglineHi : selectedCity.taglineGu}
+              </p>
+            </div>
 
-            <a
-              href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(selectedCity.waCityMessage)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition-all active:scale-95 text-center"
-            >
-              <MessageCircle className="w-4 h-4 text-white" />
-              <span>WhatsApp</span>
-            </a>
+            {/* Direct CTA Buttons in Header - Pixel-perfect alignment */}
+            <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0 self-start lg:self-center">
+              <a
+                href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+                className="flex-1 sm:flex-none h-11 px-4 sm:px-5 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF671F] to-[#CC5218] hover:from-[#CC5218] hover:to-[#993D12] text-white font-bold rounded-xl text-xs sm:text-sm shadow-md transition-all active:scale-95 text-center whitespace-nowrap"
+              >
+                <Phone className="w-4 h-4 text-amber-200 shrink-0" />
+                <span className="leading-none pt-0.5">
+                  {lang === 'en' ? selectedCity.ctaPhoneTextEn : lang === 'hi' ? selectedCity.ctaPhoneTextHi : selectedCity.ctaPhoneTextGu}
+                </span>
+              </a>
+
+              <a
+                href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(selectedCity.waCityMessage)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 sm:flex-none h-11 px-4 sm:px-5 inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl text-xs sm:text-sm shadow-md transition-all active:scale-95 text-center whitespace-nowrap"
+              >
+                <MessageCircle className="w-4 h-4 text-white shrink-0" />
+                <span className="leading-none pt-0.5">WhatsApp</span>
+              </a>
+            </div>
           </div>
         </div>
 

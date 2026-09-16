@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: './',
+    base: process.env.VITE_BASE || '/',
     plugins: [react(), tailwindcss()],
     optimizeDeps: {
       include: ['react', 'react-dom', 'lucide-react', 'motion/react'],
@@ -16,6 +16,8 @@ export default defineConfig(() => {
       },
     },
     build: {
+      outDir: 'dist',
+      emptyOutDir: true,
       target: 'es2020',
       cssCodeSplit: true,
       chunkSizeWarningLimit: 600,
