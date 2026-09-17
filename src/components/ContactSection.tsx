@@ -97,13 +97,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           : 'bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFF9F2] border-amber-400/40 shadow-xl shadow-amber-900/5 text-stone-950'
       }`}>
         {/* Top 3 Key Contact Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 items-stretch">
           
           {/* 1. Address Card */}
-          <div className={`p-5 sm:p-6 rounded-2xl border-2 shadow-sm flex flex-col justify-between gap-5 ${
+          <div className={`p-4 sm:p-5 xl:p-6 rounded-2xl border-2 shadow-sm flex flex-col justify-between h-full gap-4 sm:gap-5 ${
             isDark ? 'bg-slate-950 border-amber-500/30 text-stone-100' : 'bg-[#FFF8F4] border-[#FF671F]/30 text-black'
           }`}>
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               <div className="flex items-start gap-3 min-h-[50px]">
                 <div className="p-2.5 rounded-xl bg-[#FF671F] text-white shadow-xs shrink-0 flex items-center justify-center mt-0.5">
                   <MapPin className="w-5 h-5" />
@@ -114,10 +114,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </div>
 
               <div className="space-y-2">
-                <p className="text-lg sm:text-xl text-black font-black dark:text-stone-100 leading-snug">
+                <p className="text-base sm:text-lg font-black text-[#852E10] dark:text-amber-300 leading-snug">
                   {getAddress()}
                 </p>
-                <p className="text-sm sm:text-base text-stone-800 font-bold dark:text-stone-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-stone-700 font-medium dark:text-stone-300 leading-relaxed">
                   {lang === 'en'
                     ? 'Landmark: Nagalpur Main Road, Mehsana - 384002 (North Gujarat)'
                     : lang === 'hi'
@@ -125,14 +125,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     : 'લેન્ડમાર્ક: નાગલપુર મુખ્ય માર્ગ, મહેસાણા - 384002 (ગુજરાત)'}
                 </p>
 
-                {/* Registration Information - Fixed Alignment: Number + VerifiedBadge grouped so badge never breaks alone */}
-                <div className="pt-3 border-t border-amber-500/20 flex items-center justify-between gap-2 flex-wrap">
-                  <span className="font-bold text-stone-700 dark:text-stone-300 inline-flex items-center gap-1.5 text-xs sm:text-sm shrink-0">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    <span>{lang === 'en' ? 'Registration No:' : 'संस्थान पंजीकरण संख्या:'}</span>
+                {/* Registration Tag */}
+                <div className="pt-2 border-t border-amber-500/15 flex items-center justify-between gap-2 flex-wrap">
+                  <span className="font-bold text-stone-700 dark:text-stone-300 inline-flex items-center gap-1.5 text-xs shrink-0">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span>{lang === 'en' ? 'Registration No:' : 'संस्थान पंजीकरण:'}</span>
                   </span>
-                  <div className="inline-flex items-center gap-1.5 shrink-0 bg-amber-100/90 dark:bg-amber-950/80 px-2.5 py-1 rounded-lg border border-amber-400/50 shadow-2xs">
-                    <span className="font-mono font-black text-[#852E10] dark:text-amber-300 text-xs sm:text-sm tracking-wide">
+                  <div className="inline-flex items-center gap-1 shrink-0 bg-amber-100/90 dark:bg-amber-950/80 px-2 py-0.5 rounded-lg border border-amber-400/50 shadow-2xs">
+                    <span className="font-mono font-black text-[#852E10] dark:text-amber-300 text-xs tracking-wide">
                       {ASTROLOGER_INFO.registrationNo}
                     </span>
                     <VerifiedBadge size="xs" tooltipText="शासकीय अधिकृत संस्थान" />
@@ -141,7 +141,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </div>
             </div>
 
-            <div className="pt-1">
+            <div className="pt-3 border-t border-amber-500/10">
               <a
                 href="https://maps.google.com/?q=Nagalpur+Mehsana+Gujarat+384002"
                 target="_blank"
@@ -161,10 +161,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
 
           {/* 2. Direct Phone & WhatsApp Card */}
-          <div className={`p-5 sm:p-6 rounded-2xl border-2 shadow-sm flex flex-col justify-between gap-5 ${
+          <div className={`p-4 sm:p-5 xl:p-6 rounded-2xl border-2 shadow-sm flex flex-col justify-between h-full gap-4 sm:gap-5 ${
             isDark ? 'bg-slate-950 border-amber-500/30 text-stone-100' : 'bg-[#FFF8F4] border-[#FF671F]/30 text-black'
           }`}>
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               <div className="flex items-start gap-3 min-h-[50px]">
                 <div className="p-2.5 rounded-xl bg-[#FF671F] text-white shadow-xs shrink-0 flex items-center justify-center mt-0.5">
                   <Phone className="w-5 h-5" />
@@ -177,7 +177,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               <div className="space-y-2">
                 <a
                   href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                  className="block text-xl sm:text-2xl font-black text-black hover:text-[#CC5218] dark:text-amber-300 transition-colors whitespace-nowrap tracking-tight"
+                  className="block text-lg sm:text-xl lg:text-xl xl:text-2xl phone-crisp font-black text-[#852E10] hover:text-[#CC5218] dark:text-amber-300 transition-colors tracking-tight sm:tracking-normal whitespace-nowrap overflow-visible"
                 >
                   {ASTROLOGER_INFO.phonePrimary}
                 </a>
@@ -188,10 +188,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-2 pt-1">
+            <div className="pt-3 border-t border-amber-500/10 flex items-center gap-2">
               <a
                 href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#FF671F] hover:bg-[#CC5218] text-white text-sm font-bold px-3 py-2.5 rounded-xl shadow-xs transition-all active:scale-95 text-center whitespace-nowrap"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#FF671F] hover:bg-[#CC5218] text-white text-sm font-bold px-2.5 py-2.5 rounded-xl shadow-xs transition-all active:scale-95 text-center whitespace-nowrap"
               >
                 <Phone className="w-4 h-4 shrink-0" />
                 <span>{lang === 'en' ? 'Call Now' : lang === 'hi' ? 'कॉल करें' : 'કોલ કરો'}</span>
@@ -203,7 +203,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white text-sm font-bold px-3 py-2.5 rounded-xl shadow-xs transition-all active:scale-95 text-center whitespace-nowrap"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white text-sm font-bold px-2.5 py-2.5 rounded-xl shadow-xs transition-all active:scale-95 text-center whitespace-nowrap"
               >
                 <MessageCircle className="w-4 h-4 shrink-0" />
                 <span>{lang === 'en' ? 'WhatsApp' : lang === 'hi' ? 'व्हाट्सएप' : 'વોટ્સએપ'}</span>
@@ -213,10 +213,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
 
           {/* 3. Email & Digital Consultation Card */}
-          <div className={`p-5 sm:p-6 rounded-2xl border-2 shadow-sm flex flex-col justify-between gap-5 ${
+          <div className={`p-4 sm:p-5 xl:p-6 rounded-2xl border-2 shadow-sm flex flex-col justify-between h-full gap-4 sm:gap-5 ${
             isDark ? 'bg-slate-950 border-amber-500/30 text-stone-100' : 'bg-[#FFF8F4] border-[#FF671F]/30 text-black'
           }`}>
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               <div className="flex items-start gap-3 min-h-[50px]">
                 <div className="p-2.5 rounded-xl bg-[#FF671F] text-white shadow-xs shrink-0 flex items-center justify-center mt-0.5">
                   <Mail className="w-5 h-5" />
@@ -229,7 +229,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               <div className="space-y-2">
                 <a
                   href={`mailto:${ASTROLOGER_INFO.email}`}
-                  className="block text-base sm:text-lg font-black text-black hover:text-[#CC5218] dark:text-stone-100 transition-colors underline decoration-black/30 whitespace-nowrap overflow-hidden text-ellipsis"
+                  className="block text-[13.5px] sm:text-[14.5px] md:text-[13px] lg:text-[13.5px] xl:text-[15.5px] phone-crisp font-black text-[#852E10] hover:text-[#CC5218] dark:text-amber-300 transition-colors underline decoration-amber-500/60 whitespace-nowrap tracking-tight overflow-hidden text-ellipsis"
                   title={ASTROLOGER_INFO.email}
                 >
                   {ASTROLOGER_INFO.email}
@@ -244,7 +244,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </div>
             </div>
 
-            <div className="pt-1">
+            <div className="pt-3 border-t border-amber-500/10">
               <a
                 href={`mailto:${ASTROLOGER_INFO.email}`}
                 className="w-full inline-flex items-center justify-center gap-2 bg-amber-100 hover:bg-amber-200 text-[#852E10] dark:bg-amber-950 dark:hover:bg-amber-900 dark:text-amber-200 border border-amber-400/40 text-sm font-bold px-4 py-2.5 rounded-xl shadow-xs transition-all text-center active:scale-95"
@@ -428,7 +428,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <span>WhatsApp</span>
                 <VerifiedBadge size="xs" tooltipText="आधिकारिक सत्यापित WhatsApp" />
               </span>
-              <span className="text-xs text-amber-200/80 font-mono tracking-wide mt-0.5">{ASTROLOGER_INFO.phonePrimary}</span>
+              <span className="text-xs text-amber-200/95 phone-crisp font-bold tracking-wider mt-0.5">{ASTROLOGER_INFO.phonePrimary}</span>
               <span className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300/90 bg-amber-500/15 group-hover:bg-amber-500/25 px-3 py-0.5 rounded-lg border border-amber-400/30 group-hover:border-amber-300/60 transition-all">
                 <span>{lang === 'en' ? 'Chat' : 'संदेश भेजें'}</span>
                 <span>➔</span>

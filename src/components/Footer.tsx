@@ -148,7 +148,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
                 className="flex items-start gap-2 hover:text-amber-300 transition-colors text-white font-bold"
               >
                 <Phone className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />
-                <span>{ASTROLOGER_INFO.phonePrimary}</span>
+                <span className="phone-crisp tracking-wide text-amber-200">{ASTROLOGER_INFO.phonePrimary}</span>
               </a>
 
               <a
@@ -158,7 +158,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
                 className="flex items-start gap-2 hover:text-emerald-300 transition-colors text-emerald-300 font-bold"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <span>WhatsApp: {ASTROLOGER_INFO.phonePrimary}</span>
+                <span>WhatsApp: <span className="phone-crisp tracking-wide">{ASTROLOGER_INFO.phonePrimary}</span></span>
               </a>
 
               <div className="flex items-start gap-2 text-stone-100 font-medium">

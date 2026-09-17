@@ -1,11 +1,30 @@
 <!doctype html>
-<html lang="hi" class="light" style="color-scheme: light;">
+<html lang="hi" class="light" style="color-scheme: light !important;">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light only" />
     <meta name="supported-color-schemes" content="light" />
-    <meta name="theme-color" content="#FFFDF9" />
+    <meta name="theme-color" content="#FFFDF9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#FFFDF9" media="(prefers-color-scheme: dark)" />
+
+    <!-- Anti Dark Mode Force Script: Guarantees website stays 100% consistent even if user mobile has Dark Mode ON -->
+    <script>
+      (function() {
+        try {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+          document.documentElement.style.colorScheme = 'light';
+          document.documentElement.style.backgroundColor = '#FFFDF9';
+          if (document.body) {
+            document.body.classList.remove('dark');
+            document.body.classList.add('light');
+            document.body.style.colorScheme = 'light';
+            document.body.style.backgroundColor = '#FFFDF9';
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Ultra-fast Google Fonts preconnect & DNS prefetch at the very top of head -->
     <meta http-equiv="x-dns-prefetch-control" content="on" />

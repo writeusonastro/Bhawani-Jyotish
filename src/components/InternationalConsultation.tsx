@@ -915,9 +915,12 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
           {/* Right Action / Consultation Box */}
           <div className="lg:col-span-5 bg-gradient-to-br from-[#FFF5F0] to-[#FFFDF9] p-6 rounded-2xl border border-[#FF671F]/25 flex flex-col justify-between space-y-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full mb-3">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                <span>
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-emerald-900 bg-emerald-100/90 border border-emerald-300/80 px-3 py-1.5 rounded-full mb-3 shadow-2xs max-w-full">
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+                </span>
+                <span className="whitespace-nowrap sm:whitespace-normal">
                   {lang === 'en' ? 'International Slots Open Today' : 'आज अंतर्राष्ट्रीय अपॉइंटमेंट उपलब्ध हैं'}
                 </span>
               </div>

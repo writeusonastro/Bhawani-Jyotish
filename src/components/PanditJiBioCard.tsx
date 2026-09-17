@@ -234,7 +234,7 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
                   <div className="text-[10px] uppercase tracking-wider text-amber-300 font-bold">
                     {lang === 'en' ? 'Call Now Directly' : 'सीधे फोन पर बात करें'}
                   </div>
-                  <div className="font-outfit text-sm sm:text-base font-extrabold tracking-wider">
+                  <div className="phone-crisp text-sm sm:text-base font-black tracking-wider text-white">
                     {ASTROLOGER_INFO.phonePrimary}
                   </div>
                 </div>

@@ -210,7 +210,7 @@ export const SwastikFrame: React.FC<{
             <span className="text-[#991b1b] font-bold">भवानी ज्योतिष</span>
             <VerifiedBadge size="xs" showTooltip={false} />
             <span className="text-stone-400">|</span>
-            <span className="text-stone-800 font-sans font-bold">मो.: <span className="font-mono text-[#991b1b]">+91-9909087902</span></span>
+            <span className="text-stone-800 font-sans font-bold">मो.: <span className="phone-crisp text-[#991b1b] font-black tracking-wide">+91-9909087902</span></span>
           </span>
           <span className="text-[#991b1b] font-mono font-bold tracking-wider bg-amber-100/80 px-2 py-0.5 rounded">
             {pageNumber} {pageTitle ? `• ${pageTitle}` : ''}
@@ -1861,7 +1861,7 @@ export const KundliPrintDocument: React.FC<KundliPrintDocumentProps> = ({
             <div className="col-span-4 space-y-0.5 border-r border-amber-300/80 pr-2 text-[10px]">
               <div>
                 <span className="text-[9px] text-stone-500 block font-semibold">संपर्क सूत्र (दूरभाष):</span>
-                <strong className="text-xs text-[#991b1b] font-mono block">
+                <strong className="text-xs text-[#991b1b] phone-crisp font-black tracking-wider block">
                   {ASTROLOGER_INFO.phonePrimary}
                 </strong>
               </div>

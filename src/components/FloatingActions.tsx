@@ -80,7 +80,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
                   Global
                 </span>
               </div>
-              <span className="text-sm sm:text-base font-outfit font-extrabold text-white tracking-wide truncate leading-tight drop-shadow-sm">
+              <span className="text-sm sm:text-base phone-crisp font-black text-white tracking-wide truncate leading-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
                 {ASTROLOGER_INFO.phonePrimary}
               </span>
             </div>
@@ -180,7 +180,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
                   India & Abroad
                 </span>
               </div>
-              <span className="text-sm sm:text-base font-extrabold font-outfit text-white tracking-wide whitespace-nowrap drop-shadow-xs">
+              <span className="text-sm sm:text-base phone-crisp font-black text-white tracking-wide whitespace-nowrap drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
                 {ASTROLOGER_INFO.phonePrimary}
               </span>
             </div>

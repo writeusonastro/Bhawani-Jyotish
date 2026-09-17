@@ -2,7 +2,7 @@ import React from 'react';
 import { Language } from '../types/astrology';
 
 interface AnimatedLogoProps {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'responsive';
   showText?: boolean;
   isDark?: boolean;
   lang?: Language;
@@ -25,10 +25,17 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
       sparkleSize: 'text-[10px]',
     },
     md: {
-      width: 58,
-      height: 58,
-      fontSize: 54,
+      width: 54,
+      height: 54,
+      fontSize: 50,
       rayStroke: 1.8,
+      sparkleSize: 'text-xs',
+    },
+    responsive: {
+      width: 50,
+      height: 50,
+      fontSize: 48,
+      rayStroke: 1.6,
       sparkleSize: 'text-xs',
     },
     lg: {

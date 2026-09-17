@@ -321,16 +321,16 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
 
         {/* Keywords Pill Cloud with Click-to-Navigate */}
         <div className="p-5 sm:p-6 bg-[#FFFDF9]">
-          <div className="text-xs font-bold text-amber-900 mb-3 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#FF671F]" />
-            <span>
+          <div className="text-xs sm:text-sm font-bold text-amber-900 mb-3.5 flex items-start gap-2 leading-snug">
+            <Sparkles className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />
+            <span className="flex-1">
               {lang === 'en' 
                 ? 'High-Value Astrological Topics (Click to Explore directly):' 
                 : 'प्रमुख शास्त्रोक्त विषय एवं खोज शब्द (क्लिक करके संबंधित विभाग खोलें):'}
             </span>
           </div>
 
-          <div className="flex flex-wrap gap-2 sm:gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-2.5">
             {selectedTopic.keywords.map((kw, i) => {
               const label = lang === 'en' ? kw.tagEn : lang === 'hi' ? kw.tagHi : kw.tagGu;
               return (
@@ -342,14 +342,13 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                   title={`Explore ${kw.phrase}`}
-                  className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white hover:bg-gradient-to-r hover:from-amber-500 hover:to-orange-600 hover:text-white text-stone-800 border border-amber-200/90 hover:border-amber-500 shadow-2xs hover:shadow-sm transition-all duration-200 cursor-pointer"
+                  className="group w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-gradient-to-r hover:from-amber-500 hover:to-orange-600 hover:text-white text-stone-800 border border-amber-200/90 hover:border-amber-500 shadow-2xs hover:shadow-sm transition-all duration-200 cursor-pointer"
                 >
-                  <span className="text-amber-600 group-hover:text-amber-100">✦</span>
-                  <span>{label}</span>
-                  <span className="text-[10px] text-stone-400 group-hover:text-white/80 hidden sm:inline">
-                    ({kw.phrase})
-                  </span>
-                  <ChevronRight className="w-3 h-3 text-stone-400 group-hover:text-white" />
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-amber-600 group-hover:text-amber-100 shrink-0 text-[13px]">✦</span>
+                    <span className="truncate">{label}</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-white shrink-0 ml-1.5 transition-transform group-hover:translate-x-0.5" />
                 </button>
               );
             })}

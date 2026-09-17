@@ -437,7 +437,7 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, isDark = fals
               title={`पंडित जी को सीधे कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}
             >
               <Phone className="w-4 h-4 shrink-0 text-white" />
-              <span className="whitespace-nowrap font-mono font-bold tracking-normal">{ASTROLOGER_INFO.phonePrimary}</span>
+              <span className="whitespace-nowrap phone-crisp font-black tracking-wider text-white drop-shadow-xs">{ASTROLOGER_INFO.phonePrimary}</span>
             </a>
 
             <a

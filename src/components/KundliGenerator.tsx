@@ -1316,9 +1316,9 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                         <span className="text-[10px] text-stone-500 font-bold block">संपर्क सूत्र (Mobile / WhatsApp):</span>
                         <a 
                           href={`tel:${ASTROLOGER_INFO.phonePrimary.replace(/[^0-9+]/g, '')}`}
-                          className="text-sm font-bold text-[#CC5218] font-mono flex items-center gap-1.5 hover:underline"
+                          className="text-sm sm:text-base font-black text-[#CC5218] phone-crisp flex items-center gap-1.5 hover:underline"
                         >
-                          <Phone className="w-3.5 h-3.5" />
+                          <Phone className="w-3.5 h-3.5 text-[#CC5218]" />
                           <span>{ASTROLOGER_INFO.phonePrimary}</span>
                         </a>
                         <div className="text-[10px] text-stone-600 mt-1">
