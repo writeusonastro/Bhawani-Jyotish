@@ -17,6 +17,15 @@ app.use(compression({
   threshold: 1024, // compress anything above 1kb
 }));
 
+// Canonical 301 Redirect for www to non-www and protocol consistency
+app.use((req: Request, res: Response, next) => {
+  const host = req.headers.host || "";
+  if (host.startsWith("www.bhawanijyotish.online")) {
+    return res.redirect(301, `https://bhawanijyotish.online${req.originalUrl}`);
+  }
+  next();
+});
+
 app.use(express.json());
 
 // Lazy-initialized Gemini instance
