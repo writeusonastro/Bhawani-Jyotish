@@ -35,22 +35,31 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
 
       const startTime = performance.now();
 
+      let lastFrameTime = 0;
+      let rafId: number;
+
       const updateCounter = (currentTime: number) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        const easedProgress = easeOutExpo(progress);
-        const currentVal = easedProgress * end;
 
-        setCount(currentVal);
+        if (currentTime - lastFrameTime > 40 || progress >= 1) {
+          lastFrameTime = currentTime;
+          const easedProgress = easeOutExpo(progress);
+          const currentVal = progress >= 1 ? end : easedProgress * end;
+          setCount(currentVal);
+        }
 
         if (progress < 1) {
-          requestAnimationFrame(updateCounter);
+          rafId = requestAnimationFrame(updateCounter);
         } else {
           setCount(end);
         }
       };
 
-      requestAnimationFrame(updateCounter);
+      rafId = requestAnimationFrame(updateCounter);
+      return () => {
+        if (rafId) cancelAnimationFrame(rafId);
+      };
     };
 
     // IntersectionObserver so animation triggers gracefully when in view

@@ -91,7 +91,7 @@ export const Header: React.FC<HeaderProps> = ({
           These stay firmly fixed at the top on mobile as requested! */}
       <header 
         id="main-fixed-brand-header"
-        className="sticky top-0 z-50 backdrop-blur-md shadow-md border-b bg-[#FFFDF8]/98 border-amber-500/30 text-[#2C2420] print:hidden w-full"
+        className="sticky top-0 z-50 bg-[#FFFDF8] shadow-sm border-b border-amber-500/30 text-[#2C2420] print:hidden w-full"
       >
         {/* Top Bar 1: Sacred royal shloka & contact strip */}
         <div className="bg-gradient-to-r from-[#091528] via-[#14284B] to-[#091528] text-amber-100 text-xs sm:text-sm py-1.5 px-3 sm:px-4 border-b border-cyan-500/30">

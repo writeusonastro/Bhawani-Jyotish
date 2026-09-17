@@ -27,17 +27,14 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
           ========================================================================= */}
       <div 
         id="mobile-sticky-call-bar"
-        className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#1F1714]/98 backdrop-blur-lg border-t-2 border-[#FF671F] shadow-[0_-6px_25px_rgba(0,0,0,0.4)] px-2.5 pt-2 pb-3 select-none print:hidden"
+        className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#181210] border-t-2 border-[#FF671F] shadow-[0_-6px_25px_rgba(0,0,0,0.5)] px-2.5 pt-2 pb-3 select-none print:hidden"
         style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
       >
         {/* Single Balanced Top Strip: Left [बिना प्रतीक्षा सीधा संवाद] | Center [USA, UK, Canada, Australia, UAE] | Right [35+ वर्ष अनुभव] */}
         <div className="flex items-center justify-between gap-1 sm:gap-2 px-0.5 mb-1.5 text-[9px] min-[370px]:text-[10px] sm:text-[11px] text-amber-200">
           {/* Left: Instant Direct Consultation */}
           <div className="flex items-center gap-1 shrink-0 font-bold text-stone-200">
-            <span className="relative flex h-1.5 w-1.5 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-            </span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shrink-0"></span>
             <span className="whitespace-nowrap">
               {lang === 'en' ? 'Direct Consultation' : lang === 'hi' ? 'बिना प्रतीक्षा सीधा संवाद' : 'સીધો સંવાદ'}
             </span>
@@ -61,13 +58,10 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
           {/* Main Direct Call Button - Deep Navy Blue (Royal Navy) with Gold accents for utmost clarity & regal look */}
           <a
             href={`tel:${ASTROLOGER_INFO.phoneRaw || '+919909087902'}`}
-            className="col-span-8 relative overflow-hidden flex items-center justify-start gap-2.5 bg-gradient-to-r from-[#0B2545] via-[#133E7C] to-[#081B33] hover:from-[#133E7C] hover:to-[#0B2545] text-white py-2 px-3 rounded-xl shadow-lg shadow-slate-950/70 border-2 border-amber-300 active:scale-98 transition-all"
+            className="col-span-8 relative overflow-hidden flex items-center justify-start gap-2.5 bg-gradient-to-r from-[#0B2545] via-[#133E7C] to-[#081B33] hover:from-[#133E7C] hover:to-[#0B2545] text-white py-2 px-3 rounded-xl shadow-lg shadow-slate-950/70 border-2 border-amber-300 active:scale-98 transition-transform"
             title={`पंडित जी को सीधे कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}
           >
-            {/* Shimmer animation on Call button */}
-            <span className="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-12 -translate-x-full animate-[shimmer_2s_infinite] pointer-events-none" />
-
-            <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-white text-[#0B2545] shadow-md shrink-0 animate-bounce">
+            <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-white text-[#0B2545] shadow-md shrink-0">
               <PhoneCall className="w-4 h-4 fill-current" />
             </div>
 
@@ -91,7 +85,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
             href={`https://wa.me/${ASTROLOGER_INFO.whatsappRaw || '919909087902'}?text=${encodeURIComponent(getWhatsAppConsultationMessage(lang))}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="col-span-4 flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#20bd5a] hover:to-[#0f7a6e] text-white py-2.5 px-2 rounded-xl shadow-md border border-emerald-300 active:scale-98 transition-all text-center"
+            className="col-span-4 flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#20bd5a] hover:to-[#0f7a6e] text-white py-2.5 px-2 rounded-xl shadow-md border border-emerald-300 active:scale-98 transition-transform text-center"
             title="WhatsApp पर मुफ्त चैट या कॉल करें (Worldwide Free)"
           >
             <MessageCircle className="w-4 h-4 text-white shrink-0 fill-current" />
@@ -105,18 +99,16 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
 
       {/* =========================================================================
           2. DESKTOP FLOATING ACTION STACK (Fixed on Bottom Right)
-          High-end royal glowing buttons for laptop & desktop users
+          High-end royal buttons for laptop & desktop users
           ========================================================================= */}
       <div className="hidden md:flex fixed bottom-6 right-6 z-50 pointer-events-auto select-none print:hidden flex-col items-end gap-3">
         {/* Desktop PhonePe Payment QR Button */}
         {onOpenPaymentQR && (
-          <div className="relative group">
-            <span className="absolute -inset-1 rounded-full bg-purple-600 opacity-50 blur-md group-hover:opacity-100 transition-opacity duration-300 animate-pulse pointer-events-none" />
-            
+          <div className="relative">
             <button
               type="button"
               onClick={onOpenPaymentQR}
-              className="relative flex items-center gap-2.5 bg-gradient-to-r from-[#5f259f] via-[#7b2cbf] to-[#4a154b] text-white py-2 px-4 rounded-full shadow-lg border-2 border-purple-300 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+              className="relative flex items-center gap-2.5 bg-gradient-to-r from-[#5f259f] via-[#7b2cbf] to-[#4a154b] text-white py-2 px-4 rounded-full shadow-[0_4px_16px_rgba(95,37,159,0.4)] border-2 border-purple-300 transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
               title="PhonePe / UPI QR कोड से दक्षिणा या परामर्श शुल्क दें"
             >
               <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-[#5f259f] shadow-xs shrink-0 font-bold text-xs">
@@ -134,14 +126,12 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
         )}
 
         {/* Desktop WhatsApp Chat Button */}
-        <div className="relative group">
-          <span className="absolute -inset-1 rounded-full bg-emerald-500 opacity-60 blur-md group-hover:opacity-100 transition-opacity duration-300 animate-pulse pointer-events-none" />
-          
+        <div className="relative">
           <a
             href={`https://wa.me/${ASTROLOGER_INFO.whatsappRaw || '919909087902'}?text=${encodeURIComponent(getWhatsAppConsultationMessage(lang))}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative flex items-center gap-2.5 bg-gradient-to-r from-[#25D366] via-[#20BA5A] to-[#128C7E] text-white py-2.5 px-4 rounded-full shadow-[0_8px_25px_rgba(37,211,102,0.45)] border-2 border-white/80 transition-all duration-300 hover:scale-105 active:scale-95"
+            className="relative flex items-center gap-2.5 bg-gradient-to-r from-[#25D366] via-[#20BA5A] to-[#128C7E] text-white py-2.5 px-4 rounded-full shadow-[0_6px_20px_rgba(37,211,102,0.4)] border-2 border-white/80 transition-transform duration-200 hover:scale-105 active:scale-95"
             title={`पंडित जी से व्हाट्सएप पर चैट या मुफ्त कॉल करें (Worldwide): ${ASTROLOGER_INFO.phonePrimary}`}
           >
             <span className="relative flex items-center justify-center w-8 h-8 rounded-full bg-white text-[#25D366] shadow-xs shrink-0">
@@ -159,15 +149,13 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
         </div>
 
         {/* Desktop Call Button (Ultra-Prominent Royal Navy) */}
-        <div className="relative group">
-          <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-700 via-indigo-600 to-amber-500 opacity-75 blur-md group-hover:opacity-100 transition-opacity duration-300 animate-pulse pointer-events-none" />
-
+        <div className="relative">
           <a
             href={`tel:${ASTROLOGER_INFO.phoneRaw || '+919909087902'}`}
-            className="relative flex items-center gap-3 bg-gradient-to-r from-[#0B2545] via-[#133E7C] to-[#081B33] text-white py-2.5 px-5 rounded-full shadow-[0_10px_30px_rgba(11,37,69,0.6)] border-2 border-amber-300 transition-all duration-300 hover:scale-105 active:scale-95"
+            className="relative flex items-center gap-3 bg-gradient-to-r from-[#0B2545] via-[#133E7C] to-[#081B33] text-white py-2.5 px-5 rounded-full shadow-[0_8px_25px_rgba(11,37,69,0.5)] border-2 border-amber-300 transition-transform duration-200 hover:scale-105 active:scale-95"
             title={`पंडित जी को सीधे फोन करें (India & International): ${ASTROLOGER_INFO.phonePrimary}`}
           >
-            <span className="relative flex items-center justify-center w-8 h-8 rounded-full bg-white text-[#0B2545] shadow-xs shrink-0 animate-bounce">
+            <span className="relative flex items-center justify-center w-8 h-8 rounded-full bg-white text-[#0B2545] shadow-xs shrink-0">
               <PhoneCall className="w-4 h-4 fill-current" />
             </span>
 

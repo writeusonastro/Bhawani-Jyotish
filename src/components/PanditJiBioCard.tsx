@@ -40,21 +40,21 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
               {/* Outer Golden Aura Ring */}
               <div className="absolute -inset-2.5 rounded-full bg-gradient-to-r from-amber-400 via-[#FF671F] to-yellow-500 opacity-75 blur-sm group-hover:opacity-100 transition duration-500" />
               
-              {/* Rotating Celestial Dashed Ring */}
-              <div className="absolute -inset-1 rounded-full border-2 border-dashed border-amber-400/80 animate-spin-clockwise-90s" />
+              {/* Sacred Celestial Dashed Ring - Clean static halo */}
+              <div className="absolute -inset-1 rounded-full border-2 border-dashed border-amber-400/80" />
 
               {/* Main Circular Medallion */}
-              <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-br from-[#FF671F] via-[#D9531E] to-[#993408] p-2 shadow-2xl border-4 border-amber-300 flex items-center justify-center">
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-br from-[#FF671F] via-[#D9531E] to-[#993408] p-2 shadow-xl border-4 border-amber-300 flex items-center justify-center">
                 
                 {/* Inner Sacred Centerpiece */}
                 <div className="w-full h-full rounded-full bg-gradient-to-b from-[#FFFDF9] to-[#FFEAD8] flex flex-col items-center justify-center text-[#CC5218] p-3 sm:p-4 shadow-inner relative overflow-hidden">
                   
-                  {/* Rotating Sacred Swastik PNG without inner circle */}
+                  {/* Sacred Swastik PNG without inner circle */}
                   <div className="relative z-10 flex items-center justify-center my-1 sm:my-1.5">
                     <img
                       src="/swastik.png"
                       alt="Sacred Vedic Swastik"
-                      className="w-20 h-20 sm:w-24 sm:h-24 object-contain animate-[spin_18s_linear_infinite] will-change-transform filter drop-shadow-[0_4px_10px_rgba(255,103,31,0.35)]"
+                      className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
                     />
                   </div>
 
