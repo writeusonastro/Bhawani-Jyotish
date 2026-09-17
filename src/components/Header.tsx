@@ -105,12 +105,14 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-1.5 sm:gap-2 font-medium shrink-0">
             <span className="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 text-amber-950 px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black shadow-xs flex items-center gap-1 border border-amber-500 shrink-0 whitespace-nowrap">
               <Star className="w-3 h-3 text-amber-950 fill-amber-950 shrink-0" />
-              <span>Celebrity Astro</span>
+              <span>
+                {lang === 'hi' ? 'सेलिब्रिटी ज्योतिषी' : lang === 'gu' ? 'સેલિબ્રિટી જ્યોતિષી' : 'Celebrity Astro'}
+              </span>
             </span>
             <span className="hidden md:inline-flex items-center gap-1 text-[10px] sm:text-[11px] bg-[#060D1A]/80 text-cyan-200 border border-cyan-400/40 px-2 sm:px-2.5 py-0.5 rounded-full font-bold shadow-xs shrink-0 whitespace-nowrap">
-              <span className="text-amber-300">पंजी:</span>
+              <span className="text-amber-300">{lang === 'hi' ? 'पंजी:' : lang === 'gu' ? 'નોંધણી:' : 'Reg:'}</span>
               <span className="font-mono text-cyan-100 font-black tracking-wide">{ASTROLOGER_INFO.registrationNo}</span>
-              <VerifiedBadge size="xs" tooltipText="शासकीय पंजीकृत वैदिक संस्थान" />
+              <VerifiedBadge size="xs" tooltipText={lang === 'hi' ? 'शासकीय पंजीकृत वैदिक संस्थान' : lang === 'gu' ? 'સરકારી પ્રમાણિત વૈદિક સંસ્થા' : 'Govt. Registered Vedic Institute'} />
             </span>
           </div>
 
@@ -119,7 +121,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="inline-flex items-center gap-1.5 sm:gap-2 text-amber-200 text-xs sm:text-sm font-semibold truncate tracking-wider">
               <span className="text-amber-400 text-xs shrink-0">✦</span>
               <span className="text-amber-100 font-bold tracking-wide truncate drop-shadow-xs">
-                Maa Majisa Kripa
+                {lang === 'hi' ? 'माँ माजीसा कृपा' : lang === 'gu' ? 'માઁ માજીસા કૃપા' : 'Maa Majisa Kripa'}
               </span>
               <span className="text-amber-400 text-xs shrink-0">✦</span>
             </div>

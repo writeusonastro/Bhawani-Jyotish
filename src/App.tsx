@@ -12,6 +12,7 @@ import { ServicesSection } from './components/ServicesSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { PanditJiBioCard } from './components/PanditJiBioCard';
+import { LazySection } from './components/LazySection';
 
 // Code-split heavy interactive tools and sub-pages for sub-second first contentful paint
 const KundliGenerator = lazy(() => import('./components/KundliGenerator').then(m => ({ default: m.KundliGenerator })));
@@ -253,34 +254,46 @@ export function App() {
               <ContactSection lang={lang} />
 
               {/* Panchang & Muhurat Highlight - Deferred */}
-              <Suspense fallback={null}>
-                <PanchangMuhurat lang={lang} />
-              </Suspense>
+              <LazySection minHeight="200px">
+                <Suspense fallback={null}>
+                  <PanchangMuhurat lang={lang} />
+                </Suspense>
+              </LazySection>
 
               {/* Dedicated International & NRI Consultation Section - Deferred */}
-              <Suspense fallback={null}>
-                <InternationalConsultation lang={lang} />
-              </Suspense>
+              <LazySection minHeight="250px">
+                <Suspense fallback={null}>
+                  <InternationalConsultation lang={lang} />
+                </Suspense>
+              </LazySection>
 
               {/* City-Wise Local SEO Centers Section - Deferred */}
-              <Suspense fallback={null}>
-                <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
-              </Suspense>
+              <LazySection minHeight="300px">
+                <Suspense fallback={null}>
+                  <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
+                </Suspense>
+              </LazySection>
 
               {/* Verified WhatsApp Client Chat Screenshots & Feedback - Deferred */}
-              <Suspense fallback={null}>
-                <WhatsAppTestimonials lang={lang} />
-              </Suspense>
+              <LazySection minHeight="200px">
+                <Suspense fallback={null}>
+                  <WhatsAppTestimonials lang={lang} />
+                </Suspense>
+              </LazySection>
 
               {/* Testimonials - Deferred */}
-              <Suspense fallback={null}>
-                <Testimonials lang={lang} />
-              </Suspense>
+              <LazySection minHeight="200px">
+                <Suspense fallback={null}>
+                  <Testimonials lang={lang} />
+                </Suspense>
+              </LazySection>
 
               {/* High-Ranking Search & Topic Explorer Hub - Deferred */}
-              <Suspense fallback={null}>
-                <SeoKeywordHub lang={lang} setActiveTab={setActiveTab} />
-              </Suspense>
+              <LazySection minHeight="250px">
+                <Suspense fallback={null}>
+                  <SeoKeywordHub lang={lang} setActiveTab={setActiveTab} />
+                </Suspense>
+              </LazySection>
             </div>
           )}
 
