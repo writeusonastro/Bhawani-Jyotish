@@ -54,6 +54,10 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
                     <img
                       src="/swastik.png"
                       alt="Sacred Vedic Swastik"
+                      loading="lazy"
+                      decoding="async"
+                      width="96"
+                      height="96"
                       className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
                     />
                   </div>

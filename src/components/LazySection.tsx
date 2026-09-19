@@ -14,7 +14,7 @@ interface LazySectionProps {
 export const LazySection: React.FC<LazySectionProps> = ({
   children,
   fallback = null,
-  rootMargin = '400px',
+  rootMargin = '600px',
   minHeight = '120px',
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -47,7 +47,11 @@ export const LazySection: React.FC<LazySectionProps> = ({
   }, [isVisible, rootMargin]);
 
   return (
-    <div ref={containerRef} style={{ minHeight: isVisible ? undefined : minHeight }}>
+    <div 
+      ref={containerRef} 
+      className={isVisible ? 'content-visibility-auto' : ''}
+      style={{ minHeight: isVisible ? undefined : minHeight }}
+    >
       {isVisible ? children : fallback}
     </div>
   );
