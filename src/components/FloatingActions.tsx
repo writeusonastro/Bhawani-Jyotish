@@ -49,7 +49,9 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
           {/* Right: 35+ Years Experience */}
           <div className="flex items-center gap-1 text-[9px] min-[370px]:text-[10px] text-amber-300 shrink-0 font-semibold bg-amber-950/80 px-1.5 py-0.5 rounded-full border border-amber-600/40 whitespace-nowrap">
             <ShieldCheck className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
-            <span>35+ वर्ष अनुभव</span>
+            <span>
+              {lang === 'en' ? '35+ Yrs Exp' : lang === 'gu' ? '૩૫+ વર્ષ અનુભવ' : '35+ वर्ष अनुभव'}
+            </span>
           </div>
         </div>
 

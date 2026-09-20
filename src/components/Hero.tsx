@@ -15,6 +15,72 @@ interface HeroProps {
   onOpenLogoStudio?: () => void;
 }
 
+interface HeroSpecialty {
+  hi: string;
+  gu: string;
+  en: string;
+  seoKeyword: { hi: string; gu: string; en: string };
+  searchTags: string[];
+}
+
+const HERO_PILL_SPECIALTIES: HeroSpecialty[] = [
+  {
+    hi: 'लव प्रॉब्लम सॉल्यूशन एवं प्रेम विवाह समस्या समाधान',
+    gu: 'લવ પ્રોબ્લેમ સોલ્યુશન અને પ્રેમ લગ્ન સમસ્યા સમાધાન',
+    en: 'Love Problem Solution & Love Marriage Problem Solution',
+    seoKeyword: {
+      hi: 'लव प्रॉब्लम सॉल्यूशन • प्रेम विवाह विशेषज्ञ',
+      gu: 'લવ પ્રોબ્લેમ સોલ્યુશન • પ્રેમ લગ્ન સ્પેશિયાલિસ્ટ',
+      en: 'Love Problem Solution & Marriage Specialist'
+    },
+    searchTags: ['Love Marriage', 'Intercaste Marriage', 'माता-पिता की सहमति', 'रूठा प्यार वापस']
+  },
+  {
+    hi: 'पति व्यसन मुक्ति एवं गृह क्लेश शांति निवारण',
+    gu: 'પતિ વ્યસન મુક્તિ અને ગૃહ કંકાસ શાંતિ નિવારણ',
+    en: 'Husband De-Addiction & Domestic Peace Astrology',
+    seoKeyword: {
+      hi: 'पति शराब छुड़ाने के उपाय • गृह क्लेश शांति',
+      gu: 'પતિ દારૂ મુક્તિ ઉપાય • ગૃહ કંકાસ શાંતિ',
+      en: 'Husband Alcohol De-Addiction & Domestic Peace'
+    },
+    searchTags: ['दारू छुड़ाने के उपाय', 'नशा मुक्ति ज्योतिष', 'गृह क्लेश शांति', 'पति-पत्नी विवाद']
+  },
+  {
+    hi: 'पर-स्त्री संबंध निवारण एवं दांपत्य रक्षा महाअनुष्ठान',
+    gu: 'પર-સ્ત્રી સંબંધ નિવારણ અને દાંપત્ય સુરક્ષા મહાઅનુષ્ઠાન',
+    en: 'Husband Extra-Marital Affair & Marital Defense',
+    seoKeyword: {
+      hi: 'सौतन से छुटकारा • पर-स्त्री आकर्षण निवारण',
+      gu: 'સૌતનથી મુક્તિ • પરસ્ત્રી આકર્ષણ નિવારણ',
+      en: 'Sautan Se Chutkara & Stop Husband Affair'
+    },
+    searchTags: ['सौतन से छुटकारा', 'पति का अफेयर रोकना', 'दांपत्य रक्षा', 'तलाक निवारण']
+  },
+  {
+    hi: 'जिद्दी व अनियंत्रित संतान सुधार एवं सद्बुद्धि वैदिक अनुष्ठान',
+    gu: 'જીદ્દી અને અનિયંત્રિત બાળક સુધાર તથા સદ્બુદ્ધિ વૈદિક અનુષ્ઠાન',
+    en: 'Stubborn Child Guidance & Studies Focus Remedies',
+    seoKeyword: {
+      hi: 'जिद्दी बच्चा सुधार उपाय • मोबाइल लत व सरस्वती उपाय',
+      gu: 'જીદ્દી બાળક સુધાર ઉપાય • મોબાઇલ લત મુક્તિ',
+      en: 'Stubborn Child Guidance & Studies Concentration'
+    },
+    searchTags: ['जिद्दी बच्चा सुधार', 'मोबाइल लत मुक्ति', 'पढ़ाई में एकाग्रता', 'सरस्वती उपाय']
+  }
+];
+
+const TOP_SEO_HERO_TAGS = [
+  { phrase: 'Love Problem Solution Astrologer', hi: 'लव प्रॉब्लम सॉल्यूशन (#1 Rank)', gu: 'લવ પ્રોબ્લેમ સોલ્યુશન', en: 'Love Problem Solution' },
+  { phrase: 'Pati Ki Daru Chudane Ke Jyotish Upay', hi: 'पति की शराब छुड़ाने के उपाय', gu: 'પતિ દારૂ છોડાવવાના ઉપાય', en: 'Husband De-Addiction Upay' },
+  { phrase: 'Sautan Se Chutkara Pane Ke Upay', hi: 'सौतन से छुटकारा (सात्विक उपाय)', gu: 'સૌતનથી મુક્તિ ઉપાય', en: 'Sautan Se Chutkara' },
+  { phrase: 'Jiddi Bache Ko Sudharne Ke Upay', hi: 'जिद्दी बच्चा सुधार वैदिक उपाय', gu: 'જીદ્દી બાળક સુધાર ઉપાય', en: 'Stubborn Child Guidance' },
+  { phrase: 'Love Marriage Specialist Astrologer', hi: 'प्रेम विवाह विशेषज्ञ ज्योतिषी', gu: 'પ્રેમ લગ્ન સ્પેશિયાલિસ્ટ', en: 'Love Marriage Specialist' },
+  { phrase: 'Grih Klesh Shanti Vedic Upay', hi: 'गृह क्लेश शांति अनुष्ठान', gu: 'ગૃહ કંકાસ શાંતિ', en: 'Family Peace Astrology' },
+  { phrase: 'Kids Mobile Phone Addiction Upay', hi: 'बच्चों की मोबाइल लत छुड़ाने के उपाय', gu: 'બાળકોની મોબાઇલ લત ઉપાય', en: 'Kids Screen Addiction Upay' },
+  { phrase: '36 Gun Milan For Marriage', hi: '36 गुण विवाह मिलान', gu: '36 ગુણ લગ્ન મિલન', en: '36 Gun Milan' }
+];
+
 export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false, onOpenLogoStudio }) => {
   return (
     <section className={`relative overflow-hidden border-b transition-colors duration-300 ${
@@ -80,7 +146,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false, 
           </p>
 
           {/* Live Call Availability Alert */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/15 via-orange-500/20 to-amber-500/15 border border-amber-500/40 px-3.5 py-1.5 rounded-full mb-5 shadow-xs">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/15 via-orange-500/20 to-amber-500/15 border border-amber-500/40 px-3.5 py-1.5 rounded-full mb-3 shadow-xs">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
@@ -94,6 +160,52 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false, 
             </span>
           </div>
 
+          {/* 4 Core Vedic Solutions Pill Badges (Styled exactly like the Live Alert Badge above & directly below it) */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-4xl mx-auto mb-3 px-2">
+            {HERO_PILL_SPECIALTIES.map((item, idx) => (
+              <button
+                key={idx}
+                id={`hero-pill-${idx}`}
+                type="button"
+                onClick={() => setActiveTab('services')}
+                title={`High Ranking Vedic Astrology: ${item.seoKeyword[lang]}`}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/15 via-orange-500/20 to-amber-500/15 hover:from-amber-500/25 hover:via-orange-500/30 hover:to-amber-500/25 border border-amber-500/40 hover:border-amber-600 px-3.5 py-1.5 rounded-full shadow-xs transition-all hover:scale-[1.02] active:scale-95 cursor-pointer text-left"
+              >
+                <span className="relative flex h-2.5 w-2.5 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span className="text-xs sm:text-sm font-bold text-[#852E10] dark:text-amber-200">
+                  {item[lang]}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Related High-Ranking SEO Keywords Strip */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 max-w-4xl mx-auto mb-6 px-2">
+            <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-black uppercase tracking-wider text-amber-900 dark:text-amber-300 bg-amber-100/90 dark:bg-amber-950/60 px-2.5 py-0.5 rounded-full border border-amber-300/70 shadow-2xs">
+              <Sparkles className="w-3 h-3 text-[#FF671F]" />
+              <span>{lang === 'en' ? 'Top SEO Keywords:' : lang === 'hi' ? 'शीर्ष रैंकिंग कीवर्ड्स:' : 'ટોચના સર્ચ કીવર્ડ્સ:'}</span>
+            </span>
+            {TOP_SEO_HERO_TAGS.map((tag, tIdx) => (
+              <button
+                key={tIdx}
+                type="button"
+                onClick={() => {
+                  setActiveTab('services');
+                  const seoEl = document.getElementById('seo-directory');
+                  if (seoEl) seoEl.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold bg-white/90 dark:bg-stone-800/90 hover:bg-amber-100 dark:hover:bg-amber-950 text-stone-700 dark:text-stone-300 hover:text-[#852E10] dark:hover:text-amber-200 border border-amber-200 dark:border-amber-900/60 transition-all cursor-pointer shadow-2xs"
+                title={`High Volume Astrological Search Query: ${tag.phrase}`}
+              >
+                <span className="text-[#FF671F] font-bold">#</span>
+                <span>{tag[lang]}</span>
+              </button>
+            ))}
+          </div>
+
           {/* Main Action Buttons - High Conversion Direct Call (Royal Navy Blue & Gold) */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-3 w-full max-w-xl mx-auto">
             <a
@@ -105,7 +217,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false, 
               </div>
               <div className="flex flex-col items-start text-left leading-tight">
                 <span className="text-xs sm:text-sm text-amber-300 font-mukta font-extrabold uppercase tracking-wider">
-                  {lang === 'en' ? 'Direct Phone Consultation' : 'सीधे फोन पर बात करें'}
+                  {lang === 'en' ? 'Direct Phone Consultation' : lang === 'gu' ? 'સીધા ફોન પર વાત કરો' : 'सीधे फोन पर बात करें'}
                 </span>
                 <span className="phone-crisp text-xl sm:text-2xl font-black text-white tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                   {ASTROLOGER_INFO.phonePrimary}
@@ -122,8 +234,8 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false, 
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-extrabold text-base sm:text-xl px-7 py-4 rounded-2xl shadow-xl shadow-emerald-600/30 transition-all hover:scale-105 active:scale-95 border-2 border-emerald-300 text-center"
             >
               <MessageCircle className="w-6 h-6 shrink-0" />
-              <span>{lang === 'en' ? 'WhatsApp Chat' : 'व्हाट्सएप चैट'}</span>
-              <VerifiedBadge size="sm" tooltipText="सत्यापित WhatsApp चैट" />
+              <span>{lang === 'en' ? 'WhatsApp Chat' : lang === 'gu' ? 'વોટ્સએપ ચેટ' : 'व्हाट्सएप चैट'}</span>
+              <VerifiedBadge size="sm" tooltipText={lang === 'en' ? 'Verified WhatsApp Chat' : lang === 'gu' ? 'પ્રમાણિત WhatsApp ચેટ' : 'सत्यापित WhatsApp चैट'} />
             </a>
           </div>
 
@@ -131,15 +243,15 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false, 
           <div className="flex items-center justify-center gap-3 sm:gap-6 text-sm sm:text-base font-bold text-stone-800 dark:text-stone-200 mb-6 sm:mb-7 flex-wrap">
             <span className="flex items-center gap-1.5">
               <span className="text-emerald-600 font-black text-base sm:text-lg">✓</span>
-              {lang === 'en' ? 'Direct conversation with Pandit Ji' : 'सीधे पंडित जी से संवाद'}
+              {lang === 'en' ? 'Direct conversation with Pandit Ji' : lang === 'gu' ? 'સીધા પંડિતજી સાથે વાતચીત' : 'सीधे पंडित जी से संवाद'}
             </span>
             <span className="flex items-center gap-1.5">
               <span className="text-emerald-600 font-black text-base sm:text-lg">✓</span>
-              {lang === 'en' ? 'Zero waiting time' : 'कोई वेटिंग नहीं'}
+              {lang === 'en' ? 'Zero waiting time' : lang === 'gu' ? 'ઝીરો વેઇટિંગ ટાઇમ' : 'कोई वेटिंग नहीं'}
             </span>
             <span className="flex items-center gap-1.5">
               <span className="text-emerald-600 font-black text-base sm:text-lg">✓</span>
-              {lang === 'en' ? '100% Confidential' : '१००% पूर्णतः गोपनीय'}
+              {lang === 'en' ? '100% Confidential' : lang === 'gu' ? '૧૦૦% સંપૂર્ણ ગુપ્ત' : '१००% पूर्णतः गोपनीय'}
             </span>
           </div>
 
@@ -152,7 +264,11 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false, 
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="font-extrabold text-sm sm:text-base md:text-lg text-[#852E10] dark:text-amber-300">
-                    {lang === 'en' ? 'Calling from Abroad (USA, UK, Canada, Australia, UAE)?' : 'विदेश (USA, UK, Canada, Australia, UAE) से संपर्क?'}
+                    {lang === 'en' 
+                      ? 'Calling from Abroad (USA, UK, Canada, Australia, UAE)?' 
+                      : lang === 'gu' 
+                      ? 'વિદેશ (USA, UK, Canada, Australia, UAE)થી સંપર્ક?' 
+                      : 'विदेश (USA, UK, Canada, Australia, UAE) से संपर्क?'}
                   </span>
                   <span className="inline-flex items-center gap-1 text-xs sm:text-sm bg-white/90 dark:bg-stone-900 px-2.5 py-0.5 rounded-md font-bold text-stone-800 dark:text-stone-200 border border-amber-300">
                     US CA GB AU AE
@@ -161,6 +277,8 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false, 
                 <p className="text-xs sm:text-sm md:text-base text-stone-950 dark:text-stone-100 font-bold mt-1 leading-snug">
                   {lang === 'en'
                     ? 'Free WhatsApp Audio/Video Consultation across EST, CST, PST & GMT Timezones'
+                    : lang === 'gu'
+                    ? 'મફત WhatsApp ઓડિયો/વિડિયો કોલ • તમામ ટાઈમઝોન (EST/PST/GMT)માં ઉપલબ્ધ'
                     : 'मुफ्त WhatsApp ऑडियो/वीडियो कॉल • सभी टाइमज़ोन (EST/PST/GMT) में सुलभ'}
                 </p>
               </div>
@@ -169,14 +287,18 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false, 
             <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end">
               <a
                 href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                  `🙏 नमस्ते पंडित जी! मैं विदेश (USA/UK/Canada/NRI) से संपर्क कर रहा/रही हूँ। मुझे ऑनलाइन वैदिक जन्म कुंडली / विवाह गुण मिलान हेतु समय (Appointment) चाहिए। (EST/PST/GMT Timezone)`
+                  lang === 'en'
+                    ? '🙏 Hello Pandit Ji! I am contacting from abroad (USA/UK/Canada/NRI). I would like to schedule an online Vedic Kundli / Gun Milan consultation. (EST/PST/GMT Timezone)'
+                    : lang === 'gu'
+                    ? '🙏 નમસ્તે પંડિતજી! હું વિદેશ (USA/UK/Canada/NRI)થી સંપર્ક કરી રહ્યો/રહી છું. મને ઑનલાઇન વૈદિક કુંડળી / ગુણ મિલાન માટે એપોઇન્ટમેન્ટ જોઈએ છે. (EST/PST/GMT Timezone)'
+                    : '🙏 नमस्ते पंडित जी! मैं विदेश (USA/UK/Canada/NRI) से संपर्क कर रहा/रही हूँ। मुझे ऑनलाइन वैदिक जन्म कुंडली / विवाह गुण मिलान हेतु समय (Appointment) चाहिए। (EST/PST/GMT Timezone)'
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white text-sm sm:text-base font-bold px-4 py-2.5 rounded-xl shadow-md transition-all active:scale-95"
               >
                 <MessageCircle className="w-5 h-5 fill-current" />
-                <span>WhatsApp Call</span>
+                <span>{lang === 'en' ? 'WhatsApp Call' : lang === 'gu' ? 'વોટ્સએપ કોલ' : 'व्हाट्सएप कॉल'}</span>
               </a>
 
               {setActiveTab && (
@@ -185,7 +307,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = false, 
                   onClick={() => setActiveTab('international')}
                   className="inline-flex items-center justify-center gap-1 text-sm font-bold text-[#852E10] dark:text-amber-300 hover:text-[#FF671F] bg-white dark:bg-stone-900 border border-amber-400 px-3.5 py-2.5 rounded-xl shadow-xs transition-all hover:bg-amber-50 dark:hover:bg-stone-800"
                 >
-                  <span>NRI Portal</span>
+                  <span>{lang === 'en' ? 'NRI Portal' : lang === 'gu' ? 'NRI સેવા' : 'NRI पोर्टल'}</span>
                   <span>→</span>
                 </button>
               )}

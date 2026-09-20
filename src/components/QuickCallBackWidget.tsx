@@ -9,8 +9,11 @@ interface QuickCallBackWidgetProps {
 }
 
 const COMMON_PROBLEMS = [
+  { id: 'love_family', hi: 'लव प्रॉब्लम / प्रेम विवाह / दांपत्य जीवन में कलह', gu: 'લવ પ્રોબ્લેમ / પ્રેમ લગ્ન / ગૃહ કંકાસ', en: 'Love Problem / Love Marriage / Family Issues', icon: '❤️' },
+  { id: 'husband_vyasan', hi: 'पति का व्यसन (मदिरा/दारू लत) व गृह क्लेश', gu: 'પતિનું વ્યસન (દારૂ/ખરાબ લત) અને ગૃહ કંકાસ', en: 'Husband Addiction & Family Peace', icon: '🙏' },
+  { id: 'husband_extramarital', hi: 'पति का अन्य स्त्री संबंध / सौतन से मुक्ति व दांपत्य रक्षा', gu: 'પતિનો અન્ય સ્ત્રી સાથે સંબંધ / દાંપત્ય રક્ષા ઉપાય', en: 'Husband Affair / Marital Protection', icon: '🛡️' },
+  { id: 'child_stubborn', hi: 'बच्चा कहना न मानता हो / अत्यधिक जिद / बुरी संगत व पढ़ाई', gu: 'બાળક કહ્યામાં ન હોય / વધુ પડતી જીદ / ખરાબ સંગત અને ભણતર', en: 'Stubborn / Disobedient Child & Studies Focus', icon: '🧒' },
   { id: 'marriage', hi: 'विवाह में बाधा / शादी में देरी', gu: 'લગ્નમાં વિલંબ / અડચણ', en: 'Marriage Delay / Obstacles', icon: '💍' },
-  { id: 'love_family', hi: 'प्रेम विवाह / दांपत्य जीवन में कलह', gu: 'પ્રેમ લગ્ન / ગૃહ કંકાસ', en: 'Love Marriage / Family Issues', icon: '❤️' },
   { id: 'business_career', hi: 'नौकरी में रुकावट / व्यापार में घाटा', gu: 'નોકરી / વેપારમાં ખોટ', en: 'Career / Business Loss', icon: '💼' },
   { id: 'debt_finance', hi: 'कर्ज मुक्ति / आर्थिक तंगी', gu: 'દેવા મુક્તિ / આર્થિક તંગી', en: 'Debt Relief / Financial Crisis', icon: '💰' },
   { id: 'child', hi: 'संतान प्राप्ति में विलंब / चिंता', gu: 'સંતાન પ્રાપ્તિમાં વિલંબ', en: 'Child / Progeny Concern', icon: '👶' },

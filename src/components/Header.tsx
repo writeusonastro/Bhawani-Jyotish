@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Phone, MessageCircle, Instagram, Facebook, QrCode, 
   Sparkles, ScrollText, HeartHandshake, ShieldAlert, 
-  Briefcase, Users, Compass, Gem, Flame, Star 
+  Briefcase, Users, Compass, Gem, Flame, Star, GraduationCap 
 } from 'lucide-react';
 import { ASTROLOGER_INFO, ASTRO_SERVICES, getWhatsAppConsultationMessage } from '../data/astrologyData';
 import { AnimatedLogo } from './AnimatedLogo';
@@ -16,6 +16,9 @@ const SERVICE_ICONS: Record<string, React.ElementType> = {
   'dosh-nivaran': ShieldAlert,
   'career-business': Briefcase,
   'love-marriage': Users,
+  'vyasan-mukti': ShieldAlert,
+  'par-stree-nivaran': HeartHandshake,
+  'child-guidance': GraduationCap,
   'vastu-shastra': Compass,
   'gemstone-rudraksha': Gem,
   'navgraha-puja': Flame,
@@ -205,7 +208,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               </span>
               <span className="hidden sm:inline-flex items-center gap-1 text-[10px] sm:text-[11px] bg-white text-[#731E05] border border-amber-300 px-2 sm:px-2.5 py-0.5 rounded-full font-bold shadow-2xs shrink-0 whitespace-nowrap">
-                <span>{lang === 'en' ? '8 Sacred Solutions' : lang === 'hi' ? '८ शास्त्रीय समाधान' : '૮ શાસ્ત્રોક્ત ઉપાય'}</span>
+                <span>{lang === 'en' ? '11 Sacred Solutions' : lang === 'hi' ? '११ शास्त्रीय समाधान' : '૧૧ શાસ્ત્રોક્ત ઉપાય'}</span>
               </span>
             </div>
 
@@ -252,12 +255,23 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
                 <h1 className="font-yatra text-lg sm:text-2xl md:text-3xl text-[#852E10] tracking-wide flex items-center gap-1 sm:gap-1.5 leading-tight">
-                  <span className="truncate">{lang === 'en' ? 'Bhavani Jyotish' : 'भवानी ज्योतिष'}</span>
-                  <VerifiedBadge size="sm" tooltipText="भवानी ज्योतिष - अधिकृत एवं सत्यापित वैदिक संस्थान" />
+                  <span className="truncate">
+                    {lang === 'en' ? 'Bhavani Jyotish' : lang === 'gu' ? 'ભવાની જ્યોતિષ' : 'भवानी ज्योतिष'}
+                  </span>
+                  <VerifiedBadge 
+                    size="sm" 
+                    tooltipText={
+                      lang === 'en' 
+                        ? 'Bhavani Jyotish - Authorized & Verified Vedic Institute' 
+                        : lang === 'gu' 
+                        ? 'ભવાની જ્યોતિષ - પ્રમાણિત વૈદિક સંસ્થા' 
+                        : 'भवानी ज्योतिष - अधिकृत एवं सत्यापित वैदिक संस्थान'
+                    } 
+                  />
                 </h1>
                 <span className="inline-flex sm:hidden items-center gap-0.5 text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-full font-bold border bg-amber-50/90 border-amber-300 text-[#852E10] shadow-xs whitespace-nowrap">
-                  <span>पंजी: {ASTROLOGER_INFO.registrationNo}</span>
-                  <VerifiedBadge size="xs" tooltipText="शासकीय पंजीकृत वैदिक संस्थान" />
+                  <span>{lang === 'en' ? 'Reg:' : lang === 'gu' ? 'નોંધણી:' : 'पंजी:'} {ASTROLOGER_INFO.registrationNo}</span>
+                  <VerifiedBadge size="xs" tooltipText={lang === 'en' ? 'Govt. Registered' : lang === 'gu' ? 'સરકારી પ્રમાણિત' : 'शासकीय पंजीकृत'} />
                 </span>
               </div>
               <p className="text-[10.5px] sm:text-sm text-stone-900 font-bold tracking-wide truncate leading-tight mt-0.5">
@@ -293,7 +307,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="flex items-center justify-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all shadow-md shadow-emerald-600/20 border border-emerald-400/40 hover:scale-105 active:scale-95 text-center"
             >
               <MessageCircle className="w-3.5 h-3.5 shrink-0" />
-              <span>{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
+              <span>{lang === 'en' ? 'WhatsApp' : lang === 'gu' ? 'વોટ્સએપ' : 'व्हाट्सएप'}</span>
             </a>
 
             <a
@@ -336,7 +350,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="flex items-center justify-center gap-1 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold px-2 py-2 rounded-xl text-xs transition-all shadow-md shadow-emerald-600/20 border border-emerald-400/40 hover:scale-105 active:scale-95 text-center"
             >
               <MessageCircle className="w-3.5 h-3.5 shrink-0" />
-              <span className="truncate">{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
+              <span className="truncate">{lang === 'en' ? 'WhatsApp' : lang === 'gu' ? 'વોટ્સએપ' : 'व्हाट्सएप'}</span>
             </a>
 
             <a

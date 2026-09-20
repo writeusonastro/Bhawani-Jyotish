@@ -106,12 +106,24 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
               <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
                 <div className="inline-flex items-center gap-1 bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 px-3 py-1 rounded-xl text-xs font-bold border border-amber-300/60">
                   <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                  <span>4.9 / 5.0 (2,800+ समीक्षाएं)</span>
+                  <span>
+                    {lang === 'en' 
+                      ? '4.9 / 5.0 (2,800+ Reviews)' 
+                      : lang === 'gu' 
+                      ? '૪.૯ / ૫.૦ (૨,૮૦૦+ સમીક્ષાઓ)' 
+                      : '4.9 / 5.0 (2,800+ समीक्षाएं)'}
+                  </span>
                 </div>
 
                 <div className="inline-flex items-center gap-1.5 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 px-3 py-1 rounded-xl text-xs font-bold border border-emerald-300/60">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>{lang === 'en' ? 'Available on Direct Call' : 'फोन पर सीधे उपलब्ध'}</span>
+                  <span>
+                    {lang === 'en' 
+                      ? 'Available on Direct Call' 
+                      : lang === 'gu' 
+                      ? 'સીધા ફોન પર ઉપલબ્ધ' 
+                      : 'फोन पर सीधे उपलब्ध'}
+                  </span>
                 </div>
               </div>
             </div>
@@ -153,10 +165,14 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                    {lang === 'en' ? 'Gold Medalist Acharya' : 'स्वर्ण पदक सम्मानित'}
+                    {lang === 'en' ? 'Gold Medalist Acharya' : lang === 'gu' ? 'સુવર્ણ ચંદ્રક સન્માનિત' : 'स्वर्ण पदक सम्मानित'}
                   </h4>
                   <p className="text-[11px] text-stone-600 dark:text-stone-400 leading-snug">
-                    {lang === 'en' ? 'Maharishi Parashara Jyotish Parishad' : 'महर्षि पाराशर ज्योतिष परिषद द्वारा अलंकृत'}
+                    {lang === 'en' 
+                      ? 'Maharishi Parashara Jyotish Parishad' 
+                      : lang === 'gu' 
+                      ? 'મહર્ષિ પારાશર જ્યોતિષ પરિષદ દ્વારા સન્માનિત' 
+                      : 'महर्षि पाराशर ज्योतिष परिषद द्वारा अलंकृत'}
                   </p>
                 </div>
               </div>
@@ -167,10 +183,14 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                    {lang === 'en' ? '50,000+ Happy Clients' : '50,000+ संतुष्ट जातक'}
+                    {lang === 'en' ? '50,000+ Happy Clients' : lang === 'gu' ? '૫૦,૦૦૦+ સંતુષ્ટ જાતકો' : '50,000+ संतुष्ट जातक'}
                   </h4>
                   <p className="text-[11px] text-stone-600 dark:text-stone-400 leading-snug">
-                    {lang === 'en' ? 'Trusted across India & Abroad' : 'भारत एवं विदेशों में 35 वर्षों से अटूट विश्वास'}
+                    {lang === 'en' 
+                      ? 'Trusted across India & Abroad' 
+                      : lang === 'gu' 
+                      ? 'ભારત અને વિદેશમાં ૩૫ વર્ષોથી અતૂટ વિશ્વાસ' 
+                      : 'भारत एवं विदेशों में 35 वर्षों से अटूट विश्वास'}
                   </p>
                 </div>
               </div>
@@ -181,10 +201,14 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                    {lang === 'en' ? '35+ Years Lineage' : '35+ वर्ष कुल परंपरा'}
+                    {lang === 'en' ? '35+ Years Lineage' : lang === 'gu' ? '૩૫+ વર્ષ કુળ પરંપરા' : '35+ वर्ष कुल परंपरा'}
                   </h4>
                   <p className="text-[11px] text-stone-600 dark:text-stone-400 leading-snug">
-                    {lang === 'en' ? 'Authentic Parashari & Lal Kitab' : 'प्रामाणिक वैदिक पाराशरी व लाल किताब पद्धति'}
+                    {lang === 'en' 
+                      ? 'Authentic Parashari & Lal Kitab' 
+                      : lang === 'gu' 
+                      ? 'પ્રામાણિક વૈદિક પારાશરી અને લાલ કિતાબ પદ્ધતિ' 
+                      : 'प्रामाणिक वैदिक पाराशरी व लाल किताब पद्धति'}
                   </p>
                 </div>
               </div>
@@ -195,10 +219,14 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-stone-900 dark:text-stone-100">
-                    {lang === 'en' ? '100% Confidential' : '100% पूर्ण गोपनीयता'}
+                    {lang === 'en' ? '100% Confidential' : lang === 'gu' ? '૧૦૦% સંપૂર્ણ ગુપ્તતા' : '100% पूर्ण गोपनीयता'}
                   </h4>
                   <p className="text-[11px] text-stone-600 dark:text-stone-400 leading-snug">
-                    {lang === 'en' ? 'Direct Personal Consultation' : 'पंडित जी से सीधा व पूर्ण गोपनीय संवाद'}
+                    {lang === 'en' 
+                      ? 'Direct Personal Consultation' 
+                      : lang === 'gu' 
+                      ? 'પંડિતજી સાથે સીધો અને સંપૂર્ણ ગોપનીય સંવાદ' 
+                      : 'पंडित जी से सीधा व पूर्ण गोपनीय संवाद'}
                   </p>
                 </div>
               </div>
@@ -209,19 +237,19 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
             <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-semibold text-stone-700 dark:text-stone-300">
               <span className="text-amber-700 dark:text-amber-400 font-bold flex items-center gap-1">
                 <Sparkles className="w-3.5 h-3.5 text-[#FF671F]" />
-                <span>विशेषज्ञता:</span>
+                <span>{lang === 'en' ? 'Specialities:' : lang === 'gu' ? 'વિશેષજ્ઞતા:' : 'विशेषज्ञता:'}</span>
               </span>
               <span className="px-2.5 py-1 rounded-lg bg-amber-100/70 dark:bg-stone-800 border border-amber-300/40">
-                जन्मकुंडली विश्लेषण
+                {lang === 'en' ? 'Janam Kundli Analysis' : lang === 'gu' ? 'જન્મકુંડળી વિશ્લેષણ' : 'जन्मकुंडली विश्लेषण'}
               </span>
               <span className="px-2.5 py-1 rounded-lg bg-amber-100/70 dark:bg-stone-800 border border-amber-300/40">
-                विवाह व गुण मिलान
+                {lang === 'en' ? 'Marriage & Gun Milan' : lang === 'gu' ? 'લગ્ન અને ગુણ મિલન' : 'विवाह व गुण मिलान'}
               </span>
               <span className="px-2.5 py-1 rounded-lg bg-amber-100/70 dark:bg-stone-800 border border-amber-300/40">
-                कालसर्प व मांगलिक दोष शांति
+                {lang === 'en' ? 'Kaal Sarp & Manglik Shanti' : lang === 'gu' ? 'કાલસર્પ અને માંગલિક શાંતિ' : 'कालसर्प व मांगलिक दोष शांति'}
               </span>
               <span className="px-2.5 py-1 rounded-lg bg-amber-100/70 dark:bg-stone-800 border border-amber-300/40">
-                वैदिक वास्तु व रत्न परामर्श
+                {lang === 'en' ? 'Vedic Vastu & Gemstones' : lang === 'gu' ? 'વૈદિક વાસ્તુ અને રત્ન પરામર્શ' : 'वैदिक वास्तु व रत्न परामर्श'}
               </span>
             </div>
 
@@ -236,7 +264,7 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
                 </div>
                 <div className="text-left leading-tight">
                   <div className="text-[10px] uppercase tracking-wider text-amber-300 font-bold">
-                    {lang === 'en' ? 'Call Now Directly' : 'सीधे फोन पर बात करें'}
+                    {lang === 'en' ? 'Call Now Directly' : lang === 'gu' ? 'સીધા ફોન પર વાત કરો' : 'सीधे फोन पर बात करें'}
                   </div>
                   <div className="phone-crisp text-sm sm:text-base font-black tracking-wider text-white">
                     {ASTROLOGER_INFO.phonePrimary}
@@ -251,8 +279,8 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
                 className="flex-1 inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#25D366] to-[#1EBE5D] hover:from-[#20bd5a] hover:to-[#1aa852] text-white font-extrabold px-6 py-3.5 rounded-2xl text-xs sm:text-sm transition-all shadow-xl shadow-emerald-600/25 hover:scale-[1.02] active:scale-[0.98] border border-emerald-300/40 text-center"
               >
                 <MessageCircle className="w-5 h-5 shrink-0" />
-                <span>{lang === 'en' ? 'WhatsApp Message' : 'व्हाट्सएप पर तुरंत संपर्क करें'}</span>
-                <VerifiedBadge size="sm" tooltipText="सत्यापित WhatsApp" />
+                <span>{lang === 'en' ? 'WhatsApp Message' : lang === 'gu' ? 'વોટ્સએપ પર તુરંત સંપર્ક કરો' : 'व्हाट्सएप पर तुरंत संपर्क करें'}</span>
+                <VerifiedBadge size="sm" tooltipText={lang === 'en' ? 'Verified WhatsApp' : lang === 'gu' ? 'પ્રમાણિત WhatsApp' : 'सत्यापित WhatsApp'} />
               </a>
             </div>
 

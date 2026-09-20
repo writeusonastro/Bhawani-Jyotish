@@ -49,18 +49,148 @@ interface SeoTopicGroup {
 
 const SEO_TOPIC_GROUPS: SeoTopicGroup[] = [
   {
-    id: 'kundli-matching',
+    id: 'love-relationship-solution',
     categoryName: {
-      hi: '36 गुण विवाह मिलान व कुंडली दोष',
-      gu: '36 ગુણ લગ્ન મિલન અને કુંડળી દોષ',
-      en: '36 Gun Milan & Marriage Compatibility'
+      hi: '१. लव प्रॉब्लम सॉल्यूशन एवं प्रेम विवाह समस्या समाधान',
+      gu: '૧. લવ પ્રોબ્લેમ સોલ્યુશન અને પ્રેમ લગ્ન સમસ્યા સમાધાન',
+      en: '1. Love Problem Solution & Love Marriage Specialist'
+    },
+    icon: '💖',
+    targetTab: 'services',
+    badge: '#1 High Search Rank',
+    quickSummary: {
+      hi: 'प्रेम विवाह में रुकावट, अंतरजातीय विवाह (Intercaste Marriage), रूठे साथी को मनाना, माता-पिता की सहमति, दांपत्य कलह व तलाक से रक्षा हेतु १००% सात्विक वैदिक ज्योतिषीय अनुष्ठान।',
+      gu: 'પ્રેમ લગ્નમાં અડચણ, આંતરજ્ઞાતીય લગ્ન, સંબંધોમાં ગેરસમજ, માતા-પિતાની સહમતિ અને તલાકથી રક્ષણ માટે ૧૦૦% સાત્વિક વૈદિક ઉપાય.',
+      en: 'Top ranked authentic Vedic astrology remedies for love marriage delays, intercaste marriage obstacles, family consent, and emotional relationship reconciliation.'
+    },
+    keywords: [
+      { phrase: 'Love Problem Solution Astrologer', targetTab: 'services', tagHi: 'लव प्रॉब्लम सॉल्यूशन ज्योतिषी', tagGu: 'લવ પ્રોબ્લેમ સોલ્યુશન જ્યોતિષી', tagEn: 'Love Problem Solution' },
+      { phrase: 'Love Marriage Specialist Astrologer', targetTab: 'services', tagHi: 'प्रेम विवाह विशेषज्ञ ज्योतिषी', tagGu: 'પ્રેમ લગ્ન સ્પેશિયાલિસ્ટ જ્યોતિષી', tagEn: 'Love Marriage Specialist' },
+      { phrase: 'Intercaste Love Marriage Problem Solution', targetTab: 'gun-milan', tagHi: 'अंतरजातीय प्रेम विवाह उपाय', tagGu: 'આંતરજ્ઞાતીય પ્રેમ લગ્ન ઉપાય', tagEn: 'Intercaste Marriage Solution' },
+      { phrase: 'Parents Approval for Love Marriage Astrology', targetTab: 'gun-milan', tagHi: 'प्रेम विवाह में माता-पिता की सहमति', tagGu: 'પ્રેમ લગ્નમાં માતા-પિતાની સંમતિ', tagEn: 'Parents Approval for Marriage' },
+      { phrase: 'Prem Vivah Me Rukawat Dur Karne Ke Upay', targetTab: 'services', tagHi: 'प्रेम विवाह में बाधा निवारण', tagGu: 'પ્રેમ લગ્નમાં અવરોધ નિવારણ', tagEn: 'Remove Love Marriage Hurdles' },
+      { phrase: 'Get Love Back by Vedic Astrology Remedies', targetTab: 'services', tagHi: 'रूठे साथी को मनाने के सात्विक उपाय', tagGu: 'સંબંધ પુનઃ જોડવાના વૈદિક ઉપાય', tagEn: 'Get Love Back Astrology' },
+      { phrase: 'One Sided Love Problem Solution Jyotish', targetTab: 'services', tagHi: 'एकतरफा प्रेम निवारण उपाय', tagGu: 'એકતરફી પ્રેમ નિવારણ ઉપાય', tagEn: 'One Sided Love Remedies' },
+      { phrase: 'Breakup Problem Solution Pandit Ji', targetTab: 'services', tagHi: 'ब्रेकअप समस्या समाधान', tagGu: 'બ્રેકઅપ સમસ્યા સમાધાન', tagEn: 'Breakup Problem Solution' },
+      { phrase: 'Relationship Misunderstanding Astrological Solution', targetTab: 'services', tagHi: 'रिश्तों में गलतफहमी दूर करने के उपाय', tagGu: 'સંબંધોમાં ગેરસમજ દૂર કરવાના ઉપાય', tagEn: 'Relationship Harmony' },
+      { phrase: 'Kamdev Rati Mantra Vedic Upay for Love', targetTab: 'services', tagHi: 'कामदेव-रति वैदिक मंत्र साधना', tagGu: 'કામદેવ-રતિ વૈદિક મંત્ર સાધના', tagEn: 'Vedic Love Remedies' },
+      { phrase: 'Love Problem Solution in Hindi & Gujarati', targetTab: 'services', tagHi: 'लव प्रॉब्लम सॉल्यूशन हिंदी व गुजराती', tagGu: 'લવ પ્રોબ્લેમ સોલ્યુશન ગુજરાતી', tagEn: 'Hindi Love Problem Solution' },
+      { phrase: 'Khoya Pyar Pane Ke Jyotish Upay', targetTab: 'services', tagHi: 'खोया प्यार वापस पाने के अचूक उपाय', tagGu: 'ખોવાયેલો પ્રેમ પરત મેળવવાના ઉપાય', tagEn: 'Reconcile Lost Love' },
+      { phrase: 'Prem Vivah Me Parivar Ko Razi Karne Ke Upay', targetTab: 'services', tagHi: 'प्रेम विवाह हेतु परिवार को राजी करने के उपाय', tagGu: 'પ્રેમ લગ્ન માટે પરિવારને મનાવવાના ઉપાય', tagEn: 'Convince Family for Marriage' },
+      { phrase: 'Love Marriage Specialist in Ahmedabad Gujarat', targetTab: 'city-centers', tagHi: 'अहमदाबाद गुजरात प्रेम विवाह विशेषज्ञ', tagGu: 'અમદાવાદ ગુજરાત પ્રેમ લગ્ન સ્પેશિયાલિસ્ટ', tagEn: 'Ahmedabad Love Astrologer' },
+      { phrase: 'Shastrokt Vivah Badha Nivaran Mantra', targetTab: 'services', tagHi: 'शास्त्रोक्त विवाह बाधा निवारण मंत्र', tagGu: 'શાસ્ત્રોક્ત લગ્ન બાધા નિવારણ મંત્ર', tagEn: 'Marriage Obstacle Removal' }
+    ]
+  },
+  {
+    id: 'husband-addiction-peace',
+    categoryName: {
+      hi: '२. पति व्यसन मुक्ति एवं गृह क्लेश शांति निवारण',
+      gu: '૨. પતિ વ્યસન મુક્તિ અને ગૃહ કંકાસ શાંતિ નિવારણ',
+      en: '2. Husband De-Addiction & Domestic Peace Astrology'
+    },
+    icon: '🛡️',
+    targetTab: 'services',
+    badge: 'High Search Priority',
+    quickSummary: {
+      hi: 'पति की मदिरापान (शराब) व नशीले पदार्थों की लत छुड़ाने, राहु-शनि दोष शांति, घर के रोज-रोज के झगड़े व क्लेश समाप्त कर परिवार में सुख-शांति व समृद्धि लाने के शास्त्रोक्त सात्विक उपाय।',
+      gu: 'પતિની દારૂ કે વ્યસનની લત છોડાવવા, રાહુ-શનિ દોષ શાંતિ અને ઘરમાં રોજ-રોજના કંકાસથી મુક્તિ મેળવી સુખ-શાંતિ સ્થાપિત કરવાના શાસ્ત્રોક્ત ઉપાય.',
+      en: 'High search volume Vedic astrology solutions for husband alcohol addiction, bad habits, aggressive behavior, Rahu dosha pacification, and lasting domestic peace.'
+    },
+    keywords: [
+      { phrase: 'Pati Ki Daru Chudane Ke Jyotish Upay', targetTab: 'services', tagHi: 'पति की शराब छुड़ाने के ज्योतिष उपाय', tagGu: 'પતિની દારૂ છોડાવવાના જ્યોતિષ ઉપાય', tagEn: 'Husband Alcohol Remedy' },
+      { phrase: 'Husband Alcohol Addiction Astrology Remedy', targetTab: 'services', tagHi: 'पति मदिरा व्यसन मुक्ति ज्योतिष उपाय', tagGu: 'પતિ દારૂ વ્યસન મુક્તિ ઉપાય', tagEn: 'Husband Addiction Remedies' },
+      { phrase: 'Pati Ko Nasha Chudane Ke Totke Vaidik Upay', targetTab: 'services', tagHi: 'पति को नशा मुक्त करने के सात्विक उपाय', tagGu: 'પતિને નશા મુક્ત કરવાના સાત્વિક ઉપાય', tagEn: 'Vedic De-Addiction Upay' },
+      { phrase: 'Grih Klesh Shanti Vedic Jyotish Upay', targetTab: 'services', tagHi: 'गृह क्लेश शांति वैदिक अनुष्ठान', tagGu: 'ગૃહ કંકાસ શાંતિ વૈદિક અનુષ્ઠાન', tagEn: 'Grih Klesh Shanti' },
+      { phrase: 'Husband Wife Dispute & Fight Solution Astrology', targetTab: 'services', tagHi: 'पति-पत्नी विवाद व कलह शांति', tagGu: 'પતિ-પત્ની ઝઘડા નિવારણ', tagEn: 'Husband Wife Dispute' },
+      { phrase: 'Stop Domestic Fights & Violence Astrology', targetTab: 'services', tagHi: 'घर में रोज-रोज के झगड़े बंद करने के उपाय', tagGu: 'ઘરમાં દરરોજના કંકાસ બંધ કરવાના ઉપાય', tagEn: 'Stop Domestic Discord' },
+      { phrase: 'Rahu Shani Graha Shanti for Addiction Relief', targetTab: 'services', tagHi: 'राहु-शनि ग्रह शांति व्यसन मुक्ति', tagGu: 'રાહુ-શનિ ગ્રહ શાંતિ વ્યસન મુક્તિ', tagEn: 'Rahu Shani Shanti' },
+      { phrase: 'Family Peace & De Addiction Mahamrityunjay Upay', targetTab: 'services', tagHi: 'महामृत्युंजय सिद्ध रक्षा कवच अनुष्ठान', tagGu: 'મહામૃત્યુંજય રક્ષા કવચ અનુષ્ઠાન', tagEn: 'Mahamrityunjay Armor' },
+      { phrase: 'Pati Ki Buri Sangat Chhudane Ke Upay', targetTab: 'services', tagHi: 'पति की बुरी संगत व लत छुड़ाने के उपाय', tagGu: 'પતિની ખરાબ સંગત છોડાવવાના ઉપાય', tagEn: 'Remove Bad Influences' },
+      { phrase: 'Home Prosperity & Peace Vedic Remedies', targetTab: 'services', tagHi: 'घर में बरकत व शांति के वैदिक उपाय', tagGu: 'ઘરમાં બરકત અને શાંતિના વૈદિક ઉપાય', tagEn: 'Home Harmony Astrology' },
+      { phrase: 'Sharab Chudane Ke Gharelu va Jyotish Upay', targetTab: 'services', tagHi: 'शराब छुड़ाने के घरेलू व ज्योतिष उपाय', tagGu: 'દારૂ છોડાવવાના ઘરેલું અને જ્યોતિષ ઉપાય', tagEn: 'De-Addiction Astrology Upay' },
+      { phrase: 'Pati Ka Gussa Shant Karne Ke Upay', targetTab: 'services', tagHi: 'पति का क्रोध व गुस्सा शांत करने के उपाय', tagGu: 'પતિનો ક્રોધ શાંત કરવાના ઉપાય', tagEn: 'Pacify Husband Anger' },
+      { phrase: 'Ghar Me Sukh Shanti Ke Saral Upay', targetTab: 'services', tagHi: 'घर में सुख-शांति व कलह मुक्ति उपाय', tagGu: 'ઘરમાં સુખ-શાંતિ અને કલહ મુક્તિ ઉપાય', tagEn: 'Domestic Harmony Remedies' },
+      { phrase: 'Dampatya Klesh Nivaran Mahahavan', targetTab: 'services', tagHi: 'दांपत्य क्लेश निवारण महाहवन', tagGu: 'દાંપત્ય કલેશ નિવારણ મહાહવન', tagEn: 'Marital Peace Havan' }
+    ]
+  },
+  {
+    id: 'par-stree-sautan-nivaran',
+    categoryName: {
+      hi: '३. पर-स्त्री संबंध निवारण एवं दांपत्य रक्षा महाअनुष्ठान',
+      gu: '૩. પરસ્ત્રી સંબંધ નિવારણ અને દાંપત્ય સુરક્ષા અનુષ્ઠાન',
+      en: '3. Husband Extra-Marital Affair & Marital Defense'
     },
     icon: '💍',
+    targetTab: 'services',
+    badge: 'High Conversion Search',
+    quickSummary: {
+      hi: 'पति का पराई स्त्री या बाहरी आकर्षण में भटकाव रोकना, सौतन से छुटकारा, शुक्र-राहु युति दोष शांति, दांपत्य में पुनः एकनिष्ठ प्रेम व विश्वास जगाने और तलाक से रक्षा के गुप्त वैदिक अनुष्ठान।',
+      gu: 'પતિનું પરસ્ત્રી કે બાહ્ય આકર્ષણ દૂર કરવું, સૌતનથી મુક્તિ, શુક્ર-રાહુ દોષ શાંતિ અને દાંપત્ય જીવનમાં એકનિષ્ઠ પ્રેમ સ્થાપિત કરવાના શાસ્ત્રોક્ત ઉપાય.',
+      en: 'Vedic rituals to stop husband extra-marital affairs, remove third-party interference, pacify afflicted Venus-Rahu placements, and secure eternal marital fidelity.'
+    },
+    keywords: [
+      { phrase: 'Husband Extra Marital Affair Astrological Solution', targetTab: 'services', tagHi: 'पति पर-स्त्री भटकाव मुक्ति उपाय', tagGu: 'પતિ પરસ્ત્રી આકર્ષણ મુક્તિ ઉપાય', tagEn: 'Husband Affair Remedy' },
+      { phrase: 'Sautan Se Chutkara Pane Ke Vaidik Upay', targetTab: 'services', tagHi: 'सौतन से छुटकारा पाने के वैदिक उपाय', tagGu: 'સૌતનથી મુક્તિ મેળવવાના વૈદિક ઉપાય', tagEn: 'Sautan Se Chutkara Upay' },
+      { phrase: 'Pati Ko Dusri Aurat Se Alag Karne Ke Upay', targetTab: 'services', tagHi: 'पति को दूसरी औरत से अलग करने के सात्विक उपाय', tagGu: 'પતિને અન્ય સ્ત્રીથી દૂર કરવાના ઉપાય', tagEn: 'Stop Extramarital Bond' },
+      { phrase: 'Stop Husband Affair & Save Marriage Astrology', targetTab: 'services', tagHi: 'पति का अफेयर छुड़वाकर दांपत्य रक्षा', tagGu: 'દાંપત્ય જીવન બચાવવા માટે અચૂક ઉપાય', tagEn: 'Save Marriage from Affair' },
+      { phrase: 'Pati Ka Moh Bhang Karne Ke Satvik Upay', targetTab: 'services', tagHi: 'पति का पराई स्त्री से मोह भंग उपाय', tagGu: 'પતિનો અન્ય સ્ત્રી તરફ મોહભંગ ઉપાય', tagEn: 'Remove Husband Attraction' },
+      { phrase: 'Protect Marriage from Third Person Interference', targetTab: 'services', tagHi: 'तीसरे व्यक्ति का हस्तक्षेप रोकने के उपाय', tagGu: 'ત્રીજી વ્યક્તિનું હસ્તક્ષેપ રોકવાના ઉપાય', tagEn: 'Third Party Removal' },
+      { phrase: 'Stop Divorce Caused by Affair Astrology', targetTab: 'services', tagHi: 'अफेयर के कारण तलाक रोकने के ज्योतिष उपाय', tagGu: 'તલાક અટકાવવાના શાસ્ત્રોક્ત ઉપાય', tagEn: 'Prevent Divorce' },
+      { phrase: 'Shukra Rahu Dosha Shanti For Faithful Husband', targetTab: 'services', tagHi: 'शुक्र-राहु दोष शांति महाअनुष्ठान', tagGu: 'શુક્ર-રાહુ દોષ શાંતિ અનુષ્ઠાન', tagEn: 'Venus Rahu Shanti' },
+      { phrase: 'Gauri Shankar Rudraksha For Marital Fidelity', targetTab: 'gemstones', tagHi: 'गौरी-शंकर रुद्राक्ष दांपत्य रक्षा', tagGu: 'ગૌરી-શંકર રુદ્રાક્ષ દાંપત્ય રક્ષા', tagEn: 'Gauri Shankar Rudraksha' },
+      { phrase: 'Reignite Lost Love Between Husband and Wife', targetTab: 'services', tagHi: 'पति-पत्नी में खोया प्रेम व विश्वास लौटाएं', tagGu: 'પતિ-પત્નીમાં ખોવાયેલો પ્રેમ પરત લાવો', tagEn: 'Rebuild Marital Trust' },
+      { phrase: 'Pati Ko Par Stree Se Door Rakhne Ke Upay', targetTab: 'services', tagHi: 'पति को पराई स्त्री से दूर रखने के उपाय', tagGu: 'પતિને પરસ્ત્રીથી દૂર રાખવાના ઉપાય', tagEn: 'Keep Husband Loyal' },
+      { phrase: 'Sautan Se Mukti Pane Ke Jyotish Upay', targetTab: 'services', tagHi: 'सौतन से मुक्ति व दांपत्य सुरक्षा', tagGu: 'સૌતન મુક્તિ અને દાંપત્ય સુરક્ષા', tagEn: 'Sautan Mukti Jyotish' },
+      { phrase: 'Divorce Rokne Aur Shadi Bachane Ke Upay', targetTab: 'services', tagHi: 'तलाक रोकने और शादी बचाने के उपाय', tagGu: 'તલાક રોકવા અને લગ્ન બચાવવાના ઉપાય', tagEn: 'Stop Divorce Remedies' },
+      { phrase: 'Pati Ki Bewafai Dur Karne Ke Satvik Upay', targetTab: 'services', tagHi: 'पति की बेवफाई दूर कर प्रेम जगाने के उपाय', tagGu: 'પતિની બેવફાઈ દૂર કરી પ્રેમ સ્થાપવાનો ઉપાય', tagEn: 'Cure Husband Infidelity' }
+    ]
+  },
+  {
+    id: 'child-sanskar-education',
+    categoryName: {
+      hi: '४. जिद्दी व अनियंत्रित संतान सुधार एवं सद्बुद्धि अनुष्ठान',
+      gu: '૪. જીદ્દી અને અનિયંત્રિત બાળક સુધાર તથા સદ્બુદ્ધિ અનુષ્ઠાન',
+      en: '4. Stubborn Child Guidance & Studies Focus Remedies'
+    },
+    icon: '🎓',
+    targetTab: 'services',
+    badge: 'Trending Parent Query',
+    quickSummary: {
+      hi: 'बच्चा कहना न मानता हो, अत्यधिक जिद्दी या गुस्सैल हो, मोबाइल फोन की लत, गलत संगत या पढ़ाई से ध्यान भटकता हो—बुध-बृहस्पति शांति, सरस्वती अनुष्ठान व सात्विक संस्कार वैदिक उपाय।',
+      gu: 'બાળક કહ્યામાં ન હોય, અત્યંત જિદ્દી કે ક્રોધી સ્વભાવ, મોબાઇલની લત, ખરાબ સંગત કે ભણતરમાં એકાગ્રતા ન હોવાના સરસ્વતી-બુધ વૈદિક ઉપાય.',
+      en: 'Proven Vedic astrological remedies for disobedient and stubborn children, severe screen/mobile addiction, peer pressure/bad company, and academic concentration.'
+    },
+    keywords: [
+      { phrase: 'Bacha Kehna Na Manta Ho To Jyotish Upay', targetTab: 'services', tagHi: 'बच्चा कहना न माने तो ज्योतिष उपाय', tagGu: 'બાળક કહ્યામાં ન હોય તો જ્યોતિષ ઉપાય', tagEn: 'Disobedient Child Remedies' },
+      { phrase: 'Stubborn Child Anger & Disobedience Astrology', targetTab: 'services', tagHi: 'जिद्दी बच्चे का गुस्सा शांत करने के उपाय', tagGu: 'જીદ્દી બાળકનો ક્રોધ શાંત કરવાના ઉપાય', tagEn: 'Stubborn Child Guidance' },
+      { phrase: 'Jiddi Bache Ko Sudharne Ke Jyotish Upay', targetTab: 'services', tagHi: 'जिद्दी संतान सुधार वैदिक उपाय', tagGu: 'જીદ્દી સંતાન સુધાર વૈદિક ઉપાય', tagEn: 'Child Sanskar Jyotish' },
+      { phrase: 'Child Study Concentration Saraswati Upay', targetTab: 'services', tagHi: 'पढ़ाई में एकाग्रता व सरस्वती उपाय', tagGu: 'ભણતરમાં એકાગ્રતા સરસ્વતી ઉપાય', tagEn: 'Child Studies Focus Upay' },
+      { phrase: 'Bache Ka Padhai Me Man Lagane Ke Upay', targetTab: 'services', tagHi: 'बच्चे का पढ़ाई में मन लगाने के उपाय', tagGu: 'બાળકનું ભણવામાં મન લગાવવાના ઉપાય', tagEn: 'Academic Focus Remedies' },
+      { phrase: 'Child Bad Company Removal Vedic Upay', targetTab: 'services', tagHi: 'संतान की गलत संगति छुड़ाने के उपाय', tagGu: 'સંતાનની ખરાબ સંગત છોડાવવાના ઉપાય', tagEn: 'Remove Bad Peer Influence' },
+      { phrase: 'Kids Mobile Phone Screen Addiction Astrology', targetTab: 'services', tagHi: 'बच्चों की मोबाइल लत छुड़ाने के उपाय', tagGu: 'બાળકોની મોબાઇલ લત છોડાવવાના ઉપાય', tagEn: 'Kids Screen Addiction Upay' },
+      { phrase: 'Memory Power & Exam Success Astrology Upay', targetTab: 'services', tagHi: 'परीक्षा में सफलता व स्मरण शक्ति वृद्धि', tagGu: 'પરીક્ષામાં સફળતા અને સ્મરણ શક્તિ વૃદ્ધિ', tagEn: 'Memory & Exam Success' },
+      { phrase: 'Budh Brihaspati Shanti For Child Intelligence', targetTab: 'services', tagHi: 'बुध-गुरु ग्रह शांति बुद्धि वृद्धि हेतु', tagGu: 'બુધ-ગુરુ શાંતિ બુદ્ધિ વૃદ્ધિ અર્થે', tagEn: 'Mercury Jupiter Wisdom Upay' },
+      { phrase: 'Gayatri Mantra & Saraswati Yantra for Students', targetTab: 'services', tagHi: 'विद्यार्थियों हेतु गायत्री व सरस्वती यंत्र', tagGu: 'વિદ્યાર્થીઓ માટે ગાયત્રી-સરસ્વતી યંત્ર', tagEn: 'Saraswati Yantra Vidyarthi' },
+      { phrase: 'Ziddi Bacche Ko Kaise Sudhare Jyotish Upay', targetTab: 'services', tagHi: 'जिद्दी बच्चे को सुधारने के सरल उपाय', tagGu: 'જીદ્દી બાળકને સુધારવાના સરળ ઉપાય', tagEn: 'Calm Stubborn Child Upay' },
+      { phrase: 'Bache Ka Gussa Aur Chidchidapan Dur Karne Ke Upay', targetTab: 'services', tagHi: 'बच्चे का चिड़चिड़ापन व गुस्सा दूर करने के उपाय', tagGu: 'બાળકનો ક્રોધ અને ચીડિયાપણું દૂર કરવાના ઉપાય', tagEn: 'Child Anger Management' },
+      { phrase: 'Bache Ka Mobile Dekhna Kaise Band Kare', targetTab: 'services', tagHi: 'बच्चे का मोबाइल फोन देखना बंद कराने के उपाय', tagGu: 'બાળકનું મોબાઇલ જોવાનું બંધ કરવાના ઉપાય', tagEn: 'Stop Child Phone Addiction' },
+      { phrase: 'Padhai Me Man Lagane Ke Saraswati Mantra', targetTab: 'services', tagHi: 'पढ़ाई में मन लगाने के सरस्वती मंत्र', tagGu: 'ભણવામાં મન લગાવવા સરસ્વતી મંત્ર', tagEn: 'Saraswati Study Mantra' },
+      { phrase: 'Exam Me Safalta Pane Ke Jyotish Upay', targetTab: 'services', tagHi: 'परीक्षा में उच्च अंक व सफलता उपाय', tagGu: 'પરીક્ષામાં ઉચ્ચ પરિણામ અને સફળતા ઉપાય', tagEn: 'Exam Success Vedic Upay' }
+    ]
+  },
+  {
+    id: 'kundli-matching',
+    categoryName: {
+      hi: '५. ३६ गुण विवाह मिलान व कुंडली दोष निवारण',
+      gu: '૫. ૩૬ ગુણ લગ્ન મિલન અને કુંડળી દોષ નિવારણ',
+      en: '5. 36 Gun Milan & Marriage Compatibility'
+    },
+    icon: '📜',
     targetTab: 'gun-milan',
     badge: '#1 High Search Volume',
     quickSummary: {
-      hi: 'अष्टकूट 36 गुण मिलान, नाड़ी दोष परिहार, भकूट दोष, गण दोष, मांगलिक दोष निवारण एवं सफल दांपत्य जीवन के अचूक शास्त्रोक्त उपाय।',
-      gu: 'અષ્ટકૂટ 36 ગુણ મિલન, નાડી દોષ નિવારણ, ભકૂટ દોષ, ગણ દોષ, માંગલિક વિચાર અને સફળ દાંપત્ય જીવનના શાસ્ત્રોક્ત ઉપાય.',
+      hi: 'अष्टकूट ३६ गुण मिलान, नाड़ी दोष परिहार, भकूट दोष, गण दोष, मांगलिक दोष निवारण एवं सफल दांपत्य जीवन के अचूक शास्त्रोक्त उपाय।',
+      gu: 'અષ્ટકૂટ ૩૬ ગુણ મિલન, નાડી દોષ નિવારણ, ભકૂટ દોષ, ગણ દોષ, માંગલિક વિચાર અને સફળ દાંપત્ય જીવનના શાસ્ત્રોક્ત ઉપાય.',
       en: 'Authentic Ashtakoot 36 Guna Kundli Matching, Nadi Dosha cancellation, Bhakoot & Gana Dosha remedies, and Manglik Shanti.'
     },
     keywords: [
@@ -69,16 +199,15 @@ const SEO_TOPIC_GROUPS: SeoTopicGroup[] = [
       { phrase: 'Manglik Dosh Shanti Puja', targetTab: 'dosh-guide', tagHi: 'मांगलिक दोष पूजा', tagGu: 'માંગલિક દોષ પૂજા', tagEn: 'Manglik Shanti' },
       { phrase: 'Bhakoot Dosh Parihar', targetTab: 'gun-milan', tagHi: 'भकूट दोष परिहार', tagGu: 'ભકૂટ દોષ પરિહાર', tagEn: 'Bhakoot Dosh' },
       { phrase: 'Gujarati Kundli Matching for Marriage', targetTab: 'gun-milan', tagHi: 'गुजराती लग्न कुंडली मिलान', tagGu: 'ગુજરાતી લગ્ન કુંડળી મિલન', tagEn: 'Gujarati Kundli Match' },
-      { phrase: 'Late Marriage Problem Astrology', targetTab: 'gun-milan', tagHi: 'शीघ्र विवाह ज्योतिष उपाय', tagGu: 'શીઘ્ર લગ્ન ઉપાય', tagEn: 'Late Marriage Remedies' },
-      { phrase: 'Intercaste Love Marriage Kundli', targetTab: 'gun-milan', tagHi: 'प्रेम विवाह कुंडली विचार', tagGu: 'પ્રેમ લગ્ન કુંડળી વિચાર', tagEn: 'Love Marriage Kundli' }
+      { phrase: 'Late Marriage Problem Astrology', targetTab: 'gun-milan', tagHi: 'शीघ्र विवाह ज्योतिष उपाय', tagGu: 'શીઘ્ર લગ્ન ઉપાય', tagEn: 'Late Marriage Remedies' }
     ]
   },
   {
     id: 'local-gujarat-mumbai',
     categoryName: {
-      hi: 'गुजरात एवं मुंबई प्रमुख ज्योतिष केंद्र',
-      gu: 'ગુજરાત અને મુંબઈ મુખ્ય જ્યોતિષ કેન્દ્રો',
-      en: 'Top Astrologer in Gujarat & Mumbai'
+      hi: '६. गुजरात एवं मुंबई प्रमुख ज्योतिष केंद्र',
+      gu: '૬. ગુજરાત અને મુંબઈ મુખ્ય જ્યોતિષ કેન્દ્રો',
+      en: '6. Top Astrologer in Gujarat & Mumbai'
     },
     icon: '🏛️',
     targetTab: 'city-centers',
@@ -102,15 +231,15 @@ const SEO_TOPIC_GROUPS: SeoTopicGroup[] = [
   {
     id: 'nri-global-seo',
     categoryName: {
-      hi: 'प्रवासी भारतीय (Abroad & NRI High Ranking Queries)',
-      gu: 'પ્રવાસી ભારતીય (Abroad & NRI High Ranking Queries)',
-      en: 'NRI Astrology USA, UK, Canada, Australia & UAE'
+      hi: '७. प्रवासी भारतीय (Abroad & NRI High Ranking Queries)',
+      gu: '૭. પ્રવાસી ભારતીય (Abroad & NRI High Ranking Queries)',
+      en: '7. NRI Astrology USA, UK, Canada, Australia & UAE'
     },
     icon: '🌐',
     targetTab: 'international',
     badge: 'Worldwide High Authority',
     quickSummary: {
-      hi: 'अमेरिका (एडिसन NJ, सैन जोस CA, डलास TX), यूके (लंदन, लीसेस्टर), कनाडा (टोरंटो, ब्रैम्पटन), ऑस्ट्रेलिया (सिडनी, मेलबर्न) व दुबई (UAE)। DST जन्म पत्रिका, H1B/ग्रीन कार्ड, PR समयावधि एवं NRI लव प्रॉब्लम सॉल्यूशन।',
+      hi: 'अमेरिका (एडिसन NJ, सैन जोस CA, डलास TX), यूके (लंदन, लीसेस्टर), कनाडा (टोरंटो, ब्रैम्पटन), ऑस्ट्रेलिया (सिडनी, मेलबर्न) व दुबई (UAE)। DST जन्म पत्रिका, H1B/ग्रीन कार्ड, PR समयावधि एवं NRI लव प्रॉब्लम व पारिवारिक समाधान।',
       gu: 'યુએસએ, યુકે, કેનેડા, ઓસ્ટ્રેલિયા અને દુબઈમાં વસતા એનઆરઆઈ પરિવારો માટે ડે-લાઇટ સેવિંગ ટાઇમ (DST) આધારિત કુંડળી, વિઝા અને વિવાહ પરામર્શ.',
       en: 'Precision Daylight Saving Time (DST) calculations, foreign birth charts, H1B visa, Green Card priority date, Canada PR timing & NRI relationship guidance for international diaspora.'
     },
@@ -126,18 +255,15 @@ const SEO_TOPIC_GROUPS: SeoTopicGroup[] = [
       { phrase: 'H1B Visa & Canada PR Astrological Timing', targetTab: 'international', tagHi: 'वीजा व पीआर ज्योतिष विचार', tagGu: 'વિઝા અને પીઆર ગ્રહ વિચાર', tagEn: 'Visa Timing Astrology' },
       { phrase: 'Green Card Priority Date Astrology USA', targetTab: 'international', tagHi: 'ग्रीन कार्ड प्राप्ति ज्योतिष', tagGu: 'ગ્રીન કાર્ડ પ્રાપ્તિ જ્યોતિષ', tagEn: 'Green Card Astrology' },
       { phrase: 'Love Problem Solution for NRIs Abroad', targetTab: 'international', tagHi: 'NRI लव प्रॉब्लम सॉल्यूशन', tagGu: 'NRI લવ પ્રોબ્લેમ સોલ્યુશન', tagEn: 'NRI Love Solution' },
-      { phrase: '36 Gun Milan Australia Sydney Melbourne', targetTab: 'international', tagHi: 'ऑस्ट्रेलिया 36 गुण मिलान', tagGu: 'ઓસ્ટ્રેલિયા ૩૬ ગુણ મિલન', tagEn: 'Australia 36 Gun Milan' },
-      { phrase: 'Remote Vedic Puja & Live Video Sankalp', targetTab: 'international', tagHi: 'विदेश से लाइव वीडियो संकल्प पूजा', tagGu: 'વિદેશથી લાઇવ વિડિયો સંકલ્પ પૂજા', tagEn: 'Remote Puja Sankalp' },
-      { phrase: 'Indian Astrologer Dallas Houston Texas', targetTab: 'international', tagHi: 'डलास ह्यूस्टन टेक्सास ज्योतिषी', tagGu: 'ડલાસ હ્યુસ્ટન ટેક્સાસ જ્યોતિષી', tagEn: 'Texas Astrologer' },
-      { phrase: 'Indian Astrologer Frankfurt Germany EU', targetTab: 'international', tagHi: 'जर्मनी फ्रैंकफर्ट ज्योतिषी', tagGu: 'જર્મની ફ્રેન્કફર્ટ જ્યોતિષી', tagEn: 'Germany EU Astrologer' }
+      { phrase: 'Remote Vedic Puja & Live Video Sankalp', targetTab: 'international', tagHi: 'विदेश से लाइव वीडियो संकल्प पूजा', tagGu: 'વિદેશથી લાઇવ વિડિયો સંકલ્પ પૂજા', tagEn: 'Remote Puja Sankalp' }
     ]
   },
   {
     id: 'doshas-and-remedies',
     categoryName: {
-      hi: 'दोष निवारण, पितृ शांति व वास्तु शास्त्र',
-      gu: 'દોષ નિવારણ, પિતૃ શાંતિ અને વાસ્તુ શાસ્ત્ર',
-      en: 'Dosha Remedies, Pitra Shanti & Vastu'
+      hi: '८. दोष निवारण, पितृ शांति व वास्तु शास्त्र',
+      gu: '૮. દોષ નિવારણ, પિતૃ શાંતિ અને વાસ્તુ શાસ્ત્ર',
+      en: '8. Dosha Remedies, Pitra Shanti & Vastu'
     },
     icon: '🔱',
     targetTab: 'dosh-guide',
@@ -156,38 +282,12 @@ const SEO_TOPIC_GROUPS: SeoTopicGroup[] = [
       { phrase: 'Authentic Nepali Rudraksha Recommendation', targetTab: 'gemstones', tagHi: 'प्रामाणिक नेपाली रुद्राक्ष', tagGu: 'અધિકૃત નેપાળી રુદ્રાક્ષ', tagEn: 'Vedic Rudraksha' },
       { phrase: 'Business Growth Vyapar Vriddhi Yantra', targetTab: 'services', tagHi: 'व्यापार वृद्धि यंत्र स्थापना', tagGu: 'વેપાર વૃદ્ધિ યંત્ર સ્થાપના', tagEn: 'Vyapar Vriddhi Yantra' }
     ]
-  },
-  {
-    id: 'love-relationship-solution',
-    categoryName: {
-      hi: 'प्रेम समस्या समाधान व दांपत्य मधुरता',
-      gu: 'પ્રેમ સમસ્યા સમાધાન અને દાંપત્ય મધુરતા',
-      en: 'Love Problem Solution & Relationship Astrology'
-    },
-    icon: '💖',
-    targetTab: 'services',
-    badge: '#1 Trending High Search',
-    quickSummary: {
-      hi: 'प्रेम विवाह में रुकावट, रूठे जीवनसाथी या प्रेमी को मनाना, एकतरफा प्रेम, माता-पिता की सहमति, दांपत्य कलह व तलाक से बचाव हेतु 100% सात्विक वैदिक ज्योतिषीय समाधान।',
-      gu: 'પ્રેમ લગ્નમાં અડચણ, સંબંધોમાં ગેરસમજ, માતા-પિતાની સહમતિ, દાંપત્ય કંકાસ અને તલાકથી રક્ષણ માટે ૧૦૦% સાત્વિક વૈદિક ઉપાય.',
-      en: 'Authentic Vedic astrology remedies for love marriage delays, intercaste marriage obstacles, relationship misunderstandings, and marital harmony without negative superstitions.'
-    },
-    keywords: [
-      { phrase: 'Love Problem Solution Astrologer', targetTab: 'services', tagHi: 'लव प्रॉब्लम सॉल्यूशन ज्योतिषी', tagGu: 'લવ પ્રોબ્લેમ સોલ્યુશન જ્યોતિષી', tagEn: 'Love Problem Solution' },
-      { phrase: 'Love Marriage Specialist Astrologer', targetTab: 'services', tagHi: 'प्रेम विवाह विशेषज्ञ ज्योतिषी', tagGu: 'પ્રેમ લગ્ન સ્પેશિયાલિસ્ટ જ્યોતિષી', tagEn: 'Love Marriage Specialist' },
-      { phrase: 'Intercaste Love Marriage Problem Solution', targetTab: 'gun-milan', tagHi: 'अंतरजातीय प्रेम विवाह उपाय', tagGu: 'આંતરજ્ઞાતીય પ્રેમ લગ્ન ઉપાય', tagEn: 'Intercaste Marriage Solution' },
-      { phrase: 'Relationship Problem Astrological Remedies', targetTab: 'services', tagHi: 'संबंध सुधार ज्योतिषीय उपाय', tagGu: 'સંબંધ સુધાર જ્યોતિષીય ઉપાય', tagEn: 'Relationship Remedies' },
-      { phrase: 'Husband Wife Dispute & Marital Discord Solution', targetTab: 'services', tagHi: 'पति-पत्नी कलह निवारण उपाय', tagGu: 'પતિ-પત્ની કંકાસ નિવારણ ઉપાય', tagEn: 'Husband Wife Dispute' },
-      { phrase: 'Get Love Back by Vedic Astrology Remedies', targetTab: 'services', tagHi: 'प्रेम संबंध पुनः मधुर बनाने के उपाय', tagGu: 'પ્રેમ સંબંધ પુનઃ મધુર બનાવવાના ઉપાય', tagEn: 'Rekindle Love Astrology' },
-      { phrase: 'Parents Approval for Love Marriage Astrology', targetTab: 'gun-milan', tagHi: 'प्रेम विवाह में माता-पिता की सहमति', tagGu: 'પ્રેમ લગ્નમાં માતા-પિતાની સંમતિ', tagEn: 'Parents Approval for Marriage' },
-      { phrase: 'Stop Divorce & Save Marriage Astrological Upay', targetTab: 'services', tagHi: 'तलाक रोकने के शास्त्रोक्त उपाय', tagGu: 'તલાક રોકવાના શાસ્ત્રોક્ત ઉપાય', tagEn: 'Stop Divorce Remedies' }
-    ]
   }
 ];
 
 export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab }) => {
   const [searchFilter, setSearchFilter] = useState<string>('');
-  const [selectedTopicId, setSelectedTopicId] = useState<string>('kundli-matching');
+  const [selectedTopicId, setSelectedTopicId] = useState<string>('love-relationship-solution');
 
   const selectedTopic = SEO_TOPIC_GROUPS.find(t => t.id === selectedTopicId) || SEO_TOPIC_GROUPS[0];
 

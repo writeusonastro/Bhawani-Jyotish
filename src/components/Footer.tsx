@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ASTROLOGER_INFO } from '../data/astrologyData';
-import { Phone, MessageCircle, Mail, MapPin, Facebook, Instagram, Share2, ShieldCheck } from 'lucide-react';
+import { Phone, MessageCircle, Mail, MapPin, Facebook, Instagram, Share2, ShieldCheck, Scale, Lock, FileText, Info } from 'lucide-react';
 import { AnimatedLogo } from './AnimatedLogo';
 import { VerifiedBadge } from './VerifiedBadge';
 import { Language } from '../types/astrology';
+import { LegalModal, LegalTabType } from './LegalModal';
 
 interface FooterProps {
   setActiveTab: (tab: string) => void;
@@ -12,6 +13,14 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoStudio }) => {
+  const [legalModalOpen, setLegalModalOpen] = useState(false);
+  const [legalModalTab, setLegalModalTab] = useState<LegalTabType>('disclaimer');
+
+  const openLegal = (tab: LegalTabType) => {
+    setLegalModalTab(tab);
+    setLegalModalOpen(true);
+  };
+
   const getAddress = () => {
     if (lang === 'en') return ASTROLOGER_INFO.addressEn;
     if (lang === 'hi') return ASTROLOGER_INFO.address;
@@ -53,8 +62,14 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
 
             <div className="flex items-center gap-1.5 text-xs text-amber-300 bg-amber-950/60 px-2.5 py-1 rounded-lg border border-amber-500/40 w-fit">
               <ShieldCheck className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span>{lang === 'en' ? 'Certified Astrological Center' : 'प्रामाणिक वैदिक ज्योतिष पीठ'}</span>
-              <VerifiedBadge size="xs" tooltipText="सत्यापित ज्योतिष संस्थान" />
+              <span>
+                {lang === 'en' 
+                  ? 'Certified Astrological Center' 
+                  : lang === 'gu' 
+                  ? 'પ્રમાણિત વૈદિક જ્યોતિષ સંસ્થા' 
+                  : 'प्रामाणिक वैदिक ज्योतिष पीठ'}
+              </span>
+              <VerifiedBadge size="xs" tooltipText={lang === 'en' ? 'Verified Astrological Center' : lang === 'gu' ? 'પ્રમાણિત જ્યોતિષ કેન્દ્ર' : 'सत्यापित ज्योतिष संस्थान'} />
             </div>
           </div>
 
@@ -68,50 +83,80 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
                 <button
                   type="button"
                   onClick={() => setActiveTab('kundli')}
-                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5"
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <span className="text-[#FF671F]">▸</span>
-                  <span>{lang === 'en' ? 'Janam Kundli & Mahadasha' : 'जन्म कुंडली एवं महादशा'}</span>
+                  <span>
+                    {lang === 'en' 
+                      ? 'Janam Kundli & Mahadasha' 
+                      : lang === 'gu' 
+                      ? 'જન્મ કુંડળી અને મહાદશા' 
+                      : 'जन्म कुंडली एवं महादशा'}
+                  </span>
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => setActiveTab('gun-milan')}
-                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5"
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <span className="text-[#FF671F]">▸</span>
-                  <span>{lang === 'en' ? '36 Guna Kundli Matching' : '36 गुण विवाह मिलान'}</span>
+                  <span>
+                    {lang === 'en' 
+                      ? '36 Guna Kundli Matching' 
+                      : lang === 'gu' 
+                      ? '૩૬ ગુણ લગ્ન મિલન' 
+                      : '36 गुण विवाह मिलान'}
+                  </span>
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => setActiveTab('rashifal')}
-                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5"
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <span className="text-[#FF671F]">▸</span>
-                  <span>{lang === 'en' ? 'Daily Horoscope (12 Rashis)' : 'दैनिक 12 राशि राशिफल'}</span>
+                  <span>
+                    {lang === 'en' 
+                      ? 'Daily Horoscope (12 Rashis)' 
+                      : lang === 'gu' 
+                      ? 'દૈનિક ૧૨ રાશિ રાશિફળ' 
+                      : 'दैनिक 12 राशि राशिफल'}
+                  </span>
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => setActiveTab('dosh-guide')}
-                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5"
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <span className="text-[#FF671F]">▸</span>
-                  <span>{lang === 'en' ? 'Kalsarp & Manglik Shanti' : 'कालसर्प व मांगलिक शांति'}</span>
+                  <span>
+                    {lang === 'en' 
+                      ? 'Kalsarp & Manglik Shanti' 
+                      : lang === 'gu' 
+                      ? 'કાલસર્પ અને માંગલિક શાંતિ' 
+                      : 'कालसर्प व मांगलिक शांति'}
+                  </span>
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => setActiveTab('panchang')}
-                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5"
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <span className="text-[#FF671F]">▸</span>
-                  <span>{lang === 'en' ? 'Daily Panchang & Choghadiya' : 'दैनिक पंचांग व चौघड़िया'}</span>
+                  <span>
+                    {lang === 'en' 
+                      ? 'Daily Panchang & Choghadiya' 
+                      : lang === 'gu' 
+                      ? 'દૈનિક પંચાંગ અને ચોઘડિયા' 
+                      : 'दैनिक पंचांग व चौघड़िया'}
+                  </span>
                 </button>
               </li>
               <li>
@@ -128,10 +173,16 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
                       }, 100);
                     }
                   }}
-                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 text-purple-300 font-bold"
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 text-purple-300 font-bold cursor-pointer"
                 >
                   <span className="text-purple-400">▸</span>
-                  <span>{lang === 'en' ? 'PhonePe / UPI Dakshina QR' : 'PhonePe / UPI दक्षिणा QR कोड'}</span>
+                  <span>
+                    {lang === 'en' 
+                      ? 'PhonePe / UPI Dakshina QR' 
+                      : lang === 'gu' 
+                      ? 'PhonePe / UPI દક્ષિણા QR કોડ' 
+                      : 'PhonePe / UPI दक्षिणा QR कोड'}
+                  </span>
                 </button>
               </li>
             </ul>
@@ -187,7 +238,11 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
                 rel="noopener noreferrer"
                 className="inline-block w-full text-center bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold py-2.5 rounded-xl text-xs transition-colors shadow-md mt-1"
               >
-                {lang === 'en' ? '📍 View on Google Maps (Directions)' : '📍 गूगल मैप पर दिशा देखें (Directions)'}
+                {lang === 'en' 
+                  ? '📍 View on Google Maps (Directions)' 
+                  : lang === 'gu' 
+                  ? '📍 ગૂગલ મેપ પર દિશા જુઓ (Directions)' 
+                  : '📍 गूगल मैप पर दिशा देखें (Directions)'}
               </a>
             </div>
           </div>
@@ -205,7 +260,11 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
                   {lang === 'en' ? 'Connect With Us on Social Media' : lang === 'hi' ? 'सोशल मीडिया पर भवानी ज्योतिष से जुड़ें' : 'સોશિયલ મીડિયા પર ભવાની જ્યોતિષ સાથે જોડાઓ'}
                 </h5>
                 <p className="text-xs text-stone-300">
-                  {lang === 'en' ? 'Daily Rashifal, Vedic Panchang, Muhurat updates & Live Q&A' : 'दैनिक राशिफल, पंचांग, शुभ मुहूर्त एवं विशेष उपाय की जानकारी प्राप्त करें'}
+                  {lang === 'en' 
+                    ? 'Daily Rashifal, Vedic Panchang, Muhurat updates & Live Q&A' 
+                    : lang === 'gu' 
+                    ? 'દૈનિક રાશિફળ, પંચાંગ, શુભ મુહૂર્ત અને વિશેષ ઉપાયની માહિતી મેળવો' 
+                    : 'दैनिक राशिफल, पंचांग, शुभ मुहूर्त एवं विशेष उपाय की जानकारी प्राप्त करें'}
                 </p>
               </div>
             </div>
@@ -401,10 +460,107 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
           </div>
         </div>
 
-        {/* Bottom copyright and blessings */}
-        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-300">
-          <div>
-            © {new Date().getFullYear()} भवानी ज्योतिष (Bhavani Jyotish) • मेहसाणा (गुजरात)
+        {/* Clear Statutory Legal Disclaimer Box (Google, Meta & Consumer Protection Compliant) */}
+        <div className="mb-6 bg-stone-900/90 border border-amber-500/30 rounded-2xl p-4 sm:p-5 text-stone-300 shadow-inner">
+          <div className="flex items-start gap-3">
+            <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-300 shrink-0 mt-0.5">
+              <Scale className="w-5 h-5" />
+            </div>
+            <div className="space-y-1.5 flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs sm:text-sm font-bold text-amber-300 uppercase tracking-wide">
+                  {lang === 'en'
+                    ? '⚖️ Legal & Vedic Consultation Disclaimer'
+                    : lang === 'gu'
+                    ? '⚖️ કાનૂની અને વૈદિક પરામર્શ અસ્વીકરણ'
+                    : '⚖️ स्पष्ट वैधानिक अस्वीकरण (वैदिक परामर्श व मार्गदर्शन हेतु)'}
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-md bg-amber-950/80 border border-amber-500/40 text-amber-200 font-medium">
+                  {lang === 'en' ? 'Consumer Protection & Ethical Code' : lang === 'gu' ? 'ગ્રાહક સુરક્ષા અને નૈતિક માર્ગદર્શિકા' : 'उपभोक्ता संरक्षण एवं आचार संहिता'}
+                </span>
+              </div>
+
+              <p className="text-[11.5px] sm:text-xs text-stone-300 leading-relaxed">
+                {lang === 'en' ? (
+                  <>
+                    <strong>Ethical Astrological Advisory:</strong> Bhavani Jyotish offers horoscope reading, planetary analysis, and Vedic spiritual remedies in good faith based on ancient scriptures. Astrological consultations, gemstone suggestions, or rituals are strictly intended for spiritual enrichment, moral strength, and self-reflection. <strong>They are NOT an alternative or substitute for certified medical, psychiatric, legal, or licensed financial advice.</strong> In accordance with Google Ads, Meta policies, and legal norms, results vary according to individual Karma, free-will, and horoscopes; no miraculous, magical, or 100% guaranteed outcomes are made or implied.
+                  </>
+                ) : lang === 'gu' ? (
+                  <>
+                    <strong>નૈતિક જ્યોતિષીય માર્ગદર્શન:</strong> ભવાની જ્યોતિષ દ્વારા આપવામાં આવતી કુંડળી વિશ્લેષણ અને ગ્રહ ઉપાય સેવાઓ પ્રાચીન ભારતીય શાસ્ત્રો પર આધારિત છે. આ પરામર્શ માત્ર આધ્યાત્મિક અને માનસિક શાંતિ માટે છે; <strong>આ કોઈપણ સંજોગોમાં અધિકૃત તબીબી (ડોક્ટર), મનોચિકિત્સક કે કાનૂની વકીલની સલાહનો વિકલ્પ નથી.</strong> ગૂગલ અને મેટા નીતિઓનું સન્માન કરતાં, વ્યક્તિગત કર્મ અને ભાગ્ય અનુસાર પરિણામો બદલાઈ શકે છે; અમે કોઈપણ અવાસ્તવિક કે ચમત્કારિક ગેરંટી આપતા નથી.
+                  </>
+                ) : (
+                  <>
+                    <strong>शास्त्रोक्त एवं नैतिक परामर्श:</strong> भवानी ज्योतिष द्वारा प्रदान किया जाने वाला कुंडली विश्लेषण, ग्रह गणना एवं वैदिक अनुष्ठान परामर्श प्राचीन सनातन शास्त्रों (महर्षि पाराशर होरा शास्त्र) एवं व्यक्तिगत आस्था पर आधारित है। यह मार्गदर्शन विशुद्ध रूप से आध्यात्मिक संबल एवं आत्म-चिंतन हेतु है; <strong>इसे किसी भी परिस्थिति में अधिकृत चिकित्सकीय (डॉक्टर), मनोचिकित्सक, या कानूनी (वकील) सलाह का विकल्प न समझा जाए।</strong> गूगल एड्स, मेटा (फेसबुक/इंस्टा) एवं उपभोक्ता संरक्षण मानकों के अनुसार परिणाम जातक के व्यक्तिगत कर्म, ग्रह दशा व पुरुषार्थ पर निर्भर करते हैं; संस्थान किसी भी प्रकार के अवास्तविक अथवा १००% जादुई चमत्कारिक परिणामों का दावा नहीं करता है।
+                  </>
+                )}
+              </p>
+
+              {/* Policy Quick Links */}
+              <div className="pt-2 flex flex-wrap items-center gap-2 sm:gap-3 text-xs">
+                <button
+                  type="button"
+                  onClick={() => openLegal('privacy')}
+                  className="inline-flex items-center gap-1.5 text-amber-300 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg border border-white/10 transition-colors cursor-pointer"
+                >
+                  <Lock className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="font-semibold">{lang === 'en' ? 'Privacy Policy' : lang === 'gu' ? 'ગોપનીયતા નીતિ' : 'गोपनीयता नीति (Privacy Policy)'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => openLegal('terms')}
+                  className="inline-flex items-center gap-1.5 text-amber-300 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg border border-white/10 transition-colors cursor-pointer"
+                >
+                  <FileText className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="font-semibold">{lang === 'en' ? 'Terms of Service' : lang === 'gu' ? 'સેવાની શરતો' : 'सेवा की शर्तें (Terms of Service)'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => openLegal('disclaimer')}
+                  className="inline-flex items-center gap-1.5 text-amber-300 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg border border-white/10 transition-colors cursor-pointer"
+                >
+                  <Scale className="w-3.5 h-3.5 text-sky-400" />
+                  <span className="font-semibold">{lang === 'en' ? 'Astrology Disclaimer' : lang === 'gu' ? 'કાનૂની અસ્વીકરણ' : 'वैदिक परामर्श अस्वीकरण (Disclaimer)'}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom copyright, compliance links, and blessings */}
+        <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-stone-300">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+            <span>
+              © {new Date().getFullYear()} भवानी ज्योतिष (Bhavani Jyotish) • मेहसाणा (गुजरात)
+            </span>
+            <span className="hidden sm:inline text-stone-500">•</span>
+            <div className="flex items-center gap-3 text-stone-400">
+              <button
+                type="button"
+                onClick={() => openLegal('privacy')}
+                className="hover:text-amber-300 transition-colors underline cursor-pointer"
+              >
+                {lang === 'en' ? 'Privacy' : lang === 'gu' ? 'ગોપનીયતા' : 'गोपनीयता'}
+              </button>
+              <span>•</span>
+              <button
+                type="button"
+                onClick={() => openLegal('terms')}
+                className="hover:text-amber-300 transition-colors underline cursor-pointer"
+              >
+                {lang === 'en' ? 'Terms' : lang === 'gu' ? 'શરતો' : 'शर्तें'}
+              </button>
+              <span>•</span>
+              <button
+                type="button"
+                onClick={() => openLegal('disclaimer')}
+                className="hover:text-amber-300 transition-colors underline cursor-pointer"
+              >
+                {lang === 'en' ? 'Disclaimer' : lang === 'gu' ? 'અસ્વીકરણ' : 'अस्वीकरण'}
+              </button>
+            </div>
           </div>
 
           <div className="text-amber-400/90 font-medium">
@@ -412,6 +568,14 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
           </div>
         </div>
       </div>
+
+      {/* Interactive Comprehensive Legal Modal */}
+      <LegalModal
+        isOpen={legalModalOpen}
+        onClose={() => setLegalModalOpen(false)}
+        initialTab={legalModalTab}
+        lang={lang}
+      />
     </footer>
   );
 };
