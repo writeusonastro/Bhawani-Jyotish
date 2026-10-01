@@ -5,7 +5,7 @@ import { FloatingActions } from './components/FloatingActions';
 import { VerifiedBadge } from './components/VerifiedBadge';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from './data/astrologyData';
 import { Language } from './types/astrology';
-import { detectInitialLanguage, saveLanguagePreference } from './utils/languageDetector';
+import { detectInitialLanguage, saveLanguagePreference, detectGeoLanguageAsync, isManualLanguageSelected } from './utils/languageDetector';
 import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, CheckCircle2, Mail, Navigation, Loader2 } from 'lucide-react';
 
 import { ServicesSection } from './components/ServicesSection';
@@ -72,18 +72,6 @@ export function App() {
   });
 
   const [lang, setLangState] = useState<Language>(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const urlLang = params.get('lang');
-      if (urlLang === 'en' || urlLang === 'hi' || urlLang === 'gu') {
-        return urlLang;
-      }
-      // If landing from abroad campaign and no saved preference, default to English for abroad audience
-      const isAbroad = params.get('source') === 'abroad' || Boolean(params.get('country')) || Boolean(params.get('nri'));
-      if (isAbroad && !localStorage.getItem('astro_language_preference')) {
-        return 'en';
-      }
-    }
     return detectInitialLanguage();
   });
   const [askAiQuery, setAskAiQuery] = useState<string | undefined>(undefined);
@@ -92,8 +80,23 @@ export function App() {
 
   const setLang = (newLang: Language) => {
     setLangState(newLang);
-    saveLanguagePreference(newLang);
+    saveLanguagePreference(newLang, true);
   };
+
+  // Automatic Geo-Location language resolver:
+  // - Pure Gujarat -> Gujarati ('gu')
+  // - North India & Delhi -> Hindi ('hi')
+  // - South India -> English ('en')
+  // - Abroad / International -> English ('en')
+  useEffect(() => {
+    if (isManualLanguageSelected()) return;
+
+    detectGeoLanguageAsync((detectedLang) => {
+      if (!isManualLanguageSelected()) {
+        setLangState(detectedLang);
+      }
+    });
+  }, []);
 
   // Dynamic SEO Title & Meta Description synchronizer for active tab & landing URLs
   useEffect(() => {

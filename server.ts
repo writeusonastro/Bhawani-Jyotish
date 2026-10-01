@@ -264,11 +264,360 @@ app.get("/api/places/reverse", async (req: Request, res: Response) => {
   }
 });
 
+// In-memory cache for IP Geolocation (30 minutes TTL)
+const ipGeoCache = new Map<string, { data: any; timestamp: number }>();
+const GEO_CACHE_TTL = 30 * 60 * 1000;
+
+// Intelligent Regional Language Classifier based on Geography
+export function classifyGeoToLanguage(
+  countryCode: string,
+  regionName: string,
+  cityName: string
+): { language: 'hi' | 'gu' | 'en'; zone: 'gujarat' | 'north_india' | 'south_india' | 'abroad' | 'india_other'; reason: string } {
+  const cCode = (countryCode || '').trim().toUpperCase();
+  const reg = (regionName || '').toLowerCase().trim();
+  const city = (cityName || '').toLowerCase().trim();
+
+  // 1. Outside India -> Abroad (USA, UK, Canada, Australia, UAE, Europe, etc.) -> English ('en')
+  if (cCode && cCode !== 'IN' && cCode !== 'INDIA') {
+    return {
+      language: 'en',
+      zone: 'abroad',
+      reason: `विदेश / International NRI audience (${countryCode || 'Outside India'})`
+    };
+  }
+
+  // 2. Pure Gujarat (Entire Gujarat State) -> Gujarati ('gu')
+  const isGujarat =
+    reg.includes('gujarat') ||
+    reg === 'gj' ||
+    city.includes('ahmedabad') ||
+    city.includes('surat') ||
+    city.includes('vadodara') ||
+    city.includes('baroda') ||
+    city.includes('rajkot') ||
+    city.includes('bhavnagar') ||
+    city.includes('jamnagar') ||
+    city.includes('junagadh') ||
+    city.includes('gandhinagar') ||
+    city.includes('mehsana') ||
+    city.includes('mahesana') ||
+    city.includes('anand') ||
+    city.includes('navsari') ||
+    city.includes('morbi') ||
+    city.includes('nadiad') ||
+    city.includes('surendranagar') ||
+    city.includes('bharuch') ||
+    city.includes('porbandar') ||
+    city.includes('godhra') ||
+    city.includes('vapi') ||
+    city.includes('valsad') ||
+    city.includes('bhuj') ||
+    city.includes('palanpur') ||
+    city.includes('patan') ||
+    city.includes('himatnagar') ||
+    city.includes('dahod') ||
+    city.includes('amreli') ||
+    city.includes('botad');
+
+  if (isGujarat) {
+    return {
+      language: 'gu',
+      zone: 'gujarat',
+      reason: 'संपूर्ण गुजरात क्षेत्र (Entire Gujarat State) - गुजराती भाषा'
+    };
+  }
+
+  // 3. South India (Tamil Nadu, Karnataka, Kerala, Andhra Pradesh, Telangana) -> English ('en')
+  const isSouthIndia =
+    reg.includes('tamil nadu') ||
+    reg.includes('tamilnadu') ||
+    reg === 'tn' ||
+    reg.includes('karnataka') ||
+    reg === 'ka' ||
+    reg.includes('kerala') ||
+    reg === 'kl' ||
+    reg.includes('andhra') ||
+    reg === 'ap' ||
+    reg.includes('telangana') ||
+    reg === 'tg' ||
+    reg === 'ts' ||
+    reg.includes('puducherry') ||
+    reg.includes('pondicherry') ||
+    city.includes('bengaluru') ||
+    city.includes('bangalore') ||
+    city.includes('chennai') ||
+    city.includes('madras') ||
+    city.includes('hyderabad') ||
+    city.includes('kochi') ||
+    city.includes('cochin') ||
+    city.includes('thiruvananthapuram') ||
+    city.includes('trivandrum') ||
+    city.includes('visakhapatnam') ||
+    city.includes('vizag') ||
+    city.includes('coimbatore') ||
+    city.includes('mysuru') ||
+    city.includes('mysore') ||
+    city.includes('kozhikode') ||
+    city.includes('calicut') ||
+    city.includes('vijayawada') ||
+    city.includes('warangal') ||
+    city.includes('mangaluru') ||
+    city.includes('mangalore');
+
+  if (isSouthIndia) {
+    return {
+      language: 'en',
+      zone: 'south_india',
+      reason: 'दक्षिण भारत क्षेत्र (South India: TN, KA, KL, AP, Telangana) - English'
+    };
+  }
+
+  // 4. North India & Hindi Belt (Delhi / NCR, UP, Rajasthan, MP, Bihar, Haryana, Punjab, Uttarakhand, Himachal, Jharkhand, Chhattisgarh, Chandigarh, J&K) -> Hindi ('hi')
+  const isNorthIndiaOrHindi =
+    reg.includes('delhi') ||
+    reg.includes('nct') ||
+    reg === 'dl' ||
+    reg.includes('uttar pradesh') ||
+    reg === 'up' ||
+    reg.includes('rajasthan') ||
+    reg === 'rj' ||
+    reg.includes('madhya pradesh') ||
+    reg === 'mp' ||
+    reg.includes('bihar') ||
+    reg === 'br' ||
+    reg.includes('haryana') ||
+    reg === 'hr' ||
+    reg.includes('punjab') ||
+    reg === 'pb' ||
+    reg.includes('uttarakhand') ||
+    reg.includes('uttaranchal') ||
+    reg === 'uk' ||
+    reg.includes('himachal') ||
+    reg === 'hp' ||
+    reg.includes('jharkhand') ||
+    reg === 'jh' ||
+    reg.includes('chhattisgarh') ||
+    reg === 'cg' ||
+    reg === 'ct' ||
+    reg.includes('chandigarh') ||
+    reg === 'ch' ||
+    reg.includes('jammu') ||
+    reg.includes('kashmir') ||
+    reg === 'jk' ||
+    reg.includes('ladakh') ||
+    city.includes('delhi') ||
+    city.includes('noida') ||
+    city.includes('gurgaon') ||
+    city.includes('gurugram') ||
+    city.includes('faridabad') ||
+    city.includes('ghaziabad') ||
+    city.includes('lucknow') ||
+    city.includes('jaipur') ||
+    city.includes('kanpur') ||
+    city.includes('bhopal') ||
+    city.includes('indore') ||
+    city.includes('patna') ||
+    city.includes('varanasi') ||
+    city.includes('agra') ||
+    city.includes('prayagraj') ||
+    city.includes('allahabad') ||
+    city.includes('dehradun') ||
+    city.includes('shimla') ||
+    city.includes('chandigarh') ||
+    city.includes('ludhiana') ||
+    city.includes('amritsar') ||
+    city.includes('ranchi') ||
+    city.includes('raipur');
+
+  if (isNorthIndiaOrHindi) {
+    return {
+      language: 'hi',
+      zone: 'north_india',
+      reason: 'उत्तर भारत व हिंदी पट्टी (Delhi/NCR, UP, MP, Rajasthan, Haryana, Punjab, Bihar etc.) - हिंदी'
+    };
+  }
+
+  // 5. Default for other Indian states (Maharashtra, West Bengal, Odisha, etc.) -> Hindi ('hi')
+  return {
+    language: 'hi',
+    zone: 'india_other',
+    reason: 'भारत (वैदिक ज्योतिष सार्वभौमिक भाषा) - हिंदी'
+  };
+}
+
+// Dedicated endpoint to detect user's geographic region and appropriate language
+app.get("/api/geo/detect", async (req: Request, res: Response) => {
+  try {
+    const forwarded = req.headers["x-forwarded-for"];
+    let clientIp = "";
+    if (typeof forwarded === "string") {
+      // Pick first public IP if multiple IPs are forwarded
+      const ips = forwarded.split(",").map((s) => s.trim());
+      clientIp = ips.find((ip) => !ip.startsWith("10.") && !ip.startsWith("192.168.") && !ip.startsWith("127.") && ip !== "::1") || ips[0];
+    } else {
+      clientIp = (req.socket.remoteAddress || "").trim();
+    }
+
+    // Direct Cloudflare/CDN header hints if available
+    const cfCountry = (req.headers["cf-ipcountry"] as string || "").trim().toUpperCase();
+    const cfRegion = (req.headers["cf-region"] as string || req.headers["cf-region-code"] as string || "").trim();
+    const cfCity = (req.headers["cf-ipcity"] as string || "").trim();
+
+    // Local / private IP fallback
+    const isPrivateIp = !clientIp || clientIp === "127.0.0.1" || clientIp === "::1" || clientIp.startsWith("10.") || clientIp.startsWith("192.168.");
+    if (isPrivateIp && !cfCountry) {
+      const fallbackResult = {
+        country: "India",
+        countryCode: "IN",
+        region: "गुजरात (Gujarat)",
+        city: "मेहसाणा (Mehsana)",
+        language: "gu" as const,
+        zone: "gujarat" as const,
+        reason: "Default / Headquarters Location (Mehsana, Gujarat)",
+        isFallback: true
+      };
+      return res.json(fallbackResult);
+    }
+
+    // Check cache
+    const cacheKey = !isPrivateIp ? clientIp : `${cfCountry}_${cfRegion}_${cfCity}`;
+    const cached = ipGeoCache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < GEO_CACHE_TTL) {
+      return res.json(cached.data);
+    }
+
+    // If Cloudflare tells us it's abroad
+    if (cfCountry && cfCountry !== "IN") {
+      const classification = classifyGeoToLanguage(cfCountry, cfRegion, cfCity);
+      const result = {
+        country: cfCountry,
+        countryCode: cfCountry,
+        region: cfRegion || "International",
+        city: cfCity || "Abroad",
+        ...classification,
+        isFallback: false
+      };
+      ipGeoCache.set(cacheKey, { data: result, timestamp: Date.now() });
+      return res.json(result);
+    }
+
+    // Query external fast IP Geo services
+    let geoData: any = null;
+
+    // 1. Try FreeIPApi (HTTPS, JSON)
+    try {
+      const targetUrl = clientIp ? `https://freeipapi.com/api/json/${clientIp}` : `https://freeipapi.com/api/json`;
+      const fRes = await fetch(targetUrl, {
+        signal: AbortSignal.timeout(3000),
+        headers: { "User-Agent": "BhavaniJyotish-Kundli/1.0" }
+      });
+      if (fRes.ok) {
+        const d = await fRes.json();
+        if (d && (d.countryCode || d.countryName)) {
+          geoData = {
+            country: d.countryName || "India",
+            countryCode: d.countryCode || "IN",
+            region: d.regionName || cfRegion || "Delhi",
+            city: d.cityName || cfCity || "Delhi",
+            lat: d.latitude,
+            lon: d.longitude
+          };
+        }
+      }
+    } catch {
+      // Continue to next provider
+    }
+
+    // 2. Try IP-API.com if FreeIPApi didn't resolve
+    if (!geoData) {
+      try {
+        const ipApiUrl = clientIp ? `http://ip-api.com/json/${clientIp}` : `http://ip-api.com/json/`;
+        const iRes = await fetch(ipApiUrl, {
+          signal: AbortSignal.timeout(3000),
+          headers: { "User-Agent": "BhavaniJyotish-Kundli/1.0" }
+        });
+        if (iRes.ok) {
+          const d = await iRes.json();
+          if (d && d.status === "success") {
+            geoData = {
+              country: d.country || "India",
+              countryCode: d.countryCode || "IN",
+              region: d.regionName || cfRegion || "Delhi",
+              city: d.city || cfCity || "Delhi",
+              lat: d.lat,
+              lon: d.lon
+            };
+          }
+        }
+      } catch {
+        // Continue
+      }
+    }
+
+    // Use CF hints if external APIs timed out
+    if (!geoData && (cfCountry || cfRegion)) {
+      geoData = {
+        country: cfCountry === "IN" ? "India" : cfCountry,
+        countryCode: cfCountry || "IN",
+        region: cfRegion || (cfCountry === "IN" ? "Delhi" : "International"),
+        city: cfCity || "Delhi"
+      };
+    }
+
+    if (geoData) {
+      const classification = classifyGeoToLanguage(geoData.countryCode, geoData.region, geoData.city);
+      const finalResult = {
+        country: geoData.country,
+        countryCode: geoData.countryCode,
+        region: geoData.region,
+        city: geoData.city,
+        lat: geoData.lat,
+        lon: geoData.lon,
+        ...classification,
+        isFallback: false
+      };
+      ipGeoCache.set(cacheKey, { data: finalResult, timestamp: Date.now() });
+      return res.json(finalResult);
+    }
+
+    // Safe fallback for India: default to Hindi
+    const defaultIndiaResult = {
+      country: "India",
+      countryCode: "IN",
+      region: "उत्तर भारत (North India / Delhi)",
+      city: "नई दिल्ली (New Delhi)",
+      language: "hi" as const,
+      zone: "north_india" as const,
+      reason: "Safe India Fallback (North India / Hindi)",
+      isFallback: true
+    };
+    return res.json(defaultIndiaResult);
+  } catch (err: any) {
+    return res.json({
+      country: "India",
+      countryCode: "IN",
+      region: "Delhi / North India",
+      city: "Delhi",
+      language: "hi" as const,
+      zone: "north_india" as const,
+      reason: "Error Fallback - Hindi Default",
+      isFallback: true
+    });
+  }
+});
+
 // Auto-detect location via IP (smooth fallback when GPS is blocked/unavailable)
 app.get("/api/places/ip-location", async (req: Request, res: Response) => {
   try {
     const forwarded = req.headers["x-forwarded-for"];
-    const ip = typeof forwarded === "string" ? forwarded.split(",")[0].trim() : req.socket.remoteAddress;
+    let ip = "";
+    if (typeof forwarded === "string") {
+      const ips = forwarded.split(",").map((s) => s.trim());
+      ip = ips.find((addr) => !addr.startsWith("10.") && !addr.startsWith("192.168.") && !addr.startsWith("127.") && addr !== "::1") || ips[0];
+    } else {
+      ip = (req.socket.remoteAddress || "").trim();
+    }
 
     // Default fallback (Mehsana, Gujarat)
     const fallbackLocation = {
@@ -284,21 +633,46 @@ app.get("/api/places/ip-location", async (req: Request, res: Response) => {
       return res.json(fallbackLocation);
     }
 
+    // 1. Try FreeIPApi first (reliable HTTPS)
     try {
-      const geoRes = await fetch(`https://ipapi.co/${ip}/json/`, {
+      const fRes = await fetch(`https://freeipapi.com/api/json/${ip}`, {
+        signal: AbortSignal.timeout(3000),
+        headers: { "User-Agent": "BhavaniJyotish-Kundli/1.0" }
+      });
+      if (fRes.ok) {
+        const data = await fRes.json();
+        if (data && data.latitude && data.longitude) {
+          const cityName = data.cityName || data.regionName || "वर्तमान स्थान";
+          return res.json({
+            name: `${cityName}`,
+            displayName: `${cityName}, ${data.regionName || "गुजरात"}, ${data.countryName || "India"}`,
+            state: data.regionName || "गुजरात",
+            lat: parseFloat(data.latitude.toFixed(4)),
+            lon: parseFloat(data.longitude.toFixed(4)),
+            isFallback: false
+          });
+        }
+      }
+    } catch {
+      // Continue to next provider
+    }
+
+    // 2. Try IP-API.com
+    try {
+      const geoRes = await fetch(`http://ip-api.com/json/${ip}`, {
         signal: AbortSignal.timeout(3000),
         headers: { "User-Agent": "BhavaniJyotish-Kundli/1.0" }
       });
       if (geoRes.ok) {
         const data = await geoRes.json();
-        if (data && data.latitude && data.longitude && !data.error) {
-          const cityName = data.city || data.region || "वर्तमान स्थान";
+        if (data && data.status === "success" && data.lat && data.lon) {
+          const cityName = data.city || data.regionName || "वर्तमान स्थान";
           return res.json({
             name: `${cityName}`,
-            displayName: `${cityName}, ${data.region || "गुजरात"}, ${data.country_name || "India"}`,
-            state: data.region || "गुजरात",
-            lat: parseFloat(data.latitude.toFixed(4)),
-            lon: parseFloat(data.longitude.toFixed(4)),
+            displayName: `${cityName}, ${data.regionName || "गुजरात"}, ${data.country || "India"}`,
+            state: data.regionName || "गुजरात",
+            lat: parseFloat(data.lat.toFixed(4)),
+            lon: parseFloat(data.lon.toFixed(4)),
             isFallback: false
           });
         }
@@ -396,7 +770,8 @@ async function startServer() {
       })
     );
     app.get("*", (_req: Request, res: Response) => {
-      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("Cache-Control", "public, max-age=60, s-maxage=300, stale-while-revalidate=86400");
+      res.setHeader("X-Content-Type-Options", "nosniff");
       res.sendFile(path.join(distPath, "index.html"));
     });
   }

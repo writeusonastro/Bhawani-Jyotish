@@ -31,13 +31,27 @@
     <meta http-equiv="x-dns-prefetch-control" content="on" />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Mukta:wght@400;600;700;800&family=Outfit:wght@600;700;800;900&family=Yatra+One&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Mukta:wght@400;600;700;800&family=Outfit:wght@600;700;800;900&family=Yatra+One&display=swap" media="print" onload="this.media='all'">
+    <link rel="modulepreload" href="/src/main.tsx">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Mukta:wght@400;600;700;800&family=Outfit:wght@600;700;800&family=Yatra+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Mukta:wght@400;600;700;800&family=Outfit:wght@600;700;800&family=Yatra+One&display=swap" media="print" onload="this.media='all'">
     <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Mukta:wght@400;600;700;800&family=Outfit:wght@600;700;800;900&family=Yatra+One&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Mukta:wght@400;600;700;800&family=Outfit:wght@600;700;800&family=Yatra+One&display=swap">
     </noscript>
+
+    <!-- Critical 0ms Inline Styling to eliminate flash of unstyled content & force instant dark canvas -->
+    <style>
+      html, body {
+        background-color: #050714 !important;
+        color: #f8fafc;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+    </style>
 
     <title>भवानी ज्योतिष | Best Vedic Astrologer for USA, UK, Canada, Australia, UAE, Ahmedabad, Surat, Rajkot, Mehsana & Mumbai</title>
     <meta name="description" content="भवानी ज्योतिष केंद्र (पं. विरेंद्र कुमार जोशी) - लव प्रॉब्लम सॉल्यूशन एवं प्रेम विवाह विशेषज्ञ, पति व्यसन मुक्ति (शराब छुड़ाने के उपाय) व गृह क्लेश शांति, पर-स्त्री संबंध निवारण (सौतन से छुटकारा) एवं दांपत्य रक्षा, जिद्दी संतान सुधार व सद्बुद्धि वैदिक उपाय। 36 गुण विवाह मिलान, कुंडली दोष, USA, Canada, UK, Australia, UAE, गुजरात व मुंबई हेतु #1 वैदिक ज्योतिष।" />
@@ -869,10 +883,10 @@
     }
     </script>
   </head>
-  <body class="bg-[#FFFDF9] text-[#2C2420] antialiased selection:bg-[#FF671F]/20 selection:text-[#CC5218]" style="color-scheme: light;">
+  <body class="bg-[#050714] text-slate-100 antialiased selection:bg-[#ffd236]/20 selection:text-[#ffd236]" style="color-scheme: dark; background-color: #050714;">
     <!-- Noscript & SEO Crawler Pre-render fallback for Search Engines (Googlebot, Bingbot) -->
     <noscript>
-      <div style="padding: 24px; font-family: sans-serif; max-width: 900px; margin: 0 auto; line-height: 1.6;">
+      <div style="padding: 24px; font-family: sans-serif; max-width: 900px; margin: 0 auto; line-height: 1.6; color: #f8fafc; background: #050714;">
         <h1>भवानी ज्योतिष केंद्र | Best Vedic Astrologer for USA, UK, UAE, Canada & Global NRIs</h1>
         <p>35+ Years of authentic Vedic Astrology heritage from North Gujarat. Chief Astrologer: Pandit Shri Virendra Kumar Joshi.</p>
         <h2>Our Core Astrological Services Worldwide:</h2>
@@ -888,44 +902,58 @@
       </div>
     </noscript>
     <div id="root">
-      <!-- Instant 0ms Sacred First Paint Skeleton for Instagram In-App Browser & Mobile -->
-      <div style="min-height: 100vh; background-color: #FFFDF9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #2C2420;">
+      <!-- Instant 0ms Sacred Dark First Paint Skeleton for Instantaneous Loading -->
+      <div style="min-height: 100vh; background-color: #050714; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #f8fafc;">
         <!-- Auspicious Top Strip -->
-        <div style="background: linear-gradient(to right, #631422, #852E10, #631422); padding: 7px 12px; display: flex; align-items: center; justify-content: space-between; color: #FEF3C7; font-size: 11px;">
+        <div style="background: linear-gradient(to right, #070b1e, #0c1435, #070b1e); padding: 7px 12px; display: flex; align-items: center; justify-content: space-between; color: #fde68a; font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.08);">
           <div style="display: flex; align-items: center; gap: 6px;">
-            <span style="background: linear-gradient(to right, #FDE68A, #FCD34D); color: #451A03; padding: 2px 7px; border-radius: 9999px; font-weight: 900; font-size: 10px; white-space: nowrap;">राजकीय ज्योतिष पीठ</span>
-            <span style="background: rgba(0,0,0,0.35); padding: 2px 7px; border-radius: 9999px; color: #FDE68A; font-weight: bold; font-size: 10px; white-space: nowrap;">पंजी: GJ-14-0056740</span>
+            <span style="background: linear-gradient(to right, #f99c00, #ffd236); color: #000; padding: 2px 7px; border-radius: 9999px; font-weight: 900; font-size: 10px; white-space: nowrap;">राजकीय ज्योतिष पीठ</span>
+            <span style="background: rgba(255,255,255,0.1); padding: 2px 7px; border-radius: 9999px; color: #ffd236; font-weight: bold; font-size: 10px; white-space: nowrap;">पंजी: GJ-14-0056740</span>
           </div>
-          <div style="font-weight: bold; color: #FDE68A; font-size: 11px; white-space: nowrap;">🪔 ॥ ॐ श्री भवान्यै नमः ॥ 🪔</div>
+          <div style="font-weight: bold; color: #ffd236; font-size: 11px; white-space: nowrap;">🪔 ॥ ॐ श्री भवान्यै नमः ॥ 🪔</div>
         </div>
 
-        <!-- Royal Header Bar -->
-        <div style="padding: 10px 14px; border-bottom: 1px solid rgba(245,158,11,0.2); background: #FFFDF8; display: flex; align-items: center; justify-content: space-between;">
+        <!-- Royal Midnight Header Bar -->
+        <div style="padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.1); background: #070b1e; display: flex; align-items: center; justify-content: space-between;">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="width: 42px; height: 42px; border-radius: 10px; background: linear-gradient(135deg, #852E10, #631422); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #FDE68A; box-shadow: 0 2px 8px rgba(133,46,16,0.25);">
+            <div style="width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #1e1333, #0a0f28); border: 1px solid rgba(253,211,77,0.4); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #ffd236; box-shadow: 0 0 15px rgba(253,211,77,0.2);">
               🪔
             </div>
             <div>
-              <div style="font-size: 16px; font-weight: 900; color: #852E10; line-height: 1.2;">भवानी ज्योतिष केंद्र</div>
-              <div style="font-size: 10px; color: #78350F; font-weight: 700;">पं. विरेंद्र कुमार जोशी • मेहसाणा (गुजरात)</div>
+              <div style="font-size: 16px; font-weight: 900; color: #ffd236; line-height: 1.2;">भवानी ज्योतिष केंद्र</div>
+              <div style="font-size: 10px; color: #cbd5e1; font-weight: 700;">पं. विरेंद्र कुमार जोशी • 35+ वर्ष वैदिक अनुभव (मेहसाणा)</div>
             </div>
           </div>
-          <div style="display: flex; gap: 5px;">
-            <a href="tel:+919909087902" style="background: #FF671F; color: #fff; padding: 6px 9px; border-radius: 8px; font-size: 11px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 3px; white-space: nowrap;">📞 कॉल</a>
-            <a href="https://wa.me/919909087902" style="background: #25D366; color: #fff; padding: 6px 9px; border-radius: 8px; font-size: 11px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 3px; white-space: nowrap;">💬 WhatsApp</a>
+          <div style="display: flex; gap: 6px;">
+            <a href="tel:+919909087902" style="background: linear-gradient(to right, #f99c00, #ffd236); color: #000; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 3px; white-space: nowrap; box-shadow: 0 2px 6px rgba(249,156,0,0.3);">📞 कॉल</a>
+            <a href="https://wa.me/919909087902?text=%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A3%E0%A4%BE%E0%A4%AE%20%E0%A4%AA%E0%A4%82%E0%A4%A1%E0%A4%BF%E0%A4%A4%20%E0%A4%9C%E0%A5%80%2C%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%A4%E0%A4%BF%E0%A4%B7%E0%A5%80%E0%A4%AF%20%E0%A4%AA%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%B0%E0%A5%8D%E0%A4%B6%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F" style="background: #25D366; color: #fff; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 3px; white-space: nowrap; box-shadow: 0 2px 6px rgba(37,211,102,0.3);">💬 WhatsApp</a>
           </div>
         </div>
 
+        <!-- Ticker Strip -->
+        <div style="background: #050714; padding: 6px 12px; font-size: 11px; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 8px; overflow: hidden; white-space: nowrap;">
+          <span style="background: #4f46e5; color: #fff; padding: 1px 6px; border-radius: 4px; font-size: 10px; font-weight: bold;">विशेषता</span>
+          <span>✨ लव प्रॉब्लम सॉल्यूशन • पति व्यसन मुक्ति • 36 गुण विवाह मिलान • सौतन से छुटकारा • जिद्दी संतान सुधार</span>
+        </div>
+
         <!-- Instant Content Hero -->
-        <div style="max-width: 600px; margin: 24px auto; padding: 16px; text-align: center;">
-          <div style="width: 54px; height: 54px; margin: 0 auto 12px; border-radius: 50%; background: linear-gradient(135deg, #FDE68A, #F59E0B); display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 12px rgba(245,158,11,0.25);">
+        <div style="max-width: 640px; margin: 28px auto; padding: 16px; text-align: center;">
+          <div style="width: 58px; height: 58px; margin: 0 auto 14px; border-radius: 50%; background: linear-gradient(135deg, #1e1333, #070b1e); border: 2px solid #ffd236; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 0 25px rgba(253,211,77,0.35);">
             🕉️
           </div>
-          <div style="font-size: 20px; color: #852E10; font-weight: 800; margin-bottom: 4px;">॥ श्री भवानी ज्योतिष केंद्र ॥</div>
-          <p style="font-size: 13px; color: #57534E; margin: 0 0 16px; font-weight: 600;">पंडित श्री विरेंद्र कुमार जोशी • 35+ वर्ष वैदिक ज्योतिष अनुभव</p>
-          <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
-            <a href="tel:+919909087902" style="background: linear-gradient(to right, #FF671F, #CC5218); color: #fff; padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">📞 सीधे पंडित जी से बात करें</a>
-            <a href="https://wa.me/919909087902" style="background: #25D366; color: #fff; padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">💬 व्हाट्सएप परामर्श</a>
+          <div style="font-size: 22px; color: #ffd236; font-weight: 900; margin-bottom: 6px; letter-spacing: 0.5px;">॥ श्री भवानी ज्योतिष केंद्र ॥</div>
+          <p style="font-size: 13px; color: #cbd5e1; margin: 0 0 16px; font-weight: 600;">पंडित श्री विरेंद्र कुमार जोशी • 35+ वर्ष वैदिक ज्योतिष संस्थान (मेहसाणा, गुजरात)</p>
+
+          <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(253,211,77,0.3); color: #ffd236; padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700;">✦ लव प्रॉब्लम सॉल्यूशन</span>
+            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(253,211,77,0.3); color: #ffd236; padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700;">✦ पति व्यसन मुक्ति</span>
+            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(253,211,77,0.3); color: #ffd236; padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700;">✦ पर-स्त्री संबंध निवारण</span>
+            <span style="background: rgba(255,255,255,0.06); border: 1px solid rgba(253,211,77,0.3); color: #ffd236; padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700;">✦ 36 गुण मिलान</span>
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+            <a href="tel:+919909087902" style="background: linear-gradient(to right, #f99c00, #fcbb00, #ffd236); color: #000; padding: 10px 22px; border-radius: 12px; font-size: 13px; font-weight: 900; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(249,156,0,0.35);">📞 सीधे पंडित जी से बात करें</a>
+            <a href="https://wa.me/919909087902?text=%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A3%E0%A4%BE%E0%A4%AE%20%E0%A4%AA%E0%A4%82%E0%A4%A1%E0%A4%BF%E0%A4%A4%20%E0%A4%9C%E0%A5%80%2C%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%A4%E0%A4%BF%E0%A4%B7%E0%A5%80%E0%A4%AF%20%E0%A4%AA%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%B0%E0%A5%8D%E0%A4%B6%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F" style="background: #25D366; color: #fff; padding: 10px 22px; border-radius: 12px; font-size: 13px; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(37,211,102,0.35);">💬 व्हाट्सएप परामर्श</a>
           </div>
         </div>
       </div>
