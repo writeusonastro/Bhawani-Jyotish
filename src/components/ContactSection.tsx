@@ -1,9 +1,8 @@
 import React from 'react';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
-import { MapPin, Phone, MessageCircle, Mail, Navigation, Facebook, Instagram, Share2, ShieldCheck, QrCode, Sparkles, CheckCircle2, Wallet, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, MessageCircle, Mail, Navigation, Facebook, Instagram, Share2, ShieldCheck, Sparkles, CheckCircle2, Wallet, ArrowRight } from 'lucide-react';
 import { VerifiedBadge } from './VerifiedBadge';
 import { RajputSymbol } from './RajputSymbol';
-import { PhonePeQRCodeCard } from './PhonePeQRCodeCard';
 import { Language } from '../types/astrology';
 
 interface ContactSectionProps {
@@ -235,38 +234,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <span>{lang === 'en' ? 'Send Email' : lang === 'hi' ? 'ईमेल भेजें' : 'ઈમેલ મોકલો'}</span>
               </a>
             </div>
-          </div>
-        </div>
-
-        {/* Official Vedic Consultation & Dakshina Payment Card (PhonePe / UPI QR Code Only) */}
-        <div id="payment-qr-section" className="p-6 sm:p-8 rounded-3xl border border-purple-500/30 shadow-xl text-center bg-[#070b1e] text-slate-100">
-          <div className="max-w-xl mx-auto space-y-2 mb-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/80 text-purple-300 text-xs font-bold border border-purple-500/40">
-              <QrCode className="w-3.5 h-3.5 text-purple-400" />
-              <span>PhonePe • Google Pay • Paytm • BHIM UPI</span>
-              <VerifiedBadge size="xs" tooltipText="सत्यापित QR कोड" />
-            </div>
-
-            <h3 className="font-yatra text-2xl sm:text-3xl text-purple-300 font-bold">
-              {lang === 'en'
-                ? 'Consultation Fee & Dakshina QR Code'
-                : lang === 'hi'
-                ? 'परामर्श शुल्क एवं दक्षिणा QR कोड'
-                : 'પરામર્શ ફી અને દક્ષિણા QR કોડ'}
-            </h3>
-
-            <p className="text-xs sm:text-sm text-slate-300">
-              {lang === 'en'
-                ? 'Scan this QR code using PhonePe or any UPI app to pay'
-                : lang === 'hi'
-                ? 'PhonePe अथवा किसी भी UPI ऐप से यह QR कोड स्कैन करके भुगतान करें'
-                : 'PhonePe અથવા કોઈપણ UPI એપથી આ QR કોડ સ્કેન કરીને ચૂકવણી કરો'}
-            </p>
-          </div>
-
-          {/* Centered QR Code Card */}
-          <div className="flex justify-center">
-            <PhonePeQRCodeCard lang={lang} />
           </div>
         </div>
 

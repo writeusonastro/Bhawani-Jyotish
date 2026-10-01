@@ -324,7 +324,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                 </h4>
                 <p className="text-stone-300">
                   {lang === 'en'
-                    ? 'Dakshina or consultation fees paid via UPI / QR / Bank Transfer are for the dedicated time and astrological calculations performed by Pandit Ji. There are no automated recurring subscriptions or hidden charges.'
+                    ? 'Dakshina or consultation fees paid via UPI / Bank Transfer are for the dedicated time and astrological calculations performed by Pandit Ji. There are no automated recurring subscriptions or hidden charges.'
                     : lang === 'gu'
                     ? 'UPI અથવા બેંક દ્વારા અપાતી દક્ષિણા પંડિતજીના સમય અને શાસ્ત્રોક્ત ગણતરી માટે છે. કોઈ છુપા શુલ્ક કે ઓટો-કટ સબ્સ્ક્રિપ્શન નથી.'
                     : 'UPI / PhonePe अथवा बैंक द्वारा प्रेषित दक्षिणा पंडित जी के समय एवं वैदिक गणना के लिए होती है। इसमें कोई ऑटो-डेबिट या आवर्ती (recurring) छिपे शुल्क नहीं होते।'}

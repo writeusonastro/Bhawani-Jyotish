@@ -6,6 +6,7 @@ import { VerifiedBadge } from './components/VerifiedBadge';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from './data/astrologyData';
 import { Language } from './types/astrology';
 import { detectInitialLanguage, saveLanguagePreference, detectGeoLanguageAsync, isManualLanguageSelected } from './utils/languageDetector';
+import { LanguageSwitchPrompt } from './components/LanguageSwitchPrompt';
 import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, CheckCircle2, Mail, Navigation, Loader2 } from 'lucide-react';
 
 import { ServicesSection } from './components/ServicesSection';
@@ -27,7 +28,6 @@ const CityLocalSeoSection = lazy(() => import('./components/CityLocalSeoSection'
 const InternationalConsultation = lazy(() => import('./components/InternationalConsultation').then(m => ({ default: m.InternationalConsultation })));
 const SeoKeywordHub = lazy(() => import('./components/SeoKeywordHub').then(m => ({ default: m.SeoKeywordHub })));
 const Testimonials = lazy(() => import('./components/Testimonials').then(m => ({ default: m.Testimonials })));
-const PaymentModal = lazy(() => import('./components/PaymentModal').then(m => ({ default: m.PaymentModal })));
 const LogoDownloadModal = lazy(() => import('./components/LogoDownloadModal').then(m => ({ default: m.LogoDownloadModal })));
 
 // Lightweight non-blocking loader component
@@ -74,8 +74,8 @@ export function App() {
   const [lang, setLangState] = useState<Language>(() => {
     return detectInitialLanguage();
   });
+  const [userZone, setUserZone] = useState<string>('gujarat');
   const [askAiQuery, setAskAiQuery] = useState<string | undefined>(undefined);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
   const [isLogoStudioOpen, setIsLogoStudioOpen] = useState<boolean>(false);
 
   const setLang = (newLang: Language) => {
@@ -84,14 +84,17 @@ export function App() {
   };
 
   // Automatic Geo-Location language resolver:
-  // - Pure Gujarat -> Gujarati ('gu')
+  // - Pure Gujarat -> Gujarati ('gu') (with auto device Hindi preference for Hindi speakers in Gujarat)
   // - North India & Delhi -> Hindi ('hi')
   // - South India -> English ('en')
   // - Abroad / International -> English ('en')
   useEffect(() => {
     if (isManualLanguageSelected()) return;
 
-    detectGeoLanguageAsync((detectedLang) => {
+    detectGeoLanguageAsync((detectedLang, details) => {
+      if (details?.zone) {
+        setUserZone(details.zone);
+      }
       if (!isManualLanguageSelected()) {
         setLangState(detectedLang);
       }
@@ -226,7 +229,6 @@ export function App() {
         lang={lang}
         setLang={setLang}
         onPrefetchTab={handlePrefetchTab}
-        onOpenPaymentQR={() => setIsPaymentModalOpen(true)}
         onOpenLogoStudio={() => setIsLogoStudioOpen(true)}
       />
 
@@ -312,7 +314,6 @@ export function App() {
             <KundliGenerator 
               lang={lang} 
               onAskAI={handleAskAI} 
-              onOpenPaymentQR={() => setIsPaymentModalOpen(true)} 
             />
           )}
 
@@ -369,26 +370,14 @@ export function App() {
         </Suspense>
       </main>
 
-      {/* Floating Call, WhatsApp & PhonePe QR Buttons */}
+      {/* Floating Call & WhatsApp Buttons */}
       <FloatingActions
         lang={lang}
         onOpenAskAI={() => {
           setActiveTab('ask-astrologer');
           window.scrollTo({ top: 0, behavior: 'instant' });
         }}
-        onOpenPaymentQR={() => setIsPaymentModalOpen(true)}
       />
-
-      {/* Vedic Consultation & Dakshina Payment Modal */}
-      {isPaymentModalOpen && (
-        <Suspense fallback={null}>
-          <PaymentModal
-            isOpen={isPaymentModalOpen}
-            onClose={() => setIsPaymentModalOpen(false)}
-            lang={lang}
-          />
-        </Suspense>
-      )}
 
       {/* 300 DPI Transparent PNG Logo Studio Modal */}
       {isLogoStudioOpen && (
@@ -400,6 +389,13 @@ export function App() {
           />
         </Suspense>
       )}
+
+      {/* Smart Language Switcher Toast for Multilingual Regions like Gujarat */}
+      <LanguageSwitchPrompt
+        lang={lang}
+        setLang={setLang}
+        userZone={userZone}
+      />
 
       {/* Footer */}
       <Footer

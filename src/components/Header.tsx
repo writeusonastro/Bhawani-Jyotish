@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  Phone, MessageCircle, Instagram, Facebook, QrCode, 
+  Phone, MessageCircle, Instagram, Facebook, 
   Sparkles, ScrollText, HeartHandshake, ShieldAlert, 
   Briefcase, Users, Compass, Gem, Flame, Star, GraduationCap 
 } from 'lucide-react';
@@ -29,7 +29,6 @@ interface HeaderProps {
   setActiveTab: (tab: string) => void;
   lang: Language;
   setLang: (l: Language) => void;
-  onOpenPaymentQR?: () => void;
   onPrefetchTab?: (id: string) => void;
   onOpenLogoStudio?: () => void;
 }
@@ -39,7 +38,6 @@ export const Header: React.FC<HeaderProps> = ({
   setActiveTab,
   lang,
   setLang,
-  onOpenPaymentQR,
   onPrefetchTab,
   onOpenLogoStudio,
 }) => {
@@ -286,18 +284,6 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* On Desktop only, show the quick action buttons inline with brand */}
           <div className="hidden md:flex items-center gap-2.5 shrink-0">
-            {onOpenPaymentQR && (
-              <button
-                type="button"
-                onClick={onOpenPaymentQR}
-                className="flex items-center justify-center gap-1.5 bg-[#0c1334] hover:bg-[#121a42] text-amber-300 hover:text-white font-bold px-3.5 py-2 rounded-xl text-sm transition-all shadow-md border border-amber-500/30 hover:border-amber-400 hover:scale-105 active:scale-95 cursor-pointer text-center"
-                title="PhonePe / UPI QR कोड द्वारा दक्षिणा / परामर्श शुल्क"
-              >
-                <QrCode className="w-3.5 h-3.5 text-[#f99c00] shrink-0" />
-                <span>{lang === 'en' ? 'QR Pay' : lang === 'hi' ? 'दक्षिणा/QR' : 'દક્ષિણા/QR'}</span>
-              </button>
-            )}
-
             <a
               href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
                 getWhatsAppConsultationMessage(lang)
@@ -322,24 +308,12 @@ export const Header: React.FC<HeaderProps> = ({
       </header>
 
       {/* 2. SCROLLABLE ELEMENTS (SCROLL AWAY ON MOBILE):
-          a) Screenshot Action Buttons: Dakshina/QR, WhatsApp, Call
+          a) Action Buttons: WhatsApp, Call
           b) Navigation Links: Mukhya Dwar, Dainik Rashifal, Janam Kundli, Vivah Milan... */}
       <div className="relative z-30 bg-[#070b1e] print:hidden w-full">
-        {/* Mobile Action Buttons (Dakshina, WhatsApp, Call) */}
+        {/* Mobile Action Buttons (WhatsApp, Call) */}
         <div className="block md:hidden max-w-7xl mx-auto px-3 py-2 border-b border-white/10 bg-[#070b1e]">
-          <div className="grid grid-cols-3 gap-1.5 w-full">
-            {onOpenPaymentQR && (
-              <button
-                type="button"
-                onClick={onOpenPaymentQR}
-                className="flex items-center justify-center gap-1 bg-[#0c1334] text-amber-300 font-bold px-2 py-2 rounded-xl text-xs transition-all shadow-md border border-amber-500/30 hover:scale-105 active:scale-95 cursor-pointer text-center"
-                title="PhonePe / UPI QR कोड द्वारा दक्षिणा / परामर्श शुल्क"
-              >
-                <QrCode className="w-3.5 h-3.5 text-[#f99c00] shrink-0" />
-                <span className="truncate">{lang === 'en' ? 'QR Pay' : lang === 'hi' ? 'दक्षिणा/QR' : 'દક્ષિણા/QR'}</span>
-              </button>
-            )}
-
+          <div className="grid grid-cols-2 gap-2 w-full">
             <a
               href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
                 getWhatsAppConsultationMessage(lang)

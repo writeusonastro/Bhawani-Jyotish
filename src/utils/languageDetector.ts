@@ -202,11 +202,37 @@ export function classifyGeoToLanguage(
 }
 
 /**
+ * Detects whether the user's browser or device has an explicit Hindi or Gujarati language preference.
+ * Hindi speakers in Gujarat often have Hindi (hi-IN) in their phone languages.
+ */
+export function detectUserDeviceLanguage(): Language | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const userLanguages = (navigator.languages || [navigator.language || '']).map((l) =>
+      (l || '').toLowerCase()
+    );
+    const hasGujarati = userLanguages.some(
+      (l) => l.startsWith('gu') || l.includes('guj') || l.includes('gujarati')
+    );
+    if (hasGujarati) return 'gu';
+
+    const hasHindi = userLanguages.some(
+      (l) => l.startsWith('hi') || l.includes('hin') || l.includes('hindi')
+    );
+    if (hasHindi) return 'hi';
+  } catch {
+    // continue
+  }
+  return null;
+}
+
+/**
  * Synchronous initial language detection for 0ms initial render:
  * 1. Checks URL query parameter: ?lang=en, ?lang=gu, ?lang=hi
  * 2. Checks user explicit manual preference in localStorage
  * 3. Checks cached geo-language from current/previous session
- * 4. Checks user timezone/locale:
+ * 4. Checks user device language settings (Hindi vs Gujarati)
+ * 5. Checks user timezone/locale:
  *    - In India (Asia/Kolkata / +05:30 offset): default is ALWAYS Hindi ('hi')
  *    - Abroad (outside India): default is English ('en')
  */
@@ -247,16 +273,11 @@ export function detectInitialLanguage(): Language {
     // continue
   }
 
-  // 4. Check browser / device languages for Gujarati preference (gu, gu-IN)
+  // 4. Check browser / device languages for Gujarati or Hindi preference
   try {
-    const userLanguages = (navigator.languages || [navigator.language || '']).map((l) =>
-      (l || '').toLowerCase()
-    );
-    const hasGujarati = userLanguages.some(
-      (l) => l.startsWith('gu') || l.includes('guj') || l.includes('gujarati')
-    );
-    if (hasGujarati) {
-      return 'gu';
+    const deviceLang = detectUserDeviceLanguage();
+    if (deviceLang) {
+      return deviceLang;
     }
   } catch {
     // continue
@@ -276,7 +297,7 @@ export function detectInitialLanguage(): Language {
       offsetMinutes === 330;
 
     if (isIndia) {
-      // In India (Delhi, North India, pan-India): Default is ALWAYS Hindi
+      // In India: Default is ALWAYS Hindi
       return 'hi';
     }
 
@@ -351,7 +372,17 @@ export async function detectGeoLanguageAsync(
     if (res.ok) {
       const data = await res.json();
       if (data && data.language) {
-        const detectedLang = data.language as Language;
+        let detectedLang = data.language as Language;
+        // Smart Hindi Speaker Detection in Gujarat:
+        // If user is located in Gujarat, check if their browser/phone has Hindi language preference
+        if (data.zone === 'gujarat') {
+          const devicePref = detectUserDeviceLanguage();
+          if (devicePref === 'hi') {
+            detectedLang = 'hi';
+            data.language = 'hi';
+            data.reason = 'गुजरात में हिंदी भाषी प्राथमिकता (Device Hindi Preference)';
+          }
+        }
         saveLanguagePreference(detectedLang, false);
         if (onDetected) {
           onDetected(detectedLang, data);
@@ -378,7 +409,14 @@ export async function detectGeoLanguageAsync(
           d.regionName || '',
           d.cityName || ''
         );
-        const detectedLang = classification.language;
+        let detectedLang = classification.language;
+        if (classification.zone === 'gujarat') {
+          const devicePref = detectUserDeviceLanguage();
+          if (devicePref === 'hi') {
+            detectedLang = 'hi';
+            classification.reason = 'गुजरात में हिंदी भाषी प्राथमिकता (Device Hindi Preference)';
+          }
+        }
         const details: GeoDetectionInfo = {
           country: d.countryName || 'India',
           countryCode: d.countryCode || 'IN',

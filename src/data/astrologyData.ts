@@ -50,7 +50,6 @@ export const ASTROLOGER_INFO = {
     upiId: "9909087902@ybl",
     secondaryUpiId: "9723563650@ybl",
     upiUrl: "upi://pay?pa=9909087902@ybl&pn=Bhavani%20Jyotish&cu=INR&tn=Bhavani%20Jyotish%20Consultation",
-    qrLabel: "PhonePe / GPay / Paytm / BHIM UPI",
     appSupported: ["PhonePe", "Google Pay", "Paytm", "BHIM UPI", "Cred", "Amazon Pay"]
   }
 };

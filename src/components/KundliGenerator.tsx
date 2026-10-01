@@ -11,7 +11,7 @@ import {
   MapPin, Calendar, Clock, Compass, Layers,
   Check, Info, Sun, Moon, Flame, ShieldAlert, Award, ChevronRight,
   BookOpen, HeartHandshake, Eye,
-  X, FileText, Phone, PhoneCall, QrCode
+  X, FileText, Phone, PhoneCall
 } from 'lucide-react';
 import { GoogleMapsLocationPicker } from './GoogleMapsLocationPicker';
 
@@ -19,10 +19,9 @@ interface KundliGeneratorProps {
   lang: Language;
   onAskAI: (context: string) => void;
   isDark?: boolean;
-  onOpenPaymentQR?: () => void;
 }
 
-export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI, isDark = false, onOpenPaymentQR }) => {
+export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI, isDark = false }) => {
   const [activeTab, setActiveTab] = useState<'panchang' | 'chart' | 'planets' | 'ashtakavarga' | 'dasha' | 'yogas' | 'predictions'>('panchang');
   const [showPrintPreview, setShowPrintPreview] = useState<boolean>(false);
 
@@ -282,18 +281,6 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                     <Printer className="w-4 h-4" />
                     <span>PDF प्रिंट (6 पृष्ठ)</span>
                   </button>
-
-                  {onOpenPaymentQR && (
-                    <button
-                      type="button"
-                      onClick={onOpenPaymentQR}
-                      className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all bg-gradient-to-r from-purple-700 to-indigo-700 text-white hover:brightness-110 shadow-xs cursor-pointer border border-purple-300/40"
-                      title="पंडित जी को स्वेच्छानुसार वैदिक दक्षिणा / PhonePe QR द्वारा अर्पण करें"
-                    >
-                      <QrCode className="w-4 h-4 text-amber-200" />
-                      <span>दक्षिणा / QR</span>
-                    </button>
-                  )}
 
                   <span className={`px-3 py-1 rounded-full text-xs font-bold ${
                     result.manglikStatus.includes('Non') || result.manglikStatus.includes('गैर')

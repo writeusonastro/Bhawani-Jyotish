@@ -1,17 +1,15 @@
 import React from 'react';
-import { PhoneCall, MessageCircle, QrCode, Phone, ShieldCheck, Globe } from 'lucide-react';
+import { PhoneCall, MessageCircle, Phone, ShieldCheck, Globe } from 'lucide-react';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
 import { VerifiedBadge } from './VerifiedBadge';
 
 interface FloatingActionsProps {
   onOpenAskAI?: () => void;
-  onOpenPaymentQR?: () => void;
   lang?: 'hi' | 'gu' | 'en';
 }
 
 export const FloatingActions: React.FC<FloatingActionsProps> = ({ 
   lang = 'hi',
-  onOpenPaymentQR,
 }) => {
   const callHeadline = lang === 'en' 
     ? 'Direct Phone Consultation' 
@@ -104,29 +102,6 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
           High-end royal buttons for laptop & desktop users
           ========================================================================= */}
       <div className="hidden md:flex fixed bottom-6 right-6 z-50 pointer-events-auto select-none print:hidden flex-col items-end gap-3">
-        {/* Desktop PhonePe Payment QR Button */}
-        {onOpenPaymentQR && (
-          <div className="relative">
-            <button
-              type="button"
-              onClick={onOpenPaymentQR}
-              className="relative flex items-center gap-2.5 bg-gradient-to-r from-[#5f259f] via-[#7b2cbf] to-[#4a154b] text-white py-2 px-4 rounded-full shadow-[0_4px_16px_rgba(95,37,159,0.4)] border-2 border-purple-300 transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
-              title="PhonePe / UPI QR कोड से दक्षिणा या परामर्श शुल्क दें"
-            >
-              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-[#5f259f] shadow-xs shrink-0 font-bold text-xs">
-                पे
-              </span>
-
-              <div className="flex items-center gap-1.5 leading-tight">
-                <span className="font-yatra text-sm font-bold text-amber-200 tracking-wide">
-                  {lang === 'en' ? 'Pay Dakshina' : lang === 'hi' ? 'दक्षिणा / QR' : 'દક્ષિણા / QR'}
-                </span>
-                <VerifiedBadge size="xs" tooltipText="सत्यापित PhonePe QR" />
-              </div>
-            </button>
-          </div>
-        )}
-
         {/* Desktop WhatsApp Chat Button */}
         <div className="relative">
           <a

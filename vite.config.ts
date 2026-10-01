@@ -31,8 +31,8 @@ export default defineConfig(() => {
               if (id.includes('motion')) {
                 return 'vendor-motion';
               }
-              if (id.includes('qrcode.react') || id.includes('canvas-confetti')) {
-                return 'vendor-qr';
+              if (id.includes('canvas-confetti')) {
+                return 'vendor-effects';
               }
               return 'vendor-core';
             }

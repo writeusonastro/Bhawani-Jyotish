@@ -159,32 +159,6 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
                   </span>
                 </button>
               </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const el = document.getElementById('payment-qr-section');
-                    if (el) {
-                      el.scrollIntoView({ behavior: 'smooth' });
-                    } else {
-                      setActiveTab('contact');
-                      setTimeout(() => {
-                        document.getElementById('payment-qr-section')?.scrollIntoView({ behavior: 'smooth' });
-                      }, 100);
-                    }
-                  }}
-                  className="hover:text-[#ffd236] transition-colors flex items-center gap-1.5 text-purple-300 font-bold cursor-pointer"
-                >
-                  <span className="text-purple-400">▸</span>
-                  <span>
-                    {lang === 'en' 
-                      ? 'PhonePe / UPI Dakshina QR' 
-                      : lang === 'gu' 
-                      ? 'PhonePe / UPI દક્ષિણા QR કોડ' 
-                      : 'PhonePe / UPI दक्षिणा QR कोड'}
-                  </span>
-                </button>
-              </li>
             </ul>
           </div>
 
