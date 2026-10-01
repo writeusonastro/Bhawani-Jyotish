@@ -740,6 +740,7 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [abroadSearchTerm, setAbroadSearchTerm] = useState<string>('');
   const [abroadFilterCategory, setAbroadFilterCategory] = useState<string>('all');
+  const [isAbroadExpanded, setIsAbroadExpanded] = useState<boolean>(false);
 
   const filteredAbroadQueries = useMemo(() => {
     return ABROAD_KEYWORD_DIRECTORY.filter((item) => {
@@ -750,6 +751,13 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
       return matchesCategory && matchesSearch;
     });
   }, [abroadSearchTerm, abroadFilterCategory]);
+
+  const displayedAbroadQueries = useMemo(() => {
+    if (abroadSearchTerm.trim() || abroadFilterCategory !== 'all' || isAbroadExpanded) {
+      return filteredAbroadQueries;
+    }
+    return filteredAbroadQueries.slice(0, 6);
+  }, [filteredAbroadQueries, abroadSearchTerm, abroadFilterCategory, isAbroadExpanded]);
 
   const activeInfo = COUNTRIES.find((c) => c.code === selectedCountry) || COUNTRIES[0];
 
@@ -774,13 +782,13 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
 
   return (
     <section id="international-consultation" className="py-14 px-4 max-w-7xl mx-auto">
-      <div className="rounded-3xl border border-[#FF671F]/30 bg-gradient-to-b from-white via-[#FFFDF9] to-[#FFF5F0] p-6 sm:p-10 shadow-xl shadow-[#FF671F]/10">
+      <div className="rounded-3xl border border-amber-500/30 bg-[#0c1334] p-6 sm:p-10 shadow-2xl shadow-black/50 text-slate-100">
         
         {/* Top Header Badge */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <div>
-            <div className="inline-flex items-center gap-2 bg-[#FFF5F0] text-[#CC5218] px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold border border-[#FF671F]/30 shadow-sm">
-              <Globe2 className="w-4 h-4 text-[#FF671F] animate-pulse" />
+            <div className="inline-flex items-center gap-2 bg-[#070b1e] text-[#ffd236] px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold border border-amber-500/30 shadow-sm">
+              <Globe2 className="w-4 h-4 text-[#f99c00] animate-pulse" />
               <span>
                 {lang === 'en'
                   ? 'Worldwide & NRI Vedic Astrology Consultation'
@@ -790,7 +798,7 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
               </span>
             </div>
 
-            <h2 className="font-yatra text-2xl sm:text-3xl lg:text-4xl text-stone-950 mt-3">
+            <h2 className="font-mukta font-extrabold text-2xl sm:text-3xl lg:text-4xl royal-gold-gradient-text mt-3 tracking-normal">
               {lang === 'en'
                 ? 'Best Indian & Gujarati Astrologer for USA, UK, Canada, UAE & Worldwide'
                 : lang === 'hi'
@@ -798,7 +806,7 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                 : 'USA, UK, કેનેડા, UAE, ઓસ્ટ્રેલિયા અને વિશ્વભર માટે #1 અધિકૃત વૈદિક જ્યોતિષાચાર્ય'}
             </h2>
 
-            <p className="text-xs sm:text-sm text-stone-950 font-medium max-w-3xl mt-2 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-3xl mt-2 leading-relaxed">
               {lang === 'en'
                 ? 'Serving NRI families worldwide with Daylight Saving Time (DST) corrected Vedic birth charts, 36 Gun Milan marriage matchmaking, overseas career counseling, and authentic Gujarati/Hindi astrological counsel across all timezones.'
                 : lang === 'hi'
@@ -807,8 +815,8 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl border border-amber-200 shadow-sm text-xs font-bold text-stone-950">
-            <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
+          <div className="flex items-center gap-2 bg-[#070b1e] px-4 py-2 rounded-2xl border border-white/10 shadow-sm text-xs font-bold text-slate-200">
+            <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
             <span>
               {lang === 'en' ? '35+ Years Proven Vedic Heritage | 100% Confidential' : '35+ वर्षों का प्रामाणिक अनुभव | पूर्णतः गोपनीय'}
             </span>
@@ -816,17 +824,17 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
         </div>
 
         {/* Global Payment & Timezone Trust Strip */}
-        <div className="mb-8 p-3.5 rounded-2xl bg-white border border-[#FF671F]/20 shadow-sm flex flex-wrap items-center justify-between gap-4 text-xs font-semibold text-stone-950">
+        <div className="mb-8 p-3.5 rounded-2xl bg-[#070b1e] border border-amber-500/20 shadow-sm flex flex-wrap items-center justify-between gap-4 text-xs font-semibold text-slate-300">
           <div className="flex items-center gap-2">
-            <CreditCard className="w-4 h-4 text-[#FF671F]" />
-            <span className="font-bold text-stone-950">
+            <CreditCard className="w-4 h-4 text-[#f99c00]" />
+            <span className="font-bold text-[#ffd236]">
               {lang === 'en' ? 'Global Payments Accepted:' : 'वैश्विक भुगतान माध्यम:'}
             </span>
-            <span className="text-stone-700">PayPal • Wise • Remitly • Cards • Wire Transfer • Western Union</span>
+            <span className="text-slate-400">PayPal • Wise • Remitly • Cards • Wire Transfer • Western Union</span>
           </div>
           <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-emerald-600" />
-            <span className="text-emerald-800 font-bold">
+            <Clock className="w-4 h-4 text-emerald-400" />
+            <span className="text-emerald-400 font-bold">
               {lang === 'en' ? 'Flexible Timezone Appointments (EST, PST, CST, GMT, GST, AEST)' : 'आपके देश के अनुकूल समय पर परामर्श'}
             </span>
           </div>
@@ -842,8 +850,8 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                 onClick={() => setSelectedCountry(c.code)}
                 className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 border shadow-sm ${
                   isSelected
-                    ? 'bg-[#FF671F] text-white border-[#CC5218] shadow-md shadow-[#FF671F]/20 scale-105'
-                    : 'bg-white text-stone-950 border-stone-200 hover:border-[#FF671F]/50 hover:bg-[#FFF5F0]'
+                    ? 'bg-gradient-to-r from-[#f99c00] to-[#fcbb00] text-black border-amber-400 shadow-md shadow-amber-500/20 font-black scale-105'
+                    : 'bg-[#070b1e] text-slate-300 border-white/10 hover:border-amber-400/40 hover:bg-[#121b44]'
                 }`}
               >
                 <span>{c.flag}</span>
@@ -854,18 +862,18 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
         </div>
 
         {/* Selected Country Deep-Dive Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-white p-6 sm:p-8 rounded-3xl border border-[#FF671F]/20 shadow-lg mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-[#070b1e] p-6 sm:p-8 rounded-3xl border border-amber-500/30 shadow-xl mb-8">
           <div className="lg:col-span-7 space-y-4">
             <div className="flex items-center gap-3">
               <span className="text-4xl">{activeInfo.flag}</span>
               <div>
-                <h3 className="font-yatra text-xl sm:text-2xl text-stone-950">
+                <h3 className="font-yatra text-xl sm:text-2xl text-white">
                   {lang === 'en'
                     ? `Vedic Astrology Services for Devotees in ${activeInfo.name}`
                     : `${activeInfo.nameHi} के जातकों हेतु विशेष सेवाएं`}
                 </h3>
-                <div className="flex items-center gap-1.5 text-xs font-bold text-[#CC5218] mt-0.5">
-                  <Clock className="w-3.5 h-3.5" />
+                <div className="flex items-center gap-1.5 text-xs font-bold text-[#ffd236] mt-0.5">
+                  <Clock className="w-3.5 h-3.5 text-[#f99c00]" />
                   <span>
                     {lang === 'en' ? `Timezone Support: ${activeInfo.timezone}` : `टाइमज़ोन सुविधा: ${activeInfo.timezone}`}
                   </span>
@@ -873,13 +881,13 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-stone-950 font-medium leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
               {lang === 'en' ? activeInfo.description : lang === 'hi' ? activeInfo.descriptionHi : activeInfo.descriptionGu}
             </p>
 
-            <div className="p-3 rounded-xl bg-[#FFFDF9] border border-stone-200 text-xs text-stone-950">
-              <strong className="text-stone-950 font-bold block mb-1">
-                <MapPin className="w-3.5 h-3.5 inline text-[#FF671F] mr-1" />
+            <div className="p-3 rounded-xl bg-[#0c1334] border border-white/10 text-xs text-slate-300">
+              <strong className="text-[#ffd236] font-bold block mb-1">
+                <MapPin className="w-3.5 h-3.5 inline text-[#f99c00] mr-1" />
                 {lang === 'en' ? 'Key Metros & Communities Served:' : 'प्रमुख शहर व क्षेत्र:'}
               </strong>
               <span>{lang === 'en' ? activeInfo.popularCities : lang === 'hi' ? activeInfo.popularCitiesHi : activeInfo.popularCitiesGu}</span>
@@ -890,19 +898,19 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
               {activeInfo.keyServices.map((service, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-2 p-2.5 rounded-xl border border-stone-200 bg-[#FFFDF9] text-xs font-bold text-stone-950"
+                  className="flex items-center gap-2 p-2.5 rounded-xl border border-white/10 bg-[#0c1334] text-xs font-bold text-slate-200"
                 >
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>{service}</span>
                 </div>
               ))}
             </div>
 
             {/* DST Accuracy Feature Callout */}
-            <div className="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs font-medium text-stone-950 flex items-start gap-2.5">
-              <Sparkles className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+            <div className="p-3.5 rounded-2xl bg-amber-950/30 border border-amber-500/30 text-xs font-medium text-slate-300 flex items-start gap-2.5">
+              <Sparkles className="w-4 h-4 text-[#ffd236] shrink-0 mt-0.5" />
               <div>
-                <strong className="font-bold text-stone-950">
+                <strong className="font-bold text-[#ffd236]">
                   {lang === 'en' ? 'Daylight Saving Time (DST) & True Solar Lagna:' : 'डेलाइट सेविंग टाइम (DST) का सटीक समायोजन:'}
                 </strong>{' '}
                 {lang === 'en'
@@ -913,43 +921,43 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
           </div>
 
           {/* Right Action / Consultation Box */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-[#FFF5F0] to-[#FFFDF9] p-6 rounded-2xl border border-[#FF671F]/25 flex flex-col justify-between space-y-4">
+          <div className="lg:col-span-5 bg-gradient-to-br from-[#0c1334] to-[#121b44] p-6 rounded-2xl border border-amber-500/30 flex flex-col justify-between space-y-4">
             <div>
-              <div className="inline-flex items-center gap-2 text-xs font-bold text-emerald-900 bg-emerald-100/90 border border-emerald-300/80 px-3 py-1.5 rounded-full mb-3 shadow-2xs max-w-full">
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-emerald-300 bg-emerald-950/80 border border-emerald-500/40 px-3 py-1.5 rounded-full mb-3 shadow-2xs max-w-full">
                 <span className="relative flex h-2 w-2 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
                 </span>
                 <span className="whitespace-nowrap sm:whitespace-normal">
                   {lang === 'en' ? 'International Slots Open Today' : 'आज अंतर्राष्ट्रीय अपॉइंटमेंट उपलब्ध हैं'}
                 </span>
               </div>
 
-              <h4 className="font-yatra text-lg sm:text-xl text-stone-950">
+              <h4 className="font-yatra text-lg sm:text-xl text-[#ffd236]">
                 {lang === 'en' ? 'Book Personal NRI Consultation' : 'ऑनलाइन NRI परामर्श स्लॉट बुक करें'}
               </h4>
 
-              <p className="text-xs text-stone-950 font-medium mt-1 leading-relaxed">
+              <p className="text-xs text-slate-300 font-medium mt-1 leading-relaxed">
                 {lang === 'en'
                   ? 'Connect directly with Chief Astrologer Pt. Virendra Kumar Joshi on WhatsApp voice/video call or phone.'
                   : 'मुख्य ज्योतिषाचार्य पंडित विरेंद्र कुमार जोशी जी से सीधे WhatsApp ऑडियो/वीडियो कॉल अथवा फोन पर परामर्श प्राप्त करें।'}
               </p>
 
-              <div className="space-y-2 mt-4 text-xs text-stone-950 font-semibold">
+              <div className="space-y-2 mt-4 text-xs text-slate-300 font-semibold">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{lang === 'en' ? 'Consultation Languages: Gujarati, Hindi, English' : 'परामर्श भाषाएं: गुजराती, हिंदी एवं अंग्रेज़ी'}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{lang === 'en' ? 'Comprehensive Janam Kundli PDF on WhatsApp' : 'विस्तृत जन्म पत्रिका PDF आपके WhatsApp पर'}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{lang === 'en' ? 'Secure Payment via PayPal, Wise or Cards' : 'सुरक्षित ऑनलाइन शुल्क भुगतान (PayPal / Wise / Cards)'}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{lang === 'en' ? 'Post-Consultation Remedial Guidance Included' : 'परामर्श उपरांत शास्त्रोक्त उपाय व मंत्र मार्गदर्शन'}</span>
                 </div>
               </div>
@@ -970,9 +978,9 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
 
               <a
                 href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                className="w-full bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold py-2.5 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 whitespace-nowrap"
+                className="w-full bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#e08b00] hover:to-[#e5a800] text-black font-extrabold py-2.5 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 whitespace-nowrap"
               >
-                <Phone className="w-4 h-4 shrink-0" />
+                <Phone className="w-4 h-4 shrink-0 text-black" />
                 <span className="whitespace-nowrap">{lang === 'en' ? 'Direct Call: +91 99090 87902' : 'कॉल करें: +91 99090 87902'}</span>
               </a>
             </div>
@@ -981,11 +989,11 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
 
         {/* State / Province / Regional Direct Consultation Hubs */}
         {activeInfo.regions && activeInfo.regions.length > 0 && (
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FF671F]/20 shadow-md mb-8">
+          <div className="bg-[#070b1e] p-6 sm:p-8 rounded-3xl border border-amber-500/20 shadow-md mb-8">
             <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
               <div className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-[#FF671F]" />
-                <h3 className="font-yatra text-xl sm:text-2xl text-stone-950">
+                <MapPin className="w-5 h-5 text-[#f99c00]" />
+                <h3 className="font-yatra text-xl sm:text-2xl text-white">
                   {lang === 'en'
                     ? `${activeInfo.name} - State & Metro Vedic Hubs`
                     : lang === 'hi'
@@ -993,7 +1001,7 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                     : `${activeInfo.nameGu} - પ્રદેશવાર જ્યોતિષ સેવા કેન્દ્રો`}
                 </h3>
               </div>
-              <span className="text-xs font-bold text-[#CC5218] bg-[#FFF5F0] px-3 py-1 rounded-full border border-[#FF671F]/30">
+              <span className="text-xs font-bold text-[#ffd236] bg-[#0c1334] px-3 py-1 rounded-full border border-amber-500/30">
                 {lang === 'en' ? 'Hyperlocal Vedic Guidance' : 'स्थानीय समयानुसार परामर्श'}
               </span>
             </div>
@@ -1006,23 +1014,23 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                     key={region.id}
                     className={`p-4 rounded-2xl border transition-all ${
                       isRegionActive
-                        ? 'border-[#FF671F] bg-[#FFF8F4] shadow-md'
-                        : 'border-stone-200 bg-[#FFFDF9] hover:border-[#FF671F]/40'
+                        ? 'border-amber-400 bg-[#0c1334] shadow-md shadow-amber-500/10'
+                        : 'border-white/10 bg-[#0c1334] hover:border-amber-400/40'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2 mb-2">
-                      <h4 className="font-bold text-sm sm:text-base text-stone-950">
+                      <h4 className="font-bold text-sm sm:text-base text-[#ffd236]">
                         {lang === 'en' ? region.name : lang === 'hi' ? region.nameHi : region.nameGu}
                       </h4>
                     </div>
 
-                    <p className="text-xs text-stone-700 mb-2 leading-relaxed">
-                      <strong className="text-stone-900 font-semibold">{lang === 'en' ? 'Cities:' : 'शहर:'} </strong>
+                    <p className="text-xs text-slate-300 mb-2 leading-relaxed">
+                      <strong className="text-white font-semibold">{lang === 'en' ? 'Cities:' : 'शहर:'} </strong>
                       {lang === 'en' ? region.hubs : lang === 'hi' ? region.hubsHi : region.hubsGu}
                     </p>
 
-                    <p className="text-xs text-stone-800 font-medium mb-3 bg-white p-2.5 rounded-xl border border-stone-100">
-                      <Sparkles className="w-3.5 h-3.5 inline text-amber-600 mr-1" />
+                    <p className="text-xs text-slate-300 font-medium mb-3 bg-[#070b1e] p-2.5 rounded-xl border border-white/5">
+                      <Sparkles className="w-3.5 h-3.5 inline text-[#ffd236] mr-1" />
                       {lang === 'en' ? region.specialty : lang === 'hi' ? region.specialtyHi : region.specialtyGu}
                     </p>
 
@@ -1031,7 +1039,7 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                       {region.topQueries.map((q, idx) => (
                         <span
                           key={idx}
-                          className="text-[10px] font-semibold text-stone-700 bg-stone-100 px-2 py-0.5 rounded-md border border-stone-200"
+                          className="text-[10px] font-semibold text-slate-300 bg-[#070b1e] px-2 py-0.5 rounded-md border border-white/10"
                         >
                           {q}
                         </span>
@@ -1059,16 +1067,16 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
         )}
 
         {/* 5 Specialized Abroad Vedic Services Grid */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FF671F]/20 shadow-md mb-8">
+        <div className="bg-[#070b1e] p-6 sm:p-8 rounded-3xl border border-amber-500/20 shadow-md mb-8">
           <div className="text-center max-w-3xl mx-auto mb-6">
-            <h3 className="font-yatra text-xl sm:text-2xl text-stone-950">
+            <h3 className="font-yatra text-xl sm:text-2xl royal-gold-gradient-text">
               {lang === 'en'
                 ? 'Core Vedic Solutions Tailored for NRIs Abroad'
                 : lang === 'hi'
                 ? 'विदेश में बसे भारतीयों हेतु 5 विशिष्ट शास्त्रोक्त समाधान'
                 : 'વિદેશ વસતા પરિવારો માટે ૫ વિશેષ વૈદિક સમાધાન'}
             </h3>
-            <p className="text-xs sm:text-sm text-stone-700 mt-1">
+            <p className="text-xs sm:text-sm text-slate-300 mt-1">
               {lang === 'en'
                 ? 'Combining traditional Parashari principles with modern timezone precision for accurate life guidance.'
                 : 'पाराशर ऋषि परंपरा एवं आधुनिक समय-गणित का समन्वय, जिससे विदेश में भी प्राप्त हो शत-प्रतिशत प्रामाणिक फलकथन।'}
@@ -1076,84 +1084,84 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="p-4 rounded-2xl border border-stone-200 bg-[#FFFDF9] hover:border-[#FF671F]/40 transition-all">
-              <div className="w-9 h-9 rounded-xl bg-[#FFF5F0] flex items-center justify-center text-[#CC5218] font-bold text-lg mb-3">
+            <div className="p-4 rounded-2xl border border-white/10 bg-[#0c1334] hover:border-amber-400/40 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#070b1e] flex items-center justify-center text-[#ffd236] font-bold text-lg mb-3 border border-white/10">
                 🛂
               </div>
-              <h4 className="font-bold text-sm sm:text-base text-stone-950 mb-1.5">
+              <h4 className="font-bold text-sm sm:text-base text-white mb-1.5">
                 {lang === 'en' ? 'H1B Visa, PR & Career Settlement' : 'वीजा, PR एवं विदेशी नागरिकता योग'}
               </h4>
-              <p className="text-xs text-stone-700 leading-relaxed">
+              <p className="text-xs text-slate-300 leading-relaxed">
                 {lang === 'en'
                   ? 'Analyze 9th & 12th houses, Rahu-Jupiter transits, and D-10 Dasamsha chart to determine precise timing for US H1B approvals, Canada PR, UK Work Visa, and foreign job changes.'
                   : 'नवम व द्वादश भाव, राहु-गुरु गोचर एवं दशमांश चक्र के विश्लेषण द्वारा वीजा स्वीकृति, पीआर प्राप्ति, ग्रीन कार्ड एवं नौकरी परिवर्तन का सटीक समय निर्धारण।'}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl border border-stone-200 bg-[#FFFDF9] hover:border-[#FF671F]/40 transition-all">
-              <div className="w-9 h-9 rounded-xl bg-[#FFF5F0] flex items-center justify-center text-[#CC5218] font-bold text-lg mb-3">
+            <div className="p-4 rounded-2xl border border-white/10 bg-[#0c1334] hover:border-amber-400/40 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#070b1e] flex items-center justify-center text-[#ffd236] font-bold text-lg mb-3 border border-white/10">
                 💍
               </div>
-              <h4 className="font-bold text-sm sm:text-base text-stone-950 mb-1.5">
+              <h4 className="font-bold text-sm sm:text-base text-white mb-1.5">
                 {lang === 'en' ? 'Cross-Continental 36 Gun Milan' : 'अंतर्राष्ट्रीय 36 गुण विवाह मिलान'}
               </h4>
-              <p className="text-xs text-stone-700 leading-relaxed">
+              <p className="text-xs text-slate-300 leading-relaxed">
                 {lang === 'en'
                   ? 'Accurate matchmaking across different continents and timezones. Detailed analysis of Ashtakoota points, Manglik Dosh, Nadi Dosh, and 7th house marital compatibility.'
                   : 'विभिन्न देशों व टाइमज़ोन में रहने वाले वर-वधू का अष्टकूट 36 गुण मिलान, नाड़ी दोष, भकूट विचार एवं सप्तम भाव से दांपत्य सुख का विस्तृत शास्त्रोक्त विश्लेषण।'}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl border border-stone-200 bg-[#FFFDF9] hover:border-[#FF671F]/40 transition-all">
-              <div className="w-9 h-9 rounded-xl bg-[#FFF5F0] flex items-center justify-center text-[#CC5218] font-bold text-lg mb-3">
+            <div className="p-4 rounded-2xl border border-white/10 bg-[#0c1334] hover:border-amber-400/40 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#070b1e] flex items-center justify-center text-[#ffd236] font-bold text-lg mb-3 border border-white/10">
                 👶
               </div>
-              <h4 className="font-bold text-sm sm:text-base text-stone-950 mb-1.5">
+              <h4 className="font-bold text-sm sm:text-base text-white mb-1.5">
                 {lang === 'en' ? 'Foreign Birth DST Lagna Rectification' : 'विदेश में जन्मे बालकों की शुद्ध कुंडली'}
               </h4>
-              <p className="text-xs text-stone-700 leading-relaxed">
+              <p className="text-xs text-slate-300 leading-relaxed">
                 {lang === 'en'
                   ? 'Exact mathematical correction for Daylight Saving Time (DST) and Local Mean Time (LMT) ensuring correct Ascendant (Lagna) and Nakshatra for children born overseas.'
                   : 'अमेरिका, कनाडा, ब्रिटेन में जन्मे बच्चों के जन्म समय में डेलाइट सेविंग (DST) का वैज्ञानिक समायोजन कर शत-प्रतिशत शुद्ध लग्न चक्र, नक्षत्र चरण व नामकरण अक्षर।'}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl border border-stone-200 bg-[#FFFDF9] hover:border-[#FF671F]/40 transition-all">
-              <div className="w-9 h-9 rounded-xl bg-[#FFF5F0] flex items-center justify-center text-[#CC5218] font-bold text-lg mb-3">
+            <div className="p-4 rounded-2xl border border-white/10 bg-[#0c1334] hover:border-amber-400/40 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#070b1e] flex items-center justify-center text-[#ffd236] font-bold text-lg mb-3 border border-white/10">
                 🏡
               </div>
-              <h4 className="font-bold text-sm sm:text-base text-stone-950 mb-1.5">
+              <h4 className="font-bold text-sm sm:text-base text-white mb-1.5">
                 {lang === 'en' ? 'Remote Property & Commercial Vastu' : 'विदेशी मकान व व्यापारिक वास्तु ऑडिट'}
               </h4>
-              <p className="text-xs text-stone-700 leading-relaxed">
+              <p className="text-xs text-slate-300 leading-relaxed">
                 {lang === 'en'
                   ? 'Digital evaluation of architectural floor plans for houses, condominiums, retail shops, and offices in USA, Canada, UK, and UAE without demolition.'
                   : 'विदेश में खरीदे जा रहे घर, विला, कोंडो अथवा व्यावसायिक स्टोर के फ्लोर प्लान का वास्तु निरीक्षण एवं बिना तोड़-फोड़ के प्रभावी वैदिक ऊर्जा संतुलन उपाय।'}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl border border-stone-200 bg-[#FFFDF9] hover:border-[#FF671F]/40 transition-all">
-              <div className="w-9 h-9 rounded-xl bg-[#FFF5F0] flex items-center justify-center text-[#CC5218] font-bold text-lg mb-3">
+            <div className="p-4 rounded-2xl border border-white/10 bg-[#0c1334] hover:border-amber-400/40 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#070b1e] flex items-center justify-center text-[#ffd236] font-bold text-lg mb-3 border border-white/10">
                 🪔
               </div>
-              <h4 className="font-bold text-sm sm:text-base text-stone-950 mb-1.5">
+              <h4 className="font-bold text-sm sm:text-base text-white mb-1.5">
                 {lang === 'en' ? 'Distant Vedic Puja Sankalp at Tirthas' : 'तीर्थों पर दूरस्थ संकल्प पूजा व शांति'}
               </h4>
-              <p className="text-xs text-stone-700 leading-relaxed">
+              <p className="text-xs text-slate-300 leading-relaxed">
                 {lang === 'en'
                   ? 'Participate remotely via video sankalp for Kaal Sarp Dosh Shanti, Pitra Dosh Tarpan, and Navagraha Homa performed at sacred Indian pilgrimage sites.'
                   : 'सिद्धपुर (मातृ-गया), सोमनाथ, महाकालेश्वर उज्जैन तीर्थ पर आपके नाम-गोत्र से लाइव वीडियो कॉल संकल्प द्वारा कालसर्प, पितृ दोष व नवग्रह अनुष्ठान।'}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl border border-stone-200 bg-[#FFFDF9] hover:border-[#FF671F]/40 transition-all">
-              <div className="w-9 h-9 rounded-xl bg-[#FFF5F0] flex items-center justify-center text-[#CC5218] font-bold text-lg mb-3">
+            <div className="p-4 rounded-2xl border border-white/10 bg-[#0c1334] hover:border-amber-400/40 transition-all">
+              <div className="w-9 h-9 rounded-xl bg-[#070b1e] flex items-center justify-center text-[#ffd236] font-bold text-lg mb-3 border border-white/10">
                 🗣️
               </div>
-              <h4 className="font-bold text-sm sm:text-base text-stone-950 mb-1.5">
+              <h4 className="font-bold text-sm sm:text-base text-white mb-1.5">
                 {lang === 'en' ? 'Native Gujarati & Hindi Family Counsel' : 'मातृभाषा गुजराती व हिंदी में आत्मीय चर्चा'}
               </h4>
-              <p className="text-xs text-stone-700 leading-relaxed">
+              <p className="text-xs text-slate-300 leading-relaxed">
                 {lang === 'en'
                   ? 'Direct discussion with family elders in fluent Gujarati or Hindi. No hurry, empathetic listening, and practical Vedic remedies.'
                   : 'परिवार के वरिष्ठ सदस्यों के साथ शुद्ध गुजराती अथवा हिंदी में पूर्ण आत्मीयता से चर्चा। बिना किसी जल्दबाजी के गहन समस्या समाधान व जीवन मार्गदर्शन।'}
@@ -1163,21 +1171,21 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
         </div>
 
         {/* Worldwide High-Ranking NRI Search & Keyword Directory */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FF671F]/25 shadow-lg mb-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div className="bg-[#070b1e] p-4 sm:p-6 rounded-3xl border border-amber-500/25 shadow-lg mb-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-[#CC5218] text-xs font-bold mb-2">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0c1334] border border-amber-500/30 text-[#ffd236] text-xs font-bold mb-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-[#f99c00]" />
                 <span>{lang === 'en' ? 'Global High-Intent Search Queries & NRI Directory' : 'विदेशों में सर्वाधिक खोजे जाने वाले ज्योतिष विषय एवं शहर'}</span>
               </div>
-              <h3 className="font-yatra text-xl sm:text-2xl text-stone-950">
+              <h3 className="font-mukta font-extrabold text-xl sm:text-2xl royal-gold-gradient-text tracking-normal">
                 {lang === 'en'
                   ? 'Trending NRI Astrology Searches & Popular Abroad Keywords'
                   : lang === 'hi'
                   ? 'NRI जातकों द्वारा सर्वाधिक सर्च किए जाने वाले ज्योतिष विषय'
                   : 'NRI જાતકો દ્વારા સૌથી વધુ સર્ચ થતાં જ્યોતિષ વિષયો'}
               </h3>
-              <p className="text-xs sm:text-sm text-stone-600 mt-1">
+              <p className="text-xs sm:text-sm text-slate-300 mt-0.5">
                 {lang === 'en'
                   ? 'Click any keyword or query to connect directly on WhatsApp with Acharya Ji for specialized consultation.'
                   : 'किसी भी विषय पर क्लिक कर सीधे WhatsApp पर आचार्य जी से तुरंत शास्त्रोक्त समाधान प्राप्त करें।'}
@@ -1186,95 +1194,211 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
 
             {/* Quick search input */}
             <div className="relative min-w-[240px] sm:min-w-[280px]">
-              <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={abroadSearchTerm}
                 onChange={(e) => setAbroadSearchTerm(e.target.value)}
                 placeholder={lang === 'en' ? 'Search query or city (e.g. Dallas, PR, Love)...' : 'खोजें (उदा. Dallas, PR, लव, वेम्बली)...'}
-                className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-2xl border border-stone-200 focus:outline-none focus:border-[#133E7C] focus:ring-1 focus:ring-[#133E7C] bg-[#FFFDF9] text-stone-950 font-medium"
+                className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-2xl border border-white/10 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 bg-[#0c1334] text-white placeholder:text-slate-400 font-medium"
               />
             </div>
           </div>
 
-          {/* Category Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-5 no-scrollbar scroll-smooth">
-            {ABROAD_SEARCH_CATEGORIES.map((cat) => {
-              const isActive = abroadFilterCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setAbroadFilterCategory(cat.id)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border shadow-xs ${
-                    isActive
-                      ? 'bg-[#133E7C] text-white border-[#0E2E5C] shadow-sm scale-102'
-                      : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100 hover:border-stone-300'
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Keyword Query Grid */}
-          {filteredAbroadQueries.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {filteredAbroadQueries.map((item) => {
-                const waLink = getWhatsAppQueryLink(item.query, item.categoryLabel);
+          {/* Filter, Search & View Toggle Bar */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-3">
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar scroll-smooth flex-1 min-w-0">
+              {ABROAD_SEARCH_CATEGORIES.map((cat) => {
+                const isActive = abroadFilterCategory === cat.id;
                 return (
-                  <div
-                    key={item.id}
-                    className="p-3.5 rounded-2xl border border-stone-200 bg-[#FFFDF9] hover:border-[#133E7C]/40 hover:shadow-md transition-all flex flex-col justify-between group"
+                  <button
+                    key={cat.id}
+                    onClick={() => {
+                      setAbroadFilterCategory(cat.id);
+                      if (cat.id !== 'all') {
+                        setIsAbroadExpanded(true);
+                      }
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all border shadow-xs cursor-pointer ${
+                      isActive
+                        ? 'bg-gradient-to-r from-[#f99c00] to-[#fcbb00] text-black border-amber-400 shadow-sm font-black scale-102'
+                        : 'bg-[#0c1334] text-slate-300 border-white/10 hover:bg-[#121b44] hover:border-amber-400/30'
+                    }`}
                   >
-                    <div>
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-base">{item.flag}</span>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-                            {item.categoryLabel}
-                          </span>
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-stone-100 text-stone-600">
-                            {item.intentBadge}
-                          </span>
-                        </div>
-                      </div>
-                      <h4 className="text-xs sm:text-sm font-bold text-stone-950 group-hover:text-[#133E7C] transition-colors leading-snug">
-                        {item.query}
-                      </h4>
-                    </div>
-
-                    <a
-                      href={waLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3.5 inline-flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-xl bg-[#133E7C] hover:bg-[#0E2E5C] text-white text-xs font-bold transition-all shadow-xs border border-amber-300/30"
-                    >
-                      <MessageCircle className="w-3.5 h-3.5 text-amber-300" />
-                      <span>{lang === 'en' ? 'Consult on WhatsApp' : 'WhatsApp परामर्श लें'}</span>
-                    </a>
-                  </div>
+                    {cat.label}
+                  </button>
                 );
               })}
             </div>
-          ) : (
-            <div className="text-center py-8 text-stone-500 text-xs">
-              <p>{lang === 'en' ? 'No queries match your search. Try another keyword like "USA", "London", "PR", or "Milan".' : 'कोई परिणाम नहीं मिला। कृपया दूसरा शब्द खोजें।'}</p>
-              <button
-                onClick={() => { setAbroadSearchTerm(''); setAbroadFilterCategory('all'); }}
-                className="mt-3 text-xs font-bold text-[#133E7C] underline"
+
+            {/* View Mode Toggle Button */}
+            <button
+              onClick={() => setIsAbroadExpanded(!isAbroadExpanded)}
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#0c1334] hover:bg-[#121b44] text-[#ffd236] border border-amber-500/40 hover:border-amber-400 shadow-xs transition-all shrink-0 cursor-pointer"
+            >
+              <span>
+                {isAbroadExpanded
+                  ? (lang === 'en' ? '▲ Compact View' : '▲ संक्षेप करें (Compact)')
+                  : (lang === 'en' ? `▼ View 32 Cards Grid` : `▼ 32 कार्ड ग्रिड देखें`)}
+              </span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isAbroadExpanded ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+
+          {/* Mode 1: Compact Horizontal Stream (Zero Vertical Scroll Fatigue, Height ~48px) */}
+          {!isAbroadExpanded && !abroadSearchTerm.trim() && abroadFilterCategory === 'all' && (
+            <div className="space-y-2">
+              <div 
+                className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 no-scrollbar scroll-smooth"
+                itemScope 
+                itemType="https://schema.org/SiteNavigationElement"
               >
-                {lang === 'en' ? 'Reset Search Filters' : 'फ़िल्टर रीसेट करें'}
-              </button>
+                {ABROAD_KEYWORD_DIRECTORY.map((item) => {
+                  const waLink = getWhatsAppQueryLink(item.query, item.categoryLabel);
+                  return (
+                    <a
+                      key={item.id}
+                      href={waLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={item.query}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0c1334] hover:bg-[#121b44] border border-white/10 hover:border-amber-400/50 text-white hover:text-[#ffd236] transition-all whitespace-nowrap text-xs font-medium shrink-0 group shadow-xs"
+                    >
+                      <span className="text-base">{item.flag}</span>
+                      <span className="group-hover:underline font-semibold">{item.query}</span>
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-amber-950/80 text-[#ffd236] border border-amber-500/30">
+                        {item.categoryLabel}
+                      </span>
+                      <MessageCircle className="w-3.5 h-3.5 text-[#25D366] shrink-0 ml-0.5 group-hover:scale-110 transition-transform" />
+                    </a>
+                  );
+                })}
+              </div>
+              <div className="flex items-center justify-between text-[11px] text-slate-400 px-1">
+                <span className="flex items-center gap-1.5">
+                  <span className="text-amber-400">👉</span>
+                  <span>{lang === 'en' ? 'Swipe horizontally to explore all 32 global queries, or click "View 32 Cards Grid"' : 'सभी 32 विषय देखने हेतु दाएं-बाएं स्वाइप करें, या "32 कार्ड ग्रिड देखें" पर क्लिक करें'}</span>
+                </span>
+                <button
+                  onClick={() => setIsAbroadExpanded(true)}
+                  className="text-[#ffd236] font-bold hover:underline shrink-0 hidden sm:inline-block cursor-pointer"
+                >
+                  {lang === 'en' ? 'Open Grid →' : 'विस्तृत ग्रिड खोलें →'}
+                </button>
+              </div>
             </div>
           )}
+
+          {/* Mode 2: Full Card Grid (Active when user clicks expand or searches) */}
+          {(isAbroadExpanded || abroadSearchTerm.trim() || abroadFilterCategory !== 'all') && (
+            <>
+              {filteredAbroadQueries.length > 0 ? (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {filteredAbroadQueries.map((item) => {
+                      const waLink = getWhatsAppQueryLink(item.query, item.categoryLabel);
+                      return (
+                        <div
+                          key={item.id}
+                          className="p-3 sm:p-3.5 rounded-2xl border border-white/10 bg-[#0c1334] hover:border-amber-400/40 hover:shadow-md transition-all flex flex-col justify-between group"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between gap-1.5 mb-1.5">
+                              <span className="text-base shrink-0">{item.flag}</span>
+                              <div className="flex items-center gap-1">
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-950/80 text-[#ffd236] border border-amber-500/30 whitespace-nowrap">
+                                  {item.categoryLabel}
+                                </span>
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#070b1e] text-slate-300 border border-white/5 whitespace-nowrap hidden min-[400px]:inline-block">
+                                  {item.intentBadge}
+                                </span>
+                              </div>
+                            </div>
+                            <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-[#ffd236] transition-colors leading-snug line-clamp-2">
+                              {item.query}
+                            </h4>
+                          </div>
+
+                          <a
+                            href={waLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2.5 inline-flex items-center justify-center gap-1.5 w-full py-1.5 px-3 rounded-xl bg-[#070b1e] hover:bg-[#121b44] text-[#ffd236] text-[11px] sm:text-xs font-bold transition-all shadow-xs border border-amber-500/30"
+                          >
+                            <MessageCircle className="w-3.5 h-3.5 text-[#ffd236] shrink-0" />
+                            <span>{lang === 'en' ? 'WhatsApp Consult' : 'WhatsApp परामर्श'}</span>
+                          </a>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Collapse back to compact view */}
+                  <div className="mt-4 text-center">
+                    <button
+                      onClick={() => {
+                        setIsAbroadExpanded(false);
+                        setAbroadFilterCategory('all');
+                        setAbroadSearchTerm('');
+                      }}
+                      className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold bg-[#0c1334] hover:bg-[#121b44] text-[#ffd236] border border-amber-500/40 hover:border-amber-400 shadow-md transition-all active:scale-95 cursor-pointer"
+                    >
+                      <span>
+                        {lang === 'en' ? '▲ Collapse to Compact View' : '▲ संक्षेप में समेटें (Compact View)'}
+                      </span>
+                      <ChevronDown className="w-3.5 h-3.5 rotate-180" />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="text-center py-6 text-slate-400 text-xs">
+                  <p>{lang === 'en' ? 'No queries match your search. Try another keyword like "USA", "London", "PR", or "Milan".' : 'कोई परिणाम नहीं मिला। कृपया दूसरा शब्द खोजें।'}</p>
+                  <button
+                    onClick={() => { setAbroadSearchTerm(''); setAbroadFilterCategory('all'); }}
+                    className="mt-2 text-xs font-bold text-[#ffd236] underline cursor-pointer"
+                  >
+                    {lang === 'en' ? 'Reset Search Filters' : 'फ़िल्टर रीसेट करें'}
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* Search Engine Crawlable Keyword Index (100% SEO, Indexing & Anchor Safe) */}
+          <div className="mt-4 pt-3 border-t border-white/10">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-slate-400 mb-2">
+              <span className="font-bold text-slate-300">
+                {lang === 'en' ? 'All NRI Keyword Searches & Global Location Hubs:' : 'संपूर्ण NRI ज्योतिष खोज अनुक्रमणिका (All Keywords & Cities):'}
+              </span>
+              <span className="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3 text-emerald-400" />
+                {lang === 'en' ? 'Verified Worldwide Vedic Search Index' : 'प्रमाणित वैश्विक वैदिक सर्च इंडेक्स'}
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-1.5" itemScope itemType="https://schema.org/SiteNavigationElement">
+              {ABROAD_KEYWORD_DIRECTORY.map((item) => (
+                <a
+                  key={item.id}
+                  href={getWhatsAppQueryLink(item.query, item.categoryLabel)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={item.query}
+                  className="text-[10px] sm:text-[11px] px-2.5 py-1 rounded-lg bg-[#0c1334]/80 hover:bg-amber-500/15 text-slate-300 hover:text-[#ffd236] border border-white/5 hover:border-amber-400/40 transition-colors inline-flex items-center gap-1"
+                >
+                  <span>{item.flag}</span>
+                  <span>{item.query}</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Overseas Client FAQ Accordion for On-Page SEO */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FF671F]/20 shadow-md mb-8">
+        <div className="bg-[#070b1e] p-6 sm:p-8 rounded-3xl border border-amber-500/20 shadow-md mb-8">
           <div className="flex items-center gap-2 mb-6">
-            <HelpCircle className="w-5 h-5 text-[#FF671F]" />
-            <h3 className="font-yatra text-xl sm:text-2xl text-stone-950">
+            <HelpCircle className="w-5 h-5 text-[#f99c00]" />
+            <h3 className="font-yatra text-xl sm:text-2xl royal-gold-gradient-text">
               {lang === 'en'
                 ? 'Frequently Asked Questions by NRI & Overseas Clients'
                 : lang === 'hi'
@@ -1289,22 +1413,22 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-stone-200 overflow-hidden transition-all bg-[#FFFDF9]"
+                  className="rounded-2xl border border-white/10 overflow-hidden transition-all bg-[#0c1334]"
                 >
                   <button
                     onClick={() => toggleFaq(idx)}
-                    className="w-full px-5 py-4 text-left flex items-center justify-between gap-3 text-xs sm:text-sm font-bold text-stone-950 hover:text-[#CC5218] transition-colors"
+                    className="w-full px-5 py-4 text-left flex items-center justify-between gap-3 text-xs sm:text-sm font-bold text-slate-200 hover:text-[#ffd236] transition-colors"
                   >
                     <span>{lang === 'en' ? faq.qEn : lang === 'hi' ? faq.qHi : faq.qGu}</span>
                     {isOpen ? (
-                      <ChevronUp className="w-4 h-4 text-[#FF671F] shrink-0" />
+                      <ChevronUp className="w-4 h-4 text-[#ffd236] shrink-0" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-stone-500 shrink-0" />
+                      <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
                     )}
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 pb-4 pt-1 text-xs sm:text-sm font-medium text-stone-950 leading-relaxed border-t border-stone-100 bg-white">
+                    <div className="px-5 pb-4 pt-1 text-xs sm:text-sm font-medium text-slate-300 leading-relaxed border-t border-white/10 bg-[#070b1e]">
                       {lang === 'en' ? faq.aEn : lang === 'hi' ? faq.aHi : faq.aGu}
                     </div>
                   )}
@@ -1315,28 +1439,28 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
         </div>
 
         {/* Bottom Trust & Statistics Banner */}
-        <div className="pt-6 border-t border-[#FF671F]/20 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+        <div className="pt-6 border-t border-amber-500/20 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
           <div>
-            <span className="font-yatra text-xl sm:text-2xl text-[#CC5218]">35+</span>
-            <p className="text-[11px] sm:text-xs font-bold text-stone-950 mt-0.5">
+            <span className="font-yatra text-xl sm:text-2xl text-[#ffd236]">35+</span>
+            <p className="text-[11px] sm:text-xs font-bold text-slate-300 mt-0.5">
               {lang === 'en' ? 'Years Vedic Heritage' : 'वर्षों की शास्त्रोक्त साधना'}
             </p>
           </div>
           <div>
-            <span className="font-yatra text-xl sm:text-2xl text-[#CC5218]">15,000+</span>
-            <p className="text-[11px] sm:text-xs font-bold text-stone-950 mt-0.5">
+            <span className="font-yatra text-xl sm:text-2xl text-[#ffd236]">15,000+</span>
+            <p className="text-[11px] sm:text-xs font-bold text-slate-300 mt-0.5">
               {lang === 'en' ? 'Global NRI Consultations' : 'संतुष्ट NRI जातक परिवार'}
             </p>
           </div>
           <div>
-            <span className="font-yatra text-xl sm:text-2xl text-[#CC5218]">100%</span>
-            <p className="text-[11px] sm:text-xs font-bold text-stone-950 mt-0.5">
+            <span className="font-yatra text-xl sm:text-2xl text-[#ffd236]">100%</span>
+            <p className="text-[11px] sm:text-xs font-bold text-slate-300 mt-0.5">
               {lang === 'en' ? 'Parashara Vedic Precision' : 'शास्त्रोक्त प्रामाणिकता'}
             </p>
           </div>
           <div>
-            <span className="font-yatra text-xl sm:text-2xl text-[#CC5218]">24/7</span>
-            <p className="text-[11px] sm:text-xs font-bold text-stone-950 mt-0.5">
+            <span className="font-yatra text-xl sm:text-2xl text-[#ffd236]">24/7</span>
+            <p className="text-[11px] sm:text-xs font-bold text-slate-300 mt-0.5">
               {lang === 'en' ? 'WhatsApp Online Booking' : 'WhatsApp सहायता'}
             </p>
           </div>

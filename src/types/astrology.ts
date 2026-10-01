@@ -30,6 +30,8 @@ export interface AstrologicalService {
   remedies: string[];
   duration: string;
   popular?: boolean;
+  image?: string;
+  secondaryImage?: string;
 }
 
 export interface KundliInput {

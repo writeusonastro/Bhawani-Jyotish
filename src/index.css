@@ -1,32 +1,38 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark-mode-disabled));
-
-/* Force Light Mode Across All Mobile Browsers & Inversion Engines (Chrome, Safari, Samsung, Xiaomi, Vivo, Oppo) */
-@media (prefers-color-scheme: dark) {
+/* WideCraft Digital Theme: Lock Dark Mode Across All Mobile Browsers & Inversion Engines */
+@media (prefers-color-scheme: light) {
   :root, html, body {
-    color-scheme: light !important;
-    background-color: #FFFDF9 !important;
-    color: #2C2420 !important;
+    color-scheme: dark !important;
+    background-color: #050714 !important;
+    color: #F8FAFC !important;
   }
 }
 
 @layer base {
   :root, html, body {
-    color-scheme: light !important;
+    color-scheme: dark !important;
     forced-color-adjust: none !important;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
-    --saffron: #FF671F;
-    --saffron-dark: #CC5218;
-    --saffron-light: #FFF5F0;
-    --gold: #D4AF37;
-    --gold-dark: #B8860B;
-    --maroon: #800020;
-    --text-dark: #2C2420;
-    --bg-cream: #FFFDF9;
+    
+    /* WideCraft Digital Signature Cosmic Gold & Midnight Palette */
+    --bg-midnight: #050714;
+    --bg-surface: #0a0f28;
+    --bg-card: #0c1334;
+    --bg-card-hover: #121a42;
+    --gold-primary: #f99c00;
+    --gold-bright: #fcbb00;
+    --gold-light: #ffd236;
+    --amber-warm: #f59e0b;
+    --indigo-accent: #625fff;
+    --indigo-bright: #6366f1;
+    --emerald-accent: #00bb7f;
+    --text-primary: #F8FAFC;
+    --text-muted: #94A3B8;
+
     overflow-x: clip;
     max-width: 100vw;
     width: 100%;
@@ -38,13 +44,14 @@
     overflow-x: clip;
     width: 100%;
     max-width: 100vw;
-    background-color: #FFFDF9 !important;
+    background-color: #050714 !important;
+    color-scheme: dark;
   }
 
   body {
-    font-family: 'Mukta', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: #FFFDF9 !important;
-    color: #2C2420 !important;
+    font-family: 'Plus Jakarta Sans', 'Mukta', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #050714 !important;
+    color: #F8FAFC !important;
     line-height: 1.6;
     overflow-x: clip;
     position: relative;
@@ -54,7 +61,9 @@
     min-height: 100dvh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeSpeed;
+    text-rendering: optimizeLegibility;
+    font-synthesis: none !important;
+    -webkit-font-synthesis: none !important;
   }
 
   /* Instant touch response: Eliminate 300ms tap delay on mobile */
@@ -66,25 +75,36 @@
     overflow-x: clip;
     width: 100%;
     max-width: 100%;
-    background-color: #FFFDF9 !important;
+    background-color: #050714 !important;
+    min-height: 100vh;
   }
 
   img, svg, video, canvas, audio, iframe {
     max-width: 100%;
     height: auto;
+    forced-color-adjust: none !important;
   }
 
   h1, h2, h3, .font-heading {
-    font-family: 'Yatra One', 'Rozha One', cursive, serif;
+    font-family: 'Mukta', 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    letter-spacing: normal !important;
   }
+}
+
+.font-jakarta {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .font-yatra {
   font-family: 'Yatra One', cursive;
+  font-weight: 400 !important; /* Yatra One only has 400 weight; prevents browser faux-bold glyph duplication */
+  letter-spacing: normal !important;
 }
 
 .font-mukta {
-  font-family: 'Mukta', sans-serif;
+  font-family: 'Mukta', 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: normal !important;
 }
 
 .font-rozha {
@@ -92,20 +112,22 @@
 }
 
 .font-cinzel {
-  font-family: 'Cinzel', serif;
+  font-family: 'Cinzel', 'Mukta', 'Plus Jakarta Sans', serif;
+  letter-spacing: normal !important;
 }
 
 .font-marcellus {
-  font-family: 'Marcellus', serif;
+  font-family: 'Marcellus', 'Mukta', 'Plus Jakarta Sans', serif;
+  letter-spacing: normal !important;
 }
 
 .font-outfit {
-  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Crisp, ultra-readable high-contrast bold phone typography */
 .phone-crisp {
-  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 800;
   letter-spacing: 0.04em;
   font-feature-settings: "tnum" 1, "lnum" 1;
@@ -113,67 +135,169 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Royal Golden Shimmer & Regal Aesthetics */
+/* WideCraft Digital Glassmorphism & Elevated Surfaces */
+.widecraft-card {
+  background: rgba(12, 19, 52, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+}
+
+.widecraft-card-gold {
+  background: rgba(12, 19, 52, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(249, 156, 0, 0.25);
+  box-shadow: 0 10px 30px -10px rgba(249, 156, 0, 0.15);
+}
+
+/* WideCraft Digital Radiant Gold Gradients & Regal Glow */
 .royal-gold-gradient {
-  background: linear-gradient(135deg, #92400E 0%, #D97706 25%, #F59E0B 50%, #FBBF24 75%, #B45309 100%);
+  background: linear-gradient(135deg, #f99c00 0%, #fcbb00 45%, #ffd236 75%, #f59e0b 100%);
 }
 
 .royal-gold-gradient-text {
-  background: linear-gradient(135deg, #B45309 0%, #D97706 30%, #F59E0B 60%, #78350F 100%);
+  background: linear-gradient(135deg, #ffd236 0%, #fcbb00 35%, #f99c00 70%, #f59e0b 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  display: inline-block;
+  letter-spacing: normal !important;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+h1.royal-gold-gradient-text,
+h2.royal-gold-gradient-text,
+h3.royal-gold-gradient-text {
+  display: block;
 }
 
 .royal-gold-glow {
-  box-shadow: 0 0 30px -5px rgba(217, 119, 6, 0.3);
+  box-shadow: 0 0 35px -5px rgba(249, 156, 0, 0.4);
+}
+
+/* ========================================================
+   ANIMATED ROTATING GOLDEN BORDER BEAM EFFECT
+   Gently rotates a soft, subtle golden light beam around the card
+   ======================================================== */
+@keyframes golden-beam-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.golden-border-beam-card {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 1.5px;
+  overflow: hidden;
+  background: rgba(249, 156, 0, 0.08);
+  box-shadow: 0 10px 28px -8px rgba(0, 0, 0, 0.75), 0 0 12px rgba(249, 156, 0, 0.12);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+  will-change: transform;
+}
+
+.golden-border-beam-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px -8px rgba(0, 0, 0, 0.85), 0 0 22px rgba(249, 156, 0, 0.28);
+}
+
+.golden-border-beam-card::before {
+  content: '';
+  position: absolute;
+  top: -80%;
+  left: -80%;
+  width: 260%;
+  height: 260%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 280deg,
+    rgba(249, 156, 0, 0.05) 305deg,
+    rgba(252, 187, 0, 0.2) 328deg,
+    rgba(255, 210, 54, 0.5) 346deg,
+    rgba(255, 248, 220, 0.85) 356deg,
+    rgba(255, 210, 54, 0.35) 360deg
+  );
+  animation: golden-beam-spin 9.5s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(0.75px);
+}
+
+.golden-border-beam-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(1.5rem - 1.5px);
+  background: #0c1334;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .golden-border-beam-card::before {
+    animation: none;
+    background: linear-gradient(135deg, #ffd236 0%, rgba(249, 156, 0, 0.3) 100%);
+  }
 }
 
 .royal-gold-border {
-  border: 1.5px solid rgba(245, 158, 11, 0.45);
-  box-shadow: 0 10px 30px -10px rgba(180, 83, 9, 0.15);
+  border: 1.5px solid rgba(249, 156, 0, 0.45);
+  box-shadow: 0 10px 30px -10px rgba(249, 156, 0, 0.25);
+}
+
+.royal-indigo-glow {
+  box-shadow: 0 0 35px -5px rgba(98, 95, 255, 0.35);
 }
 
 .royal-jali-pattern {
-  background-color: #FFFDF8;
+  background-color: #050714;
   background-image: 
-    linear-gradient(45deg, rgba(217, 119, 6, 0.04) 25%, transparent 25%), 
-    linear-gradient(-45deg, rgba(217, 119, 6, 0.04) 25%, transparent 25%), 
-    linear-gradient(45deg, transparent 75%, rgba(217, 119, 6, 0.04) 75%), 
-    linear-gradient(-45deg, transparent 75%, rgba(217, 119, 6, 0.04) 75%);
-  background-size: 36px 36px;
-  background-position: 0 0, 0 18px, 18px -18px, -18px 0px;
+    radial-gradient(rgba(249, 156, 0, 0.08) 1px, transparent 1px),
+    radial-gradient(rgba(98, 95, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px, 48px 48px;
+  background-position: 0 0, 16px 16px;
 }
 
 /* Sacred Vedic glowing & patterned backgrounds */
 .bg-sacred-pattern {
-  background-color: #FFFDF9;
+  background-color: #050714;
   background-image: 
-    linear-gradient(to right, rgba(245, 158, 11, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(245, 158, 11, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(249, 156, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(98, 95, 255, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 .sacred-border {
-  border-image: linear-gradient(to right, #FF671F, #D4AF37, #FF671F) 1;
+  border-image: linear-gradient(to right, #f99c00, #fcbb00, #625fff, #f99c00) 1;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar matching WideCraft midnight palette */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #FFF5F0;
+  background: #070b1e;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #FF671F;
+  background: #f99c00;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #CC5218;
+  background: #fcbb00;
 }
 
 /* Sacred Services Infinite Marquee Ticker */

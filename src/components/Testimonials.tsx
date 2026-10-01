@@ -8,7 +8,7 @@ interface TestimonialProps {
   isDark?: boolean;
 }
 
-export const Testimonials: React.FC<TestimonialProps> = ({ lang, isDark = false }) => {
+export const Testimonials: React.FC<TestimonialProps> = ({ lang, isDark = true }) => {
   const [filter, setFilter] = useState<'all' | 'abroad' | 'india'>('all');
 
   const filteredList = TESTIMONIALS.filter((item) => {
@@ -24,13 +24,9 @@ export const Testimonials: React.FC<TestimonialProps> = ({ lang, isDark = false 
   };
 
   return (
-    <div className={`py-12 px-4 max-w-7xl mx-auto border-t transition-colors duration-300 ${
-      isDark ? 'border-amber-500/20 text-stone-100' : 'border-[#FF671F]/15 text-stone-900'
-    }`}>
+    <div className="py-12 px-4 max-w-7xl mx-auto border-t border-white/10 transition-colors duration-300 text-slate-100">
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border mb-2 ${
-          isDark ? 'bg-amber-950/40 text-amber-300 border-amber-500/30' : 'bg-[#FFF5F0] text-[#CC5218] border-[#FF671F]/30'
-        }`}>
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border mb-2 bg-[#0c1334] text-[#ffd236] border-amber-500/30">
           <span>⭐</span>
           <span>
             {lang === 'en'
@@ -40,14 +36,14 @@ export const Testimonials: React.FC<TestimonialProps> = ({ lang, isDark = false 
               : 'જાતકોના અનુભવો'}
           </span>
         </div>
-        <h2 className={`font-yatra text-2xl sm:text-4xl mb-2 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
+        <h2 className="font-mukta font-extrabold text-2xl sm:text-4xl mb-2 royal-gold-gradient-text tracking-normal">
           {lang === 'en'
             ? 'Real Feedback from Satisfied Devotees'
             : lang === 'hi'
             ? 'संतुष्ट जातकों की सच्ची प्रतिक्रियाएं'
             : 'સંતુષ્ટ જાતકોનો પ્રતિસાદ'}
         </h2>
-        <p className={`text-sm font-medium ${isDark ? 'text-stone-300' : 'text-stone-700'}`}>
+        <p className="text-sm font-medium text-slate-300">
           {lang === 'en'
             ? 'Heartfelt blessings & verified feedback from clients across USA, UK, UAE, Canada, South Africa, Mehsana & throughout Gujarat'
             : lang === 'hi'
@@ -60,12 +56,10 @@ export const Testimonials: React.FC<TestimonialProps> = ({ lang, isDark = false 
           <button
             type="button"
             onClick={() => setFilter('all')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
               filter === 'all'
-                ? 'bg-[#FF671F] text-white shadow-md shadow-[#FF671F]/20'
-                : isDark
-                ? 'bg-stone-800 text-stone-300 hover:bg-stone-700'
-                : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                ? 'bg-gradient-to-r from-[#f99c00] to-[#fcbb00] text-black font-extrabold shadow-md shadow-amber-500/20'
+                : 'bg-[#0c1334] text-slate-300 hover:bg-[#121b44] border border-white/10'
             }`}
           >
             {lang === 'en' ? '🌟 All Feedback' : lang === 'hi' ? '🌟 सभी अनुभव' : '🌟 બધા અનુભવો'} ({TESTIMONIALS.length})
@@ -73,12 +67,10 @@ export const Testimonials: React.FC<TestimonialProps> = ({ lang, isDark = false 
           <button
             type="button"
             onClick={() => setFilter('abroad')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
               filter === 'abroad'
-                ? 'bg-[#FF671F] text-white shadow-md shadow-[#FF671F]/20'
-                : isDark
-                ? 'bg-stone-800 text-stone-300 hover:bg-stone-700'
-                : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                ? 'bg-gradient-to-r from-[#f99c00] to-[#fcbb00] text-black font-extrabold shadow-md shadow-amber-500/20'
+                : 'bg-[#0c1334] text-slate-300 hover:bg-[#121b44] border border-white/10'
             }`}
           >
             <Globe className="w-3.5 h-3.5" />
@@ -93,12 +85,10 @@ export const Testimonials: React.FC<TestimonialProps> = ({ lang, isDark = false 
           <button
             type="button"
             onClick={() => setFilter('india')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
               filter === 'india'
-                ? 'bg-[#FF671F] text-white shadow-md shadow-[#FF671F]/20'
-                : isDark
-                ? 'bg-stone-800 text-stone-300 hover:bg-stone-700'
-                : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                ? 'bg-gradient-to-r from-[#f99c00] to-[#fcbb00] text-black font-extrabold shadow-md shadow-amber-500/20'
+                : 'bg-[#0c1334] text-slate-300 hover:bg-[#121b44] border border-white/10'
             }`}
           >
             {lang === 'en' ? '🇮🇳 India & Gujarat' : lang === 'hi' ? '🇮🇳 भारत व गुजरात' : '🇮🇳 ભારત & ગુજરાત'}
@@ -110,61 +100,49 @@ export const Testimonials: React.FC<TestimonialProps> = ({ lang, isDark = false 
         {filteredList.map((item) => (
           <div
             key={item.id}
-            className={`rounded-3xl p-6 border shadow-sm hover:shadow-md transition-all flex flex-col justify-between ${
-              isDark 
-                ? 'bg-stone-900/90 border-amber-500/20 text-stone-100 shadow-black/40' 
-                : 'bg-white border-[#FF671F]/20 text-stone-950 shadow-[#FF671F]/5'
-            }`}
+            className="rounded-3xl p-6 border border-amber-500/20 bg-[#0c1334] shadow-xl hover:border-amber-400/50 transition-all flex flex-col justify-between text-slate-100"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex text-amber-400 gap-1">
                   {[...Array(item.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
+                    <Star key={i} className="w-4 h-4 fill-current text-[#ffd236]" />
                   ))}
                 </div>
                 <div className="flex items-center gap-1.5">
                   {item.isAbroad && (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#070b1e] text-cyan-300 border border-cyan-500/30">
                       NRI Verified
                     </span>
                   )}
-                  <Quote className="w-7 h-7 text-[#FF671F]/20" />
+                  <Quote className="w-7 h-7 text-amber-400/20" />
                 </div>
               </div>
 
-              <p className={`text-xs sm:text-sm italic leading-relaxed mb-4 font-medium ${
-                isDark ? 'text-stone-200' : 'text-stone-900'
-              }`}>
+              <p className="text-xs sm:text-sm italic leading-relaxed mb-4 font-medium text-slate-200">
                 "{getComment(item)}"
               </p>
             </div>
 
-            <div className={`pt-4 border-t ${isDark ? 'border-amber-500/15' : 'border-[#FF671F]/15'}`}>
+            <div className="pt-4 border-t border-white/10">
               <div className="flex items-center justify-between">
-                <h4 className={`font-bold text-sm flex items-center gap-1.5 ${isDark ? 'text-amber-300' : 'text-[#CC5218]'}`}>
+                <h4 className="font-bold text-sm flex items-center gap-1.5 text-white">
                   {item.flag && <span className="text-base">{item.flag}</span>}
                   <span>{item.name}</span>
                 </h4>
                 <span title="Verified Consultation">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 </span>
               </div>
               
-              <div className={`flex items-center justify-between text-[11px] mt-1 font-semibold ${
-                isDark ? 'text-stone-400' : 'text-stone-600'
-              }`}>
+              <div className="flex items-center justify-between text-[11px] mt-1 font-semibold text-slate-400">
                 <span className="flex items-center gap-1">
-                  <MapPin className="w-3 h-3 text-[#FF671F]" />
+                  <MapPin className="w-3 h-3 text-[#f99c00]" />
                   {item.city} {item.country ? `• ${item.country}` : ''}
                 </span>
                 <span>{item.date}</span>
               </div>
-              <span className={`inline-block mt-2 text-[10px] px-2 py-0.5 rounded-md font-bold ${
-                isDark 
-                  ? 'bg-amber-950/60 text-amber-300 border border-amber-500/30' 
-                  : 'bg-[#FFF5F0] text-[#CC5218]'
-              }`}>
+              <span className="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-md font-bold bg-[#070b1e] text-[#ffd236] border border-amber-500/30">
                 {item.service}
               </span>
             </div>

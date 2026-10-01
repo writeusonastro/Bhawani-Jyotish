@@ -219,7 +219,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
             : 'bg-gradient-to-r from-rose-50 via-amber-50 to-rose-50 text-[#CC5218] border-amber-300/60'
         }`}>
           <HeartHandshake className="w-4 h-4 text-rose-500" />
-          <span className="font-['Cinzel'] tracking-wide">
+          <span className="font-mukta font-bold tracking-normal">
             {lang === 'en'
               ? '✦ Royal Vedic Ashtakoot Vivah Milan ✦'
               : lang === 'hi'
@@ -227,7 +227,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
               : '✦ રાજશાહી વૈદિક લગ્ન અષ્ટકૂટ મિલાન ✦'}
           </span>
         </div>
-        <h2 className="font-['Marcellus'] font-serif text-3xl sm:text-5xl mb-3 tracking-tight text-[#CC5218] dark:text-amber-300">
+        <h2 className="font-mukta font-extrabold text-3xl sm:text-5xl mb-3 tracking-normal text-[#CC5218] dark:text-[#ffd236]">
           {lang === 'en'
             ? 'Kundli Milan (36 Guna Compatibility)'
             : lang === 'hi'

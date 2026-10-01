@@ -306,12 +306,12 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
     <section 
       id="seo-directory" 
       aria-label="Vedic Astrology Popular Search Directory and Topic Explorer"
-      className="py-12 sm:py-16 px-3 sm:px-4 max-w-7xl mx-auto w-full print:hidden"
+      className="py-12 sm:py-16 px-3 sm:px-4 max-w-7xl mx-auto w-full print:hidden text-slate-100"
     >
       {/* Directory Header */}
       <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-        <div className="inline-flex items-center gap-1.5 bg-amber-100 text-[#852E10] px-3.5 py-1 rounded-full text-xs sm:text-sm font-black border border-amber-300 shadow-xs mb-3">
-          <TrendingUp className="w-4 h-4 text-[#FF671F]" />
+        <div className="inline-flex items-center gap-1.5 bg-[#0c1334] text-[#ffd236] px-3.5 py-1 rounded-full text-xs sm:text-sm font-black border border-amber-500/30 shadow-xs mb-3">
+          <TrendingUp className="w-4 h-4 text-[#f99c00]" />
           <span>
             {lang === 'en'
               ? 'High Ranking Search Directory & Astrological Topics'
@@ -321,7 +321,7 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
           </span>
         </div>
 
-        <h2 className="font-yatra text-2xl sm:text-4xl text-[#852E10] leading-tight mb-2 sm:mb-3">
+        <h2 className="font-mukta font-extrabold text-2xl sm:text-4xl royal-gold-gradient-text leading-tight mb-2 sm:mb-3 tracking-normal">
           {lang === 'en'
             ? 'Explore Authentic Vedic Astrological Services by Topic'
             : lang === 'hi'
@@ -329,7 +329,7 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
             : 'શાસ્ત્રોક્ત વૈદિક જ્યોતિષ વિષયો અને સંપૂર્ણ સમાધાન યાદી'}
         </h2>
 
-        <p className="text-xs sm:text-sm text-stone-700 font-medium max-w-2xl mx-auto leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed">
           {lang === 'en'
             ? 'Directly navigate to certified horoscope services, matchmaking, regional city hubs in Gujarat & Mumbai, and international NRI portals across USA, UK, Canada & UAE.'
             : lang === 'hi'
@@ -350,14 +350,14 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
                 ? 'खोजें (जैसे: 36 गुण मिलान, USA, अहमदाबाद, वास्तु, नाड़ी दोष)...'
                 : 'શોધો (જેમ કે: 36 ગુણ મિલન, અમદાવાદ, વાસ્તુ, નાડી દોષ)...'
             }
-            className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-amber-300 shadow-xs text-xs sm:text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#FF671F]/40 focus:border-[#FF671F]"
+            className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-[#0c1334] border border-amber-500/30 shadow-xs text-xs sm:text-sm text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#f99c00]/40 focus:border-[#f99c00]"
           />
-          <Search className="w-4 h-4 text-amber-700 absolute left-3.5 top-3" />
+          <Search className="w-4 h-4 text-[#f99c00] absolute left-3.5 top-3" />
           {searchFilter && (
             <button
               type="button"
               onClick={() => setSearchFilter('')}
-              className="absolute right-3 top-2.5 text-xs text-stone-400 hover:text-stone-700 px-1.5 py-0.5 rounded-md bg-stone-100"
+              className="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-white px-1.5 py-0.5 rounded-md bg-[#070b1e] border border-white/10"
             >
               ✕
             </button>
@@ -366,7 +366,7 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
       </div>
 
       {/* Category Selection Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-6 border-b border-amber-200/80">
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-6 border-b border-white/10">
         {SEO_TOPIC_GROUPS.map((topic) => {
           const isSelected = topic.id === selectedTopicId;
           const categoryTitle = lang === 'en' ? topic.categoryName.en : lang === 'hi' ? topic.categoryName.hi : topic.categoryName.gu;
@@ -377,13 +377,15 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
               onClick={() => setSelectedTopicId(topic.id)}
               className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shadow-xs cursor-pointer border ${
                 isSelected
-                  ? 'bg-gradient-to-r from-[#852E10] to-[#631422] text-amber-100 border-amber-400 shadow-md scale-102'
-                  : 'bg-white text-stone-800 hover:bg-amber-50 border-stone-200 hover:border-amber-300'
+                  ? 'bg-gradient-to-r from-[#f99c00] to-[#fcbb00] text-black font-extrabold border-amber-400 shadow-md shadow-amber-500/20 scale-102'
+                  : 'bg-[#0c1334] text-slate-300 hover:bg-[#121b44] border-white/10 hover:border-amber-400/30'
               }`}
             >
               <span className="text-base">{topic.icon}</span>
               <span>{categoryTitle}</span>
-              <span className="text-[10px] bg-amber-400/30 text-amber-900 px-1.5 py-0.5 rounded-full font-mono">
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
+                isSelected ? 'bg-black/20 text-black font-black' : 'bg-[#070b1e] text-[#ffd236] border border-amber-500/20'
+              }`}>
                 {topic.keywords.length}
               </span>
             </button>
@@ -392,19 +394,19 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
       </div>
 
       {/* Selected Topic Full Showcase Card */}
-      <div className="bg-white rounded-3xl border border-amber-300/70 shadow-lg overflow-hidden mb-8">
-        <div className="bg-gradient-to-r from-[#FFFDF8] via-[#FAF5EC] to-[#FFFDF8] p-5 sm:p-6 border-b border-amber-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+      <div className="bg-[#0c1334] rounded-3xl border border-amber-500/30 shadow-2xl overflow-hidden mb-8 text-slate-200">
+        <div className="bg-gradient-to-r from-[#070b1e] via-[#0a102e] to-[#070b1e] p-5 sm:p-6 border-b border-amber-500/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="text-base">{selectedTopic.icon}</span>
-              <h3 className="font-yatra text-lg sm:text-xl text-[#852E10]">
+              <h3 className="font-yatra text-lg sm:text-xl text-white">
                 {lang === 'en' ? selectedTopic.categoryName.en : lang === 'hi' ? selectedTopic.categoryName.hi : selectedTopic.categoryName.gu}
               </h3>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#0c1334] text-[#ffd236] border border-amber-500/40">
                 {selectedTopic.badge}
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-stone-700 font-medium">
+            <p className="text-xs sm:text-sm text-slate-300 font-medium">
               {lang === 'en' ? selectedTopic.quickSummary.en : lang === 'hi' ? selectedTopic.quickSummary.hi : selectedTopic.quickSummary.gu}
             </p>
           </div>
@@ -412,17 +414,17 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
           <button
             type="button"
             onClick={() => setActiveTab(selectedTopic.targetTab)}
-            className="shrink-0 flex items-center gap-1.5 bg-[#FF671F] hover:bg-[#CC5218] text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md transition-all cursor-pointer"
+            className="shrink-0 flex items-center gap-1.5 bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#e08b00] hover:to-[#e5a800] text-black font-extrabold px-4 py-2 rounded-xl text-xs shadow-md transition-all cursor-pointer"
           >
             <span>{lang === 'en' ? 'Open Section' : 'सीधे इस विभाग में जाएं'}</span>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4 text-black" />
           </button>
         </div>
 
         {/* Keywords Pill Cloud with Click-to-Navigate */}
-        <div className="p-5 sm:p-6 bg-[#FFFDF9]">
-          <div className="text-xs sm:text-sm font-bold text-amber-900 mb-3.5 flex items-start gap-2 leading-snug">
-            <Sparkles className="w-4 h-4 text-[#FF671F] shrink-0 mt-0.5" />
+        <div className="p-5 sm:p-6 bg-[#070b1e]">
+          <div className="text-xs sm:text-sm font-bold text-amber-400 mb-3.5 flex items-start gap-2 leading-snug">
+            <Sparkles className="w-4 h-4 text-[#f99c00] shrink-0 mt-0.5" />
             <span className="flex-1">
               {lang === 'en' 
                 ? 'High-Value Astrological Topics (Click to Explore directly):' 
@@ -442,13 +444,13 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                   title={`Explore ${kw.phrase}`}
-                  className="group w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-gradient-to-r hover:from-amber-500 hover:to-orange-600 hover:text-white text-stone-800 border border-amber-200/90 hover:border-amber-500 shadow-2xs hover:shadow-sm transition-all duration-200 cursor-pointer"
+                  className="group w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold bg-[#0c1334] hover:bg-gradient-to-r hover:from-[#f99c00] hover:to-[#fcbb00] hover:text-black text-slate-200 border border-white/10 hover:border-amber-400 shadow-2xs hover:shadow-md transition-all duration-200 cursor-pointer"
                 >
                   <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-amber-600 group-hover:text-amber-100 shrink-0 text-[13px]">✦</span>
+                    <span className="text-[#ffd236] group-hover:text-black shrink-0 text-[13px]">✦</span>
                     <span className="truncate">{label}</span>
                   </div>
-                  <ChevronRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-white shrink-0 ml-1.5 transition-transform group-hover:translate-x-0.5" />
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-black shrink-0 ml-1.5 transition-transform group-hover:translate-x-0.5" />
                 </button>
               );
             })}
@@ -456,14 +458,14 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
         </div>
 
         {/* Trust & Authority Bar at bottom of card */}
-        <div className="bg-[#FAF5EC] px-5 py-3 border-t border-amber-200 flex flex-wrap items-center justify-between gap-3 text-[11px] text-stone-700">
+        <div className="bg-[#0a102e] px-5 py-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-300">
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1 text-emerald-700 font-bold">
+            <span className="flex items-center gap-1 text-emerald-400 font-bold">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>35+ वर्ष प्रतिष्ठित वैदिक पीठ</span>
             </span>
             <span>•</span>
-            <span className="flex items-center gap-1 text-amber-900 font-bold">
+            <span className="flex items-center gap-1 text-[#ffd236] font-bold">
               <Award className="w-3.5 h-3.5" />
               <span>पंडित श्री विरेंद्र कुमार जोशी</span>
             </span>
@@ -474,17 +476,17 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
           <div className="flex items-center gap-2">
             <a
               href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-              className="font-bold text-[#852E10] hover:underline flex items-center gap-1"
+              className="font-bold text-[#ffd236] hover:underline flex items-center gap-1"
             >
               <Phone className="w-3 h-3" />
               <span>{ASTROLOGER_INFO.phonePrimary}</span>
             </a>
-            <span className="text-stone-400">|</span>
+            <span className="text-slate-500">|</span>
             <a
               href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-emerald-700 hover:underline flex items-center gap-1"
+              className="font-bold text-[#25D366] hover:underline flex items-center gap-1"
             >
               <MessageCircle className="w-3 h-3" />
               <span>WhatsApp</span>
@@ -494,9 +496,9 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
       </div>
 
       {/* Comprehensive All-Keyword Reference Grid for Crawlers and Users */}
-      <div className="bg-[#FFFDF8] rounded-3xl border border-amber-200 p-5 sm:p-7 shadow-xs">
-        <h4 className="font-yatra text-base sm:text-lg text-[#852E10] mb-3 flex items-center gap-2">
-          <Globe2 className="w-4 h-4 text-[#FF671F]" />
+      <div className="bg-[#0c1334] rounded-3xl border border-amber-500/20 p-5 sm:p-7 shadow-xl">
+        <h4 className="font-yatra text-base sm:text-lg royal-gold-gradient-text mb-3 flex items-center gap-2">
+          <Globe2 className="w-4 h-4 text-[#f99c00]" />
           <span>
             {lang === 'en'
               ? 'Complete Astrological Index & Search Keywords'
@@ -504,7 +506,7 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
           </span>
         </h4>
 
-        <p className="text-xs text-stone-600 leading-relaxed mb-4">
+        <p className="text-xs text-slate-300 leading-relaxed mb-4">
           {lang === 'en'
             ? 'Bhavani Jyotish Kendra provides verified traditional consultations covering all aspects of Parashara Vedic Astrology, birth chart rectification, 36 Guna marriage Milan, daylight saving time adjustments for foreign born children, and sacred temple rituals on holy shrines.'
             : 'भवानी ज्योतिष केंद्र (नागलपुर, मेहसाणा) द्वारा पराशर होरा शास्त्र पर आधारित शुद्ध जन्म पत्रिका, अष्टकूट विवाह मिलान, मांगलिक व कालसर्प दोष परिहार, विदेश में जन्मे बच्चों हेतु DST गणना, एवं सिद्धपुर/उज्जैन तीर्थों पर शास्त्रोक्त सात्विक अनुष्ठान संपन्न कराए जाते हैं।'}
@@ -512,19 +514,19 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
           {filteredTopics.map((grp) => (
-            <div key={grp.id} className="bg-white p-3.5 rounded-2xl border border-amber-200/70 shadow-2xs">
-              <div className="font-bold text-xs text-[#852E10] mb-2 flex items-center gap-1.5 pb-1 border-b border-amber-100">
+            <div key={grp.id} className="bg-[#070b1e] p-3.5 rounded-2xl border border-white/10 shadow-2xs">
+              <div className="font-bold text-xs text-[#ffd236] mb-2 flex items-center gap-1.5 pb-1 border-b border-white/10">
                 <span>{grp.icon}</span>
                 <span>{lang === 'en' ? grp.categoryName.en : grp.categoryName.hi}</span>
               </div>
-              <ul className="space-y-1.5 text-[11px] text-stone-700">
+              <ul className="space-y-1.5 text-[11px] text-slate-300">
                 {grp.keywords.slice(0, 5).map((k, idx) => (
                   <li key={idx} className="flex items-start gap-1">
-                    <span className="text-[#FF671F] font-bold">›</span>
+                    <span className="text-[#f99c00] font-bold">›</span>
                     <button
                       type="button"
                       onClick={() => setActiveTab(k.targetTab)}
-                      className="text-left hover:text-[#FF671F] hover:underline cursor-pointer"
+                      className="text-left hover:text-[#ffd236] hover:underline cursor-pointer"
                     >
                       {k.phrase}
                     </button>

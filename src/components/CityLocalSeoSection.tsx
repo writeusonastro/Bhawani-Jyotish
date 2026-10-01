@@ -576,8 +576,8 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
     <section id="city-local-seo" className="py-12 sm:py-16 px-3 sm:px-4 max-w-7xl mx-auto w-full">
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-        <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-100 via-orange-100 to-amber-100 text-[#852E10] px-3.5 py-1 rounded-full text-xs sm:text-sm font-black border border-amber-400/50 shadow-xs mb-3">
-          <MapPin className="w-4 h-4 text-[#FF671F]" />
+        <div className="inline-flex items-center gap-1.5 bg-[#0c1334] text-[#ffd236] px-3.5 py-1 rounded-full text-xs sm:text-sm font-black border border-amber-500/30 shadow-xs mb-3">
+          <MapPin className="w-4 h-4 text-[#f99c00]" />
           <span>
             {lang === 'en'
               ? 'Local & Global Astrological Centers'
@@ -587,7 +587,7 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
           </span>
         </div>
 
-        <h2 className="font-yatra text-2xl sm:text-4xl text-[#852E10] leading-tight mb-2 sm:mb-3">
+        <h2 className="font-mukta font-extrabold text-2xl sm:text-4xl royal-gold-gradient-text leading-tight mb-2 sm:mb-3 tracking-normal">
           {lang === 'en'
             ? 'City-Wise Vedic Astrology & Kundli Milan Centers'
             : lang === 'hi'
@@ -595,7 +595,7 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
             : 'શહેરવાર વૈદિક જ્યોતિષ અને જન્મ કુંડળી મિલન કેન્દ્રો'}
         </h2>
 
-        <p className="text-xs sm:text-sm text-stone-900 font-medium leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
           {lang === 'en'
             ? 'Serving authentic traditional Vedic astrology to families across Mehsana, Ahmedabad, Gandhinagar, Surat, Rajkot, Mumbai, and NRI diaspora in USA, UK, Canada & UAE.'
             : lang === 'hi'
@@ -605,7 +605,7 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
       </div>
 
       {/* City Selector Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-6 sm:mb-8 border-b border-amber-300/40">
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-6 sm:mb-8 border-b border-white/10">
         {TARGET_CITIES.map((city) => {
           const isSelected = city.id === selectedCityId;
           const cityName = lang === 'en' ? city.nameEn : lang === 'hi' ? city.nameHi : city.nameGu;
@@ -616,29 +616,29 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
               onClick={() => setSelectedCityId(city.id)}
               className={`flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shadow-xs cursor-pointer border ${
                 isSelected
-                  ? 'bg-gradient-to-r from-[#852E10] to-[#631422] text-amber-100 border-amber-400 shadow-md scale-102'
-                  : 'bg-white text-stone-800 hover:bg-amber-50 border-stone-200 hover:border-amber-300'
+                  ? 'bg-gradient-to-r from-[#f99c00] to-[#fcbb00] text-black border-amber-400 font-black shadow-md shadow-amber-500/20 scale-102'
+                  : 'bg-[#0c1334] text-slate-300 hover:bg-[#121b44] border-white/10 hover:border-amber-400/30'
               }`}
             >
               <span className="text-base">{city.icon}</span>
               <span>{cityName}</span>
-              {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse"></span>}
+              {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse"></span>}
             </button>
           );
         })}
       </div>
 
       {/* Main Selected City Showcase Card */}
-      <div className="bg-white rounded-3xl border border-amber-300/60 shadow-xl overflow-hidden mb-10 transition-all">
+      <div className="bg-[#0c1334] rounded-3xl border border-amber-500/30 shadow-2xl shadow-black/50 overflow-hidden mb-10 transition-all text-slate-200">
         {/* Card Header Strip */}
-        <div className="bg-gradient-to-r from-[#FFFDF8] via-[#FAF5EC] to-[#FFFDF8] p-5 sm:p-6 lg:p-7 border-b border-amber-200">
+        <div className="bg-gradient-to-r from-[#070b1e] via-[#0a102e] to-[#070b1e] p-5 sm:p-6 lg:p-7 border-b border-amber-500/20">
           {/* Top Badges Row */}
           <div className="flex items-center gap-2 flex-wrap mb-2.5">
             <span className={`text-[11px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r ${selectedCity.badgeColor} shadow-xs inline-flex items-center leading-none`}>
               {selectedCity.badge}
             </span>
-            <span className="text-xs text-stone-700 font-bold bg-amber-100/70 border border-amber-300/60 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5 leading-none">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+            <span className="text-xs text-slate-200 font-bold bg-[#0c1334] border border-white/10 px-2.5 py-1 rounded-full inline-flex items-center gap-1.5 leading-none">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
               <span>35+ वर्ष शास्त्रीय अनुभव</span>
             </span>
           </div>
@@ -646,10 +646,10 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
           {/* Heading + Subtitle + Action Buttons Row */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div className="flex-1 min-w-0 pr-0 lg:pr-4">
-              <h3 className="font-yatra text-xl sm:text-2xl text-[#852E10] leading-snug">
+              <h3 className="font-yatra text-xl sm:text-2xl text-white leading-snug">
                 {lang === 'en' ? selectedCity.headlineEn : lang === 'hi' ? selectedCity.headlineHi : selectedCity.headlineGu}
               </h3>
-              <p className="text-xs sm:text-sm text-stone-700 font-semibold mt-1.5 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-300 font-semibold mt-1.5 leading-relaxed">
                 {lang === 'en' ? selectedCity.taglineEn : lang === 'hi' ? selectedCity.taglineHi : selectedCity.taglineGu}
               </p>
             </div>
@@ -658,9 +658,9 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
             <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0 self-start lg:self-center">
               <a
                 href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                className="flex-1 sm:flex-none h-11 px-4 sm:px-5 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF671F] to-[#CC5218] hover:from-[#CC5218] hover:to-[#993D12] text-white font-bold rounded-xl text-xs sm:text-sm shadow-md transition-all active:scale-95 text-center whitespace-nowrap"
+                className="flex-1 sm:flex-none h-11 px-4 sm:px-5 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#e08b00] hover:to-[#e5a800] text-black font-extrabold rounded-xl text-xs sm:text-sm shadow-md transition-all active:scale-95 text-center whitespace-nowrap"
               >
-                <Phone className="w-4 h-4 text-amber-200 shrink-0" />
+                <Phone className="w-4 h-4 text-black shrink-0" />
                 <span className="leading-none pt-0.5">
                   {lang === 'en' ? selectedCity.ctaPhoneTextEn : lang === 'hi' ? selectedCity.ctaPhoneTextHi : selectedCity.ctaPhoneTextGu}
                 </span>
@@ -684,21 +684,21 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
           {/* Left Column: Description, Localities, & Mode */}
           <div className="lg:col-span-7 space-y-6">
             <div>
-              <h4 className="text-xs font-black uppercase tracking-wider text-amber-800 mb-2 flex items-center gap-1.5">
-                <Compass className="w-4 h-4 text-[#FF671F]" />
+              <h4 className="text-xs font-black uppercase tracking-wider text-amber-400 mb-2 flex items-center gap-1.5">
+                <Compass className="w-4 h-4 text-[#f99c00]" />
                 <span>
                   {lang === 'en' ? 'Region Overview & Heritage' : lang === 'hi' ? 'क्षेत्रीय महत्व एवं परंपरा' : 'પ્રાદેશિક મહત્વ અને પરંપરા'}
                 </span>
               </h4>
-              <p className="text-xs sm:text-sm text-stone-800 font-medium leading-relaxed bg-[#FFFDF9] p-4 rounded-2xl border border-amber-200/60">
+              <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed bg-[#070b1e] p-4 rounded-2xl border border-white/10">
                 {lang === 'en' ? selectedCity.descriptionEn : lang === 'hi' ? selectedCity.descriptionHi : selectedCity.descriptionGu}
               </p>
             </div>
 
             {/* Areas / Localities Covered */}
             <div>
-              <h4 className="text-xs font-black uppercase tracking-wider text-amber-800 mb-2.5 flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-[#FF671F]" />
+              <h4 className="text-xs font-black uppercase tracking-wider text-amber-400 mb-2.5 flex items-center gap-1.5">
+                <MapPin className="w-4 h-4 text-[#f99c00]" />
                 <span>
                   {lang === 'en' ? 'Key Areas, Towns & Communities Served' : lang === 'hi' ? 'प्रमुख क्षेत्र, उपनगर एवं समुदाय' : 'મુખ્ય વિસ્તારો અને સમુદાય'}
                 </span>
@@ -707,9 +707,9 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
                 {(lang === 'en' ? selectedCity.areasCoveredEn : lang === 'hi' ? selectedCity.areasCoveredHi : selectedCity.areasCoveredGu).map((area, idx) => (
                   <span
                     key={idx}
-                    className="inline-flex items-center gap-1 bg-amber-50/80 hover:bg-amber-100/80 text-stone-900 border border-amber-200/80 px-2.5 py-1 rounded-lg text-xs font-bold transition-colors"
+                    className="inline-flex items-center gap-1 bg-[#070b1e] hover:bg-[#121b44] text-slate-200 border border-white/10 px-2.5 py-1 rounded-lg text-xs font-bold transition-colors"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                     <span>{area}</span>
                   </span>
                 ))}
@@ -717,16 +717,16 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
             </div>
 
             {/* Consultation Mode */}
-            <div className="bg-amber-50/50 rounded-2xl p-4 border border-amber-200/60 flex items-start gap-3">
-              <Clock className="w-5 h-5 text-[#852E10] shrink-0 mt-0.5" />
+            <div className="bg-[#070b1e] rounded-2xl p-4 border border-white/10 flex items-start gap-3">
+              <Clock className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
               <div>
-                <h5 className="text-xs font-bold text-[#852E10]">
+                <h5 className="text-xs font-bold text-[#ffd236]">
                   {lang === 'en' ? 'Consultation Mode & Timing' : lang === 'hi' ? 'परामर्श माध्यम एवं समय' : 'પરામર્શ માધ્યમ અને સમય'}
                 </h5>
-                <p className="text-xs text-stone-700 font-semibold mt-0.5">
+                <p className="text-xs text-slate-300 font-semibold mt-0.5">
                   {lang === 'en' ? selectedCity.consultationModesEn : lang === 'hi' ? selectedCity.consultationModesHi : selectedCity.consultationModesGu}
                 </p>
-                <p className="text-[11px] text-stone-600 mt-1">
+                <p className="text-[11px] text-slate-400 mt-1">
                   {lang === 'en' 
                     ? 'Same-day consultation available on prior booking | Direct consultation in Hindi, Gujarati & English'
                     : 'अग्रिम बुकिंग पर उसी दिन परामर्श उपलब्ध | हिंदी, गुजराती एवं अंग्रेजी में सहज संवाद'}
@@ -738,8 +738,8 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
           {/* Right Column: Key Astrological Services for this City */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
             <div>
-              <h4 className="text-xs font-black uppercase tracking-wider text-amber-800 mb-3 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-[#FF671F]" />
+              <h4 className="text-xs font-black uppercase tracking-wider text-amber-400 mb-3 flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-[#f99c00]" />
                 <span>
                   {lang === 'en' ? 'Specialized Astrological Services' : lang === 'hi' ? 'इस क्षेत्र हेतु प्रमुख सेवाएं' : 'આ વિસ્તાર માટે મુખ્ય સેવાઓ'}
                 </span>
@@ -749,24 +749,24 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
                 {(lang === 'en' ? selectedCity.keyServicesEn : lang === 'hi' ? selectedCity.keyServicesHi : selectedCity.keyServicesGu).map((service, idx) => (
                   <div
                     key={idx}
-                    className="p-3 rounded-xl bg-gradient-to-r from-[#FFFDF8] to-white border border-amber-200/80 shadow-xs flex items-start gap-2.5"
+                    className="p-3 rounded-xl bg-[#070b1e] border border-white/10 shadow-xs flex items-start gap-2.5 text-slate-200 font-bold"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="text-xs font-bold text-stone-900 leading-snug">{service}</span>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <span className="text-xs font-bold text-slate-200 leading-snug">{service}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Quick Action Box */}
-            <div className="bg-gradient-to-br from-[#852E10] to-[#631422] rounded-2xl p-5 text-amber-100 shadow-md">
+            <div className="bg-gradient-to-br from-[#070b1e] to-[#121b44] border border-amber-500/30 rounded-2xl p-5 text-slate-200 shadow-md">
               <div className="flex items-center gap-2 mb-2">
-                <Award className="w-5 h-5 text-amber-300" />
-                <span className="font-yatra text-sm text-amber-200">
+                <Award className="w-5 h-5 text-[#ffd236]" />
+                <span className="font-yatra text-sm text-[#ffd236]">
                   {lang === 'en' ? 'Direct Guidance with Pandit Ji' : 'पंडित श्री विरेंद्र कुमार जोशी से सीधा विमर्श'}
                 </span>
               </div>
-              <p className="text-xs text-amber-100/90 leading-relaxed mb-4">
+              <p className="text-xs text-slate-300 leading-relaxed mb-4">
                 {lang === 'en'
                   ? 'Send your Birth Date, Time & City to receive verified horoscope analysis and authentic remedies.'
                   : 'अपनी जन्म तिथि, जन्म समय एवं जन्म स्थान भेजकर अपनी कुंडली का सटीक विश्लेषण व सरल शास्त्रोक्त उपाय प्राप्त करें।'}
@@ -775,9 +775,9 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
               <div className="grid grid-cols-2 gap-2">
                 <a
                   href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                  className="bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 text-amber-950 font-black py-2 px-3 rounded-xl text-xs text-center shadow-xs flex items-center justify-center gap-1"
+                  className="bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#e08b00] hover:to-[#e5a800] text-black font-extrabold py-2 px-3 rounded-xl text-xs text-center shadow-xs flex items-center justify-center gap-1"
                 >
-                  <Phone className="w-3.5 h-3.5" />
+                  <Phone className="w-3.5 h-3.5 text-black" />
                   <span>{lang === 'en' ? 'Call Directly' : 'सीधे कॉल करें'}</span>
                 </a>
 
@@ -796,10 +796,10 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
         </div>
 
         {/* Popular Keywords Strip at bottom of card for SEO richness */}
-        <div className="bg-[#FAF5EC] px-5 py-3 border-t border-amber-200/80 flex items-center flex-wrap gap-2 text-[11px] text-stone-600">
-          <span className="font-bold text-stone-800">🔍 लोकप्रिय खोजें:</span>
+        <div className="bg-[#070b1e] px-5 py-3 border-t border-white/10 flex items-center flex-wrap gap-2 text-[11px] text-slate-300">
+          <span className="font-bold text-[#ffd236]">🔍 लोकप्रिय खोजें:</span>
           {selectedCity.popularSearchTerms.map((term, i) => (
-            <span key={i} className="bg-white/80 border border-amber-200 px-2 py-0.5 rounded-md text-stone-700 font-medium">
+            <span key={i} className="bg-[#0c1334] border border-white/10 px-2 py-0.5 rounded-md text-slate-300 font-medium">
               {term}
             </span>
           ))}
@@ -807,16 +807,16 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
       </div>
 
       {/* City-Wise Local SEO FAQ Accordion */}
-      <div className="bg-[#FFFDF8] rounded-3xl border border-amber-300/50 p-6 sm:p-8 shadow-sm">
+      <div className="bg-[#0c1334] rounded-3xl border border-amber-500/20 p-6 sm:p-8 shadow-md">
         <div className="text-center max-w-2xl mx-auto mb-6">
-          <h3 className="font-yatra text-xl sm:text-2xl text-[#852E10]">
+          <h3 className="font-yatra text-xl sm:text-2xl royal-gold-gradient-text">
             {lang === 'en'
               ? 'Frequently Asked Questions by City & NRI Clients'
               : lang === 'hi'
               ? 'विभिन्न शहरों एवं NRI जातकों के अक्सर पूछे जाने वाले प्रश्न'
               : 'વિવિધ શહેરો અને NRI જાતકોના વારંવાર પૂછાતા પ્રશ્નો'}
           </h3>
-          <p className="text-xs text-stone-700 mt-1 font-medium">
+          <p className="text-xs text-slate-300 mt-1 font-medium">
             {lang === 'en'
               ? 'Clear answers regarding in-person visits, online video consultation, and international timezones.'
               : 'प्रत्यक्ष भेंट, ऑनलाइन वीडियो परामर्श एवं अंतरराष्ट्रीय समय से जुड़े सरल व स्पष्ट उत्तर।'}
@@ -831,26 +831,26 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
             return (
               <div
                 key={index}
-                className="rounded-2xl border border-amber-200/80 bg-white overflow-hidden shadow-xs transition-all"
+                className="rounded-2xl border border-white/10 bg-[#070b1e] overflow-hidden shadow-xs transition-all"
               >
                 <button
                   type="button"
                   onClick={() => setExpandedFaqIndex(isOpen ? null : index)}
-                  className="w-full text-left p-4 sm:p-4.5 flex items-center justify-between gap-3 font-bold text-xs sm:text-sm text-stone-900 hover:text-[#852E10] transition-colors cursor-pointer"
+                  className="w-full text-left p-4 sm:p-4.5 flex items-center justify-between gap-3 font-bold text-xs sm:text-sm text-slate-200 hover:text-[#ffd236] transition-colors cursor-pointer"
                 >
                   <span className="flex items-center gap-2">
-                    <span className="text-[#FF671F] font-black">Q{index + 1}.</span>
+                    <span className="text-[#ffd236] font-black">Q{index + 1}.</span>
                     <span>{question}</span>
                   </span>
                   {isOpen ? (
-                    <ChevronUp className="w-4 h-4 text-[#FF671F] shrink-0" />
+                    <ChevronUp className="w-4 h-4 text-[#ffd236] shrink-0" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-stone-400 shrink-0" />
+                    <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
                   )}
                 </button>
 
                 {isOpen && (
-                  <div className="px-4 pb-4 pt-1 text-xs sm:text-sm text-stone-700 font-medium leading-relaxed border-t border-amber-100 bg-amber-50/20">
+                  <div className="px-4 pb-4 pt-1 text-xs sm:text-sm text-slate-300 font-medium leading-relaxed border-t border-white/10 bg-[#0c1334]">
                     {answer}
                   </div>
                 )}

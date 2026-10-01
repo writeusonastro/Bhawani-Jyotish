@@ -33,18 +33,18 @@ export const CosmicMotionBackground: React.FC = React.memo(() => {
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 30%, rgba(254, 243, 199, 0.5) 0%, rgba(255, 251, 235, 0.3) 50%, rgba(255, 253, 248, 0.95) 100%)',
+          background: 'radial-gradient(ellipse at 50% 30%, rgba(98, 95, 255, 0.15) 0%, rgba(12, 19, 52, 0.55) 45%, #050714 88%)',
         }}
       />
 
       {/* Dynamic Divine Vedic Kalachakra Stage - Centered in Hero behind Title/Emblem */}
       <div className="absolute top-[28%] sm:top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] sm:w-[880px] sm:h-[880px] max-w-none flex items-center justify-center opacity-45 sm:opacity-55 pointer-events-none">
         
-        {/* Soft Golden Backlight Halo - Ultra high-performance radial gradient without GPU blur overhead */}
+        {/* Soft Golden Backlight Halo */}
         <div 
           className="absolute inset-8 rounded-full pointer-events-none kalachakra-pulse"
           style={{
-            background: 'radial-gradient(circle, rgba(251, 191, 36, 0.22) 0%, rgba(245, 158, 11, 0.10) 45%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(249, 156, 0, 0.25) 0%, rgba(98, 95, 255, 0.15) 35%, transparent 70%)',
             transform: 'translateZ(0)',
           }}
         />
@@ -54,15 +54,15 @@ export const CosmicMotionBackground: React.FC = React.memo(() => {
           <svg className="w-full h-full" viewBox="0 0 950 950" fill="none">
             <defs>
               <linearGradient id="goldOuterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#D97706" stopOpacity="0.6" />
-                <stop offset="50%" stopColor="#F59E0B" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#B45309" stopOpacity="0.6" />
+                <stop offset="0%" stopColor="#f99c00" stopOpacity="0.75" />
+                <stop offset="50%" stopColor="#fcbb00" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="#ffd236" stopOpacity="0.7" />
               </linearGradient>
             </defs>
 
             {/* Outermost rim circle & rays */}
             <circle cx="475" cy="475" r="460" stroke="url(#goldOuterGrad)" strokeWidth="1.8" />
-            <circle cx="475" cy="475" r="448" stroke="#D97706" strokeWidth="1" strokeDasharray="6 4" strokeOpacity="0.45" />
+            <circle cx="475" cy="475" r="448" stroke="#f99c00" strokeWidth="1" strokeDasharray="6 4" strokeOpacity="0.55" />
             <circle cx="475" cy="475" r="390" stroke="url(#goldOuterGrad)" strokeWidth="1.5" />
 
             {/* 12 Rashi Sectors */}
@@ -79,17 +79,17 @@ export const CosmicMotionBackground: React.FC = React.memo(() => {
 
               return (
                 <g key={idx}>
-                  <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#D97706" strokeWidth="1.2" strokeOpacity="0.5" />
-                  <circle cx={x2} cy={y2} r="3" fill="#D97706" fillOpacity="0.6" />
+                  <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#fcbb00" strokeWidth="1.2" strokeOpacity="0.6" />
+                  <circle cx={x2} cy={y2} r="3" fill="#ffd236" fillOpacity="0.8" />
                   <g transform={`translate(${textX}, ${textY}) rotate(${z.angle + 105})`}>
                     <text
                       textAnchor="middle"
                       dominantBaseline="central"
-                      fill="#78350F"
-                      fillOpacity="0.85"
+                      fill="#ffd236"
+                      fillOpacity="0.9"
                       fontSize="13.5"
                       fontWeight="bold"
-                      fontFamily="'Mukta', sans-serif"
+                      fontFamily="'Plus Jakarta Sans', 'Mukta', sans-serif"
                     >
                       {z.sign} {z.name}
                     </text>
@@ -99,8 +99,8 @@ export const CosmicMotionBackground: React.FC = React.memo(() => {
             })}
 
             {/* 27 Nakshatras Ring */}
-            <circle cx="475" cy="475" r="340" stroke="#D97706" strokeWidth="1.2" strokeOpacity="0.35" />
-            <circle cx="475" cy="475" r="300" stroke="#F59E0B" strokeWidth="1.4" strokeOpacity="0.45" />
+            <circle cx="475" cy="475" r="340" stroke="#f99c00" strokeWidth="1.2" strokeOpacity="0.45" />
+            <circle cx="475" cy="475" r="300" stroke="#ffd236" strokeWidth="1.4" strokeOpacity="0.5" />
 
             {[...Array(NAKSHATRA_COUNT)].map((_, i) => {
               const angle = (i * 360) / NAKSHATRA_COUNT;
@@ -116,9 +116,9 @@ export const CosmicMotionBackground: React.FC = React.memo(() => {
                   y1={y1}
                   x2={x2}
                   y2={y2}
-                  stroke="#D97706"
+                  stroke="#fcbb00"
                   strokeWidth={i % 3 === 0 ? "1.5" : "0.9"}
-                  strokeOpacity={i % 3 === 0 ? "0.6" : "0.35"}
+                  strokeOpacity={i % 3 === 0 ? "0.7" : "0.4"}
                 />
               );
             })}
@@ -135,18 +135,18 @@ export const CosmicMotionBackground: React.FC = React.memo(() => {
                 <path
                   key={i}
                   d="M 475 230 C 445 320, 445 400, 475 475 C 505 400, 505 320, 475 230 Z"
-                  fill="rgba(245, 158, 11, 0.04)"
-                  stroke="#D97706"
+                  fill="rgba(249, 156, 0, 0.06)"
+                  stroke="#f99c00"
                   strokeWidth="1"
-                  strokeOpacity="0.35"
+                  strokeOpacity="0.45"
                   transform={`rotate(${angle} 475 475)`}
                 />
               );
             })}
 
             {/* Navagraha Orbit Rings */}
-            <circle cx="475" cy="475" r="230" stroke="#D97706" strokeWidth="1.2" strokeOpacity="0.35" />
-            <circle cx="475" cy="475" r="190" stroke="#F59E0B" strokeWidth="1" strokeDasharray="5 5" strokeOpacity="0.4" />
+            <circle cx="475" cy="475" r="230" stroke="#625fff" strokeWidth="1.2" strokeOpacity="0.45" />
+            <circle cx="475" cy="475" r="190" stroke="#f99c00" strokeWidth="1" strokeDasharray="5 5" strokeOpacity="0.5" />
 
             {/* 9 Navagrahas */}
             {NAVAGRAHAS.map((g, i) => {
@@ -157,15 +157,15 @@ export const CosmicMotionBackground: React.FC = React.memo(() => {
 
               return (
                 <g key={i} transform={`translate(${x}, ${y}) rotate(${angle + 90})`}>
-                  <circle r="13" fill="#FFFDF8" stroke="#D97706" strokeWidth="1.2" strokeOpacity="0.7" />
+                  <circle r="13" fill="#0c1334" stroke="#f99c00" strokeWidth="1.2" strokeOpacity="0.8" />
                   <text
                     textAnchor="middle"
                     dominantBaseline="central"
-                    fill="#78350F"
-                    fillOpacity="0.85"
+                    fill="#ffd236"
+                    fillOpacity="0.95"
                     fontSize="10"
                     fontWeight="800"
-                    fontFamily="'Mukta', sans-serif"
+                    fontFamily="'Plus Jakarta Sans', 'Mukta', sans-serif"
                   >
                     {g.split(' ')[0]}
                   </text>
@@ -179,36 +179,36 @@ export const CosmicMotionBackground: React.FC = React.memo(() => {
         <div className="absolute inset-0 kalachakra-pulse">
           <svg className="w-full h-full" viewBox="0 0 950 950" fill="none">
             {/* Sacred 8-Pointed Star */}
-            <circle cx="475" cy="475" r="140" stroke="#D97706" strokeWidth="1.2" strokeOpacity="0.35" />
+            <circle cx="475" cy="475" r="140" stroke="#f99c00" strokeWidth="1.2" strokeOpacity="0.45" />
             <polygon
               points="475,355 505,445 595,475 505,505 475,595 445,505 355,475 445,445"
-              fill="rgba(251, 191, 36, 0.07)"
-              stroke="#D97706"
+              fill="rgba(249, 156, 0, 0.12)"
+              stroke="#ffd236"
               strokeWidth="1.2"
-              strokeOpacity="0.45"
+              strokeOpacity="0.55"
             />
             <polygon
               points="475,365 500,450 585,475 500,500 475,585 450,500 365,475 450,450"
               fill="none"
-              stroke="#F59E0B"
+              stroke="#625fff"
               strokeWidth="1"
               strokeDasharray="4 3"
-              strokeOpacity="0.4"
+              strokeOpacity="0.5"
               transform="rotate(45 475 475)"
             />
 
             {/* Central Sacred ॐ Sanctum */}
-            <circle cx="475" cy="475" r="42" fill="#FFFDF8" stroke="#D97706" strokeWidth="1.6" strokeOpacity="0.6" />
+            <circle cx="475" cy="475" r="42" fill="#070b1e" stroke="#fcbb00" strokeWidth="1.8" strokeOpacity="0.85" />
             <text
               x="475"
               y="483"
               textAnchor="middle"
               dominantBaseline="central"
-              fill="#92400E"
-              fillOpacity="0.85"
+              fill="#ffd236"
+              fillOpacity="0.95"
               fontSize="26"
               fontWeight="bold"
-              fontFamily="'Mukta', serif"
+              fontFamily="'Plus Jakarta Sans', 'Mukta', serif"
             >
               ॐ
             </text>

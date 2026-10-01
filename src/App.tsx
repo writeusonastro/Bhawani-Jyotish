@@ -26,7 +26,6 @@ const DailyRashifal = lazy(() => import('./components/DailyRashifal').then(m => 
 const CityLocalSeoSection = lazy(() => import('./components/CityLocalSeoSection').then(m => ({ default: m.CityLocalSeoSection })));
 const InternationalConsultation = lazy(() => import('./components/InternationalConsultation').then(m => ({ default: m.InternationalConsultation })));
 const SeoKeywordHub = lazy(() => import('./components/SeoKeywordHub').then(m => ({ default: m.SeoKeywordHub })));
-const WhatsAppTestimonials = lazy(() => import('./components/WhatsAppTestimonials').then(m => ({ default: m.WhatsAppTestimonials })));
 const Testimonials = lazy(() => import('./components/Testimonials').then(m => ({ default: m.Testimonials })));
 const PaymentModal = lazy(() => import('./components/PaymentModal').then(m => ({ default: m.PaymentModal })));
 const LogoDownloadModal = lazy(() => import('./components/LogoDownloadModal').then(m => ({ default: m.LogoDownloadModal })));
@@ -34,11 +33,11 @@ const LogoDownloadModal = lazy(() => import('./components/LogoDownloadModal').th
 // Lightweight non-blocking loader component
 const TabLoadingFallback = ({ lang }: { lang: Language }) => (
   <div className="py-16 sm:py-24 text-center px-4 max-w-md mx-auto flex flex-col items-center justify-center">
-    <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-[#852E10] mb-3 animate-pulse">
-      <Loader2 className="w-6 h-6 animate-spin text-[#FF671F]" />
+    <div className="w-12 h-12 rounded-full bg-[#0c1334] border border-amber-500/30 flex items-center justify-center text-[#f99c00] mb-3 shadow-[0_0_20px_rgba(249,156,0,0.25)] animate-pulse">
+      <Loader2 className="w-6 h-6 animate-spin text-[#fcbb00]" />
     </div>
-    <p className="font-yatra text-base sm:text-lg text-[#852E10]">॥ ॐ श्री गणेशाय नमः ॥</p>
-    <p className="text-xs text-stone-600 mt-1 font-medium">
+    <p className="font-yatra text-base sm:text-lg text-[#ffd236] drop-shadow-xs">॥ ॐ श्री गणेशाय नमः ॥</p>
+    <p className="text-xs text-slate-400 mt-1 font-medium">
       {lang === 'en' ? 'Loading authentic Vedic calculations...' : lang === 'hi' ? 'शास्त्रोक्त वैदिक गणनाएं लोड हो रही हैं...' : 'શાસ્ત્રોક્ત વૈદિક ગણતરી લોડ થઈ રહી છે...'}
     </p>
   </div>
@@ -182,13 +181,16 @@ export function App() {
   }, [activeTab, lang]);
 
   useEffect(() => {
-    localStorage.removeItem('astro_dark_theme');
-    localStorage.removeItem('theme');
-    localStorage.removeItem('color-theme');
-    document.documentElement.classList.remove('dark');
-    document.documentElement.classList.add('light');
-    document.documentElement.style.colorScheme = 'light';
-    document.body.style.colorScheme = 'light';
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+    document.documentElement.style.colorScheme = 'dark';
+    document.documentElement.style.backgroundColor = '#050714';
+    if (document.body) {
+      document.body.classList.add('dark');
+      document.body.classList.remove('light');
+      document.body.style.colorScheme = 'dark';
+      document.body.style.backgroundColor = '#050714';
+    }
   }, []);
 
   useEffect(() => {
@@ -213,7 +215,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-mukta selection:bg-[#FF671F] selection:text-white bg-[#FFFDF9] text-stone-950 overflow-x-clip w-full max-w-full">
+    <div className="min-h-screen flex flex-col font-jakarta selection:bg-[#f99c00] selection:text-black bg-[#050714] text-slate-100 overflow-x-clip w-full max-w-full">
       {/* Top Header */}
       <Header
         activeTab={activeTab}
@@ -271,13 +273,6 @@ export function App() {
               <LazySection minHeight="300px">
                 <Suspense fallback={null}>
                   <CityLocalSeoSection lang={lang} setActiveTab={setActiveTab} />
-                </Suspense>
-              </LazySection>
-
-              {/* Verified WhatsApp Client Chat Screenshots & Feedback - Deferred */}
-              <LazySection minHeight="200px">
-                <Suspense fallback={null}>
-                  <WhatsAppTestimonials lang={lang} />
                 </Suspense>
               </LazySection>
 

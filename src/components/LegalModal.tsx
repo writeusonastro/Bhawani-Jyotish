@@ -46,26 +46,26 @@ export const LegalModal: React.FC<LegalModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl my-auto bg-stone-900 border-2 border-amber-500/50 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-3xl my-auto bg-[#070b1e] border-2 border-amber-500/40 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-amber-950 px-5 py-4 border-b border-amber-500/30 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#050714] via-[#0c1334] to-[#050714] px-5 py-4 border-b border-amber-500/30 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300">
+            <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-[#ffd236]">
               {activeTab === 'privacy' && <Lock className="w-5 h-5" />}
               {activeTab === 'terms' && <FileText className="w-5 h-5" />}
               {activeTab === 'disclaimer' && <Scale className="w-5 h-5" />}
             </div>
             <div>
-              <h3 className="text-lg sm:text-xl font-bold text-amber-200 font-mukta">
+              <h3 className="text-lg sm:text-xl font-bold text-[#ffd236] font-mukta">
                 {lang === 'en'
                   ? 'Legal & Compliance Center'
                   : lang === 'gu'
                   ? 'કાનૂની અને નીતિ નિર્દેશિકા'
                   : 'कानूनी एवं नीति केंद्र'}
               </h3>
-              <p className="text-xs text-stone-400">
+              <p className="text-xs text-slate-400">
                 {lang === 'en' ? ASTROLOGER_INFO.nameEn : lang === 'gu' ? ASTROLOGER_INFO.nameGu : ASTROLOGER_INFO.name} • {lang === 'en' ? ASTROLOGER_INFO.centerNameEn : lang === 'gu' ? ASTROLOGER_INFO.centerNameGu : ASTROLOGER_INFO.centerName}
               </p>
             </div>
@@ -74,7 +74,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white flex items-center justify-center border border-stone-600 transition-colors"
+            className="w-8 h-8 rounded-full bg-[#0c1334] hover:bg-[#121b44] text-slate-300 hover:text-white flex items-center justify-center border border-white/20 transition-colors"
             aria-label="Close"
           >
             <X className="w-4 h-4" />
@@ -82,7 +82,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-stone-800 bg-stone-950/80 px-4 pt-2 gap-2 overflow-x-auto">
+        <div className="flex border-b border-white/10 bg-[#050714] px-4 pt-2 gap-2 overflow-x-auto">
           <button
             type="button"
             onClick={() => setActiveTab('disclaimer')}
@@ -346,9 +346,9 @@ export const LegalModal: React.FC<LegalModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="bg-stone-950 px-5 py-3 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="flex items-center gap-1 text-xs text-stone-400">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="bg-[#050714] px-5 py-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div className="flex items-center gap-1 text-xs text-slate-400">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#25D366]" />
             <span>
               {lang === 'en'
                 ? 'Certified Vedic Institute • Reg. No: GJ-2024-MEH-ASTRO-089'
@@ -361,7 +361,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="w-full sm:w-auto px-5 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer"
+            className="w-full sm:w-auto px-5 py-2 rounded-xl bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#e08b00] hover:to-[#e5a800] text-black font-extrabold text-xs sm:text-sm shadow-md transition-all cursor-pointer"
           >
             {lang === 'en' ? 'Close Window' : lang === 'gu' ? 'બંધ કરો' : 'विंडो बंद करें'}
           </button>

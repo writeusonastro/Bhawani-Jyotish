@@ -96,7 +96,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onSelectRash
             : 'bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 text-[#CC5218] border-amber-400/50'
         }`}>
           <Sparkles className="w-4 h-4 text-[#FF671F]" />
-          <span className="font-['Cinzel'] tracking-wide">
+          <span className="font-mukta font-bold tracking-normal">
             {lang === 'en'
               ? '✦ Authentic Daily Rashifal & Vedic Astrological Forecast ✦'
               : lang === 'hi'
@@ -104,7 +104,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onSelectRash
               : '✦ પ્રમાણિક દૈનિક રાશિફળ અને કાલનિર્ણય પંચાંગ ફલાદેશ ✦'}
           </span>
         </div>
-        <h2 className="font-['Marcellus'] font-serif text-3xl sm:text-5xl mb-3 tracking-tight text-[#CC5218] dark:text-amber-300">
+        <h2 className="font-mukta font-extrabold text-3xl sm:text-5xl mb-3 tracking-normal text-[#CC5218] dark:text-[#ffd236]">
           {lang === 'en'
             ? 'Today’s Horoscope & Planetary Transits'
             : lang === 'hi'
