@@ -12,6 +12,25 @@
     <!-- Lock Dark Mode Consistency Across All Devices, Browsers & Inversion Engines -->
     <script>
       (function() {
+        // HMR is disabled in AI Studio preview iframe. Ignore WebSocket transport errors gracefully.
+        window.addEventListener('error', function(e) {
+          var msg = (e && (e.message || '')) + '';
+          var fn = (e && (e.filename || '')) + '';
+          if (msg.includes('WebSocket') || msg.includes('createWebSocketModuleRunnerTransport') || fn.includes('@vite/client')) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', function(e) {
+          var reason = e && e.reason;
+          var msg = (reason && (reason.message || reason.stack || String(reason))) || '';
+          if (msg.includes('WebSocket') || msg.includes('createWebSocketModuleRunnerTransport') || msg.includes('@vite/client')) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        }, true);
+
         try {
           document.documentElement.classList.add('dark');
           document.documentElement.classList.remove('light');
