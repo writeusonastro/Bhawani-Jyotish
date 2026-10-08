@@ -68,7 +68,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
             <div className="flex flex-col items-start leading-tight min-w-0 flex-1">
               <div className="flex items-center gap-1.5 w-full">
                 <span className="font-mukta text-xs sm:text-sm font-extrabold text-amber-300 tracking-wide truncate">
-                  {lang === 'en' ? 'Direct Call' : lang === 'hi' ? 'सीधे फोन करें' : 'સીધો કોલ કરો'}
+                  {lang === 'en' ? 'Direct Call' : lang === 'hi' ? 'सीधा कॉल करें' : 'સીધો કોલ કરો'}
                 </span>
                 <span className="text-[10px] bg-white/20 text-amber-200 px-1.5 py-0.2 rounded font-outfit font-bold leading-tight border border-amber-300/40">
                   Global
@@ -139,7 +139,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({
             <div className="flex flex-col items-start leading-tight text-left">
               <div className="flex items-center gap-1.5">
                 <span className="font-mukta text-xs sm:text-sm font-extrabold text-amber-300 tracking-wide whitespace-nowrap">
-                  {lang === 'en' ? 'Direct Phone Call' : lang === 'hi' ? 'सीधा फोन कॉल' : 'સીધો ફોન કોલ'}
+                  {lang === 'en' ? 'Direct Phone Call' : lang === 'hi' ? 'सीधा कॉल करें' : 'સીધો કોલ કરો'}
                 </span>
                 <span className="text-[10px] bg-white/20 text-amber-200 px-1.5 py-0.2 rounded-xs font-outfit font-bold border border-amber-300/40">
                   India & Abroad

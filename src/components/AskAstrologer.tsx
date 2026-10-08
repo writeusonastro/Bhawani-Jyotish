@@ -196,7 +196,7 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
               className="p-2 rounded-xl bg-white/20 hover:bg-white/30 transition-colors text-white text-xs font-bold flex items-center gap-1"
             >
               <Phone className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{lang === 'en' ? 'Call Now' : 'कॉल करें'}</span>
+              <span className="hidden sm:inline">{lang === 'en' ? `Call: ${ASTROLOGER_INFO.phonePrimary}` : `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}</span>
             </a>
           </div>
         </div>
@@ -327,7 +327,7 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
             className="bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5 whitespace-nowrap text-xs sm:text-sm"
           >
             <Phone className="w-3.5 h-3.5 shrink-0" />
-            <span className="whitespace-nowrap">{lang === 'en' ? 'Call Now' : 'कॉल करें'}</span>
+            <span className="whitespace-nowrap">{lang === 'en' ? `Call: ${ASTROLOGER_INFO.phonePrimary}` : `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}</span>
           </a>
           <a
             href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(getWhatsAppConsultationMessage(lang))}`}

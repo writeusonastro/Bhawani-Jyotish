@@ -9,9 +9,36 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
+    <!-- Favicon and Brand Icons -->
+    <link rel="icon" type="image/svg+xml" href="/swastik.svg" />
+    <link rel="icon" type="image/png" href="/swastik.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/swastik.png" />
+    <meta name="google-site-verification" content="googlef76376acedff709c" />
+
     <!-- Lock Dark Mode Consistency & Intercept Vite HMR WebSocket for Cloud Run / AI Studio -->
     <script>
       (function() {
+        // Suppress Vite dev server HMR noise in Google Chrome DevTools Console
+        if (typeof console !== 'undefined') {
+          var origConsoleError = console.error;
+          console.error = function() {
+            var fullText = Array.from(arguments).map(function(a) { return String(a || ''); }).join(' ');
+            if (fullText.includes('[vite]') || fullText.includes('WebSocket') || fullText.includes('createWebSocketModuleRunnerTransport')) {
+              return;
+            }
+            origConsoleError.apply(console, arguments);
+          };
+          var origConsoleWarn = console.warn;
+          console.warn = function() {
+            var fullText = Array.from(arguments).map(function(a) { return String(a || ''); }).join(' ');
+            if (fullText.includes('[vite]') || fullText.includes('WebSocket') || fullText.includes('createWebSocketModuleRunnerTransport')) {
+              return;
+            }
+            origConsoleWarn.apply(console, arguments);
+          };
+        }
+
         // AI Studio preview environment: HMR is disabled.
         // Stub Vite client WebSocket so transport connection never fails or throws unhandled rejection.
         if (typeof window !== 'undefined' && window.WebSocket) {
@@ -993,7 +1020,7 @@
             </div>
           </div>
           <div style="display: flex; gap: 6px;">
-            <a href="tel:+919909087902" style="background: linear-gradient(to right, #f99c00, #ffd236); color: #000; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 3px; white-space: nowrap; box-shadow: 0 2px 6px rgba(249,156,0,0.3);">📞 कॉल</a>
+            <a href="tel:+919909087902" style="background: linear-gradient(to right, #f99c00, #ffd236); color: #000; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 3px; white-space: nowrap; box-shadow: 0 2px 6px rgba(249,156,0,0.3);">📞 कॉल करें: +91 99090 87902</a>
             <a href="https://wa.me/919909087902?text=%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A3%E0%A4%BE%E0%A4%AE%20%E0%A4%AA%E0%A4%82%E0%A4%A1%E0%A4%BF%E0%A4%A4%20%E0%A4%9C%E0%A5%80%2C%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%A4%E0%A4%BF%E0%A4%B7%E0%A5%80%E0%A4%AF%20%E0%A4%AA%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%B0%E0%A5%8D%E0%A4%B6%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F" style="background: #25D366; color: #fff; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 3px; white-space: nowrap; box-shadow: 0 2px 6px rgba(37,211,102,0.3);">💬 WhatsApp</a>
           </div>
         </div>
@@ -1020,7 +1047,7 @@
           </div>
 
           <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-            <a href="tel:+919909087902" style="background: linear-gradient(to right, #f99c00, #fcbb00, #ffd236); color: #000; padding: 10px 22px; border-radius: 12px; font-size: 13px; font-weight: 900; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(249,156,0,0.35);">📞 सीधे पंडित जी से बात करें</a>
+            <a href="tel:+919909087902" style="background: linear-gradient(to right, #f99c00, #fcbb00, #ffd236); color: #000; padding: 10px 22px; border-radius: 12px; font-size: 13px; font-weight: 900; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(249,156,0,0.35);">📞 सीधा कॉल करें: +91 99090 87902</a>
             <a href="https://wa.me/919909087902?text=%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A3%E0%A4%BE%E0%A4%AE%20%E0%A4%AA%E0%A4%82%E0%A4%A1%E0%A4%BF%E0%A4%A4%20%E0%A4%9C%E0%A5%80%2C%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%A4%E0%A4%BF%E0%A4%B7%E0%A5%80%E0%A4%AF%20%E0%A4%AA%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%B0%E0%A5%8D%E0%A4%B6%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F" style="background: #25D366; color: #fff; padding: 10px 22px; border-radius: 12px; font-size: 13px; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(37,211,102,0.35);">💬 व्हाट्सएप परामर्श</a>
           </div>
         </div>

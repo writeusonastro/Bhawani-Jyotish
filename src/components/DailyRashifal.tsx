@@ -641,7 +641,7 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onSelectRash
                   className="w-full bg-black/25 hover:bg-black/40 text-amber-100 font-bold py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 border border-amber-300/30"
                 >
                   <Phone className="w-3.5 h-3.5 text-amber-300" />
-                  <span>{lang === 'en' ? 'Call Pandit Ji' : lang === 'hi' ? 'पंडित जी से बात करें' : 'પંડિતજી સાથે વાત કરો'}</span>
+                  <span>{lang === 'en' ? `Direct Call: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}` : `સીધો કોલ કરો: ${ASTROLOGER_INFO.phonePrimary}`}</span>
                 </a>
               </div>
             </div>

@@ -331,7 +331,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="flex items-center justify-center gap-1 bg-gradient-to-r from-[#f99c00] via-[#fcbb00] to-[#ffd236] text-black font-yatra tracking-wide px-2 py-2 rounded-xl text-xs transition-all shadow-[0_0_15px_rgba(249,156,0,0.3)] border border-amber-200 hover:scale-105 active:scale-95 text-center font-black"
             >
               <Phone className="w-3.5 h-3.5 text-black shrink-0" />
-              <span className="truncate">{lang === 'en' ? 'Call' : lang === 'hi' ? 'कॉल करें' : 'કોલ કરો'}</span>
+              <span className="truncate">{lang === 'en' ? `Call: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `सीधा कॉल: ${ASTROLOGER_INFO.phonePrimary}` : `કોલ: ${ASTROLOGER_INFO.phonePrimary}`}</span>
             </a>
           </div>
         </div>

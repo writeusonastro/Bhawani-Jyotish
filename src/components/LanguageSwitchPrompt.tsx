@@ -70,21 +70,21 @@ export const LanguageSwitchPrompt: React.FC<LanguageSwitchPromptProps> = ({
           <div className="text-xs sm:text-[13px] leading-tight min-w-0">
             {lang === 'gu' ? (
               <div>
-                <span className="text-[#ffd236] font-bold">ગુજરાતીમાં વાંચી રહ્યા છો?</span>
-                <span className="block text-slate-300 text-[11px] sm:text-xs mt-0.5">
-                  यदि आप <strong className="text-white">हिंदी</strong> में पढ़ना चाहते हैं तो यहाँ बदलें:
+                <span className="text-[#ffd236] font-bold">📍 ગુજરાત / गुजरात</span>
+                <span className="block text-slate-200 text-[11px] sm:text-xs mt-0.5">
+                  यदि आप <strong className="text-amber-300">हिंदी</strong> में पढ़ना चाहते हैं तो यहाँ बदलें:
                 </span>
               </div>
             ) : lang === 'hi' ? (
               <div>
-                <span className="text-[#ffd236] font-bold">हिंदी में देख रहे हैं?</span>
-                <span className="block text-slate-300 text-[11px] sm:text-xs mt-0.5">
-                  જો તમે <strong className="text-white">ગુજરાતી</strong>માં વાંચવા માંગતા હો તો:
+                <span className="text-[#ffd236] font-bold">📍 गुजरात / ગુજરાત</span>
+                <span className="block text-slate-200 text-[11px] sm:text-xs mt-0.5">
+                  જો તમે <strong className="text-amber-300">ગુજરાતી</strong>માં વાંચવા માંગતા હો તો:
                 </span>
               </div>
             ) : (
               <div>
-                <span className="text-[#ffd236] font-bold">Viewing in English?</span>
+                <span className="text-[#ffd236] font-bold">📍 Regional Language</span>
                 <span className="block text-slate-300 text-[11px] sm:text-xs mt-0.5">
                   हिंदी या ગુજરાતી में पढ़ें:
                 </span>

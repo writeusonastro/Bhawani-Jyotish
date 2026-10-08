@@ -42,7 +42,9 @@ export function classifyGeoToLanguage(
     };
   }
 
-  // 2. Pure Gujarat (Entire Gujarat State) -> Gujarati ('gu')
+  // 2. Gujarat Region (Entire Gujarat State) -> Hindi universal default ('hi') with Gujarat zone
+  // Reason: Gujarat has millions of Hindi speakers (Ahmedabad, Surat, Vadodara, Vapi, etc.) who cannot read Gujarati script.
+  // Gujarati citizens comfortably read Hindi. Those who want Gujarati get an instant 1-click Gujarati toggle or device auto-detect.
   const isGujarat =
     reg.includes('gujarat') ||
     reg === 'gj' ||
@@ -77,9 +79,9 @@ export function classifyGeoToLanguage(
 
   if (isGujarat) {
     return {
-      language: 'gu',
+      language: 'hi',
       zone: 'gujarat',
-      reason: 'संपूर्ण गुजरात क्षेत्र (Entire Gujarat State) - ગુજરાતી'
+      reason: 'गुजरात क्षेत्र (Gujarat State) - सर्वसुलभ हिंदी डिफ़ॉल्ट + 1-क्लिक गुजराती विकल्प'
     };
   }
 
@@ -373,14 +375,21 @@ export async function detectGeoLanguageAsync(
       const data = await res.json();
       if (data && data.language) {
         let detectedLang = data.language as Language;
-        // Smart Hindi Speaker Detection in Gujarat:
-        // If user is located in Gujarat, check if their browser/phone has Hindi language preference
+        // Smart Hindi & Gujarati Speaker Resolution in Gujarat:
+        // Millions of Hindi speakers reside in Gujarat (Surat, Ahmedabad, Vadodara, Vapi, etc.).
+        // If device explicitly has Gujarati ('gu'), honor Gujarati.
+        // Otherwise, default to universal Hindi ('hi') so Hindi speakers are never blocked,
+        // and the 1-click LanguageSwitchPrompt lets Gujarati speakers switch with 1 tap.
         if (data.zone === 'gujarat') {
           const devicePref = detectUserDeviceLanguage();
-          if (devicePref === 'hi') {
+          if (devicePref === 'gu') {
+            detectedLang = 'gu';
+            data.language = 'gu';
+            data.reason = 'गुजरात क्षेत्र (Device Gujarati Language Preference) - ગુજરાતી';
+          } else {
             detectedLang = 'hi';
             data.language = 'hi';
-            data.reason = 'गुजरात में हिंदी भाषी प्राथमिकता (Device Hindi Preference)';
+            data.reason = 'गुजरात क्षेत्र - सर्वसुलभ हिंदी डिफ़ॉल्ट (1-क्लिक गुजराती स्विच उपलब्ध)';
           }
         }
         saveLanguagePreference(detectedLang, false);
@@ -412,9 +421,12 @@ export async function detectGeoLanguageAsync(
         let detectedLang = classification.language;
         if (classification.zone === 'gujarat') {
           const devicePref = detectUserDeviceLanguage();
-          if (devicePref === 'hi') {
+          if (devicePref === 'gu') {
+            detectedLang = 'gu';
+            classification.reason = 'गुजरात क्षेत्र (Device Gujarati Language Preference) - ગુજરાતી';
+          } else {
             detectedLang = 'hi';
-            classification.reason = 'गुजरात में हिंदी भाषी प्राथमिकता (Device Hindi Preference)';
+            classification.reason = 'गुजरात क्षेत्र - सर्वसुलभ हिंदी डिफ़ॉल्ट (1-क्लिक गुजराती स्विच उपलब्ध)';
           }
         }
         const details: GeoDetectionInfo = {

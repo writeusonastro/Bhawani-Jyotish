@@ -94,10 +94,10 @@ export const QuickCallBackWidget: React.FC<QuickCallBackWidgetProps> = ({ lang, 
         <a
           href={`tel:${ASTROLOGER_INFO.phoneRaw || '+919909087902'}`}
           className="inline-flex items-center gap-2 bg-[#FF671F] hover:bg-[#E05312] text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl shadow-md transition-all hover:scale-105 active:scale-95 shrink-0 whitespace-nowrap"
-          title="सीधा फोन लगाएं"
+          title={`सीधा फोन लगाएं: ${ASTROLOGER_INFO.phonePrimary}`}
         >
           <Phone className="w-4 h-4 fill-current animate-bounce" />
-          <span>{lang === 'en' ? 'Or Call Directly Now' : 'या तुरंत सीधा फोन मिलाएं'}</span>
+          <span>{lang === 'en' ? `Call Directly: ${ASTROLOGER_INFO.phonePrimary}` : `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}</span>
         </a>
       </div>
 
@@ -126,7 +126,7 @@ export const QuickCallBackWidget: React.FC<QuickCallBackWidgetProps> = ({ lang, 
               className="inline-flex items-center gap-2 bg-[#FF671F] text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow-md"
             >
               <Phone className="w-4 h-4 fill-current" />
-              <span>{lang === 'en' ? 'Need Urgent Answer? Call Now' : 'तुरंत समाधान चाहिए? अभी कॉल करें'}</span>
+              <span>{lang === 'en' ? `Need Urgent Answer? Call: ${ASTROLOGER_INFO.phonePrimary}` : `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}</span>
             </a>
           </div>
         </div>

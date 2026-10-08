@@ -662,7 +662,7 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
               >
                 <Phone className="w-4 h-4 text-black shrink-0" />
                 <span className="leading-none pt-0.5">
-                  {lang === 'en' ? selectedCity.ctaPhoneTextEn : lang === 'hi' ? selectedCity.ctaPhoneTextHi : selectedCity.ctaPhoneTextGu}
+                  {lang === 'en' ? `${selectedCity.ctaPhoneTextEn}: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `${selectedCity.ctaPhoneTextHi}: ${ASTROLOGER_INFO.phonePrimary}` : `${selectedCity.ctaPhoneTextGu}: ${ASTROLOGER_INFO.phonePrimary}`}
                 </span>
               </a>
 
@@ -778,7 +778,7 @@ export const CityLocalSeoSection: React.FC<CityLocalSeoSectionProps> = ({ lang, 
                   className="bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#e08b00] hover:to-[#e5a800] text-black font-extrabold py-2 px-3 rounded-xl text-xs text-center shadow-xs flex items-center justify-center gap-1"
                 >
                   <Phone className="w-3.5 h-3.5 text-black" />
-                  <span>{lang === 'en' ? 'Call Directly' : 'सीधे कॉल करें'}</span>
+                  <span>{lang === 'en' ? `Call: ${ASTROLOGER_INFO.phonePrimary}` : `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}</span>
                 </a>
 
                 <a

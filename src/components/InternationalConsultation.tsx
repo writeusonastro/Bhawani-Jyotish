@@ -981,7 +981,7 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                 className="w-full bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#e08b00] hover:to-[#e5a800] text-black font-extrabold py-2.5 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 whitespace-nowrap"
               >
                 <Phone className="w-4 h-4 shrink-0 text-black" />
-                <span className="whitespace-nowrap">{lang === 'en' ? 'Direct Call: +91 99090 87902' : 'कॉल करें: +91 99090 87902'}</span>
+                <span className="whitespace-nowrap">{lang === 'en' ? 'Direct Call: +91 99090 87902' : 'सीधा कॉल करें: +91 99090 87902'}</span>
               </a>
             </div>
           </div>

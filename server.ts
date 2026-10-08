@@ -28,6 +28,18 @@ app.use((req: Request, res: Response, next) => {
 
 app.use(express.json());
 
+// Serve static assets from public folder (favicon, icons, images, sitemap, robots, etc.)
+app.use(express.static(path.join(process.cwd(), "public")));
+
+// Direct fallbacks for favicon and logo to guarantee 0 error responses in browser devtools
+app.get("/favicon.ico", (_req: Request, res: Response) => {
+  res.sendFile(path.join(process.cwd(), "public", "favicon.ico"));
+});
+
+app.get("/logo.png", (_req: Request, res: Response) => {
+  res.sendFile(path.join(process.cwd(), "public", "logo.png"));
+});
+
 // Lazy-initialized Gemini instance
 let aiClient: GoogleGenAI | null = null;
 function getAI(): GoogleGenAI | null {
@@ -322,9 +334,9 @@ export function classifyGeoToLanguage(
 
   if (isGujarat) {
     return {
-      language: 'gu',
+      language: 'hi',
       zone: 'gujarat',
-      reason: 'संपूर्ण गुजरात क्षेत्र (Entire Gujarat State) - गुजराती भाषा'
+      reason: 'गुजरात क्षेत्र (Gujarat State) - सर्वसुलभ हिंदी डिफ़ॉल्ट + 1-क्लिक गुजराती विकल्प'
     };
   }
 
@@ -472,9 +484,9 @@ app.get("/api/geo/detect", async (req: Request, res: Response) => {
         countryCode: "IN",
         region: "गुजरात (Gujarat)",
         city: "मेहसाणा (Mehsana)",
-        language: "gu" as const,
+        language: "hi" as const,
         zone: "gujarat" as const,
-        reason: "Default / Headquarters Location (Mehsana, Gujarat)",
+        reason: "Default / Headquarters Location (Mehsana, Gujarat) - Universal Hindi with 1-click Gujarati switch",
         isFallback: true
       };
       return res.json(fallbackResult);

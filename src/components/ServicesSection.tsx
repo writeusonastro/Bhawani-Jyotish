@@ -211,7 +211,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                       className="flex-1 font-bold py-2.5 rounded-xl text-xs transition-all text-center border flex items-center justify-center gap-1.5 shadow-md bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#fcbb00] hover:to-[#ffd236] text-black border-amber-200 active:scale-95"
                     >
                       <Phone className="w-3.5 h-3.5" />
-                      <span>{lang === 'en' ? 'Direct Call' : lang === 'hi' ? 'सीधे कॉल करें' : 'કોલ કરો'}</span>
+                      <span>{lang === 'en' ? `Direct Call: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}` : `સીધો કોલ કરો: ${ASTROLOGER_INFO.phonePrimary}`}</span>
                     </a>
 
                     <a
@@ -264,7 +264,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             className="w-full sm:w-auto justify-center bg-gradient-to-r from-[#f99c00] via-[#fcbb00] to-[#ffd236] hover:from-[#fcbb00] hover:to-[#ffd236] text-black font-black px-6 py-3 rounded-full text-xs sm:text-sm transition-all shadow-[0_0_25px_rgba(249,156,0,0.35)] border border-amber-200 flex items-center gap-2"
           >
             <Phone className="w-4 h-4 text-black" />
-            <span>{lang === 'en' ? 'Call Pandit Ji Directly' : lang === 'hi' ? 'सीधे फोन पर बात करें' : 'ફોન પર વાત કરો'}</span>
+            <span>{lang === 'en' ? `Call Pandit Ji Directly: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}` : `સીધો કોલ કરો: ${ASTROLOGER_INFO.phonePrimary}`}</span>
           </a>
         </div>
       </div>

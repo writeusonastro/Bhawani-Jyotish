@@ -1341,7 +1341,7 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                           className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#991b1b] hover:bg-[#7f1d1d] text-white shadow-xs"
                         >
                           <Phone className="w-3.5 h-3.5" />
-                          <span>कॉल करें</span>
+                          <span>सीधा कॉल करें: {ASTROLOGER_INFO.phonePrimary}</span>
                         </a>
                         <a
                           href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(

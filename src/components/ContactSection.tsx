@@ -177,7 +177,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 className="flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#fcbb00] hover:to-[#ffd236] text-black text-sm font-bold px-2.5 py-2.5 rounded-xl shadow-md transition-all active:scale-95 text-center whitespace-nowrap"
               >
                 <Phone className="w-4 h-4 shrink-0 text-black" />
-                <span>{lang === 'en' ? 'Call Now' : lang === 'hi' ? 'कॉल करें' : 'કોલ કરો'}</span>
+                <span>{lang === 'en' ? `Direct Call: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}` : `સીધો કોલ કરો: ${ASTROLOGER_INFO.phonePrimary}`}</span>
               </a>
 
               <a
@@ -388,10 +388,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-black shrink-0 group-hover:scale-110 transition-transform" />
               <span className="font-mukta font-extrabold text-sm sm:text-base tracking-normal whitespace-nowrap">
                 {lang === 'en'
-                  ? 'Call Now:'
+                  ? 'Call Directly:'
                   : lang === 'hi'
-                  ? 'तुरंत कॉल करें:'
-                  : 'તરત કોલ કરો:'}
+                  ? 'सीधा कॉल करें:'
+                  : 'સીધો કોલ કરો:'}
               </span>
               <span className="font-outfit font-black text-black tracking-wider text-sm sm:text-base whitespace-nowrap">
                 {ASTROLOGER_INFO.phonePrimary}

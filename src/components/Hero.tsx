@@ -207,7 +207,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
               </div>
               <div className="flex flex-col items-start text-left leading-tight">
                 <span className="text-xs sm:text-sm text-black/80 font-bold uppercase tracking-wider">
-                  {lang === 'en' ? 'Direct Phone Consultation' : lang === 'gu' ? 'સીધા ફોન પર વાત કરો' : 'सीधे फोन पर बात करें'}
+                  {lang === 'en' ? 'Direct Phone Consultation' : lang === 'gu' ? 'સીધો કોલ કરો' : 'सीधा कॉल करें'}
                 </span>
                 <span className="phone-crisp text-xl sm:text-2xl font-black text-black tracking-wider">
                   {ASTROLOGER_INFO.phonePrimary}

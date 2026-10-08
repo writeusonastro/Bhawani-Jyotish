@@ -1170,7 +1170,7 @@ export const GunMilan: React.FC<GunMilanProps> = ({ lang, isDark = false }) => {
                   className="flex-1 bg-gradient-to-r from-[#D9531E] via-[#FF671F] to-[#CC5218] hover:from-[#B84214] hover:to-[#D9531E] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 text-center"
                 >
                   <Phone className="w-4 h-4 text-amber-200" />
-                  <span>पंडित जी से फोन पर पूछें</span>
+                  <span>सीधा कॉल करें: {ASTROLOGER_INFO.phonePrimary}</span>
                 </a>
 
                 <a

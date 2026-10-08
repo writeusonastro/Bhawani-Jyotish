@@ -540,7 +540,7 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
               >
                 <Phone className="w-4 h-4" />
                 <span>
-                  {lang === 'en' ? 'Call Pandit Ji for Advice' : lang === 'hi' ? 'पंडित जी से फोन पर सलाह लें' : 'પંડિતજી સાથે ફોન પર વાત કરો'}
+                  {lang === 'en' ? `Direct Call: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}` : `સીધો કોલ કરો: ${ASTROLOGER_INFO.phonePrimary}`}
                 </span>
               </a>
 
