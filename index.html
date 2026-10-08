@@ -9,16 +9,65 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <!-- Lock Dark Mode Consistency Across All Devices, Browsers & Inversion Engines -->
+    <!-- Lock Dark Mode Consistency & Intercept Vite HMR WebSocket for Cloud Run / AI Studio -->
     <script>
       (function() {
-        // HMR is disabled in AI Studio preview iframe. Ignore WebSocket transport errors gracefully.
+        // AI Studio preview environment: HMR is disabled.
+        // Stub Vite client WebSocket so transport connection never fails or throws unhandled rejection.
+        if (typeof window !== 'undefined' && window.WebSocket) {
+          var NativeWebSocket = window.WebSocket;
+          function MockViteWebSocket(url, protocols) {
+            var urlStr = (typeof url === 'string') ? url : (url && url.href ? url.href : '');
+            var protoStr = Array.isArray(protocols) ? protocols.join(',') : (protocols || '');
+            var isViteHmr = protoStr.includes('vite-hmr') || protoStr.includes('vite-ping') || 
+                            urlStr.includes('vite-hmr') || urlStr.includes('token=') || urlStr.includes('/@vite/');
+            if (isViteHmr) {
+              var target = new EventTarget();
+              target.url = urlStr;
+              target.protocol = Array.isArray(protocols) ? protocols[0] : (protocols || '');
+              target.readyState = 1; // WebSocket.OPEN
+              target.CONNECTING = 0;
+              target.OPEN = 1;
+              target.CLOSING = 2;
+              target.CLOSED = 3;
+              target.binaryType = 'blob';
+              target.bufferedAmount = 0;
+              target.extensions = '';
+              target.onopen = null;
+              target.onclose = null;
+              target.onerror = null;
+              target.onmessage = null;
+              target.send = function() {};
+              target.close = function(code, reason) {
+                target.readyState = 3;
+                var closeEvt = new CustomEvent('close', { detail: { code: code || 1000, reason: reason || '' } });
+                if (typeof target.onclose === 'function') target.onclose(closeEvt);
+                target.dispatchEvent(closeEvt);
+              };
+              setTimeout(function() {
+                var openEvt = new Event('open');
+                if (typeof target.onopen === 'function') target.onopen(openEvt);
+                target.dispatchEvent(openEvt);
+              }, 0);
+              return target;
+            }
+            return new NativeWebSocket(url, protocols);
+          }
+          MockViteWebSocket.CONNECTING = 0;
+          MockViteWebSocket.OPEN = 1;
+          MockViteWebSocket.CLOSING = 2;
+          MockViteWebSocket.CLOSED = 3;
+          MockViteWebSocket.prototype = NativeWebSocket.prototype;
+          window.WebSocket = MockViteWebSocket;
+        }
+
+        // Suppress any remaining WebSocket transport rejection or error logs
         window.addEventListener('error', function(e) {
           var msg = (e && (e.message || '')) + '';
           var fn = (e && (e.filename || '')) + '';
           if (msg.includes('WebSocket') || msg.includes('createWebSocketModuleRunnerTransport') || fn.includes('@vite/client')) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
+            if (e.preventDefault) e.preventDefault();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
             return true;
           }
         }, true);
@@ -26,8 +75,8 @@
           var reason = e && e.reason;
           var msg = (reason && (reason.message || reason.stack || String(reason))) || '';
           if (msg.includes('WebSocket') || msg.includes('createWebSocketModuleRunnerTransport') || msg.includes('@vite/client')) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
+            if (e.preventDefault) e.preventDefault();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
           }
         }, true);
 
