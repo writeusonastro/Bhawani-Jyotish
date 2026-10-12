@@ -71,15 +71,19 @@ export const Header: React.FC<HeaderProps> = ({
       setActiveTab('gemstones');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
+      const scrollTarget = () => {
+        const targetEl = document.getElementById(`service-${serviceId}`) || document.getElementById('services-section');
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+
       if (activeTab !== 'home') {
         setActiveTab('home');
+        setTimeout(scrollTarget, 150);
+      } else {
+        scrollTarget();
       }
-      setTimeout(() => {
-        const el = document.getElementById('services-section');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 120);
     }
   };
 
@@ -206,35 +210,61 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               </span>
               <span className="hidden sm:inline-flex items-center gap-1 text-[10px] sm:text-[11px] bg-[#0c1334] text-[#ffd236] border border-amber-500/30 px-2 sm:px-2.5 py-0.5 rounded-full font-bold shadow-2xs shrink-0 whitespace-nowrap">
-                <span>{lang === 'en' ? '11 Sacred Solutions' : lang === 'hi' ? '११ शास्त्रीय समाधान' : '૧૧ શાસ્ત્રોક્ત ઉપાય'}</span>
+                <span>{lang === 'en' ? `${ASTRO_SERVICES.length} Sacred Solutions` : lang === 'hi' ? `${ASTRO_SERVICES.length} शास्त्रीय समाधान` : `${ASTRO_SERVICES.length} શાસ્ત્રોક્ત ઉપાય`}</span>
               </span>
             </div>
 
             {/* Warm Golden Divider */}
             <div className="h-4 w-px bg-white/10 shrink-0 hidden sm:block" />
 
-            {/* Smooth Continuous Scrolling Ticker */}
-            <div className="relative flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_14px,black_calc(100%-14px),transparent)]">
-              <div className="services-ticker-track flex items-center gap-2 sm:gap-2.5 py-0.5">
-                {tickerServicesList.map((srv, idx) => {
-                  const Icon = SERVICE_ICONS[srv.id] || Sparkles;
-                  const serviceTitle = lang === 'en' ? srv.titleEn : lang === 'hi' ? srv.titleHi : srv.titleGu;
-                  return (
-                    <button
-                      key={`${srv.id}-${idx}`}
-                      type="button"
-                      onClick={() => handleServiceClick(srv.id)}
-                      className="group/item inline-flex items-center gap-1.5 bg-[#0c1334] hover:bg-[#121a42] border border-white/10 hover:border-amber-400/60 text-slate-200 hover:text-[#fcbb00] px-2.5 sm:px-3 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all shadow-xs hover:scale-105 active:scale-95 cursor-pointer shrink-0"
-                      title={`${serviceTitle} - क्लिक करें`}
-                    >
-                      <span className="w-4 h-4 rounded-full bg-amber-500/20 text-[#fcbb00] flex items-center justify-center shrink-0 group-hover/item:bg-amber-500/30">
-                        <Icon className="w-2.5 h-2.5" />
-                      </span>
-                      <span>{serviceTitle}</span>
-                      <span className="text-[#f99c00] font-bold ml-0.5">✦</span>
-                    </button>
-                  );
-                })}
+            {/* Smooth Continuous Scrolling Ticker (Zero-Jitter Dual Track) */}
+            <div className="relative flex-1 overflow-hidden group/ticker [mask-image:linear-gradient(to_right,transparent,black_16px,black_calc(100%-16px),transparent)]">
+              <div className="flex w-max items-center py-0.5">
+                {/* Track 1 */}
+                <div className="services-ticker-track flex items-center gap-2 sm:gap-2.5 pr-2 sm:pr-2.5 shrink-0">
+                  {ASTRO_SERVICES.map((srv, idx) => {
+                    const Icon = SERVICE_ICONS[srv.id] || Sparkles;
+                    const serviceTitle = lang === 'en' ? srv.titleEn : lang === 'hi' ? srv.titleHi : srv.titleGu;
+                    return (
+                      <button
+                        key={`t1-${srv.id}-${idx}`}
+                        type="button"
+                        onClick={() => handleServiceClick(srv.id)}
+                        className="group/item inline-flex items-center gap-1.5 bg-[#0c1334] hover:bg-[#121a42] border border-white/10 hover:border-amber-400/60 text-slate-200 hover:text-[#fcbb00] px-2.5 sm:px-3 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all shadow-xs hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+                        title={`${serviceTitle} - क्लिक करें`}
+                      >
+                        <span className="w-4 h-4 rounded-full bg-amber-500/20 text-[#fcbb00] flex items-center justify-center shrink-0 group-hover/item:bg-amber-500/30">
+                          <Icon className="w-2.5 h-2.5" />
+                        </span>
+                        <span>{serviceTitle}</span>
+                        <span className="text-[#f99c00] font-bold ml-0.5">✦</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Track 2 (Pixel-exact clone for 100% glitchless seamless loop) */}
+                <div className="services-ticker-track flex items-center gap-2 sm:gap-2.5 pr-2 sm:pr-2.5 shrink-0" aria-hidden="true">
+                  {ASTRO_SERVICES.map((srv, idx) => {
+                    const Icon = SERVICE_ICONS[srv.id] || Sparkles;
+                    const serviceTitle = lang === 'en' ? srv.titleEn : lang === 'hi' ? srv.titleHi : srv.titleGu;
+                    return (
+                      <button
+                        key={`t2-${srv.id}-${idx}`}
+                        type="button"
+                        onClick={() => handleServiceClick(srv.id)}
+                        className="group/item inline-flex items-center gap-1.5 bg-[#0c1334] hover:bg-[#121a42] border border-white/10 hover:border-amber-400/60 text-slate-200 hover:text-[#fcbb00] px-2.5 sm:px-3 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all shadow-xs hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+                        title={`${serviceTitle} - क्लिक करें`}
+                      >
+                        <span className="w-4 h-4 rounded-full bg-amber-500/20 text-[#fcbb00] flex items-center justify-center shrink-0 group-hover/item:bg-amber-500/30">
+                          <Icon className="w-2.5 h-2.5" />
+                        </span>
+                        <span>{serviceTitle}</span>
+                        <span className="text-[#f99c00] font-bold ml-0.5">✦</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>

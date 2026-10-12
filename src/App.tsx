@@ -362,14 +362,27 @@ export function App() {
           )}
 
           {activeTab === 'services' && (
-            <ServicesSection
-              lang={lang}
-              onSelectService={(id) => {
-                if (id === 'kundli') setActiveTab('kundli');
-                else if (id === 'matchmaking') setActiveTab('gun-milan');
-                else if (id === 'dosh') setActiveTab('dosh-guide');
-              }}
-            />
+            <div className="py-4">
+              <div className="max-w-7xl mx-auto px-4 mb-2 flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('home')}
+                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#ffd236] hover:text-white bg-[#0c1334] border border-amber-500/40 px-3.5 py-1.5 rounded-xl transition-all cursor-pointer shadow-md"
+                >
+                  <span>←</span>
+                  <span>{lang === 'en' ? 'Back to Home' : lang === 'hi' ? 'मुख्य पृष्ठ पर लौटें' : 'મુખ્ય પૃષ્ઠ પર પાછા જાઓ'}</span>
+                </button>
+              </div>
+              <ServicesSection
+                lang={lang}
+                onSelectService={(id) => {
+                  if (id === 'kundli') setActiveTab('kundli');
+                  else if (id === 'matchmaking') setActiveTab('gun-milan');
+                  else if (id === 'dosh') setActiveTab('dosh-guide');
+                }}
+              />
+              <SeoKeywordHub lang={lang} setActiveTab={setActiveTab} />
+            </div>
           )}
 
           {activeTab === 'ask-astrologer' && (

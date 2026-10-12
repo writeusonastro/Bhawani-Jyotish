@@ -155,7 +155,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           return (
             <div
               key={srv.id}
-              className="golden-border-beam-card group"
+              id={`service-${srv.id}`}
+              className="golden-border-beam-card group scroll-mt-24"
             >
               <div className="golden-border-beam-inner text-slate-100">
                 {/* HD Image Banner with Cinematic Lighting & Badges */}

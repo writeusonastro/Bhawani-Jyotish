@@ -59,7 +59,7 @@ export const LanguageSwitchPrompt: React.FC<LanguageSwitchPromptProps> = ({
   return (
     <aside 
       aria-label="Language selection banner"
-      className="fixed bottom-20 left-3 right-3 sm:left-auto sm:right-5 sm:bottom-6 z-50 max-w-md animate-in fade-in slide-in-from-bottom-3 duration-300 pointer-events-auto"
+      className="fixed bottom-24 left-3 right-3 sm:left-6 sm:right-auto sm:bottom-6 z-40 max-w-md animate-in fade-in slide-in-from-bottom-3 duration-300 pointer-events-auto"
     >
       <div className="bg-gradient-to-r from-[#070b1e] via-[#0d143a] to-[#070b1e] text-white p-3 sm:p-3.5 rounded-2xl border-2 border-[#ffd236]/40 shadow-2xl shadow-black/80 backdrop-blur-md flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 min-w-0">

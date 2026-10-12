@@ -113,9 +113,11 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
 
           {/* Main Hero Title */}
           <div className="w-full flex justify-center mb-3 sm:mb-4">
-            <h2 className="font-mukta font-extrabold text-3xl sm:text-5xl lg:text-6xl leading-tight tracking-normal flex items-center justify-center gap-2 sm:gap-3 flex-wrap royal-gold-gradient-text text-center">
-              <span>{lang === 'en' ? 'Bhavani Jyotish Kendra' : lang === 'hi' ? 'भवानी ज्योतिष केंद्र' : 'ભવાની જ્યોતિષ કેન્દ્ર'}</span>
-              <VerifiedBadge size="lg" tooltipText="भवानी ज्योतिष केंद्र - आधिकारिक सत्यापित वैदिक पीठ" />
+            <h2 className="font-mukta font-extrabold text-3xl sm:text-5xl lg:text-6xl leading-tight tracking-normal royal-gold-gradient-text text-center inline-flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+              <span className="inline-flex items-center gap-2 sm:gap-3">
+                <span>{lang === 'en' ? 'Bhavani Jyotish Kendra' : lang === 'hi' ? 'भवानी ज्योतिष केंद्र' : 'ભવાની જ્યોતિષ કેન્દ્ર'}</span>
+                <VerifiedBadge size="lg" variant="gold" tooltipText="भवानी ज्योतिष केंद्र - आधिकारिक सत्यापित वैदिक पीठ" />
+              </span>
             </h2>
           </div>
 
@@ -152,24 +154,42 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
 
           {/* 4 Core Vedic Solutions Pill Badges */}
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-5xl mx-auto mb-3 px-2">
-            {HERO_PILL_SPECIALTIES.map((item, idx) => (
-              <button
-                key={idx}
-                id={`hero-pill-${idx}`}
-                type="button"
-                onClick={() => setActiveTab('services')}
-                title={`High Ranking Vedic Astrology: ${item.seoKeyword[lang]}`}
-                className="inline-flex items-center gap-2 bg-[#0c1334]/80 hover:bg-[#121a42] border border-white/10 hover:border-amber-400/50 px-3.5 py-1.5 rounded-full shadow-md transition-all hover:scale-[1.02] active:scale-95 cursor-pointer text-left whitespace-nowrap shrink-0"
-              >
-                <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#f99c00]"></span>
-                </span>
-                <span className="text-[11px] sm:text-xs md:text-sm font-bold text-slate-200 hover:text-[#fcbb00] whitespace-nowrap">
-                  {item[lang]}
-                </span>
-              </button>
-            ))}
+            {HERO_PILL_SPECIALTIES.map((item, idx) => {
+              const targetServiceId = idx === 0 ? 'service-love-marriage'
+                : idx === 1 ? 'service-vyasan-mukti'
+                : idx === 2 ? 'service-par-stree-nivaran'
+                : 'service-child-guidance';
+
+              return (
+                <button
+                  key={idx}
+                  id={`hero-pill-${idx}`}
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById(targetServiceId) || document.getElementById('services-section');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                      setActiveTab('home');
+                      setTimeout(() => {
+                        const target = document.getElementById(targetServiceId) || document.getElementById('services-section');
+                        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }, 150);
+                    }
+                  }}
+                  title={`High Ranking Vedic Astrology: ${item.seoKeyword[lang]}`}
+                  className="inline-flex items-center gap-2 bg-[#0c1334]/80 hover:bg-[#121a42] border border-white/10 hover:border-amber-400/50 px-3.5 py-1.5 rounded-full shadow-md transition-all hover:scale-[1.02] active:scale-95 cursor-pointer text-left whitespace-nowrap shrink-0"
+                >
+                  <span className="relative flex h-2.5 w-2.5 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#f99c00]"></span>
+                  </span>
+                  <span className="text-[11px] sm:text-xs md:text-sm font-bold text-slate-200 hover:text-[#fcbb00] whitespace-nowrap">
+                    {item[lang]}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Related High-Ranking SEO Keywords Strip */}
@@ -183,9 +203,15 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
                 key={tIdx}
                 type="button"
                 onClick={() => {
-                  setActiveTab('services');
                   const seoEl = document.getElementById('seo-directory');
-                  if (seoEl) seoEl.scrollIntoView({ behavior: 'smooth' });
+                  if (seoEl) {
+                    seoEl.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    setActiveTab('home');
+                    setTimeout(() => {
+                      document.getElementById('seo-directory')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 150);
+                  }
                 }}
                 className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold bg-[#070b1e] hover:bg-[#0c1334] text-slate-300 hover:text-[#ffd236] border border-white/10 hover:border-amber-400/50 transition-all cursor-pointer shadow-xs"
                 title={`High Volume Astrological Search Query: ${tag.phrase}`}
