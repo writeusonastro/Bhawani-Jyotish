@@ -2,237 +2,110 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Primary Root URL -->
+  <!-- Primary Canonical Root URL -->
   <url>
     <loc>https://bhawanijyotish.online/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://bhawanijyotish.online/?lang=hi" />
-    <xhtml:link rel="alternate" hreflang="gu" href="https://bhawanijyotish.online/?lang=gu" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://bhawanijyotish.online/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://bhawanijyotish.online/?country=usa" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://bhawanijyotish.online/?country=uk" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://bhawanijyotish.online/?country=canada" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://bhawanijyotish.online/?country=australia" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://bhawanijyotish.online/?country=uae" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bhawanijyotish.online/" />
+  </url>
+
+  <!-- International NRI Astrologer Landing Pages (Top 5 Countries) -->
+  <url>
+    <loc>https://bhawanijyotish.online/?country=usa</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.96</priority>
+  </url>
+
+  <url>
+    <loc>https://bhawanijyotish.online/?country=uk</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.94</priority>
+  </url>
+
+  <url>
+    <loc>https://bhawanijyotish.online/?country=canada</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.94</priority>
+  </url>
+
+  <url>
+    <loc>https://bhawanijyotish.online/?country=australia</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+
+  <url>
+    <loc>https://bhawanijyotish.online/?country=uae</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
   </url>
 
   <!-- International & NRI Vedic Astrology Portal -->
   <url>
     <loc>https://bhawanijyotish.online/?tab=international</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bhawanijyotish.online/?tab=international&amp;lang=en" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://bhawanijyotish.online/?tab=international&amp;lang=hi" />
-    <xhtml:link rel="alternate" hreflang="gu" href="https://bhawanijyotish.online/?tab=international&amp;lang=gu" />
-  </url>
-
-  <!-- USA NRI Astrologer Landing Page -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=usa</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://bhawanijyotish.online/?country=usa" />
-  </url>
-
-  <!-- UK Indian & Gujarati Astrologer Landing Page -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=uk</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://bhawanijyotish.online/?country=uk" />
-  </url>
-
-  <!-- Canada NRI Vedic Astrologer Landing Page -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=canada</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://bhawanijyotish.online/?country=canada" />
-  </url>
-
-  <!-- Australia & New Zealand Indian Astrologer Landing Page -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=australia</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.88</priority>
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://bhawanijyotish.online/?country=australia" />
-  </url>
-
-  <!-- UAE & Dubai Vedic Astrology Landing Page -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=uae</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.88</priority>
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://bhawanijyotish.online/?country=uae" />
-  </url>
-
-  <!-- Singapore & Southeast Asia Vedic Astrology -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=singapore</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://bhawanijyotish.online/?country=singapore" />
-  </url>
-
-  <!-- Germany & Europe Vedic Astrology -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=germany</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="en-DE" href="https://bhawanijyotish.online/?country=germany" />
-  </url>
-
-  <!-- South Africa & Africa Vedic Astrology -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=south-africa</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="en-ZA" href="https://bhawanijyotish.online/?country=south-africa" />
-  </url>
-
-  <!-- USA Regional Deep Links: California, New Jersey, Texas -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=usa&amp;state=california</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.87</priority>
-  </url>
-  <url>
-    <loc>https://bhawanijyotish.online/?country=usa&amp;state=new-jersey</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.87</priority>
-  </url>
-  <url>
-    <loc>https://bhawanijyotish.online/?country=usa&amp;state=texas</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- UK Regional Deep Links: London, Leicester -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=uk&amp;city=london</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.87</priority>
-  </url>
-  <url>
-    <loc>https://bhawanijyotish.online/?country=uk&amp;city=leicester</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Canada Regional Deep Links: Brampton / Toronto, Vancouver -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=canada&amp;city=brampton</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.87</priority>
-  </url>
-  <url>
-    <loc>https://bhawanijyotish.online/?country=canada&amp;city=vancouver</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Australia Regional Deep Links: Sydney, Melbourne -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=australia&amp;city=sydney</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.86</priority>
-  </url>
-  <url>
-    <loc>https://bhawanijyotish.online/?country=australia&amp;city=melbourne</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.86</priority>
-  </url>
-
-  <!-- UAE Dubai Regional Deep Link -->
-  <url>
-    <loc>https://bhawanijyotish.online/?country=uae&amp;city=dubai</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.86</priority>
   </url>
 
   <!-- 36 Gun Milan & Kundli Matching for Marriage -->
   <url>
     <loc>https://bhawanijyotish.online/?tab=gun-milan</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.92</priority>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://bhawanijyotish.online/?tab=gun-milan&amp;lang=hi" />
-    <xhtml:link rel="alternate" hreflang="gu" href="https://bhawanijyotish.online/?tab=gun-milan&amp;lang=gu" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://bhawanijyotish.online/?tab=gun-milan&amp;lang=en" />
+    <priority>0.95</priority>
   </url>
 
   <!-- Online Vedic Janam Kundli Generator -->
   <url>
     <loc>https://bhawanijyotish.online/?tab=kundli</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.92</priority>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://bhawanijyotish.online/?tab=kundli&amp;lang=hi" />
-    <xhtml:link rel="alternate" hreflang="gu" href="https://bhawanijyotish.online/?tab=kundli&amp;lang=gu" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://bhawanijyotish.online/?tab=kundli&amp;lang=en" />
+    <priority>0.95</priority>
   </url>
 
   <!-- Daily Panchang, Choghadiya & Shubh Muhurat -->
   <url>
     <loc>https://bhawanijyotish.online/?tab=panchang</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>always</changefreq>
-    <priority>0.90</priority>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://bhawanijyotish.online/?tab=panchang&amp;lang=hi" />
-    <xhtml:link rel="alternate" hreflang="gu" href="https://bhawanijyotish.online/?tab=panchang&amp;lang=gu" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://bhawanijyotish.online/?tab=panchang&amp;lang=en" />
-  </url>
-
-  <!-- Dosha Nivaran Guide (Kaal Sarp, Manglik, Pitra Dosh) -->
-  <url>
-    <loc>https://bhawanijyotish.online/?tab=dosh-guide</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Lucky Gemstone & Rudraksha Finder -->
-  <url>
-    <loc>https://bhawanijyotish.online/?tab=gemstones</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.92</priority>
   </url>
 
   <!-- Daily Rashifal (12 Zodiac Predictions) -->
   <url>
     <loc>https://bhawanijyotish.online/?tab=rashifal</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>always</changefreq>
-    <priority>0.88</priority>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Dosha Nivaran Guide (Kaal Sarp, Manglik, Pitra Dosh, Sade Sati) -->
+  <url>
+    <loc>https://bhawanijyotish.online/?tab=dosh-guide</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Lucky Gemstone & Rudraksha Recommendation -->
+  <url>
+    <loc>https://bhawanijyotish.online/?tab=gemstones</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <!-- Contact & Direct Astrologer Appointment -->
   <url>
     <loc>https://bhawanijyotish.online/?tab=contact</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>

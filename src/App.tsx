@@ -184,6 +184,23 @@ export function App() {
     if (ogTitle) ogTitle.setAttribute('content', title);
     const ogDesc = document.querySelector('meta[property="og:description"]');
     if (ogDesc) ogDesc.setAttribute('content', desc);
+
+    // Dynamic Canonical & og:url management: provides self-referencing canonical for country landing pages & tool tabs
+    let targetUrl = 'https://bhawanijyotish.online/';
+    if (country) {
+      targetUrl = `https://bhawanijyotish.online/?country=${country}`;
+    } else if (activeTab !== 'home') {
+      targetUrl = `https://bhawanijyotish.online/?tab=${activeTab}`;
+    }
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', targetUrl);
+    }
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) {
+      ogUrl.setAttribute('content', targetUrl);
+    }
   }, [activeTab, lang]);
 
   useEffect(() => {
