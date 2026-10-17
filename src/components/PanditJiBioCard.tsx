@@ -254,33 +254,22 @@ export const PanditJiBioCard: React.FC<PanditJiBioCardProps> = ({ lang }) => {
             </div>
 
             {/* Action Call-to-Action Buttons */}
-            <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+            <div className="pt-3">
               <a
                 href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                className="flex-1 inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#f99c00] via-[#fcbb00] to-[#ffd236] hover:from-[#fcbb00] hover:to-[#ffd236] text-black font-extrabold px-6 py-3.5 rounded-2xl text-xs sm:text-sm transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98] border-2 border-amber-200 text-center"
+                className="w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#f99c00] via-[#fcbb00] to-[#ffd236] hover:from-[#fcbb00] hover:to-[#ffd236] text-black font-extrabold px-6 py-4 rounded-2xl text-sm sm:text-base transition-all shadow-xl hover:scale-[1.01] active:scale-[0.98] border-2 border-amber-200 text-center"
               >
-                <div className="w-7 h-7 rounded-full bg-black/10 flex items-center justify-center shrink-0">
-                  <Phone className="w-4 h-4 text-black" />
+                <div className="w-9 h-9 rounded-full bg-black/15 flex items-center justify-center shrink-0">
+                  <Phone className="w-5 h-5 text-black animate-pulse" />
                 </div>
                 <div className="text-left leading-tight">
-                  <div className="text-[10px] uppercase tracking-wider text-black/80 font-bold">
-                    {lang === 'en' ? 'Direct Call' : lang === 'gu' ? 'સીધો કોલ કરો' : 'सीधा कॉल करें'}
+                  <div className="text-xs uppercase tracking-wider text-black/80 font-bold">
+                    पंडित जी से फोन पर सीधा परामर्श लें (Direct Call)
                   </div>
-                  <div className="phone-crisp text-sm sm:text-base font-black tracking-wider text-black">
+                  <div className="phone-crisp text-base sm:text-lg font-black tracking-wider text-black">
                     {ASTROLOGER_INFO.phonePrimary}
                   </div>
                 </div>
-              </a>
-
-              <a
-                href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(getWhatsAppConsultationMessage(lang))}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2.5 bg-[#00bb7f] hover:bg-[#10b981] text-white font-extrabold px-6 py-3.5 rounded-2xl text-xs sm:text-sm transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98] border border-emerald-300/40 text-center"
-              >
-                <MessageCircle className="w-5 h-5 shrink-0" />
-                <span>{lang === 'en' ? 'WhatsApp Message' : lang === 'gu' ? 'વોટ્સએપ પર તુરંત સંપર્ક કરો' : 'व्हाट्सएप पर तुरंत संपर्क करें'}</span>
-                <VerifiedBadge size="sm" tooltipText={lang === 'en' ? 'Verified WhatsApp' : lang === 'gu' ? 'પ્રમાણિત WhatsApp' : 'सत्यापित WhatsApp'} />
               </a>
             </div>
 

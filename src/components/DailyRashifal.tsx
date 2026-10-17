@@ -624,24 +624,11 @@ export const DailyRashifal: React.FC<DailyRashifalProps> = ({ lang, onSelectRash
 
               <div className="flex flex-col gap-2">
                 <a
-                  href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                    `नमस्ते पंडित जी 🙏 मेरी राशि ${selectedForecast.nameHi} है। आज (${selectedForecast.dateLabel}) के संदर्भ में तथा अपनी कुंडली के बारे में व्यक्तिगत परामर्श लेना चाहता/चाहती हूँ। कृपया मार्गदर्शन करें।`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full bg-white hover:bg-amber-50 text-[#CC5218] font-bold py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 hover:scale-[1.01]"
-                >
-                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                  <span>{lang === 'en' ? 'Consult on WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर अपॉइंटमेंट लें' : 'વોટ્સએપ પર પૂછો'}</span>
-                  <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
-                </a>
-
-                <a
                   href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                  className="w-full bg-black/25 hover:bg-black/40 text-amber-100 font-bold py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 border border-amber-300/30"
+                  className="w-full bg-gradient-to-r from-[#f99c00] via-[#fcbb00] to-[#ffd236] hover:from-[#fcbb00] hover:to-[#ffd236] text-black font-yatra font-black py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-95"
                 >
-                  <Phone className="w-3.5 h-3.5 text-amber-300" />
-                  <span>{lang === 'en' ? `Direct Call: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}` : `સીધો કોલ કરો: ${ASTROLOGER_INFO.phonePrimary}`}</span>
+                  <Phone className="w-4 h-4 text-black animate-pulse" />
+                  <span>पंडित जी से सीधा संपर्क: {ASTROLOGER_INFO.phonePrimary}</span>
                 </a>
               </div>
             </div>

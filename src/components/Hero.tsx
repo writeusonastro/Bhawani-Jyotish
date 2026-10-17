@@ -1,6 +1,6 @@
 import React from 'react';
-import { Phone, MessageCircle, Sparkles, ShieldCheck, Award, Star, Compass, HeartHandshake, ScrollText, Flame } from 'lucide-react';
-import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from '../data/astrologyData';
+import { Phone, Sparkles, ShieldCheck, Award, Star, Compass, HeartHandshake, ScrollText, Flame } from 'lucide-react';
+import { ASTROLOGER_INFO } from '../data/astrologyData';
 import { AnimatedLogo } from './AnimatedLogo';
 import { VerifiedBadge } from './VerifiedBadge';
 import { RajputSymbol } from './RajputSymbol';
@@ -129,7 +129,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
               : ASTROLOGER_INFO.taglineGu}
           </p>
 
-          <p className="text-base sm:text-xl md:text-2xl font-medium max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed tracking-wide text-slate-300">
+          <p className="text-base sm:text-xl md:text-2xl font-bold max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed tracking-wide text-slate-100">
             {lang === 'en'
               ? 'Authentic, infallible Vedic solutions for marriage delays, business & career hurdles, domestic discord, Manglik & Kalsarp Doshas, and child matters. 35+ years of dedicated expertise.'
               : lang === 'hi'
@@ -178,13 +178,13 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
                     }
                   }}
                   title={`High Ranking Vedic Astrology: ${item.seoKeyword[lang]}`}
-                  className="inline-flex items-center gap-2 bg-[#0c1334]/80 hover:bg-[#121a42] border border-white/10 hover:border-amber-400/50 px-3.5 py-1.5 rounded-full shadow-md transition-all hover:scale-[1.02] active:scale-95 cursor-pointer text-left whitespace-nowrap shrink-0"
+                  className="inline-flex items-center gap-2 bg-[#0c1334]/80 hover:bg-[#121a42] border border-white/10 hover:border-amber-400/50 px-3 py-1.5 rounded-2xl sm:rounded-full shadow-md transition-all hover:scale-[1.02] active:scale-95 cursor-pointer text-left max-w-full"
                 >
                   <span className="relative flex h-2.5 w-2.5 shrink-0">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#f99c00]"></span>
                   </span>
-                  <span className="text-[11px] sm:text-xs md:text-sm font-bold text-slate-200 hover:text-[#fcbb00] whitespace-nowrap">
+                  <span className="text-[11px] sm:text-xs md:text-sm font-bold text-slate-200 hover:text-[#fcbb00] text-center sm:text-left leading-snug">
                     {item[lang]}
                   </span>
                 </button>
@@ -233,7 +233,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
               </div>
               <div className="flex flex-col items-start text-left leading-tight">
                 <span className="text-xs sm:text-sm text-black/80 font-bold uppercase tracking-wider">
-                  {lang === 'en' ? 'Direct Phone Consultation' : lang === 'gu' ? 'સીધો કોલ કરો' : 'सीधा कॉल करें'}
+                  {lang === 'en' ? 'Direct Phone Consultation' : 'सीधा फोन पर बात करें'}
                 </span>
                 <span className="phone-crisp text-xl sm:text-2xl font-black text-black tracking-wider">
                   {ASTROLOGER_INFO.phonePrimary}
@@ -241,18 +241,24 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
               </div>
             </a>
 
-            <a
-              href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                getWhatsAppConsultationMessage(lang)
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#00bb7f] to-[#10b981] hover:from-[#10b981] hover:to-[#059669] text-white font-extrabold text-base sm:text-xl px-7 py-4 rounded-2xl shadow-[0_0_30px_rgba(0,187,127,0.3)] transition-all hover:scale-105 active:scale-95 border-2 border-emerald-300 text-center"
+            <button
+              type="button"
+              onClick={() => {
+                const el = document.getElementById('services-section');
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  setActiveTab('home');
+                  setTimeout(() => {
+                    document.getElementById('services-section')?.scrollIntoView({ behavior: 'smooth' });
+                  }, 150);
+                }
+              }}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0c1334] hover:bg-[#121a42] text-amber-200 hover:text-[#ffd236] font-bold text-sm sm:text-base px-6 py-3.5 rounded-2xl border border-amber-500/40 shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer text-center"
             >
-              <MessageCircle className="w-6 h-6 shrink-0" />
-              <span>{lang === 'en' ? 'WhatsApp Chat' : lang === 'gu' ? 'વોટ્સએપ ચેટ' : 'व्हाट्सएप चैट'}</span>
-              <VerifiedBadge size="sm" tooltipText={lang === 'en' ? 'Verified WhatsApp Chat' : lang === 'gu' ? 'પ્રમાણિત WhatsApp ચેટ' : 'सत्यापित WhatsApp चैट'} />
-            </a>
+              <Sparkles className="w-5 h-5 text-[#f99c00] shrink-0" />
+              <span>समस्त १३ वैदिक सेवाएं देखें</span>
+            </button>
           </div>
 
           {/* Micro Trust Points to remove hesitation */}
@@ -291,30 +297,18 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm md:text-base text-slate-300 font-medium mt-1 leading-snug">
-                  {lang === 'en'
-                    ? 'Free WhatsApp Audio/Video Consultation across EST, CST, PST & GMT Timezones'
-                    : lang === 'gu'
-                    ? 'મફત WhatsApp ઓડિયો/વિડિયો કોલ • તમામ ટાઈમઝોન (EST/PST/GMT)માં ઉપલબ્ધ'
-                    : 'मुफ्त WhatsApp ऑडियो/वीडियो कॉल • सभी टाइमज़ोन (EST/PST/GMT) में सुलभ'}
+                  विश्वव्यापी प्रत्यक्ष फोन व वीडियो परामर्श • सभी टाइमज़ोन (EST/PST/GMT) में सुलभ
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end">
               <a
-                href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                  lang === 'en'
-                    ? '🙏 Hello Pandit Ji! I am contacting from abroad (USA/UK/Canada/NRI). I would like to schedule an online Vedic Kundli / Gun Milan consultation. (EST/PST/GMT Timezone)'
-                    : lang === 'gu'
-                    ? '🙏 નમસ્તે પંડિતજી! હું વિદેશ (USA/UK/Canada/NRI)થી સંપર્ક કરી રહ્યો/રહી છું. મને ઑનલાઇન વૈદિક કુંડળી / ગુણ મિલાન માટે એપોઇન્ટમેન્ટ જોઈએ છે. (EST/PST/GMT Timezone)'
-                    : '🙏 नमस्ते पंडित जी! मैं विदेश (USA/UK/Canada/NRI) से संपर्क कर रहा/रही हूँ। मुझे ऑनलाइन वैदिक जन्म कुंडली / विवाह गुण मिलान हेतु समय (Appointment) चाहिए। (EST/PST/GMT Timezone)'
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-[#00bb7f] hover:bg-[#10b981] text-white text-sm sm:text-base font-bold px-4 py-2.5 rounded-xl shadow-md transition-all active:scale-95"
+                href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#f99c00] via-[#fcbb00] to-[#ffd236] hover:from-[#fcbb00] hover:to-[#ffd236] text-black text-sm sm:text-base font-bold px-4 py-2.5 rounded-xl shadow-md transition-all active:scale-95 font-yatra"
               >
-                <MessageCircle className="w-5 h-5 fill-current" />
-                <span>{lang === 'en' ? 'WhatsApp Call' : lang === 'gu' ? 'વોટ્સએપ કોલ' : 'व्हाट्सएप कॉल'}</span>
+                <Phone className="w-4 h-4 text-black animate-pulse" />
+                <span>सीधा कॉल करें</span>
               </a>
 
               {setActiveTab && (
@@ -323,7 +317,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
                   onClick={() => setActiveTab('international')}
                   className="inline-flex items-center justify-center gap-1 text-sm font-bold text-[#ffd236] hover:text-[#f99c00] bg-[#070b1e] border border-amber-500/40 px-3.5 py-2.5 rounded-xl shadow-xs transition-all hover:bg-[#121a42]"
                 >
-                  <span>{lang === 'en' ? 'NRI Portal' : lang === 'gu' ? 'NRI સેવા' : 'NRI पोर्टल'}</span>
+                  <span>NRI पोर्टल</span>
                   <span>→</span>
                 </button>
               )}

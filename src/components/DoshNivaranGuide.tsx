@@ -354,18 +354,11 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, isDark = fals
           </div>
 
           <a
-            href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-              lang === 'en'
-                ? `Pranam Pandit Ji! I notice symptoms of ${activeDosh.nameEn} in my chart. Please guide me regarding remedies and shanti puja.`
-                : `प्रणाम पंडित जी! मेरी कुंडली में ${activeDosh.nameHi} के लक्षण हैं। कृपया निवारण एवं शांति अनुष्ठान हेतु मार्गदर्शन करें।`
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md shrink-0 flex items-center gap-2"
+            href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+            className="bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#fcbb00] hover:to-[#ffd236] text-black font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md shrink-0 flex items-center gap-2"
           >
-            <MessageCircle className="w-4 h-4 text-amber-200" />
-            <span>{lang === 'en' ? 'Remedy Guidance on WhatsApp' : lang === 'hi' ? 'दोष निवारण सलाह लें' : 'દોષ નિવારણ સલાહ મેળવો'}</span>
-            <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
+            <Phone className="w-4 h-4 text-black animate-pulse" />
+            <span>दोष निवारण सलाह हेतु कॉल करें: {ASTROLOGER_INFO.phonePrimary}</span>
           </a>
         </div>
 
@@ -438,21 +431,6 @@ export const DoshNivaranGuide: React.FC<DoshGuideProps> = ({ lang, isDark = fals
             >
               <Phone className="w-4 h-4 shrink-0 text-white" />
               <span className="whitespace-nowrap phone-crisp font-black tracking-wider text-white drop-shadow-xs">{ASTROLOGER_INFO.phonePrimary}</span>
-            </a>
-
-            <a
-              href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                lang === 'en'
-                  ? `Pranam Pandit Ji! I would like to get my Janam Kundli inspected regarding "${activeDosh.nameEn}".`
-                  : `प्रणाम पंडित जी! मुझे "${activeDosh.nameHi}" के संबंध में अपनी कुंडली की जांच करानी है।`
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-3.5 sm:px-4 py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm whitespace-nowrap text-xs sm:text-sm shrink-0"
-            >
-              <MessageCircle className="w-4 h-4 shrink-0 text-white" />
-              <span className="whitespace-nowrap font-bold">{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
-              <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
             </a>
           </div>
         </div>

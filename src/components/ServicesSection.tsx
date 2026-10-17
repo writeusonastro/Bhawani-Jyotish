@@ -206,26 +206,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   </div>
 
                   {/* Call to Action Buttons */}
-                  <div className="pt-3.5 border-t border-white/10 flex items-center gap-2.5">
+                  <div className="pt-3.5 border-t border-white/10 flex items-center">
                     <a
                       href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                      className="flex-1 font-bold py-2.5 rounded-xl text-xs transition-all text-center border flex items-center justify-center gap-1.5 shadow-md bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#fcbb00] hover:to-[#ffd236] text-black border-amber-200 active:scale-95"
+                      className="w-full font-bold py-2.5 rounded-xl text-xs sm:text-sm transition-all text-center border flex items-center justify-center gap-2 shadow-md bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#fcbb00] hover:to-[#ffd236] text-black border-amber-200 active:scale-95"
                     >
-                      <Phone className="w-3.5 h-3.5" />
-                      <span>{lang === 'en' ? `Direct Call: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}` : `સીધો કોલ કરો: ${ASTROLOGER_INFO.phonePrimary}`}</span>
-                    </a>
-
-                    <a
-                      href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                        `${getWhatsAppConsultationMessage(lang)} (${srv.titleHi})`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3.5 py-2.5 rounded-xl bg-[#00bb7f] hover:bg-[#10b981] text-white transition-all shadow-md border border-emerald-400/50 flex items-center gap-1 active:scale-95"
-                      title={lang === 'en' ? 'WhatsApp Consultation' : 'व्हाट्सएप पर परामर्श लें'}
-                    >
-                      <MessageCircle className="w-4 h-4" />
-                      <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
+                      <Phone className="w-3.5 h-3.5 text-black animate-pulse" />
+                      <span>सीधा कॉल करें: {ASTROLOGER_INFO.phonePrimary}</span>
                     </a>
                   </div>
                 </div>

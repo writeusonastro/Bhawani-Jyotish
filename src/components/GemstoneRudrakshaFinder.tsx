@@ -540,22 +540,7 @@ export const GemstoneRudrakshaFinder: React.FC<GemstoneRudrakshaFinderProps> = (
               >
                 <Phone className="w-4 h-4" />
                 <span>
-                  {lang === 'en' ? `Direct Call: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}` : `સીધો કોલ કરો: ${ASTROLOGER_INFO.phonePrimary}`}
-                </span>
-              </a>
-
-              <a
-                href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                  "नमस्ते पंडित जी 🙏 मुझे अपनी कुंडली दिखानी है और व्यक्तिगत परामर्श लेना है। कृपया अपॉइंटमेंट का समय साझा करें ✨"
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center gap-1.5"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span className="flex items-center gap-1.5">
-                  <span>{lang === 'en' ? 'Order via WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर सिद्ध रत्न मंगाएं' : 'રત્ન ઓર્ડર કરો (WhatsApp)'}</span>
-                  <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
+                  सीधा कॉल करें व रत्न परामर्श लें: {ASTROLOGER_INFO.phonePrimary}
                 </span>
               </a>
             </div>

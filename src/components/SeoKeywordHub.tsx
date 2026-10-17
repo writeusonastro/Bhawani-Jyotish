@@ -10,7 +10,6 @@ import {
   HelpCircle, 
   BookOpen, 
   Phone, 
-  MessageCircle,
   TrendingUp,
   Award,
   CheckCircle2
@@ -230,13 +229,34 @@ const SEO_TOPIC_GROUPS: SeoTopicGroup[] = [
     },
     keywords: [
       { phrase: 'Best Astrologer in Ahmedabad', targetTab: 'city-centers', tagHi: 'अहमदाबाद बेस्ट ज्योतिषी', tagGu: 'અમદાવાદ શ્રેષ્ઠ જ્યોતિષી', tagEn: 'Astrologer Ahmedabad' },
+      { phrase: 'Ahmedabad Love Problem Solution Specialist', targetTab: 'services', tagHi: 'अहमदाबाद लव प्रॉब्लम सॉल्यूशन स्पेशलिस्ट', tagGu: 'અમદાવાદ લવ પ્રોબ્લેમ સોલ્યુશન', tagEn: 'Ahmedabad Love Solution' },
       { phrase: 'Famous Jyotish Vastrapur Satellite SG Highway', targetTab: 'city-centers', tagHi: 'वस्त्रपुर सेटेलाइट ज्योतिष', tagGu: 'વસ્ત્રાપુર સેટેલાઇટ જ્યોતિષ', tagEn: 'Vastrapur Jyotish' },
       { phrase: 'Best Astrologer in Mehsana Nagalpur', targetTab: 'city-centers', tagHi: 'मेहसाणा मुख्य पीठ', tagGu: 'મહેસાણા મુખ્ય કાર્યાલય', tagEn: 'Mehsana Astrologer' },
       { phrase: 'Best Astrologer in Surat Katargam Vesu', targetTab: 'city-centers', tagHi: 'सूरत हीरा व कपड़ा ज्योतिष', tagGu: 'સુરત કાપડ-હીરા જ્યોતિષ', tagEn: 'Surat Astrologer' },
+      { phrase: 'Surat me Vashikaran Specialist Astrologer', targetTab: 'services', tagHi: 'सूरत में वशीकरण विशेषज्ञ ज्योतिषी', tagGu: 'સુરતમાં વશીકરણ સ્પેશિયાલિસ્ટ', tagEn: 'Surat Vashikaran Specialist' },
       { phrase: 'Famous Jyotish in Rajkot Kalawad Road', targetTab: 'city-centers', tagHi: 'राजकोट सौराष्ट्र ज्योतिष', tagGu: 'રાજકોટ સૌરાષ્ટ્ર જ્યોતિષ', tagEn: 'Rajkot Jyotish' },
       { phrase: 'Best Astrologer in Gandhinagar GIFT City', targetTab: 'city-centers', tagHi: 'गांधीनगर गिफ्ट सिटी वास्तु', tagGu: 'ગાંધીનગર ગિફ્ટ સિટી વાસ્તુ', tagEn: 'Gandhinagar Astrologer' },
       { phrase: 'Gujarati Astrologer in Mumbai Kandivali Ghatkopar', targetTab: 'city-centers', tagHi: 'मुंबई गुजराती ज्योतिषी', tagGu: 'મુંબઈ ગુજરાતી જ્યોતિષી', tagEn: 'Mumbai Astrologer' },
-      { phrase: 'Stock Market Astrologer Gujarat', targetTab: 'services', tagHi: 'शेयर बाज़ार ग्रह दशा', tagGu: 'શેરબજાર ગ્રહ દશા', tagEn: 'Stock Market Jyotish' }
+      { phrase: 'Mumbai Love Marriage & Vashikaran Specialist', targetTab: 'services', tagHi: 'मुंबई लव मैरिज व वशीकरण विशेषज्ञ', tagGu: 'મુંબઈ લવ મેરેજ સ્પેશિયાલિસ્ટ', tagEn: 'Mumbai Love Astrologer' },
+      { phrase: 'Best Astrologer in Delhi NCR Noida Gurugram', targetTab: 'city-centers', tagHi: 'दिल्ली एनसीआर शीर्ष ज्योतिषी', tagGu: 'દિલ્હી એનસીઆર જ્યોતિષી', tagEn: 'Delhi NCR Astrologer' },
+      { phrase: 'Love Problem Solution Astrologer Delhi', targetTab: 'services', tagHi: 'दिल्ली लव प्रॉब्लम समाधान', tagGu: 'દિલ્હી લવ પ્રોબ્લેમ સમાધાન', tagEn: 'Delhi Love Problem' },
+      { phrase: 'Famous Astrologer in Jaipur Rajasthan', targetTab: 'city-centers', tagHi: 'जयपुर राजस्थान प्रसिद्ध ज्योतिषी', tagGu: 'જયપુર રાજસ્થાન જ્યોતિષી', tagEn: 'Jaipur Astrologer' },
+      { phrase: 'Jaipur me Love Marriage Specialist Pandit', targetTab: 'services', tagHi: 'जयपुर लव मैरिज स्पेशलिस्ट पंडित', tagGu: 'જયપુર લવ મેરેજ સ્પેશિયાલિસ્ટ', tagEn: 'Jaipur Love Astrologer' },
+      { phrase: 'Jodhpur me Best Astrologer Maa Majisa Kripa', targetTab: 'city-centers', tagHi: 'जोधपुर में बेस्ट ज्योतिषी माँ माजीसा कृपा', tagGu: 'જોધપુરમાં બેસ્ટ જ્યોતિષી માઁ માજીસા', tagEn: 'Jodhpur Maa Majisa Astrologer' },
+      { phrase: 'Jodhpur Vashikaran Specialist Astrologer', targetTab: 'services', tagHi: 'जोधपुर वशीकरण विशेषज्ञ ज्योतिषी', tagGu: 'જોધપુર વશીકરણ સ્પેશિયાલિસ્ટ', tagEn: 'Jodhpur Vashikaran Specialist' },
+      { phrase: 'Jodhpur Love Problem Solution Pandit Ji', targetTab: 'services', tagHi: 'जोधपुर लव प्रॉब्लम सॉल्यूशन पंडित जी', tagGu: 'જોધપુર લવ પ્રોબ્લેમ સમાધાન', tagEn: 'Jodhpur Love Problem Pandit' },
+      { phrase: 'Ujjain me Kaal Sarp Dosh & Manglik Dosh Jyotish', targetTab: 'city-centers', tagHi: 'उज्जैन कालसर्प व मांगलिक दोष निवारण', tagGu: 'ઉજ્જૈન કાલસર્પ અને માંગલિક દોષ', tagEn: 'Ujjain Kaal Sarp Dosh Jyotish' },
+      { phrase: 'Ujjain Famous Astrologer Tantra Mantra Nivaran', targetTab: 'services', tagHi: 'उज्जैन प्रसिद्ध ज्योतिषी बाधा निवारण', tagGu: 'ઉજ્જૈન તાંત્રિક દોષ નિવારણ', tagEn: 'Ujjain Remedy Specialist' },
+      { phrase: 'Bhopal Best Astrologer Love Problem Solution', targetTab: 'city-centers', tagHi: 'भोपाल बेस्ट ज्योतिषी लव प्रॉब्लम सॉल्यूशन', tagGu: 'ભોપાલ બેસ્ટ જ્યોતિષી લવ પ્રોબ્લેમ', tagEn: 'Bhopal Love Problem Astrologer' },
+      { phrase: 'Udaipur me Famous Astrologer & Kundli Milan', targetTab: 'city-centers', tagHi: 'उदयपुर प्रसिद्ध ज्योतिषी व कुंडली मिलान', tagGu: 'ઉદયપુર પ્રખ્યાત જ્યોતિષી', tagEn: 'Udaipur Famous Astrologer' },
+      { phrase: 'Kota Career & Education Success Astrologer', targetTab: 'city-centers', tagHi: 'कोटा करियर व परीक्षा सफलता ज्योतिषी', tagGu: 'કોટા કરિયર જ્યોતિષી', tagEn: 'Kota Career Astrologer' },
+      { phrase: 'Best Astrologer in Vadodara Alkapuri Anand', targetTab: 'city-centers', tagHi: 'वडोदरा अलकापुरी आणंद ज्योतिषी', tagGu: 'વડોદરા આણંદ જ્યોતિષી', tagEn: 'Vadodara Astrologer' },
+      { phrase: 'Vadodara Love Marriage & Vashikaran Specialist', targetTab: 'services', tagHi: 'वडोदरा प्रेम विवाह व वशीकरण स्पेशलिस्ट', tagGu: 'વડોદરા પ્રેમ લગ્ન સ્પેશિયાલિસ્ટ', tagEn: 'Vadodara Love Specialist' },
+      { phrase: 'Best Vedic Astrologer in Pune Hinjewadi', targetTab: 'city-centers', tagHi: 'पुणे हिंजेवाड़ी वैदिक ज्योतिषी', tagGu: 'પુણે વૈદિક જ્યોતિષી', tagEn: 'Pune Astrologer' },
+      { phrase: 'Famous Astrologer in Indore Vijay Nagar', targetTab: 'city-centers', tagHi: 'इंदौर विजय नगर प्रसिद्ध ज्योतिषी', tagGu: 'ઇન્દોર વિજય નગર જ્યોતિષી', tagEn: 'Indore Astrologer' },
+      { phrase: 'Best Vedic Astrologer in Bangalore Koramangala', targetTab: 'city-centers', tagHi: 'बेंगलुरु कोरमंगला वैदिक ज्योतिषी', tagGu: 'બેંગલુરુ વૈદિક જ્યોતિષી', tagEn: 'Bangalore Astrologer' },
+      { phrase: 'Jodhpur Barmer Vedic Jyotish Kendra', targetTab: 'city-centers', tagHi: 'जोधपुर बाड़मेर ज्योतिष केंद्र', tagGu: 'જોધપુર બાડમેર જ્યોતિષ', tagEn: 'Jodhpur Barmer Jyotish' },
+      { phrase: 'Stock Market Astrologer Gujarat & Mumbai', targetTab: 'services', tagHi: 'शेयर बाज़ार ग्रह दशा मुंबई-गुजरात', tagGu: 'શેરબજાર ગ્રહ દશા', tagEn: 'Stock Market Jyotish' }
     ]
   },
   {
@@ -592,20 +612,10 @@ export const SeoKeywordHub: React.FC<SeoKeywordHubProps> = ({ lang, setActiveTab
           <div className="flex items-center gap-2">
             <a
               href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-              className="font-bold text-[#ffd236] hover:underline flex items-center gap-1"
+              className="font-bold text-[#ffd236] hover:underline flex items-center gap-1.5"
             >
-              <Phone className="w-3 h-3" />
-              <span>{ASTROLOGER_INFO.phonePrimary}</span>
-            </a>
-            <span className="text-slate-500">|</span>
-            <a
-              href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold text-[#25D366] hover:underline flex items-center gap-1"
-            >
-              <MessageCircle className="w-3 h-3" />
-              <span>WhatsApp</span>
+              <Phone className="w-3.5 h-3.5 text-[#f99c00] animate-pulse" />
+              <span>सीधा कॉल करें: {ASTROLOGER_INFO.phonePrimary}</span>
             </a>
           </div>
         </div>

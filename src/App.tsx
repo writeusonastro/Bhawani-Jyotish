@@ -5,8 +5,6 @@ import { FloatingActions } from './components/FloatingActions';
 import { VerifiedBadge } from './components/VerifiedBadge';
 import { ASTROLOGER_INFO, getWhatsAppConsultationMessage } from './data/astrologyData';
 import { Language } from './types/astrology';
-import { detectInitialLanguage, saveLanguagePreference, detectGeoLanguageAsync, isManualLanguageSelected } from './utils/languageDetector';
-import { LanguageSwitchPrompt } from './components/LanguageSwitchPrompt';
 import { MapPin, Phone, MessageCircle, Clock, ShieldCheck, Award, Sparkles, CheckCircle2, Mail, Navigation, Loader2 } from 'lucide-react';
 
 import { ServicesSection } from './components/ServicesSection';
@@ -71,35 +69,9 @@ export function App() {
     return 'home';
   });
 
-  const [lang, setLangState] = useState<Language>(() => {
-    return detectInitialLanguage();
-  });
-  const [userZone, setUserZone] = useState<string>('gujarat');
+  const [lang, setLang] = useState<Language>('hi');
   const [askAiQuery, setAskAiQuery] = useState<string | undefined>(undefined);
   const [isLogoStudioOpen, setIsLogoStudioOpen] = useState<boolean>(false);
-
-  const setLang = (newLang: Language) => {
-    setLangState(newLang);
-    saveLanguagePreference(newLang, true);
-  };
-
-  // Automatic Geo-Location language resolver:
-  // - Pure Gujarat -> Gujarati ('gu') (with auto device Hindi preference for Hindi speakers in Gujarat)
-  // - North India & Delhi -> Hindi ('hi')
-  // - South India -> English ('en')
-  // - Abroad / International -> English ('en')
-  useEffect(() => {
-    if (isManualLanguageSelected()) return;
-
-    detectGeoLanguageAsync((detectedLang, details) => {
-      if (details?.zone) {
-        setUserZone(details.zone);
-      }
-      if (!isManualLanguageSelected()) {
-        setLangState(detectedLang);
-      }
-    });
-  }, []);
 
   // Dynamic SEO Title & Meta Description synchronizer for active tab & landing URLs
   useEffect(() => {
@@ -419,13 +391,6 @@ export function App() {
           />
         </Suspense>
       )}
-
-      {/* Smart Language Switcher Toast for Multilingual Regions like Gujarat */}
-      <LanguageSwitchPrompt
-        lang={lang}
-        setLang={setLang}
-        userZone={userZone}
-      />
 
       {/* Footer */}
       <Footer

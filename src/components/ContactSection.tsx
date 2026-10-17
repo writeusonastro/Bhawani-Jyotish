@@ -153,7 +153,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <Phone className="w-5 h-5 text-[#f99c00]" />
                 </div>
                 <h3 className="text-white text-base sm:text-lg font-black leading-snug">
-                  {lang === 'en' ? 'Direct Phone & WhatsApp' : lang === 'hi' ? 'सीधा फोन व व्हाट्सएप' : 'સીધો ફોન અને વોટ્સએપ'}
+                  {lang === 'en' ? 'Direct Phone Consultation' : 'सीधा फोन व व्यक्तिगत परामर्श'}
                 </h3>
               </div>
 
@@ -171,26 +171,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </div>
             </div>
 
-            <div className="pt-3 border-t border-white/10 flex items-center gap-2">
+            <div className="pt-3 border-t border-white/10 flex items-center">
               <a
                 href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#fcbb00] hover:to-[#ffd236] text-black text-sm font-bold px-2.5 py-2.5 rounded-xl shadow-md transition-all active:scale-95 text-center whitespace-nowrap"
+                className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#fcbb00] hover:to-[#ffd236] text-black text-sm font-bold px-4 py-3 rounded-xl shadow-md transition-all active:scale-95 text-center whitespace-nowrap"
               >
-                <Phone className="w-4 h-4 shrink-0 text-black" />
-                <span>{lang === 'en' ? `Direct Call: ${ASTROLOGER_INFO.phonePrimary}` : lang === 'hi' ? `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}` : `સીધો કોલ કરો: ${ASTROLOGER_INFO.phonePrimary}`}</span>
-              </a>
-
-              <a
-                href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                  getWhatsAppConsultationMessage(lang)
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#00bb7f] hover:bg-[#10b981] text-white text-sm font-bold px-2.5 py-2.5 rounded-xl shadow-md transition-all active:scale-95 text-center whitespace-nowrap border border-emerald-400/40"
-              >
-                <MessageCircle className="w-4 h-4 shrink-0" />
-                <span>{lang === 'en' ? 'WhatsApp' : lang === 'hi' ? 'व्हाट्सएप' : 'વોટ્સએપ'}</span>
-                <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
+                <Phone className="w-4 h-4 shrink-0 text-black animate-pulse" />
+                <span>सीधा कॉल करें: {ASTROLOGER_INFO.phonePrimary}</span>
               </a>
             </div>
           </div>
@@ -354,64 +341,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </span>
             </a>
 
-            {/* WhatsApp */}
-            <a
-              href={ASTROLOGER_INFO.socialLinks?.whatsapp || `https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative flex flex-col items-center justify-center p-5 rounded-2xl bg-[#0c1334] hover:bg-[#121b44] border border-white/10 hover:border-amber-400/60 shadow-lg transition-all duration-300 hover:-translate-y-1 text-center group overflow-hidden"
-            >
-              <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[#25D366]/25 via-amber-500/15 to-[#128C7E]/20 border border-white/10 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-all shadow-md">
-                <MessageCircle className="w-7 h-7 text-emerald-400 group-hover:text-emerald-300 transition-colors" />
-              </div>
-              <span className="text-sm sm:text-base font-bold text-white group-hover:text-[#ffd236] transition-colors flex items-center justify-center gap-1.5">
-                <span>WhatsApp</span>
-                <VerifiedBadge size="xs" tooltipText="आधिकारिक सत्यापित WhatsApp" />
-              </span>
-              <span className="text-xs text-slate-300 phone-crisp font-bold tracking-wider mt-0.5">{ASTROLOGER_INFO.phonePrimary}</span>
-              <span className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-bold text-[#ffd236] bg-[#070b1e] group-hover:bg-[#070b1e]/80 px-3 py-0.5 rounded-lg border border-amber-500/30 transition-all">
-                <span>{lang === 'en' ? 'Chat' : 'संदेश भेजें'}</span>
-                <span>➔</span>
-              </span>
-            </a>
           </div>
         </div>
 
         {/* Bottom Action CTA - Centered & Mobile-Optimized directly below Social Media */}
         <div className="pt-3 pb-2 flex flex-col items-center">
-          <div className="w-full max-w-3xl flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 sm:gap-4">
+          <div className="w-full max-w-xl flex items-center justify-center">
             <a
               id="contact-quick-call-btn"
               href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-              className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 sm:gap-2.5 bg-gradient-to-r from-[#f99c00] via-[#fcbb00] to-[#ffd236] hover:from-[#fcbb00] hover:to-[#ffd236] text-black py-3.5 px-4 sm:px-6 rounded-2xl shadow-xl transition-all text-center border-2 border-amber-200 min-h-[54px] group whitespace-nowrap font-black"
+              className="w-full inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-r from-[#f99c00] via-[#fcbb00] to-[#ffd236] hover:from-[#fcbb00] hover:to-[#ffd236] text-black py-4 px-6 rounded-2xl shadow-xl transition-all text-center border-2 border-amber-200 min-h-[54px] group whitespace-nowrap font-black"
             >
-              <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-black shrink-0 group-hover:scale-110 transition-transform" />
-              <span className="font-mukta font-extrabold text-sm sm:text-base tracking-normal whitespace-nowrap">
-                {lang === 'en'
-                  ? 'Call Directly:'
-                  : lang === 'hi'
-                  ? 'सीधा कॉल करें:'
-                  : 'સીધો કોલ કરો:'}
+              <Phone className="w-5 h-5 text-black shrink-0 group-hover:scale-110 transition-transform animate-pulse" />
+              <span className="font-mukta font-extrabold text-base sm:text-lg tracking-normal whitespace-nowrap">
+                सीधा कॉल करें व परामर्श लें:
               </span>
-              <span className="font-outfit font-black text-black tracking-wider text-sm sm:text-base whitespace-nowrap">
+              <span className="font-outfit font-black text-black tracking-wider text-base sm:text-lg whitespace-nowrap">
                 {ASTROLOGER_INFO.phonePrimary}
               </span>
-            </a>
-
-            <a
-              id="contact-whatsapp-btn"
-              href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                getWhatsAppConsultationMessage(lang)
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 sm:gap-2.5 bg-[#00bb7f] hover:bg-[#10b981] text-white font-mukta py-3.5 px-4 sm:px-6 rounded-2xl shadow-xl transition-all text-center border border-emerald-300/40 min-h-[54px] group whitespace-nowrap font-bold"
-            >
-              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 group-hover:scale-110 transition-transform" />
-              <span className="font-mukta font-extrabold text-sm sm:text-base tracking-normal whitespace-nowrap">
-                {lang === 'en' ? 'Book via WhatsApp' : lang === 'hi' ? 'व्हाट्सएप पर परामर्श' : 'વોટ્સએપ પર વાત કરો'}
-              </span>
-              <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp" />
             </a>
           </div>
         </div>

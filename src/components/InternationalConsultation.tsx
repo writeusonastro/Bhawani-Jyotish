@@ -761,21 +761,6 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
 
   const activeInfo = COUNTRIES.find((c) => c.code === selectedCountry) || COUNTRIES[0];
 
-  const getWhatsAppQueryLink = (queryText: string, countryLabel: string) => {
-    const text = encodeURIComponent(
-      `🙏 प्रणाम पंडित जी! मैं bhawanijyotish.online से "${queryText}" (${countryLabel}) के संदर्भ में व्यक्तिगत ऑनलाइन वैदिक परामर्श हेतु संपर्क कर रहा/रही हूँ। कृपया परामर्श का समय एवं दक्षिणा विवरण प्रदान करें।`
-    );
-    return `https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${text}`;
-  };
-
-  const getWhatsAppInternationalLink = (countryName: string, subRegion?: string) => {
-    const locationStr = subRegion ? `${subRegion}, ${countryName}` : countryName;
-    const text = encodeURIComponent(
-      `🙏 प्रणाम पंडित जी! मैं ${locationStr} से संपर्क कर रहा/रही हूँ। मुझे ऑनलाइन वैदिक जन्म कुंडली / 36 गुण विवाह मिलान परामर्श हेतु समय (Appointment) प्राप्त करना है। कृपया मार्गदर्शन प्रदान करें। (Reference: bhawanijyotish.online)`
-    );
-    return `https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${text}`;
-  };
-
   const toggleFaq = (index: number) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
@@ -963,25 +948,13 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
               </div>
             </div>
 
-            <div className="space-y-2.5 pt-2">
-              <a
-                href={getWhatsAppInternationalLink(activeInfo.name)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>
-                  {lang === 'en' ? `WhatsApp Chat (${activeInfo.name})` : `WhatsApp पर अपॉइंटमेंट लें (${activeInfo.name})`}
-                </span>
-              </a>
-
+            <div className="pt-2">
               <a
                 href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-                className="w-full bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#e08b00] hover:to-[#e5a800] text-black font-extrabold py-2.5 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 whitespace-nowrap"
+                className="w-full bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#e08b00] hover:to-[#e5a800] text-black font-extrabold py-3.5 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 whitespace-nowrap"
               >
-                <Phone className="w-4 h-4 shrink-0 text-black" />
-                <span className="whitespace-nowrap">{lang === 'en' ? 'Direct Call: +91 99090 87902' : 'सीधा कॉल करें: +91 99090 87902'}</span>
+                <Phone className="w-4 h-4 shrink-0 text-black animate-pulse" />
+                <span className="whitespace-nowrap font-black">सीधा अंतरराष्ट्रीय कॉल: +91 99090 87902</span>
               </a>
             </div>
           </div>
@@ -1047,16 +1020,12 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                     </div>
 
                     <a
-                      href={getWhatsAppInternationalLink(activeInfo.name, region.name.split('(')[0].trim())}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-2 px-3 rounded-xl text-xs transition-all shadow-sm flex items-center justify-center gap-1.5"
+                      href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+                      className="w-full bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#fcbb00] hover:to-[#ffd236] text-black font-extrabold py-2 px-3 rounded-xl text-xs transition-all shadow-sm flex items-center justify-center gap-1.5"
                     >
-                      <MessageCircle className="w-3.5 h-3.5" />
+                      <Phone className="w-3.5 h-3.5 text-black" />
                       <span>
-                        {lang === 'en'
-                          ? `Book for ${region.name.split('(')[0].trim()}`
-                          : `परामर्श लें (${region.name.split('(')[0].trim()})`}
+                        परामर्श हेतु कॉल करें (+91 99090 87902)
                       </span>
                     </a>
                   </div>
@@ -1255,13 +1224,10 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                 itemType="https://schema.org/SiteNavigationElement"
               >
                 {ABROAD_KEYWORD_DIRECTORY.map((item) => {
-                  const waLink = getWhatsAppQueryLink(item.query, item.categoryLabel);
                   return (
                     <a
                       key={item.id}
-                      href={waLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
                       title={item.query}
                       className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0c1334] hover:bg-[#121b44] border border-white/10 hover:border-amber-400/50 text-white hover:text-[#ffd236] transition-all whitespace-nowrap text-xs font-medium shrink-0 group shadow-xs"
                     >
@@ -1270,7 +1236,7 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                       <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-amber-950/80 text-[#ffd236] border border-amber-500/30">
                         {item.categoryLabel}
                       </span>
-                      <MessageCircle className="w-3.5 h-3.5 text-[#25D366] shrink-0 ml-0.5 group-hover:scale-110 transition-transform" />
+                      <Phone className="w-3 h-3 text-[#f99c00] shrink-0 ml-0.5" />
                     </a>
                   );
                 })}
@@ -1297,7 +1263,6 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {filteredAbroadQueries.map((item) => {
-                      const waLink = getWhatsAppQueryLink(item.query, item.categoryLabel);
                       return (
                         <div
                           key={item.id}
@@ -1321,13 +1286,11 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
                           </div>
 
                           <a
-                            href={waLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
                             className="mt-2.5 inline-flex items-center justify-center gap-1.5 w-full py-1.5 px-3 rounded-xl bg-[#070b1e] hover:bg-[#121b44] text-[#ffd236] text-[11px] sm:text-xs font-bold transition-all shadow-xs border border-amber-500/30"
                           >
-                            <MessageCircle className="w-3.5 h-3.5 text-[#ffd236] shrink-0" />
-                            <span>{lang === 'en' ? 'WhatsApp Consult' : 'WhatsApp परामर्श'}</span>
+                            <Phone className="w-3.5 h-3.5 text-[#f99c00] shrink-0" />
+                            <span>परामर्श हेतु कॉल करें</span>
                           </a>
                         </div>
                       );
@@ -1380,10 +1343,8 @@ export const InternationalConsultation: React.FC<InternationalConsultationProps>
               {ABROAD_KEYWORD_DIRECTORY.map((item) => (
                 <a
                   key={item.id}
-                  href={getWhatsAppQueryLink(item.query, item.categoryLabel)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={item.query}
+                  href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+                  title={`${item.query} - पंडित जी से फोन पर परामर्श`}
                   className="text-[10px] sm:text-[11px] px-2.5 py-1 rounded-lg bg-[#0c1334]/80 hover:bg-amber-500/15 text-slate-300 hover:text-[#ffd236] border border-white/5 hover:border-amber-400/40 transition-colors inline-flex items-center gap-1"
                 >
                   <span>{item.flag}</span>

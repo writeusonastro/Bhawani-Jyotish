@@ -176,16 +176,6 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
                 <span className="phone-crisp tracking-wide text-[#ffd236]">{ASTROLOGER_INFO.phonePrimary}</span>
               </a>
 
-              <a
-                href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-2 hover:text-emerald-300 transition-colors text-emerald-300 font-bold"
-              >
-                <MessageCircle className="w-4 h-4 text-[#25D366] shrink-0 mt-0.5" />
-                <span>WhatsApp: <span className="phone-crisp tracking-wide text-white">{ASTROLOGER_INFO.phonePrimary}</span></span>
-              </a>
-
               <div className="flex items-start gap-2 text-slate-300 font-medium">
                 <Mail className="w-4 h-4 text-[#f99c00] shrink-0 mt-0.5" />
                 <span className="break-all font-semibold">{ASTROLOGER_INFO.email}</span>
@@ -267,18 +257,6 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, lang, onOpenLogoSt
                 <Facebook className="w-4 h-4 text-[#1877F2] group-hover:text-white transition-colors" />
                 <span>Facebook</span>
                 <VerifiedBadge size="xs" tooltipText="सत्यापित Facebook पेज" />
-              </a>
-
-              <a
-                href={ASTROLOGER_INFO.socialLinks?.whatsapp || `https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp Channel"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366]/20 hover:bg-[#25D366] border border-[#25D366]/40 text-white text-xs font-bold transition-all shadow-xs group hover:scale-105"
-              >
-                <MessageCircle className="w-4 h-4 text-[#25D366] group-hover:text-white transition-colors" />
-                <span>WhatsApp</span>
-                <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
               </a>
             </div>
           </div>

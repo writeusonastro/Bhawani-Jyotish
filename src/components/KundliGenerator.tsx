@@ -1338,21 +1338,10 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                       <div className="flex items-center gap-2">
                         <a
                           href={`tel:${ASTROLOGER_INFO.phonePrimary.replace(/[^0-9+]/g, '')}`}
-                          className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#991b1b] hover:bg-[#7f1d1d] text-white shadow-xs"
+                          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold bg-[#991b1b] hover:bg-[#7f1d1d] text-white shadow-xs"
                         >
-                          <Phone className="w-3.5 h-3.5" />
-                          <span>सीधा कॉल करें: {ASTROLOGER_INFO.phonePrimary}</span>
-                        </a>
-                        <a
-                          href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                            `नमस्ते पंडित जी 🙏 मुझे अपनी कुंडली के फलादेश व उपायों पर व्यक्तिगत परामर्श लेना है।\n\n👤 नाम: ${formData.name}\n📅 जन्म तिथि: ${formData.day}/${formData.month}/${formData.year}\n📍 स्थान: ${formData.cityName}`
-                          )}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-xs"
-                        >
-                          <MessageCircle className="w-3.5 h-3.5" />
-                          <span>व्हाट्सएप</span>
+                          <Phone className="w-3.5 h-3.5 animate-pulse" />
+                          <span>पंडित जी को कॉल करें: {ASTROLOGER_INFO.phonePrimary}</span>
                         </a>
                       </div>
                     </div>
@@ -1368,19 +1357,15 @@ export const KundliGenerator: React.FC<KundliGeneratorProps> = ({ lang, onAskAI,
                   className="flex-1 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 bg-gradient-to-r from-[#D9531E] via-[#FF671F] to-[#CC5218] hover:from-[#B84214] hover:to-[#D9531E] text-white shadow-amber-900/20"
                 >
                   <Sparkles className="w-4 h-4 text-amber-200" />
-                  <span>{lang === 'hi' ? 'इस सटीक कुंडली पर AI ज्योतिषी से पूछें' : 'આ કુંડળી પર પ્રશ્ન પૂછો'}</span>
+                  <span>इस सटीक कुंडली पर AI ज्योतिषी से पूछें</span>
                 </button>
 
                 <a
-                  href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                    `नमस्ते पंडित जी 🙏 मुझे अपनी कुंडली दिखानी है और व्यक्तिगत परामर्श लेना है। कृपया अपॉइंटमेंट का समय साझा करें ✨\n\n👤 नाम: ${formData.name}\n📅 जन्म तिथि: ${formData.day}/${formData.month}/${formData.year}\n📍 जन्म स्थान: ${formData.cityName}\n✨ लग्न: ${result.ascendantRashi.split(' ')[0]}\n🌙 चंद्र राशि: ${result.moonRashi.split(' ')[0]}\n⭐ नक्षत्र: ${result.nakshatra.split(' ')[0]}`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20"
+                  href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
+                  className="bg-gradient-to-r from-[#f99c00] via-[#fcbb00] to-[#ffd236] hover:from-[#fcbb00] hover:to-[#ffd236] text-black font-yatra font-bold py-3 px-5 rounded-xl text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:scale-105 active:scale-95"
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>{lang === 'hi' ? 'व्हाट्सएप पर अपॉइंटमेंट लें' : 'પંડિતજી સાથે વાત કરો'}</span>
+                  <Phone className="w-4 h-4 text-black animate-pulse" />
+                  <span>पंडित जी से सीधा फोन परामर्श</span>
                 </a>
               </div>
             </div>

@@ -324,20 +324,10 @@ export const AskAstrologer: React.FC<AskAstrologerProps> = ({ lang, initialQuery
         <div className="flex items-center gap-2 shrink-0">
           <a
             href={`tel:${ASTROLOGER_INFO.phonePrimary}`}
-            className="bg-[#FF671F] hover:bg-[#CC5218] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5 whitespace-nowrap text-xs sm:text-sm"
+            className="bg-gradient-to-r from-[#f99c00] to-[#fcbb00] hover:from-[#fcbb00] hover:to-[#ffd236] text-black font-bold px-4 py-2 rounded-lg transition-all shadow-md flex items-center gap-1.5 whitespace-nowrap text-xs sm:text-sm"
           >
-            <Phone className="w-3.5 h-3.5 shrink-0" />
-            <span className="whitespace-nowrap">{lang === 'en' ? `Call: ${ASTROLOGER_INFO.phonePrimary}` : `सीधा कॉल करें: ${ASTROLOGER_INFO.phonePrimary}`}</span>
-          </a>
-          <a
-            href={`https://wa.me/${ASTROLOGER_INFO.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(getWhatsAppConsultationMessage(lang))}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-3.5 py-1.5 rounded-lg transition-colors shadow-xs flex items-center gap-1.5 whitespace-nowrap text-xs sm:text-sm"
-          >
-            <MessageCircle className="w-3.5 h-3.5 shrink-0" />
-            <span className="whitespace-nowrap">{lang === 'en' ? 'WhatsApp' : 'व्हाट्सएप'}</span>
-            <VerifiedBadge size="xs" tooltipText="सत्यापित WhatsApp चैट" />
+            <Phone className="w-3.5 h-3.5 shrink-0 text-black animate-pulse" />
+            <span className="whitespace-nowrap font-black">सीधा कॉल करें: {ASTROLOGER_INFO.phonePrimary}</span>
           </a>
         </div>
       </div>

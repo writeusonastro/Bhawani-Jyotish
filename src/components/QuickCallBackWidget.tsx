@@ -47,12 +47,7 @@ export const QuickCallBackWidget: React.FC<QuickCallBackWidgetProps> = ({ lang, 
 
     const message = `🙏 *सादर प्रणाम पंडित जी*\n\n*वेबसाइट से नया कॉल-बैक अनुरोध:*\n👤 *नाम:* ${name.trim() || 'जातक'}\n📞 *फोन नंबर:* ${cleanPhone}\n❓ *समस्या:* ${problemText}\n\n_कृपया यथाशीघ्र संपर्क करने की कृपा करें।_`;
 
-    // Send via WhatsApp directly so Pandit Ji gets instant lead ping
-    const whatsappUrl = `https://wa.me/${ASTROLOGER_INFO.whatsappRaw || '919909087902'}?text=${encodeURIComponent(message)}`;
-    
     setSubmitted(true);
-    // Open WhatsApp in background/tab so notification delivers immediately
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
