@@ -1,10 +1,11 @@
 import React from 'react';
 import { 
-  Phone, MessageCircle, Instagram, Facebook, 
+  Phone, Instagram, Facebook, 
   Sparkles, ScrollText, HeartHandshake, ShieldAlert, 
-  Briefcase, Users, Compass, Gem, Flame, Star, GraduationCap 
+  Briefcase, Users, Compass, Gem, Flame, Star, GraduationCap,
+  Coins, Scale, Plane
 } from 'lucide-react';
-import { ASTROLOGER_INFO, ASTRO_SERVICES, getWhatsAppConsultationMessage } from '../data/astrologyData';
+import { ASTROLOGER_INFO, ASTRO_SERVICES } from '../data/astrologyData';
 import { AnimatedLogo } from './AnimatedLogo';
 import { VerifiedBadge } from './VerifiedBadge';
 import { RajputSymbol } from './RajputSymbol';
@@ -22,6 +23,14 @@ const SERVICE_ICONS: Record<string, React.ElementType> = {
   'vastu-shastra': Compass,
   'gemstone-rudraksha': Gem,
   'navgraha-puja': Flame,
+  'gupt-dhan': Coins,
+  'khoya-pyar': HeartHandshake,
+  'court-case-shatru': Scale,
+  'saas-bahu-klesh': Users,
+  'vyapar-bandhan-mukti': Briefcase,
+  'talaq-rokna': HeartHandshake,
+  'visa-videsh-yog': Plane,
+  'shighra-vivah': Flame,
 };
 
 interface HeaderProps {

@@ -257,7 +257,7 @@ export const Hero: React.FC<HeroProps> = ({ setActiveTab, lang, isDark = true, o
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0c1334] hover:bg-[#121a42] text-amber-200 hover:text-[#ffd236] font-bold text-sm sm:text-base px-6 py-3.5 rounded-2xl border border-amber-500/40 shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer text-center"
             >
               <Sparkles className="w-5 h-5 text-[#f99c00] shrink-0" />
-              <span>समस्त १३ वैदिक सेवाएं देखें</span>
+              <span>समस्त वैदिक सेवाएं व सिद्धियां देखें</span>
             </button>
           </div>
 
